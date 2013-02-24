@@ -10,6 +10,7 @@
 #import "GPCatalogSet.h"
 #import "GPSetPopoverController.h"
 #import "GPLooksLikePopoverController.h"
+#import "Topic.h"
 
 @interface GPCatalogEditor : NSWindowController <NSTableViewDelegate>
 
@@ -29,6 +30,7 @@
 @property (strong, nonatomic) NSArray * looksLikeSortDescriptors;
 @property (strong, nonatomic) NSArray * precancelsSortDescriptors;
 @property (strong, nonatomic) NSArray * cancelationsSortDescriptors;
+@property (strong, nonatomic) NSArray * topicsSortDescriptors;
 
 @property (strong, nonatomic) NSPredicate * baseGPCatalogFilter;
 
@@ -70,6 +72,8 @@
 @property (weak, nonatomic) IBOutlet NSArrayController * looksLikeController;
 @property (weak, nonatomic) IBOutlet NSArrayController * precancelsController;
 @property (weak, nonatomic) IBOutlet NSArrayController * cancelationsController;
+@property (weak, nonatomic) IBOutlet NSArrayController * topicsController;
+@property (weak, nonatomic) IBOutlet NSArrayController * topicsInGPCatalogController;
 
 - (IBAction)openAddToGPCatalog:(id)sender;
 - (IBAction)openAddSubvariety:(id)sender;
@@ -84,6 +88,7 @@
 
 - (IBAction)manageSets:(id)sender;
 - (IBAction)manageLooksLike:(id)sender;
+- (IBAction)manageTopics:(id)sender;
 
 @property (strong, nonatomic) NSPredicate * lastViewedQuery;
 
@@ -118,5 +123,9 @@
 
 - (IBAction)addCancelation:(id)sender;
 - (IBAction)removeCancelation:(id)sender;
+
+@property (strong, nonatomic) Topic * selectedTopic;
+- (IBAction)addTopic:(id)sender;
+- (IBAction)removeTopic:(id)sender;
 
 @end

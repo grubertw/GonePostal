@@ -21,13 +21,13 @@
 #import "GPLooksLikeController.h"
 #import "BureauPrecancel.h"
 #import "Cancelations.h"
+#import "GPTopicsController.h"
 
 @interface GPCatalogEditor ()
 
 @end
 
 @implementation GPCatalogEditor
-
 
 - (id)initWithWindow:(NSWindow *)window
 {
@@ -78,6 +78,9 @@
         
         NSSortDescriptor *looksLikeSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
         self.looksLikeSortDescriptors = @[looksLikeSort];
+        
+        NSSortDescriptor *topicsSort = [[NSSortDescriptor alloc] initWithKey:@"topic_name" ascending:YES];
+        self.topicsSortDescriptors = @[topicsSort];
         
         self.baseGPCatalogFilter = [NSPredicate predicateWithFormat:@"majorVariety == NIL"];
     }
@@ -241,6 +244,16 @@
     GPDocument * doc = (GPDocument *)self.document;
     
     GPLooksLikeController * controller = [[GPLooksLikeController alloc] initWithWindowNibName:@"GPLooksLikeController"];
+    [doc addWindowController:controller];
+    [controller setManagedObjectContext:self.managedObjectContext];
+    
+    [controller.window makeKeyAndOrderFront:sender];
+}
+
+- (IBAction)manageTopics:(id)sender {
+    GPDocument * doc = (GPDocument *)self.document;
+    
+    GPTopicsController * controller = [[GPTopicsController alloc] initWithWindowNibName:@"GPTopicsController"];
     [doc addWindowController:controller];
     [controller setManagedObjectContext:self.managedObjectContext];
     
@@ -527,6 +540,25 @@
     GPCatalog * entry = [entries objectAtIndex:0];
     
     [entry removeCancelations:[NSSet setWithArray:selectedCancelations]];
+}
+
+- (IBAction)addTopic:(id)sender {
+    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
+    if (entries == nil) return;
+    GPCatalog * entry = [entries objectAtIndex:0];
+    
+    [entry addTopicsObject:self.selectedTopic];
+}
+
+- (IBAction)removeTopic:(id)sender {
+    NSArray * topics = self.topicsController.selectedObjects;
+    if (topics == nil) return;
+    
+    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
+    if (entries == nil) return;
+    GPCatalog * entry = [entries objectAtIndex:0];
+    
+    [entry removeTopics:[NSSet setWithArray:topics]];
 }
 
 @end
