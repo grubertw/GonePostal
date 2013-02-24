@@ -19,6 +19,8 @@
 #import "Cachet.h"
 #import "LooksLike.h"
 #import "GPLooksLikeController.h"
+#import "BureauPrecancel.h"
+#import "Cancelations.h"
 
 @interface GPCatalogEditor ()
 
@@ -67,6 +69,12 @@
         
         NSSortDescriptor *cachetSort = [[NSSortDescriptor alloc] initWithKey:@"gp_cachet_number" ascending:YES];
         self.cachetSortDescriptors = @[cachetSort];
+        
+        NSSortDescriptor *precancelSort = [[NSSortDescriptor alloc] initWithKey:@"gp_precancel_number" ascending:YES];
+        self.precancelsSortDescriptors = @[precancelSort];
+        
+        NSSortDescriptor *cancelationSort = [[NSSortDescriptor alloc] initWithKey:@"gp_cancelation_number" ascending:YES];
+        self.cancelationsSortDescriptors = @[cancelationSort];
         
         NSSortDescriptor *looksLikeSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
         self.looksLikeSortDescriptors = @[looksLikeSort];
@@ -467,6 +475,58 @@
     GPCatalog * entry = [entries objectAtIndex:0];
     
     [entry removeCachets:[NSSet setWithArray:selectedCachets]];
+}
+
+- (IBAction)addPrecancel:(id)sender {
+    BureauPrecancel * precancel = [NSEntityDescription insertNewObjectForEntityForName:@"BureauPrecancel" inManagedObjectContext:self.managedObjectContext];
+    
+    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
+    if (entries == nil) return;
+    GPCatalog * entry = [entries objectAtIndex:0];
+    
+    [entry addBureauPrecancelsObject:precancel];
+}
+
+- (IBAction)removePrecancel:(id)sender {
+    NSArray * selectedPrecancels = self.precancelsController.selectedObjects;
+    
+    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
+    if (entries == nil) return;
+    GPCatalog * entry = [entries objectAtIndex:0];
+    
+    [entry removeBureauPrecancels:[NSSet setWithArray:selectedPrecancels]];
+}
+
+- (IBAction)addPictureToPrecancel:(id)sender {
+    NSString * fileName = [self.document addPictureToWrapper];
+    if (fileName == nil) return;
+    
+    // Store the filename into the model.
+    NSArray * selectedPrecancels = self.precancelsController.selectedObjects;
+    if (selectedPrecancels == nil) return;
+    BureauPrecancel * precancel = [selectedPrecancels objectAtIndex:0];
+    
+    [precancel setPicture:fileName];
+}
+
+- (IBAction)addCancelation:(id)sender {
+    Cancelations * cancelation = [NSEntityDescription insertNewObjectForEntityForName:@"Cancelations" inManagedObjectContext:self.managedObjectContext];
+    
+    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
+    if (entries == nil) return;
+    GPCatalog * entry = [entries objectAtIndex:0];
+    
+    [entry addCancelationsObject:cancelation];
+}
+
+- (IBAction)removeCancelation:(id)sender {
+    NSArray * selectedCancelations = self.cancelationsController.selectedObjects;
+    
+    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
+    if (entries == nil) return;
+    GPCatalog * entry = [entries objectAtIndex:0];
+    
+    [entry removeCancelations:[NSSet setWithArray:selectedCancelations]];
 }
 
 @end

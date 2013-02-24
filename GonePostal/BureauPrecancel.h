@@ -1,8 +1,8 @@
 //
 //  BureauPrecancel.h
-//  GonePostalX
+//  GonePostal
 //
-//  Created by Travis Gruber on 1/20/13.
+//  Created by Travis Gruber on 2/23/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
@@ -17,6 +17,8 @@
 @property (nonatomic, retain) NSString * city;
 @property (nonatomic, retain) NSString * pss_type;
 @property (nonatomic, retain) NSString * state;
+@property (nonatomic, retain) NSString * picture;
+@property (nonatomic, retain) NSString * gp_precancel_number;
 @property (nonatomic, retain) GPCatalog *gpCatalogEntry;
 
 @end

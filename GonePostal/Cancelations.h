@@ -1,8 +1,8 @@
 //
 //  Cancelations.h
-//  GonePostalX
+//  GonePostal
 //
-//  Created by Travis Gruber on 2/15/13.
+//  Created by Travis Gruber on 2/23/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
@@ -13,8 +13,8 @@
 
 @interface Cancelations : NSManagedObject
 
-@property (nonatomic, retain) NSString * cancelation_catalog_id;
 @property (nonatomic, retain) NSString * cancelation_description;
+@property (nonatomic, retain) NSString * gp_cancelation_number;
 @property (nonatomic, retain) GPCatalog *gpCatlog;
 
 @end

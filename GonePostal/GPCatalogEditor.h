@@ -27,6 +27,8 @@
 @property (strong, nonatomic) NSArray * plateNumberSortDescriptors;
 @property (strong, nonatomic) NSArray * cachetSortDescriptors;
 @property (strong, nonatomic) NSArray * looksLikeSortDescriptors;
+@property (strong, nonatomic) NSArray * precancelsSortDescriptors;
+@property (strong, nonatomic) NSArray * cancelationsSortDescriptors;
 
 @property (strong, nonatomic) NSPredicate * baseGPCatalogFilter;
 
@@ -66,6 +68,8 @@
 @property (weak, nonatomic) IBOutlet NSArrayController * plateNumberCombinationsController;
 @property (weak, nonatomic) IBOutlet NSArrayController * cachetController;
 @property (weak, nonatomic) IBOutlet NSArrayController * looksLikeController;
+@property (weak, nonatomic) IBOutlet NSArrayController * precancelsController;
+@property (weak, nonatomic) IBOutlet NSArrayController * cancelationsController;
 
 - (IBAction)openAddToGPCatalog:(id)sender;
 - (IBAction)openAddSubvariety:(id)sender;
@@ -107,5 +111,12 @@
 
 - (IBAction)addCachet:(id)sender;
 - (IBAction)removeCachet:(id)sender;
+
+- (IBAction)addPrecancel:(id)sender;
+- (IBAction)removePrecancel:(id)sender;
+- (IBAction)addPictureToPrecancel:(id)sender;
+
+- (IBAction)addCancelation:(id)sender;
+- (IBAction)removeCancelation:(id)sender;
 
 @end

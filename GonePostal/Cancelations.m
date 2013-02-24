@@ -1,8 +1,8 @@
 //
 //  Cancelations.m
-//  GonePostalX
+//  GonePostal
 //
-//  Created by Travis Gruber on 2/15/13.
+//  Created by Travis Gruber on 2/23/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
@@ -12,8 +12,8 @@
 
 @implementation Cancelations
 
-@dynamic cancelation_catalog_id;
 @dynamic cancelation_description;
+@dynamic gp_cancelation_number;
 @dynamic gpCatlog;
 
 @end
