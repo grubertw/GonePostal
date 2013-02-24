@@ -22,6 +22,7 @@
 #import "BureauPrecancel.h"
 #import "Cancelations.h"
 #import "GPTopicsController.h"
+#import "GPPicture.h"
 
 @interface GPCatalogEditor ()
 
@@ -81,6 +82,9 @@
         
         NSSortDescriptor *topicsSort = [[NSSortDescriptor alloc] initWithKey:@"topic_name" ascending:YES];
         self.topicsSortDescriptors = @[topicsSort];
+        
+        NSSortDescriptor *identPicsSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+        self.identificationPicturesSortDescriptors = @[identPicsSort];
         
         self.baseGPCatalogFilter = [NSPredicate predicateWithFormat:@"majorVariety == NIL"];
     }
@@ -422,6 +426,31 @@
         GPCatalog * entry = [entries objectAtIndex:0];
         entry.alternate_picture_6 = fileName;
     }
+}
+
+- (IBAction)addIdentificationPicture:(id)sender {
+    NSString * fileName = [self.document addPictureToWrapper];
+    if (fileName == nil) return;
+    
+    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
+    if (entries == nil) return;
+    GPCatalog * entry = [entries objectAtIndex:0];
+    
+    GPPicture * identPic = [NSEntityDescription insertNewObjectForEntityForName:@"GPPicture" inManagedObjectContext:self.managedObjectContext];
+    identPic.filename = fileName;
+    
+    [entry addExtraPicturesObject:identPic];
+}
+
+- (IBAction)removeIdentificationPicture:(id)sender {
+    NSArray * selectedIdentPics = self.identificationPicturesController.selectedObjects;
+    if (selectedIdentPics == nil) return;
+    
+    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
+    if (entries == nil) return;
+    GPCatalog * entry = [entries objectAtIndex:0];
+    
+    [entry removeExtraPictures:[NSSet setWithArray:selectedIdentPics]];
 }
 
 - (IBAction)addPlateUsage:(id)sender {

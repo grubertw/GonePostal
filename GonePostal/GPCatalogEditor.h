@@ -31,6 +31,7 @@
 @property (strong, nonatomic) NSArray * precancelsSortDescriptors;
 @property (strong, nonatomic) NSArray * cancelationsSortDescriptors;
 @property (strong, nonatomic) NSArray * topicsSortDescriptors;
+@property (strong, nonatomic) NSArray * identificationPicturesSortDescriptors;
 
 @property (strong, nonatomic) NSPredicate * baseGPCatalogFilter;
 
@@ -74,6 +75,7 @@
 @property (weak, nonatomic) IBOutlet NSArrayController * cancelationsController;
 @property (weak, nonatomic) IBOutlet NSArrayController * topicsController;
 @property (weak, nonatomic) IBOutlet NSArrayController * topicsInGPCatalogController;
+@property (weak, nonatomic) IBOutlet NSArrayController * identificationPicturesController;
 
 - (IBAction)openAddToGPCatalog:(id)sender;
 - (IBAction)openAddSubvariety:(id)sender;
@@ -108,6 +110,9 @@
 - (IBAction)addAlternatePicture4:(id)sender;
 - (IBAction)addAlternatePicture5:(id)sender;
 - (IBAction)addAlternatePicture6:(id)sender;
+
+- (IBAction)addIdentificationPicture:(id)sender;
+- (IBAction)removeIdentificationPicture:(id)sender;
 
 - (IBAction)addPlateUsage:(id)sender;
 - (IBAction)removePlateUsage:(id)sender;
