@@ -7,10 +7,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "GPCatalogEditor.h"
 
 @interface GPAddToCatalogController : NSWindowController <NSWindowDelegate>
 
 @property (strong, nonatomic) NSManagedObjectContext * managedObjectContext;
+@property (weak, nonatomic) GPCatalogEditor * catalogEditor;
 
 @property (strong, nonatomic) NSArray * countriesSortDescriptors;
 @property (strong, nonatomic) NSArray * formatsSortDescriptors;

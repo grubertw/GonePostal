@@ -33,8 +33,6 @@
 @property (strong, nonatomic) NSArray * topicsSortDescriptors;
 @property (strong, nonatomic) NSArray * identificationPicturesSortDescriptors;
 
-@property (strong, nonatomic) NSPredicate * baseGPCatalogFilter;
-
 @property (strong, nonatomic) IBOutlet NSTableView * gpCatalogTable;
 
 @property (weak, nonatomic) IBOutlet NSScrollView * identScroller;
@@ -51,7 +49,31 @@
 @property (weak, nonatomic) IBOutlet NSComboBox * setSelectorCombo;
 
 @property (strong, nonatomic) NSPanel * addToLooksLikePanel;
-@property (strong, nonatomic) IBOutlet NSView * addToLooksLikeSelector;
+@property (weak, nonatomic) IBOutlet NSView * addToLooksLikeSelector;
+
+@property (strong, nonatomic) NSPanel * countriesSearchPanel;
+@property (weak, nonatomic) IBOutlet NSView * countriesSearchContent;
+
+@property (strong, nonatomic) NSPanel * sectionsSearchPanel;
+@property (weak, nonatomic) IBOutlet NSView * sectionsSearchContent;
+
+@property (strong, nonatomic) NSPanel * filtersSearchPanel;
+@property (weak, nonatomic) IBOutlet NSView * filtersSearchContent;
+@property (strong, nonatomic) NSNumber * filterSearchEnabled;
+@property (strong, nonatomic) NSNumber * filterByAlwaysDisplay;
+@property (strong, nonatomic) NSNumber * filterByVeryRare;
+@property (strong, nonatomic) NSNumber * filterByHidden;
+@property (strong, nonatomic) NSNumber * filterByColorVariety;
+@property (strong, nonatomic) NSNumber * filterByGumVariety;
+@property (strong, nonatomic) NSNumber * filterByPlateVariety;
+@property (strong, nonatomic) NSNumber * filterByTagVariety;
+@property (strong, nonatomic) NSNumber * filterByPrintVariety;
+@property (strong, nonatomic) NSNumber * filterByColorError;
+@property (strong, nonatomic) NSNumber * filterByTagError;
+@property (strong, nonatomic) NSNumber * filterByPlateError;
+@property (strong, nonatomic) NSNumber * filterByPerfError;
+@property (strong, nonatomic) NSNumber * filterByMultipleTransfer;
+@property (weak, nonatomic) IBOutlet NSTextField * filtersSelected;
 
 @property (weak, nonatomic) IBOutlet NSPopover * setsPopover;
 @property (weak, nonatomic) IBOutlet GPSetPopoverController * setsPopoverController;
@@ -76,6 +98,21 @@
 @property (weak, nonatomic) IBOutlet NSArrayController * topicsController;
 @property (weak, nonatomic) IBOutlet NSArrayController * topicsInGPCatalogController;
 @property (weak, nonatomic) IBOutlet NSArrayController * identificationPicturesController;
+@property (weak, nonatomic) IBOutlet NSArrayController * countriesInSearchController;
+@property (weak, nonatomic) IBOutlet NSArrayController * countriesNotInSearchController;
+@property (weak, nonatomic) IBOutlet NSArrayController * sectionsInSearchController;
+@property (weak, nonatomic) IBOutlet NSArrayController * sectionsNotInSearchController;
+
+@property (strong, nonatomic) NSMutableArray * countriesInSearch;
+@property (strong, nonatomic) NSMutableArray * countriesNotInSearch;
+@property (strong, nonatomic) NSMutableArray * sectionsInSearch;
+@property (strong, nonatomic) NSMutableArray * sectionsNotInSearch;
+
+@property (strong, nonatomic) NSMutableArray * gpCatalogEntries;
+
+- (void)queryGPCatalog;
+- (void)querySubvarieties;
+@property bool subvarietiesActive;
 
 - (IBAction)openAddToGPCatalog:(id)sender;
 - (IBAction)openAddSubvariety:(id)sender;
@@ -92,7 +129,17 @@
 - (IBAction)manageLooksLike:(id)sender;
 - (IBAction)manageTopics:(id)sender;
 
-@property (strong, nonatomic) NSPredicate * lastViewedQuery;
+- (IBAction)openCountriesSearchPanel:(id)sender;
+- (IBAction)openSectionsSearchPanel:(id)sender;
+- (IBAction)openFiltersSearchPanel:(id)sender;
+- (IBAction)closeCountriesSearchPanel:(id)sender;
+- (IBAction)closeSectionsSearchPanel:(id)sender;
+- (IBAction)closeFiltersSearchPanel:(id)sender;
+
+- (IBAction)includeCountriesInSearch:(id)sender;
+- (IBAction)excludeCountriesFromSearch:(id)sender;
+- (IBAction)includeSectionsInSearch:(id)sender;
+- (IBAction)excludeSectionsFromSearch:(id)sender;
 
 - (IBAction)viewSubvarieties:(id)sender;
 - (IBAction)closeSubvarieties:(id)sender;

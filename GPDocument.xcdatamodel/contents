@@ -172,6 +172,7 @@
     </entity>
     <entity name="GPCollection" representedClassName="GPCollection" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="value" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <relationship name="stamps" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Stamp" inverseName="collection" inverseEntity="Stamp" syncable="YES"/>
     </entity>
     <entity name="GPPicture" representedClassName="GPPicture" syncable="YES">
@@ -316,6 +317,11 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="stamps" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Stamp" inverseName="format" inverseEntity="Stamp" syncable="YES"/>
     </entity>
+    <entity name="StoredSearch" representedClassName="StoredSearch" syncable="YES">
+        <attribute name="identifier" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="predicate" optional="YES" attributeType="Transformable" syncable="YES"/>
+    </entity>
     <entity name="Topic" representedClassName="Topic" syncable="YES">
         <attribute name="topic_description" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="topic_name" optional="YES" attributeType="String" syncable="YES"/>
@@ -337,13 +343,13 @@
         <element name="Centering" positionX="-513" positionY="117" width="128" height="103"/>
         <element name="Country" positionX="-153" positionY="-126" width="128" height="90"/>
         <element name="Dealer" positionX="-864" positionY="179" width="128" height="73"/>
-        <element name="FDCIssueLocation" positionX="243" positionY="218" width="128" height="90"/>
+        <element name="FDCIssueLocation" positionX="243" positionY="333" width="128" height="90"/>
         <element name="FirstFlight" positionX="-513" positionY="440" width="128" height="73"/>
         <element name="Format" positionX="-153" positionY="-18" width="128" height="75"/>
         <element name="GPCatalog" positionX="27" positionY="-172" width="171" height="1080"/>
         <element name="GPCatalogGroup" positionX="243" positionY="-115" width="128" height="88"/>
         <element name="GPCatalogSet" positionX="250" positionY="519" width="128" height="75"/>
-        <element name="GPCollection" positionX="-864" positionY="-144" width="128" height="73"/>
+        <element name="GPCollection" positionX="-864" positionY="-144" width="128" height="90"/>
         <element name="GPPicture" positionX="-153" positionY="81" width="128" height="118"/>
         <element name="Grade" positionX="-864" positionY="473" width="128" height="103"/>
         <element name="GumCondition" positionX="-864" positionY="356" width="128" height="103"/>
@@ -364,5 +370,6 @@
         <element name="StampFormat" positionX="-515" positionY="-46" width="128" height="73"/>
         <element name="Topic" positionX="-155" positionY="225" width="128" height="90"/>
         <element name="Valuation" positionX="-731" positionY="576" width="128" height="58"/>
+        <element name="StoredSearch" positionX="-90" positionY="576" width="128" height="88"/>
     </elements>
 </model>

@@ -96,6 +96,12 @@
     // Save the managed object context and close the window.
     [self.document saveInPlace];
     
+    // Reload the catalog editor's content
+    if (self.catalogEditor.subvarietiesActive)
+        [self.catalogEditor querySubvarieties];
+    else
+        [self.catalogEditor queryGPCatalog];
+    
     [self.window performClose:self];
 }
 

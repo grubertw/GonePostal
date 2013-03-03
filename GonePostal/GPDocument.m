@@ -22,11 +22,21 @@
 #import "GPPlateUsageExistsChecker.h"
 #import "GPSupportedCachetCatalogsController.h"
 #import "GPSupportedCachetMakersController.h"
+#import "GPSearchSelectionTransformer.h"
+
+// static indexes into the CustomSearches table for fetching data.
+const NSInteger LAST_VIEWIED_GP_CATALOG_QUERY = 1;
 
 /*
  Name of the database within the file wrapper.
  */
 static NSString *StoreFileName = @"CoreDataStore.sql";
+
+@implementation GPCollectionTableDelegate
+- (IBAction)viewStamps:(id)sender {
+    
+}
+@end
 
 @implementation GPDocument
 
@@ -34,6 +44,10 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
 {
     self = [super init];
     if (self) {
+        // Initialize sort descriptors
+        NSSortDescriptor *gpCollectionSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+        self.gpCollectionSortDescriptors = @[gpCollectionSort];
+        
         // Initialize value transformers.
         id pathTransformer = [[GPFilenameTransformer alloc] initWithDocument:self];
         [NSValueTransformer setValueTransformer:pathTransformer forName:@"GPFilenameTransformer"];
@@ -41,9 +55,11 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
         id altCatalogNumberTransformer = [[GPAlternateCatalogNumberTransformer alloc] initWithManagedObjectContext:self.managedObjectContext];
         [NSValueTransformer setValueTransformer:altCatalogNumberTransformer forName:@"GPAlternateCatalogNumberTransformer"];
         
+        id searchSelectionTransformer = [[GPSearchSelectionTransformer alloc] init];
+        [NSValueTransformer setValueTransformer:searchSelectionTransformer forName:@"GPSearchSelectionTransformer"];
+        
         id emptySetChecker = [[GPEmptySetChecker alloc] init];
         [NSValueTransformer setValueTransformer:emptySetChecker forName:@"GPEmptySetChecker"];
-        
         
         id plate1Exists = [[GPPlateUsageExistsChecker alloc] initWithPlateNumberCheck:[NSNumber numberWithUnsignedInt:1]];
         [NSValueTransformer setValueTransformer:plate1Exists forName:@"Plate1ExistsChecker"];
@@ -61,7 +77,6 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
         [NSValueTransformer setValueTransformer:plate7Exists forName:@"Plate7ExistsChecker"];
         id plate8Exists = [[GPPlateUsageExistsChecker alloc] initWithPlateNumberCheck:[NSNumber numberWithUnsignedInt:8]];
         [NSValueTransformer setValueTransformer:plate8Exists forName:@"Plate8ExistsChecker"];
-        
     }
     return self;
 }
@@ -80,12 +95,28 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
     return NO;
 }
 
+- (IBAction)addGPCollection:(id)sender {
+    [self.gpCollectionController insert:sender];
+}
+
 - (IBAction)openGPCatalogEditor:(id)sender {
     GPCatalogEditor * catalogEditor = [[GPCatalogEditor alloc] initWithWindowNibName:@"GPCatalogEditor"];
     [self addWindowController:catalogEditor];
     [catalogEditor setManagedObjectContext:self.managedObjectContext];
     
     [catalogEditor.window makeKeyAndOrderFront:self];
+}
+
+- (IBAction)openUserGuide:(id)sender {
+    
+}
+
+- (IBAction)openReports:(id)sender {
+    
+}
+
+- (IBAction)openImportExport:(id)sender {
+    
 }
 
 - (void)openGPCatalogDefaults:(id)sender {
