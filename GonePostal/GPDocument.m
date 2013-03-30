@@ -19,26 +19,103 @@
 #import "GPFilenameTransformer.h"
 #import "GPAlternateCatalogNumberTransformer.h"
 #import "GPEmptySetChecker.h"
+#import "GPMultipleSelectionChecker.h"
 #import "GPPlateUsageExistsChecker.h"
 #import "GPSupportedCachetCatalogsController.h"
 #import "GPSupportedCachetMakersController.h"
 #import "GPSearchSelectionTransformer.h"
+#import "StoredSearch.h"
+#import "GPStampViewer.h"
+#import "GPSupportedCancelQuality.h"
+#import "GPSupportedCentering.h"
+#import "GPSupportedDealers.h"
+#import "GPSupportedStampFormats.h"
+#import "GPSupportedGrades.h"
+#import "GPSupportedGumConditions.h"
+#import "GPSupportedHinged.h"
+#import "GPSupportedLocations.h"
+#import "GPSupportedLots.h"
+#import "GPSupportedMounts.h"
+#import "GPSupportedSoundness.h"
+#import "GPSupportedLocalPrecancels.h"
+#import "GPSupportedPerfins.h"
+#import "GPSupportedPerfinCatalogs.h"
 
 // static indexes into the CustomSearches table for fetching data.
-const NSInteger LAST_VIEWIED_GP_CATALOG_QUERY = 1;
+const NSInteger ASSISTED_GP_CATALOG_EDITER_SEARCH_ID = 1;
+const NSInteger ASSISTED_GP_CATALOG_BROWSER_SEARCH_ID = 2;
+const NSInteger ASSISTED_STAMP_LIST_VIEWER_SEARCH_ID = 3;
+
+NSString * BASE_GP_CATALOG_QUERY = @"is_default==0 and majorVariety==nil";
+NSString * BASE_GP_CATALOG_QUERY_WITH_SUBVARIETIES = @"is_default==0";
 
 /*
  Name of the database within the file wrapper.
  */
 static NSString *StoreFileName = @"CoreDataStore.sql";
 
-@implementation GPCollectionTableDelegate
-- (IBAction)viewStamps:(id)sender {
-    
-}
+// Private members and functions.
+@interface GPDocument()
+
 @end
 
 @implementation GPDocument
+
+// Parses through the stored search predicate, breaking it down into
+// it's component pieces.  Further parsing of the subbredicate is done
+// later in the individual window search controllers.
+- (void)parseAssistedSearch:(NSPredicate *)search parent:(NSPredicate *)parentSearch {
+    if ([search isMemberOfClass:[NSCompoundPredicate class]]) {
+        // Break the compound predicate into it's component pieces.
+        NSArray * subpreds = ((NSCompoundPredicate *)search).subpredicates;
+        
+        //NSLog(@"parseAssistedSearch found %ld subpredicates in compound predicate", subpreds.count);
+        
+        for (NSPredicate * subPredicate in subpreds) {
+            // Recursivly call into this method to determine the comparison type.
+            [self parseAssistedSearch:subPredicate parent:search];
+        }
+    }
+    else if ([search isMemberOfClass:[NSComparisonPredicate class]]) {
+        // Obtain the left expression to determine which of
+        // the three preicate types this is.
+        NSExpression * leftExpression = ((NSComparisonPredicate *)search).leftExpression;
+        
+        //NSLog(@"parseAssistedSearch found comparison predicate with leftExpression of type %ld", leftExpression.expressionType);
+        
+        if (leftExpression.expressionType == NSKeyPathExpressionType) {
+            // Determine if the respresenting predicate needs to be this predicate
+            // or the parent.
+            NSPredicate * representingPredicate;
+            if (   parentSearch == nil
+                || [parentSearch isEqualTo:self.assistedSearch.predicate])
+                representingPredicate = search;
+            else
+                representingPredicate = parentSearch;
+            
+            //NSLog(@"  leftExpression keyPath is %@", leftExpression.keyPath);
+            
+            if (   [leftExpression.keyPath isEqualToString:@"country.country_sort_id"]
+                || [leftExpression.keyPath isEqualToString:@"gpCatalog.country.country_sort_id"]) {
+                self.countriesPredicate = representingPredicate;
+            }
+            else if (   [leftExpression.keyPath isEqualToString:@"catalogGroup.group_number"]
+                     || [leftExpression.keyPath isEqualToString:@"gpCatalog.catalogGroup.group_number"]) {
+                self.sectionsPredicate = representingPredicate;
+            }
+            else if ([leftExpression.keyPath isEqualToString:@"format.name"]) {
+                self.formatsPredicate = representingPredicate;
+            }
+            else if ([leftExpression.keyPath isEqualToString:@"location.name"]) {
+                self.locationsPredicate = representingPredicate;
+            }
+            else if (   ![leftExpression.keyPath isEqualToString:@"is_default"]
+                     && ![leftExpression.keyPath isEqualToString:@"majorVariety"]) {
+                self.filtersPredicate = representingPredicate;
+            }
+        }
+    }
+}
 
 - (id)init
 {
@@ -60,6 +137,9 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
         
         id emptySetChecker = [[GPEmptySetChecker alloc] init];
         [NSValueTransformer setValueTransformer:emptySetChecker forName:@"GPEmptySetChecker"];
+        
+        id multiSelChecker = [[GPMultipleSelectionChecker alloc] init];
+        [NSValueTransformer setValueTransformer:multiSelChecker forName:@"GPMultipleSelectionChecker"];
         
         id plate1Exists = [[GPPlateUsageExistsChecker alloc] initWithPlateNumberCheck:[NSNumber numberWithUnsignedInt:1]];
         [NSValueTransformer setValueTransformer:plate1Exists forName:@"Plate1ExistsChecker"];
@@ -95,15 +175,63 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
     return NO;
 }
 
+- (void)loadAssistedSearch:(NSInteger)searchID {
+    self.countriesPredicate = nil;
+    self.sectionsPredicate = nil;
+    self.filtersPredicate = nil;
+    self.formatsPredicate = nil;
+    self.locationsPredicate = nil;
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"StoredSearch" inManagedObjectContext:self.managedObjectContext];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:entity];
+    
+    NSPredicate *query = [NSPredicate predicateWithFormat:@"identifier==%ld", searchID];
+    [fetchRequest setPredicate:query];
+    
+    // Execute the query
+    NSError *error = nil;
+    
+    NSArray *results = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if (results == nil) {
+        NSLog(@"Fetch error %@, %@", error, [error userInfo]);
+	    abort();
+    }
+    
+    if (results.count == 1) {
+        self.assistedSearch = [results objectAtIndex:0];
+        
+        // Parse the assisted search into it's component predicates.
+        [self parseAssistedSearch:self.assistedSearch.predicate parent:nil];
+    }
+    else {
+        if (   searchID == ASSISTED_GP_CATALOG_EDITER_SEARCH_ID
+            || searchID == ASSISTED_GP_CATALOG_BROWSER_SEARCH_ID) {
+            // Create the query from the factory default.
+            self.assistedSearch = [NSEntityDescription insertNewObjectForEntityForName:@"StoredSearch" inManagedObjectContext:self.managedObjectContext];
+            self.assistedSearch.predicate = [NSPredicate predicateWithFormat:BASE_GP_CATALOG_QUERY];
+        }
+        else if (searchID == ASSISTED_STAMP_LIST_VIEWER_SEARCH_ID) {
+            // Leave predicate empty until user enters a search.
+            self.assistedSearch = [NSEntityDescription insertNewObjectForEntityForName:@"StoredSearch" inManagedObjectContext:self.managedObjectContext];
+        }
+        
+        self.assistedSearch.identifier = [NSNumber numberWithInt:searchID];
+    }
+}
+
 - (IBAction)addGPCollection:(id)sender {
     [self.gpCollectionController insert:sender];
 }
 
 - (IBAction)openGPCatalogEditor:(id)sender {
-    GPCatalogEditor * catalogEditor = [[GPCatalogEditor alloc] initWithWindowNibName:@"GPCatalogEditor"];
-    [self addWindowController:catalogEditor];
-    [catalogEditor setManagedObjectContext:self.managedObjectContext];
+    // initialize and load the GPCatalog editor's assisted search.
+    [self loadAssistedSearch:ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
     
+    GPCatalogEditor * catalogEditor = [[GPCatalogEditor alloc] initWithAssistedSearch:self.assistedSearch countrySearch:self.countriesPredicate sectionSearch:self.sectionsPredicate filterSearch:self.filtersPredicate];
+    
+    [self addWindowController:catalogEditor];
     [catalogEditor.window makeKeyAndOrderFront:self];
 }
 
@@ -117,6 +245,18 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
 
 - (IBAction)openImportExport:(id)sender {
     
+}
+
+- (IBAction)viewStamps:(id)sender {
+    // Get the row of the viewStamp button clicked
+    NSInteger row = [self.gpCollectionTable rowForView:sender];
+    GPCollection * stampCollection = self.gpCollectionController.arrangedObjects[row];
+    
+    [self loadAssistedSearch:ASSISTED_STAMP_LIST_VIEWER_SEARCH_ID];
+    GPStampViewer * stampViewer = [[GPStampViewer alloc] initWithCollection:stampCollection assistedSearch:self.assistedSearch countrySearch:self.countriesPredicate sectionSearch:self.sectionsPredicate formatSearch:self.formatsPredicate locationSearch:self.locationsPredicate];
+    
+    [self addWindowController:stampViewer];
+    [stampViewer.window makeKeyAndOrderFront:self];
 }
 
 - (void)openGPCatalogDefaults:(id)sender {
@@ -185,6 +325,118 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
 
 - (void)editSupportedCachetMakers:(id)sender {
     GPSupportedCachetMakersController * controller = [[GPSupportedCachetMakersController alloc] initWithWindowNibName:@"GPSupportedCachetMakersController"];
+    [self addWindowController:controller];
+    [controller setManagedObjectContext:self.managedObjectContext];
+    
+    [controller.window makeKeyAndOrderFront:sender];
+}
+
+- (void)editSupportedCancelQuality:(id)sender {
+    GPSupportedCancelQuality * controller = [[GPSupportedCancelQuality alloc] initWithWindowNibName:@"GPSupportedCancelQuality"];
+    [self addWindowController:controller];
+    [controller setManagedObjectContext:self.managedObjectContext];
+    
+    [controller.window makeKeyAndOrderFront:sender];
+}
+
+- (void)editSupportedCentering:(id)sender {
+    GPSupportedCentering * controller = [[GPSupportedCentering alloc] initWithWindowNibName:@"GPSupportedCentering"];
+    [self addWindowController:controller];
+    [controller setManagedObjectContext:self.managedObjectContext];
+    
+    [controller.window makeKeyAndOrderFront:sender];
+}
+
+- (void)editSupportedDealers:(id)sender {
+    GPSupportedDealers * controller = [[GPSupportedDealers alloc] initWithWindowNibName:@"GPSupportedDealers"];
+    [self addWindowController:controller];
+    [controller setManagedObjectContext:self.managedObjectContext];
+    
+    [controller.window makeKeyAndOrderFront:sender];
+}
+
+- (void)editSupportedStampFormats:(id)sender {
+    GPSupportedStampFormats * controller = [[GPSupportedStampFormats alloc] initWithWindowNibName:@"GPSupportedStampFormats"];
+    [self addWindowController:controller];
+    [controller setManagedObjectContext:self.managedObjectContext];
+    
+    [controller.window makeKeyAndOrderFront:sender];
+}
+
+- (void)editSupportedGrades:(id)sender {
+    GPSupportedGrades * controller = [[GPSupportedGrades alloc] initWithWindowNibName:@"GPSupportedGrades"];
+    [self addWindowController:controller];
+    [controller setManagedObjectContext:self.managedObjectContext];
+    
+    [controller.window makeKeyAndOrderFront:sender];
+}
+
+- (void)editSupportedGumConditions:(id)sender {
+    GPSupportedGumConditions * controller = [[GPSupportedGumConditions alloc] initWithWindowNibName:@"GPSupportedGumConditions"];
+    [self addWindowController:controller];
+    [controller setManagedObjectContext:self.managedObjectContext];
+    
+    [controller.window makeKeyAndOrderFront:sender];
+}
+
+- (void)editSupportedHinged:(id)sender {
+    GPSupportedHinged * controller = [[GPSupportedHinged alloc] initWithWindowNibName:@"GPSupportedHinged"];
+    [self addWindowController:controller];
+    [controller setManagedObjectContext:self.managedObjectContext];
+    
+    [controller.window makeKeyAndOrderFront:sender];
+}
+
+- (void)editSupportedLocations:(id)sender {
+    GPSupportedLocations * controller = [[GPSupportedLocations alloc] initWithWindowNibName:@"GPSupportedLocations"];
+    [self addWindowController:controller];
+    [controller setManagedObjectContext:self.managedObjectContext];
+    
+    [controller.window makeKeyAndOrderFront:sender];
+}
+
+- (void)editSupportedLots:(id)sender {
+    GPSupportedLots * controller = [[GPSupportedLots alloc] initWithWindowNibName:@"GPSupportedLots"];
+    [self addWindowController:controller];
+    [controller setManagedObjectContext:self.managedObjectContext];
+    
+    [controller.window makeKeyAndOrderFront:sender];
+}
+
+- (void)editSupportedMounts:(id)sender {
+    GPSupportedMounts * controller = [[GPSupportedMounts alloc] initWithWindowNibName:@"GPSupportedMounts"];
+    [self addWindowController:controller];
+    [controller setManagedObjectContext:self.managedObjectContext];
+    
+    [controller.window makeKeyAndOrderFront:sender];
+}
+
+- (void)editSupportedSoundness:(id)sender {
+    GPSupportedSoundness * controller = [[GPSupportedSoundness alloc] initWithWindowNibName:@"GPSupportedSoundness"];
+    [self addWindowController:controller];
+    [controller setManagedObjectContext:self.managedObjectContext];
+    
+    [controller.window makeKeyAndOrderFront:sender];
+}
+
+- (void)editSupportedLocalPrecancels:(id)sender {
+    GPSupportedLocalPrecancels * controller = [[GPSupportedLocalPrecancels alloc] initWithWindowNibName:@"GPSupportedLocalPrecancels"];
+    [self addWindowController:controller];
+    [controller setManagedObjectContext:self.managedObjectContext];
+    
+    [controller.window makeKeyAndOrderFront:sender];
+}
+
+- (void)editSupportedPerfins:(id)sender {
+    GPSupportedPerfins * controller = [[GPSupportedPerfins alloc] initWithWindowNibName:@"GPSupportedPerfins"];
+    [self addWindowController:controller];
+    [controller setManagedObjectContext:self.managedObjectContext];
+    
+    [controller.window makeKeyAndOrderFront:sender];
+}
+
+- (void)editSupportedPerfinCatalogs:(id)sender {
+    GPSupportedPerfinCatalogs * controller = [[GPSupportedPerfinCatalogs alloc] initWithWindowNibName:@"GPSupportedPerfinCatalogs"];
     [self addWindowController:controller];
     [controller setManagedObjectContext:self.managedObjectContext];
     

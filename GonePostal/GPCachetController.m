@@ -55,8 +55,8 @@
     if (fileName == nil) return;
     
     // Save the filename to the model.
-    Cachet * cachet = self.cachetController.content;
-    cachet.cachet_picture = fileName;
+    Cachet * cachet = self.representedObject;
+    [cachet setCachet_picture:fileName];
 }
 
 - (IBAction)addAlternatePicture1:(id)sender {

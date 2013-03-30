@@ -32,7 +32,7 @@
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
-    return @"Supported Formats";
+    return @"Supported Format Types";
 }
 
 - (IBAction)addFormat:(id)sender {

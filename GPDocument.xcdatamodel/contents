@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="12C3006" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12D78" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="AlternateCatalog" representedClassName="AlternateCatalog" syncable="YES">
         <attribute name="alternate_catalog_number" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="alternateCatalogGroup" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AlternateCatalogGroup" inverseName="alternateCatalogs" inverseEntity="AlternateCatalogGroup" syncable="YES"/>
@@ -24,6 +24,7 @@
         <attribute name="pss_type" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="state" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="gpCatalogEntry" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GPCatalog" inverseName="bureauPrecancels" inverseEntity="GPCatalog" syncable="YES"/>
+        <relationship name="stamps" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Stamp" inverseName="bureauPrecancel" inverseEntity="Stamp" syncable="YES"/>
     </entity>
     <entity name="Cachet" representedClassName="Cachet" syncable="YES">
         <attribute name="alternate_picture_1" optional="YES" attributeType="String" syncable="YES"/>
@@ -43,6 +44,7 @@
         <relationship name="cachetCatalog" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CachetCatalogName" inverseName="cachets" inverseEntity="CachetCatalogName" syncable="YES"/>
         <relationship name="cachetMakerName" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CachetMakerName" inverseName="cachets" inverseEntity="CachetMakerName" syncable="YES"/>
         <relationship name="gpCatalog" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GPCatalog" inverseName="cachets" inverseEntity="GPCatalog" syncable="YES"/>
+        <relationship name="stamps" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Stamp" inverseName="cachet" inverseEntity="Stamp" syncable="YES"/>
     </entity>
     <entity name="CachetCatalogName" representedClassName="CachetCatalogName" syncable="YES">
         <attribute name="cachet_catalog_name" optional="YES" attributeType="String" syncable="YES"/>
@@ -80,10 +82,6 @@
         <attribute name="fdc_issue_location_date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="fdc_issue_location_name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="gpCatalog" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GPCatalog" inverseName="fdcIssueLocation" inverseEntity="GPCatalog" syncable="YES"/>
-    </entity>
-    <entity name="FirstFlight" representedClassName="FirstFlight" syncable="YES">
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="stamps" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Stamp" inverseName="firstFlight" inverseEntity="Stamp" syncable="YES"/>
     </entity>
     <entity name="Format" representedClassName="Format" syncable="YES">
         <attribute name="formatName" optional="YES" attributeType="String" syncable="YES"/>
@@ -201,7 +199,12 @@
         <relationship name="stamps" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Stamp" inverseName="hinged" inverseEntity="Stamp" syncable="YES"/>
     </entity>
     <entity name="LocalPrecancel" representedClassName="LocalPrecancel" syncable="YES">
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cancel_style" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gp_precancel_number" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="picture" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pss_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="state" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="stamps" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Stamp" inverseName="localPrecancel" inverseEntity="Stamp" syncable="YES"/>
     </entity>
     <entity name="Location" representedClassName="Location" syncable="YES">
@@ -224,8 +227,33 @@
         <relationship name="stamps" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Stamp" inverseName="mount" inverseEntity="Stamp" syncable="YES"/>
     </entity>
     <entity name="Perfin" representedClassName="Perfin" syncable="YES">
+        <attribute name="additional_info" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="company_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="company_verified" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="general_or_revenue" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gp_perfin_number" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="letter_height" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="number_of_holes" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="picture" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="precancel" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="punch_description" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="scarcity_rating" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="time_frame" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="alternateCatalogs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PerfinCatalog" inverseName="perfins" inverseEntity="PerfinCatalog" syncable="YES"/>
+        <relationship name="defaultCatalog" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="PerfinCatalogName" inverseName="perfins" inverseEntity="PerfinCatalogName" syncable="YES"/>
         <relationship name="stamps" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Stamp" inverseName="perfin" inverseEntity="Stamp" syncable="YES"/>
+    </entity>
+    <entity name="PerfinCatalog" representedClassName="PerfinCatalog" syncable="YES">
+        <attribute name="perfin_catalog_number" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="catalogName" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="PerfinCatalogName" inverseName="perfinCatalogs" inverseEntity="PerfinCatalogName" syncable="YES"/>
+        <relationship name="perfins" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Perfin" inverseName="alternateCatalogs" inverseEntity="Perfin" syncable="YES"/>
+    </entity>
+    <entity name="PerfinCatalogName" representedClassName="PerfinCatalogName" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="perfinCatalogs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PerfinCatalog" inverseName="catalogName" inverseEntity="PerfinCatalog" syncable="YES"/>
+        <relationship name="perfins" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Perfin" inverseName="defaultCatalog" inverseEntity="Perfin" syncable="YES"/>
     </entity>
     <entity name="PictureType" representedClassName="PictureType" syncable="YES">
         <attribute name="picture_type" optional="YES" attributeType="String" syncable="YES"/>
@@ -273,10 +301,15 @@
     </entity>
     <entity name="Stamp" representedClassName="Stamp" syncable="YES">
         <attribute name="address_type" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="bureau_precancel" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="cachet" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="alternate_picture_1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="alternate_picture_2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="alternate_picture_3" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="alternate_picture_4" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="alternate_picture_5" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="alternate_picture_6" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="cancelation_date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="cancelation_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="default_picture" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="faults" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="inprint_1" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="inprint_2" optional="YES" attributeType="String" syncable="YES"/>
@@ -295,11 +328,13 @@
         <attribute name="plate_location" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="purchase_amount" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="purchase_date" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="bureauPrecancel" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="BureauPrecancel" inverseName="stamps" inverseEntity="BureauPrecancel" syncable="YES"/>
+        <relationship name="cachet" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Cachet" inverseName="stamps" inverseEntity="Cachet" syncable="YES"/>
         <relationship name="cancelQuality" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="CancelQuality" inverseName="stamps" inverseEntity="CancelQuality" syncable="YES"/>
         <relationship name="centering" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Centering" inverseName="stamps" inverseEntity="Centering" syncable="YES"/>
+        <relationship name="children" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Stamp" inverseName="parent" inverseEntity="Stamp" syncable="YES"/>
         <relationship name="collection" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GPCollection" inverseName="stamps" inverseEntity="GPCollection" syncable="YES"/>
         <relationship name="dealer" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Dealer" inverseName="stamps" inverseEntity="Dealer" syncable="YES"/>
-        <relationship name="firstFlight" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="FirstFlight" inverseName="stamps" inverseEntity="FirstFlight" syncable="YES"/>
         <relationship name="format" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="StampFormat" inverseName="stamps" inverseEntity="StampFormat" syncable="YES"/>
         <relationship name="gpCatalog" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GPCatalog" inverseName="stamps" inverseEntity="GPCatalog" syncable="YES"/>
         <relationship name="grade" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Grade" inverseName="stamps" inverseEntity="Grade" syncable="YES"/>
@@ -309,6 +344,7 @@
         <relationship name="location" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="stamps" inverseEntity="Location" syncable="YES"/>
         <relationship name="lot" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Lot" inverseName="stamps" inverseEntity="Lot" syncable="YES"/>
         <relationship name="mount" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Mount" inverseName="stamps" inverseEntity="Mount" syncable="YES"/>
+        <relationship name="parent" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Stamp" inverseName="children" inverseEntity="Stamp" syncable="YES"/>
         <relationship name="perfin" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Perfin" inverseName="stamps" inverseEntity="Perfin" syncable="YES"/>
         <relationship name="soundness" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Soundness" inverseName="stamps" inverseEntity="Soundness" syncable="YES"/>
         <relationship name="valuation" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Valuation" inverseName="stamps" inverseEntity="Valuation" syncable="YES"/>
@@ -331,45 +367,46 @@
         <relationship name="stamps" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Stamp" inverseName="valuation" inverseEntity="Stamp" syncable="YES"/>
     </entity>
     <elements>
-        <element name="AlternateCatalog" positionX="241" positionY="-306" width="155" height="103"/>
-        <element name="AlternateCatalogGroup" positionX="448" positionY="-360" width="128" height="88"/>
-        <element name="AlternateCatalogName" positionX="583" positionY="-232" width="128" height="88"/>
-        <element name="BureauPrecancel" positionX="396" positionY="530" width="128" height="150"/>
-        <element name="Cachet" positionX="243" positionY="0" width="128" height="300"/>
-        <element name="CachetCatalogName" positionX="430" positionY="45" width="128" height="75"/>
-        <element name="CachetMakerName" positionX="432" positionY="135" width="128" height="75"/>
-        <element name="Cancelations" positionX="-155" positionY="486" width="128" height="90"/>
-        <element name="CancelQuality" positionX="-513" positionY="36" width="128" height="73"/>
-        <element name="Centering" positionX="-513" positionY="117" width="128" height="103"/>
-        <element name="Country" positionX="-153" positionY="-126" width="128" height="90"/>
-        <element name="Dealer" positionX="-864" positionY="179" width="128" height="73"/>
-        <element name="FDCIssueLocation" positionX="243" positionY="333" width="128" height="90"/>
-        <element name="FirstFlight" positionX="-513" positionY="440" width="128" height="73"/>
-        <element name="Format" positionX="-153" positionY="-18" width="128" height="75"/>
-        <element name="GPCatalog" positionX="27" positionY="-172" width="171" height="1080"/>
-        <element name="GPCatalogGroup" positionX="243" positionY="-115" width="128" height="88"/>
-        <element name="GPCatalogSet" positionX="250" positionY="519" width="128" height="75"/>
-        <element name="GPCollection" positionX="-864" positionY="-144" width="128" height="90"/>
-        <element name="GPPicture" positionX="-153" positionY="81" width="128" height="118"/>
-        <element name="Grade" positionX="-864" positionY="473" width="128" height="103"/>
-        <element name="GumCondition" positionX="-864" positionY="356" width="128" height="103"/>
-        <element name="Hinged" positionX="-864" positionY="-54" width="128" height="103"/>
-        <element name="LocalPrecancel" positionX="-513" positionY="350" width="128" height="73"/>
-        <element name="Location" positionX="-515" positionY="-135" width="128" height="73"/>
-        <element name="LooksLike" positionX="-155" positionY="396" width="128" height="90"/>
-        <element name="Lot" positionX="-864" positionY="269" width="128" height="73"/>
-        <element name="Mount" positionX="-866" positionY="59" width="128" height="103"/>
-        <element name="Perfin" positionX="-513" positionY="530" width="128" height="73"/>
-        <element name="PictureType" positionX="-326" positionY="81" width="128" height="75"/>
-        <element name="PlateNumber" positionX="403" positionY="243" width="128" height="268"/>
-        <element name="PlateNumberInfo" positionX="576" positionY="426" width="128" height="105"/>
-        <element name="PlatePosition" positionX="558" positionY="719" width="128" height="73"/>
-        <element name="PlateUsage" positionX="396" positionY="746" width="128" height="118"/>
-        <element name="Soundness" positionX="-515" positionY="233" width="128" height="103"/>
-        <element name="Stamp" positionX="-693" positionY="-135" width="128" height="643"/>
-        <element name="StampFormat" positionX="-515" positionY="-46" width="128" height="73"/>
-        <element name="Topic" positionX="-155" positionY="225" width="128" height="90"/>
-        <element name="Valuation" positionX="-731" positionY="576" width="128" height="58"/>
-        <element name="StoredSearch" positionX="-90" positionY="576" width="128" height="88"/>
+        <element name="AlternateCatalog" positionX="0" positionY="0" width="128" height="105"/>
+        <element name="AlternateCatalogGroup" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="AlternateCatalogName" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="BureauPrecancel" positionX="0" positionY="0" width="128" height="165"/>
+        <element name="Cachet" positionX="0" positionY="0" width="128" height="315"/>
+        <element name="CachetCatalogName" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="CachetMakerName" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="Cancelations" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="CancelQuality" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="Centering" positionX="0" positionY="0" width="128" height="105"/>
+        <element name="Country" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="Dealer" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="FDCIssueLocation" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="Format" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="GPCatalog" positionX="0" positionY="0" width="128" height="1080"/>
+        <element name="GPCatalogGroup" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="GPCatalogSet" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="GPCollection" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="GPPicture" positionX="0" positionY="0" width="128" height="120"/>
+        <element name="Grade" positionX="0" positionY="0" width="128" height="105"/>
+        <element name="GumCondition" positionX="0" positionY="0" width="128" height="105"/>
+        <element name="Hinged" positionX="0" positionY="0" width="128" height="105"/>
+        <element name="LocalPrecancel" positionX="0" positionY="0" width="128" height="150"/>
+        <element name="Location" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="LooksLike" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="Lot" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="Mount" positionX="0" positionY="0" width="128" height="105"/>
+        <element name="Perfin" positionX="0" positionY="0" width="128" height="300"/>
+        <element name="PerfinCatalog" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="PerfinCatalogName" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="PictureType" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="PlateNumber" positionX="0" positionY="0" width="128" height="270"/>
+        <element name="PlateNumberInfo" positionX="0" positionY="0" width="128" height="105"/>
+        <element name="PlatePosition" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="PlateUsage" positionX="0" positionY="0" width="128" height="120"/>
+        <element name="Soundness" positionX="0" positionY="0" width="128" height="105"/>
+        <element name="Stamp" positionX="0" positionY="0" width="128" height="765"/>
+        <element name="StampFormat" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="StoredSearch" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="Topic" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="Valuation" positionX="0" positionY="0" width="128" height="60"/>
     </elements>
 </model>

@@ -1,16 +1,17 @@
 //
 //  Stamp.m
-//  GonePostalX
+//  GonePostal
 //
-//  Created by Travis Gruber on 2/15/13.
+//  Created by Travis Gruber on 3/9/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
 #import "Stamp.h"
+#import "BureauPrecancel.h"
+#import "Cachet.h"
 #import "CancelQuality.h"
 #import "Centering.h"
 #import "Dealer.h"
-#import "FirstFlight.h"
 #import "GPCatalog.h"
 #import "GPCollection.h"
 #import "Grade.h"
@@ -22,51 +23,60 @@
 #import "Mount.h"
 #import "Perfin.h"
 #import "Soundness.h"
+#import "Stamp.h"
 #import "StampFormat.h"
 #import "Valuation.h"
 
 
 @implementation Stamp
 
+@dynamic address_type;
+@dynamic alternate_picture_1;
+@dynamic alternate_picture_2;
+@dynamic alternate_picture_3;
+@dynamic alternate_picture_4;
+@dynamic alternate_picture_5;
+@dynamic alternate_picture_6;
+@dynamic cancelation_date;
+@dynamic cancelation_type;
+@dynamic default_picture;
+@dynamic faults;
+@dynamic inprint_1;
+@dynamic inprint_2;
 @dynamic inventory_number;
-@dynamic plate_2;
+@dynamic manual_value;
 @dynamic mint_used;
+@dynamic notes;
 @dynamic plate_1;
+@dynamic plate_2;
 @dynamic plate_3;
 @dynamic plate_4;
 @dynamic plate_5;
 @dynamic plate_6;
 @dynamic plate_7;
 @dynamic plate_8;
-@dynamic inprint_1;
-@dynamic inprint_2;
-@dynamic cachet;
-@dynamic bureau_precancel;
-@dynamic purchase_date;
-@dynamic notes;
-@dynamic purchase_amount;
-@dynamic manual_value;
-@dynamic faults;
-@dynamic address_type;
-@dynamic cancelation_type;
-@dynamic cancelation_date;
 @dynamic plate_location;
+@dynamic purchase_amount;
+@dynamic purchase_date;
+@dynamic cancelQuality;
+@dynamic centering;
+@dynamic children;
 @dynamic collection;
+@dynamic dealer;
+@dynamic format;
 @dynamic gpCatalog;
 @dynamic grade;
-@dynamic hinged;
 @dynamic gumCondition;
-@dynamic soundness;
-@dynamic centering;
-@dynamic cancelQuality;
-@dynamic location;
-@dynamic mount;
-@dynamic dealer;
-@dynamic lot;
-@dynamic valuation;
+@dynamic hinged;
 @dynamic localPrecancel;
-@dynamic firstFlight;
+@dynamic location;
+@dynamic lot;
+@dynamic mount;
+@dynamic parent;
 @dynamic perfin;
-@dynamic format;
+@dynamic soundness;
+@dynamic valuation;
+@dynamic cachet;
+@dynamic bureauPrecancel;
 
 @end

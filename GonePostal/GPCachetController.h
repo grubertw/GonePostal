@@ -17,12 +17,4 @@
 
 @property (weak, nonatomic) IBOutlet NSObjectController * cachetController;
 
-- (IBAction)addDefaultPicture:(id)sender;
-- (IBAction)addAlternatePicture1:(id)sender;
-- (IBAction)addAlternatePicture2:(id)sender;
-- (IBAction)addAlternatePicture3:(id)sender;
-- (IBAction)addAlternatePicture4:(id)sender;
-- (IBAction)addAlternatePicture5:(id)sender;
-- (IBAction)addAlternatePicture6:(id)sender;
-
 @end

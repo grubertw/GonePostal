@@ -1,8 +1,8 @@
 //
 //  LocalPrecancel.m
-//  GonePostalX
+//  GonePostal
 //
-//  Created by Travis Gruber on 2/15/13.
+//  Created by Travis Gruber on 3/10/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
@@ -12,7 +12,12 @@
 
 @implementation LocalPrecancel
 
-@dynamic name;
+@dynamic picture;
+@dynamic cancel_style;
+@dynamic city;
+@dynamic state;
+@dynamic gp_precancel_number;
+@dynamic pss_type;
 @dynamic stamps;
 
 @end

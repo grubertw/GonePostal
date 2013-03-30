@@ -22,7 +22,7 @@
     if (self) {
         NSDocumentController * docController = [NSDocumentController sharedDocumentController];
         GPDocument * doc = [docController currentDocument];
-        self.managedObjectContext = doc.managedObjectContext;
+        _managedObjectContext = doc.managedObjectContext;
     }
     return self;
 }
@@ -33,10 +33,10 @@
     if (self) {
         NSDocumentController * docController = [NSDocumentController sharedDocumentController];
         GPDocument * doc = [docController currentDocument];
-        self.managedObjectContext = doc.managedObjectContext;
+        _managedObjectContext = doc.managedObjectContext;
         
         NSSortDescriptor *platePositionsSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
-        self.platePositionsSortDescriptors = @[platePositionsSort];
+        _platePositionsSortDescriptors = @[platePositionsSort];
     }
     
     return self;

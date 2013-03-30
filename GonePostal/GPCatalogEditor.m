@@ -27,326 +27,58 @@
 #import "Country.h"
 #import "GPCatalogGroup.h"
 
-static NSString * BASE_GP_CATALOG_QUERY = @"is_default==0 and majorVariety==nil";
-static NSString * DEFAULT_GPCATALOG_QUERY = @"is_default==0 and majorVariety==nil and country.country_sort_id==0 and catalogGroup.group_number==1";
-
 // Private members.
 @interface GPCatalogEditor ()
-@property (strong, nonatomic) StoredSearch * storedAssistedSearch;
-@property (strong, nonatomic) NSPredicate * currentSearch;
+@property (strong, nonatomic) IBOutlet NSTableView * gpCatalogTable;
+
+@property (weak, nonatomic) IBOutlet NSScrollView * identScroller;
+@property (weak, nonatomic) IBOutlet NSView * identScrollContent;
+@property (weak, nonatomic) IBOutlet NSScrollView * infoScroller;
+@property (weak, nonatomic) IBOutlet NSView * infoScrollContent;
+@property (weak, nonatomic) IBOutlet NSScrollView * platesScroller;
+@property (weak, nonatomic) IBOutlet NSView * platesScrollContent;
+@property (weak, nonatomic) IBOutlet NSCollectionView * plateUsageCollectionView;
+@property (weak, nonatomic) IBOutlet NSCollectionView * cachetCollectionView;
+
+@property (weak, nonatomic) IBOutlet NSButton * filtersActive;
+
+@property (strong, nonatomic) NSPanel * addToSetPanel;
+@property (weak, nonatomic) IBOutlet NSView * addToSetSelector;
+@property (weak, nonatomic) IBOutlet NSComboBox * setSelectorCombo;
+
+@property (strong, nonatomic) NSPanel * addToLooksLikePanel;
+@property (weak, nonatomic) IBOutlet NSView * addToLooksLikeSelector;
+
+@property (weak, nonatomic) IBOutlet NSPopover * setsPopover;
+@property (weak, nonatomic) IBOutlet GPSetPopoverController * setsPopoverController;
+
+@property (weak, nonatomic) IBOutlet NSPopover * looksLikePopover;
+@property (weak, nonatomic) IBOutlet GPLooksLikePopoverController * looksLikePopoverController;
+
+@property (weak, nonatomic) IBOutlet NSArrayController * gpCatalogEntriesController;
+@property (weak, nonatomic) IBOutlet NSArrayController * countriesController;
+@property (weak, nonatomic) IBOutlet NSArrayController * formatsController;
+@property (weak, nonatomic) IBOutlet NSArrayController * altCatalogsController;
+@property (weak, nonatomic) IBOutlet NSArrayController * altCatalogNamesController;
+@property (weak, nonatomic) IBOutlet NSArrayController * altCatalogSectionsController;
+@property (weak, nonatomic) IBOutlet NSArrayController * gpGroupsController;
+@property (weak, nonatomic) IBOutlet NSArrayController * gpCatalogSetsController;
+@property (weak, nonatomic) IBOutlet NSArrayController * plateUsageController;
+@property (weak, nonatomic) IBOutlet NSArrayController * plateNumberCombinationsController;
+@property (weak, nonatomic) IBOutlet NSArrayController * cachetController;
+@property (weak, nonatomic) IBOutlet NSArrayController * looksLikeController;
+@property (weak, nonatomic) IBOutlet NSArrayController * precancelsController;
+@property (weak, nonatomic) IBOutlet NSArrayController * cancelationsController;
+@property (weak, nonatomic) IBOutlet NSArrayController * topicsController;
+@property (weak, nonatomic) IBOutlet NSArrayController * topicsInGPCatalogController;
+@property (weak, nonatomic) IBOutlet NSArrayController * identificationPicturesController;
+
 @property (strong, nonatomic) NSPredicate * subvarietiesSearch;
 
-@property (strong, nonatomic) NSPredicate * countriesPredicate;
-@property (strong, nonatomic) NSPredicate * sectionsPredicate;
-@property (strong, nonatomic) NSPredicate * filtersPredicate;
-
-- (void)initCurrentSearch;
-
-- (void)parseAssistedSearch:(NSPredicate *)search parent:(NSPredicate *)parentSearch;
-- (void)loadCountrySearchControllersFromPredicate;
-- (void)loadSectionsSearchControllersFromPredicate;
-- (void)loadFiltersSearchAttributesFromPredicate;
-
-- (void)updateCurrentSearch;
+@property (strong, nonatomic) Topic * selectedTopic;
 @end
 
 @implementation GPCatalogEditor
-
-// Intialize the current GPCatalog search from the StoredSearch table.
-- (void)initCurrentSearch {
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"StoredSearch" inManagedObjectContext:self.managedObjectContext];
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    [fetchRequest setEntity:entity];
-    
-    NSPredicate *query = [NSPredicate predicateWithFormat:@"identifier==%ld", LAST_VIEWIED_GP_CATALOG_QUERY];
-    [fetchRequest setPredicate:query];
-    
-    // Execute the query
-    NSError *error = nil;
-    
-    NSArray *results = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if (results == nil) {
-        NSLog(@"Fetch error %@, %@", error, [error userInfo]);
-	    abort();
-    }
-    
-    if (results.count == 1) {
-        // Initialize from the StoredSearch entry inside the database.
-        // Hang onto a reference for future saving.
-        self.storedAssistedSearch = [results objectAtIndex:0];
-        self.currentSearch = self.storedAssistedSearch.predicate;
-        
-        // Parse the assisted search into three predicates.
-        [self parseAssistedSearch:self.currentSearch parent:nil];
-        
-        // Load the country search controllers from the country predicate.
-        [self loadCountrySearchControllersFromPredicate];
-        
-        // Load the sections search controllers from the section predicate.
-        [self loadSectionsSearchControllersFromPredicate];
-        
-        // Set the filters private member variables.
-        [self loadFiltersSearchAttributesFromPredicate];
-    }
-    else {
-        // Create the initial search from the factory default constant.
-        self.currentSearch = [NSPredicate predicateWithFormat:DEFAULT_GPCATALOG_QUERY];
-        
-        // First time create of the stored assisted search
-        self.storedAssistedSearch = [NSEntityDescription insertNewObjectForEntityForName:@"StoredSearch" inManagedObjectContext:self.managedObjectContext];
-        self.storedAssistedSearch.predicate = self.currentSearch;
-        self.storedAssistedSearch.identifier = [NSNumber numberWithInteger:LAST_VIEWIED_GP_CATALOG_QUERY];
-    }
-
-    // Fetch the GP Catalog Data.
-    [self queryGPCatalog];
-}
-
-// Break the stored assisted search down into three predicates:
-// country, section, and filter.
-- (void)parseAssistedSearch:(NSPredicate *)search parent:(NSPredicate *)parentSearch {
-    if ([search isMemberOfClass:[NSCompoundPredicate class]]) {
-        // Break the compound predicate into it's component pieces.
-        NSArray * subpreds = ((NSCompoundPredicate *)search).subpredicates;
-        
-        //NSLog(@"parseAssistedSearch found %ld subpredicates in compound predicate", subpreds.count);
-        
-        for (NSUInteger i=0; i<subpreds.count; i++) {
-            NSPredicate * subPredicate = [subpreds objectAtIndex:i];
-            
-            // Recursivly call into this method to determine the comparison type.
-            [self parseAssistedSearch:subPredicate parent:search];
-        }
-    }
-    else if ([search isMemberOfClass:[NSComparisonPredicate class]]) {
-        // Obtain the left expression to determine which of
-        // the three preicate types this is.
-        NSExpression * leftExpression = ((NSComparisonPredicate *)search).leftExpression;
-        
-        //NSLog(@"parseAssistedSearch found comparison predicate with leftExpression of type %ld", leftExpression.expressionType);
-        
-        if (leftExpression.expressionType == NSKeyPathExpressionType) {
-            // Determine if the respresenting predicate needs to be this predicate
-            // or the parent.
-            NSPredicate * representingPredicate;
-            if (   parentSearch == nil
-                || [parentSearch isEqualTo:self.currentSearch])
-                representingPredicate = search;
-            else
-                representingPredicate = parentSearch;
-            
-            //NSLog(@"  leftExpression keyPath is %@", leftExpression.keyPath);
-            
-            if ([leftExpression.keyPath isEqualToString:@"country.country_sort_id"]) {
-                self.countriesPredicate = representingPredicate;
-            }
-            else if ([leftExpression.keyPath isEqualToString:@"catalogGroup.group_number"]) {
-                self.sectionsPredicate = representingPredicate;
-            }
-            else if (   ![leftExpression.keyPath isEqualToString:@"is_default"]
-                     && ![leftExpression.keyPath isEqualToString:@"majorVariety"]) {
-                self.filtersPredicate = representingPredicate;
-            }
-        }
-    }
-}
-
-// Parse the countryPredicate to find out the current countries
-// used in the search.  Use this information, along with a fetch
-// quary, to populate the country search controllers.
-- (void)loadCountrySearchControllersFromPredicate {
-    // Query for all countryies in the database.
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Country" inManagedObjectContext:self.managedObjectContext];
-    [fetchRequest setEntity:entity];
-
-    NSError *error = nil;
-    NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if (fetchedObjects == nil) {
-        NSLog(@"Fetch error %@ %@", error, error.userInfo);
-        return;
-    }
-    
-    NSArray * countryComparisons;
-    if ([self.countriesPredicate isMemberOfClass:[NSCompoundPredicate class]]) {
-        countryComparisons = ((NSCompoundPredicate *)self.countriesPredicate).subpredicates;
-    }
-    else if ([self.countriesPredicate isMemberOfClass:[NSComparisonPredicate class]]) {
-        countryComparisons = [NSArray arrayWithObject:self.countriesPredicate];
-    }
-    
-    //NSLog(@"loadCountrySearchControllersFromPredicate num comparisons is %ld", countryComparisons.count);
-    
-    self.countriesInSearch = [NSMutableArray arrayWithCapacity:fetchedObjects.count];
-    self.countriesNotInSearch = [NSMutableArray arrayWithCapacity:fetchedObjects.count];
-    
-    for (NSUInteger i=0; i<fetchedObjects.count; i++) {
-        Country * country = [fetchedObjects objectAtIndex:i];
-        bool matchFound = NO;
-        
-        for (NSUInteger j=0; j<countryComparisons.count; j++) {
-            NSExpression * rightExpression = ((NSComparisonPredicate *) [countryComparisons objectAtIndex:j]).rightExpression;
-        
-            //NSLog(@"  comparison[%ld] is %@   rightExpressionType=%ld", j, rightExpression.constantValue, rightExpression.expressionType);
-            
-            if ([country.country_sort_id isEqualToNumber:rightExpression.constantValue]) {
-                [self.countriesInSearch addObject:country];
-                matchFound = YES;
-            }
-        }
-        
-        // If no comparisons were found, load into the countriesNotInSearch
-        if (!matchFound) {
-            [self.countriesNotInSearch addObject:[fetchedObjects objectAtIndex:i]];
-        }
-    }
-    
-    [self.countriesInSearchController setContent:self.countriesInSearch];
-    [self.countriesNotInSearchController setContent:self.countriesNotInSearch];
-}
-
-// Parse the sectionPredicate to find out the current sections
-// used in the search.  Use this information, along with a fetch
-// quary, to populate the section search controllers.
-- (void)loadSectionsSearchControllersFromPredicate {
-    // Query for all sections in the database.
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"GPCatalogGroup" inManagedObjectContext:self.managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    NSError *error = nil;
-    NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if (fetchedObjects == nil) {
-        NSLog(@"Fetch error %@ %@", error, error.userInfo);
-        return;
-    }
-    
-    NSArray * comparisons;
-    if ([self.sectionsPredicate isMemberOfClass:[NSCompoundPredicate class]]) {
-        comparisons = ((NSCompoundPredicate *)self.sectionsPredicate).subpredicates;
-    }
-    else if ([self.sectionsPredicate isMemberOfClass:[NSComparisonPredicate class]]) {
-        comparisons = [NSArray arrayWithObject:self.sectionsPredicate];
-    }
-    
-    //NSLog(@"loadSectionsSearchControllersFromPredicate num comparisons is %ld", comparisons.count);
-    
-    self.sectionsInSearch = [NSMutableArray arrayWithCapacity:fetchedObjects.count];
-    self.sectionsNotInSearch = [NSMutableArray arrayWithCapacity:fetchedObjects.count];
-    
-    for (NSUInteger i=0; i<fetchedObjects.count; i++) {
-        GPCatalogGroup * section = [fetchedObjects objectAtIndex:i];
-        bool matchFound = NO;
-        
-        for (NSUInteger j=0; j<comparisons.count; j++) {
-            NSExpression * rightExpression = ((NSComparisonPredicate *) [comparisons objectAtIndex:j]).rightExpression;
-            
-            //NSLog(@"  comparison[%ld] is %@   rightExpressionType=%ld", j, rightExpression.constantValue, rightExpression.expressionType);
-            
-            if ([section.group_number isEqualToString:rightExpression.constantValue]) {
-                [self.sectionsInSearch addObject:section];
-                matchFound = YES;
-            }
-        }
-        
-        // If no comparisons were found, load into the countriesNotInSearch
-        if (!matchFound) {
-            [self.sectionsNotInSearch addObject:[fetchedObjects objectAtIndex:i]];
-        }
-    }
-    
-    [self.sectionsInSearchController setContent:self.sectionsInSearch];
-    [self.sectionsNotInSearchController setContent:self.sectionsNotInSearch];
-}
-
-// Parse the filterPredicate to find out the current filters
-// used in the search.  Set attributes in this class to reflect
-// the expressions in the predicate.
-- (void)loadFiltersSearchAttributesFromPredicate {
-    NSArray * comparisons;
-    if ([self.filtersPredicate isMemberOfClass:[NSCompoundPredicate class]]) {
-        comparisons = ((NSCompoundPredicate *)self.filtersPredicate).subpredicates;
-    }
-    else if ([self.filtersPredicate isMemberOfClass:[NSComparisonPredicate class]]) {
-        comparisons = [NSArray arrayWithObject:self.filtersPredicate];
-    }
-    
-    NSUInteger filterCount = 0;
-    NSString * filterDescription = @"none";
-    
-    for (NSUInteger i=0; i<comparisons.count; i++) {
-        NSExpression * leftExpression = ((NSComparisonPredicate *) [comparisons objectAtIndex:i]).leftExpression;
-        
-        //NSLog(@"  comparison[%ld] is %@", i, leftExpression.keyPath);
-        
-        if ([leftExpression.keyPath isEqualToString:@"always_display"]) {
-            self.filterByAlwaysDisplay = [NSNumber numberWithBool:YES];
-            filterCount++;
-        }
-        else if ([leftExpression.keyPath isEqualToString:@"very_rare"]) {
-            self.filterByVeryRare = [NSNumber numberWithBool:YES];
-            filterCount++;
-        }
-        else if ([leftExpression.keyPath isEqualToString:@"hidden"]) {
-            self.filterByHidden = [NSNumber numberWithBool:YES];
-            filterCount++;
-        }
-        else if ([leftExpression.keyPath isEqualToString:@"color_variety"]) {
-            self.filterByColorVariety = [NSNumber numberWithBool:YES];
-            filterCount++;
-        }
-        else if ([leftExpression.keyPath isEqualToString:@"gum_variety"]) {
-            self.filterByGumVariety = [NSNumber numberWithBool:YES];
-            filterCount++;
-        }
-        else if ([leftExpression.keyPath isEqualToString:@"plate_variety"]) {
-            self.filterByPlateVariety = [NSNumber numberWithBool:YES];
-            filterCount++;
-        }
-        else if ([leftExpression.keyPath isEqualToString:@"tag_variety"]) {
-            self.filterByTagVariety = [NSNumber numberWithBool:YES];
-            filterCount++;
-        }
-        else if ([leftExpression.keyPath isEqualToString:@"print_variety"]) {
-            self.filterByPrintVariety = [NSNumber numberWithBool:YES];
-            filterCount++;
-        }
-        else if ([leftExpression.keyPath isEqualToString:@"color_error"]) {
-            self.filterByColorError = [NSNumber numberWithBool:YES];
-            filterCount++;
-        }
-        else if ([leftExpression.keyPath isEqualToString:@"tag_error"]) {
-            self.filterByTagError = [NSNumber numberWithBool:YES];
-            filterCount++;
-        }
-        else if ([leftExpression.keyPath isEqualToString:@"plate_error"]) {
-            self.filterByPlateError = [NSNumber numberWithBool:YES];
-            filterCount++;
-        }
-        else if ([leftExpression.keyPath isEqualToString:@"perf_error"]) {
-            self.filterByPerfError = [NSNumber numberWithBool:YES];
-            filterCount++;
-        }
-        else if ([leftExpression.keyPath isEqualToString:@"multiple_transfer"]) {
-            self.filterByMultipleTransfer = [NSNumber numberWithBool:YES];
-            filterCount++;
-        }
-    }
-    
-    if (filterCount > 0) {
-        self.filterSearchEnabled = [NSNumber numberWithBool:YES];
-        
-        if (filterCount > 1) {
-            filterDescription = @"some";
-        }
-        else {
-            filterDescription = @"one";
-        }
-    }
-    
-    [self.filtersSelected setStringValue:filterDescription];
-}
 
 // Update the current search based on the three saved compound predicates.
 - (void)updateCurrentSearch {
@@ -356,43 +88,51 @@ static NSString * DEFAULT_GPCATALOG_QUERY = @"is_default==0 and majorVariety==ni
     NSMutableArray * predicateArray = [NSMutableArray arrayWithCapacity:4];
     [predicateArray addObject:[NSPredicate predicateWithFormat:BASE_GP_CATALOG_QUERY]];
     
-    if (self.countriesPredicate != nil) {
-        [predicateArray addObject:self.countriesPredicate];
+    if (self.countrySearchController.predicate != nil) {
+        [predicateArray addObject:self.countrySearchController.predicate];
     }
     
-    if (self.sectionsPredicate != nil) {
-        [predicateArray addObject:self.sectionsPredicate];
+    if (self.sectionSearchController.predicate != nil) {
+        [predicateArray addObject:self.sectionSearchController.predicate];
     }
     
-    if (self.filtersPredicate != nil) {
-        [predicateArray addObject:self.filtersPredicate];
+    if (self.filterSearchController.predicate != nil) {
+        [predicateArray addObject:self.filterSearchController.predicate];
     }
     
     // If there is only one element in the array,
     // a compound predicate isn't needed.
     if (predicateArray.count == 1) {
-        self.currentSearch = [predicateArray objectAtIndex:0];
+        self.assistedSearch.predicate = [predicateArray objectAtIndex:0];
     }
     else {
         // AND together predicates into a compound predicate.
-        self.currentSearch = [NSCompoundPredicate andPredicateWithSubpredicates:predicateArray];
+        self.assistedSearch.predicate = [NSCompoundPredicate andPredicateWithSubpredicates:predicateArray];
     }
     
-    // Persist the search.
-    self.storedAssistedSearch.predicate = self.currentSearch;
-    
     [self.document saveInPlace];
+    
+    // Refresh the active filter search.
+    [self.filtersActive setTitle:self.filterSearchController.filtersSelected];
     
     // Refetch the GP Catalog Data.
     [self queryGPCatalog];
 }
 
-
-- (id)initWithWindow:(NSWindow *)window
-{
-    self = [super initWithWindow:window];
+- (id)initWithAssistedSearch:(StoredSearch *)assistedSearch countrySearch:(NSPredicate *)countriesPredicate sectionSearch:(NSPredicate *)sectionsPredicate filterSearch:(NSPredicate *)filtersPredicate {
+    
+    self = [super initWithWindowNibName:@"GPCatalogEditor"];
     if (self) {
-        self.subvarietiesActive = NO;
+        _subvarietiesActive = NO;
+        
+        _assistedSearch = assistedSearch;
+        _countriesPredicate = countriesPredicate;
+        _sectionsPredicate = sectionsPredicate;
+        _filtersPredicate = filtersPredicate;
+        
+        NSDocumentController * docController = [NSDocumentController sharedDocumentController];
+        GPDocument * doc = [docController currentDocument];
+        _managedObjectContext = doc.managedObjectContext;
         
         // Create the sort descripors
         NSSortDescriptor *gpCountrySort = [[NSSortDescriptor alloc] initWithKey:@"country.country_sort_id" ascending:YES];
@@ -445,6 +185,11 @@ static NSString * DEFAULT_GPCATALOG_QUERY = @"is_default==0 and majorVariety==ni
         
         NSSortDescriptor *identPicsSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
         self.identificationPicturesSortDescriptors = @[identPicsSort];
+        
+        // Initialize the assisted search panels.
+        _countrySearchController = [[GPCountrySearch alloc] initWithPredicate:countriesPredicate forStamp:NO];
+        _sectionSearchController = [[GPSectionSearch alloc] initWithPredicate:sectionsPredicate forStamp:NO];
+        _filterSearchController = [[GPFilterSearch alloc] initWithPredicate:filtersPredicate];
     }
     
     return self;
@@ -479,16 +224,21 @@ static NSString * DEFAULT_GPCATALOG_QUERY = @"is_default==0 and majorVariety==ni
     self.addToLooksLikePanel = [[NSPanel alloc] initWithContentRect:self.addToLooksLikeSelector.bounds styleMask:NSTexturedBackgroundWindowMask backing:NSBackingStoreBuffered defer:YES];
     [self.addToLooksLikePanel setContentView:self.addToLooksLikeSelector];
     
-    // Create assisted search panels.
-    self.countriesSearchPanel = [[NSPanel alloc] initWithContentRect:self.countriesSearchContent.bounds styleMask:NSTexturedBackgroundWindowMask backing:NSBackingStoreBuffered defer:YES];
-    [self.countriesSearchPanel setContentView:self.countriesSearchContent];
-    self.sectionsSearchPanel = [[NSPanel alloc] initWithContentRect:self.sectionsSearchContent.bounds styleMask:NSTexturedBackgroundWindowMask backing:NSBackingStoreBuffered defer:YES];
-    [self.sectionsSearchPanel setContentView:self.sectionsSearchContent];
-    self.filtersSearchPanel = [[NSPanel alloc] initWithContentRect:self.filtersSearchContent.bounds styleMask:NSTexturedBackgroundWindowMask backing:NSBackingStoreBuffered defer:YES];
-    [self.filtersSearchPanel setContentView:self.filtersSearchContent];
+    // Place the AssistedSearch views into panels which will be launched as sheets.
+    self.countrySearchController.panel = [[NSPanel alloc] initWithContentRect:self.countrySearchController.view.bounds styleMask:NSTexturedBackgroundWindowMask backing:NSBackingStoreBuffered defer:YES];
+    [self.countrySearchController.panel setContentView:self.countrySearchController.view];
     
-    // Initialize the current GP catalog search last used by the user.
-    [self initCurrentSearch];
+    self.sectionSearchController.panel = [[NSPanel alloc] initWithContentRect:self.sectionSearchController.view.bounds styleMask:NSTexturedBackgroundWindowMask backing:NSBackingStoreBuffered defer:YES];
+    [self.sectionSearchController.panel setContentView:self.sectionSearchController.view];
+    
+    self.filterSearchController.panel = [[NSPanel alloc] initWithContentRect:self.filterSearchController.view.bounds styleMask:NSTexturedBackgroundWindowMask backing:NSBackingStoreBuffered defer:YES];
+    [self.filterSearchController.panel setContentView:self.filterSearchController.view];
+    
+    // Show the active filter search.
+    [self.filtersActive setTitle:self.filterSearchController.filtersSelected];
+    
+    // Fetch the GP Catalog Data.
+    [self queryGPCatalog];
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
@@ -497,41 +247,13 @@ static NSString * DEFAULT_GPCATALOG_QUERY = @"is_default==0 and majorVariety==ni
 
 - (void)queryGPCatalog {
     // (re)set the content inside the GPCatalog entries controller.
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"GPCatalog" inManagedObjectContext:self.managedObjectContext];
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    [fetchRequest setEntity:entity];
-    [fetchRequest setPredicate:self.currentSearch];
-    
-    // Execute the query
-    NSError *error = nil;
-    NSArray *results = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if (results == nil) {
-        NSLog(@"Fetch error %@, %@", error, [error userInfo]);
-	    abort();
-    }
-    
-    self.gpCatalogEntries = [NSMutableArray arrayWithArray:results];
-    [self.gpCatalogEntriesController setContent:self.gpCatalogEntries];
+    [self.gpCatalogEntriesController setFetchPredicate:self.assistedSearch.predicate];
+    [self.gpCatalogEntriesController fetch:self];
 }
 
 - (void)querySubvarieties {
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"GPCatalog" inManagedObjectContext:self.managedObjectContext];
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    [fetchRequest setEntity:entity];
-    [fetchRequest setPredicate:self.subvarietiesSearch];
-    
-    // Execute the query
-    NSError *error = nil;
-    NSArray *results = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if (results == nil) {
-        NSLog(@"Fetch error %@, %@", error, [error userInfo]);
-	    abort();
-    }
-    
-    self.gpCatalogEntries = [NSMutableArray arrayWithArray:results];
-    [self.gpCatalogEntriesController setContent:self.gpCatalogEntries];
+    [self.gpCatalogEntriesController setFetchPredicate:self.subvarietiesSearch];
+    [self.gpCatalogEntriesController fetch:self];
 }
 
 - (IBAction)openAddToGPCatalog:(id)sender {
@@ -692,225 +414,31 @@ static NSString * DEFAULT_GPCATALOG_QUERY = @"is_default==0 and majorVariety==ni
 }
 
 - (IBAction)openCountriesSearchPanel:(id)sender {
-    // Run the add to set panel as a sheet on top of the catalog editor.
     NSApplication * app = [NSApplication sharedApplication];
-    [app beginSheet:self.countriesSearchPanel modalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+    
+    [app beginSheet:self.countrySearchController.panel modalForWindow:self.window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
 }
 
 - (IBAction)openSectionsSearchPanel:(id)sender {
-    // Run the add to set panel as a sheet on top of the catalog editor.
     NSApplication * app = [NSApplication sharedApplication];
-    [app beginSheet:self.sectionsSearchPanel modalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+    
+    [app beginSheet:self.sectionSearchController.panel modalForWindow:self.window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
 }
 
 - (IBAction)openFiltersSearchPanel:(id)sender {
-    // Run the add to set panel as a sheet on top of the catalog editor.
     NSApplication * app = [NSApplication sharedApplication];
-    [app beginSheet:self.filtersSearchPanel modalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+    
+    [app beginSheet:self.filterSearchController.panel modalForWindow:self.window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
 }
 
-- (IBAction)closeCountriesSearchPanel:(id)sender {
-    // Create ComparisonPredicates for each selected country.
-    // If there is more than one country, the comparison predicates
-    // must be placed into a compound predicate.
-    NSArray * selectedCountries = self.countriesInSearchController.content;
-    if (selectedCountries == nil || selectedCountries.count == 0) {
-        self.countriesPredicate = nil;
-    }
-    else if (selectedCountries.count == 1) {
-        Country * country = [selectedCountries objectAtIndex:0];
-    
-        self.countriesPredicate = [NSPredicate predicateWithFormat:@"country.country_sort_id == %@", country.country_sort_id];
-    }
-    else if (selectedCountries.count > 1) {
-        NSMutableArray * countriesPredicateArray = [NSMutableArray arrayWithCapacity:selectedCountries.count];
-        for (NSUInteger i=0; i<selectedCountries.count; i++) {
-            Country * country = [selectedCountries objectAtIndex:i];
-            NSPredicate * countryPredicate = [NSPredicate predicateWithFormat:@"country.country_sort_id == %@", country.country_sort_id];
-            [countriesPredicateArray addObject:countryPredicate];
-        }
-        
-        // OR together all the countries using a compound predicate.
-        self.countriesPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:countriesPredicateArray];
-    }
-    
-    // Update the current search with the chages to this
-    // predicate.
+- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
     [self updateCurrentSearch];
-    
-    // End the sheet.
-    NSApplication * app = [NSApplication sharedApplication];
-    [app endSheet:self.countriesSearchPanel];
-    [self.countriesSearchPanel close];
-}
-
-- (IBAction)closeSectionsSearchPanel:(id)sender {
-    NSArray * selectedSections = self.sectionsInSearchController.content;
-    if (selectedSections == nil || selectedSections.count == 0) {
-        self.sectionsPredicate = nil;
-    }
-    else if (selectedSections.count == 1) {
-        GPCatalogGroup * section = [selectedSections objectAtIndex:0];
-        
-        self.sectionsPredicate = [NSPredicate predicateWithFormat:@"catalogGroup.group_number == %@", section.group_number];
-    }
-    else if (selectedSections.count > 1) {
-        NSMutableArray * sectionsPredicateArray = [NSMutableArray arrayWithCapacity:selectedSections.count];
-        for (NSUInteger i=0; i<selectedSections.count; i++) {
-            GPCatalogGroup * section = [selectedSections objectAtIndex:i];
-            NSPredicate * predicate = [NSPredicate predicateWithFormat:@"catalogGroup.group_number == %@", section.group_number];
-            [sectionsPredicateArray addObject:predicate];
-        }
-        
-        // OR together all the countries using a compound predicate.
-        self.sectionsPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:sectionsPredicateArray];
-    }
-    
-    // Update the current search with the chages to this
-    // predicate.
-    [self updateCurrentSearch];
-    
-    // End the sheet.
-    NSApplication * app = [NSApplication sharedApplication];
-    [app endSheet:self.sectionsSearchPanel];
-    [self.sectionsSearchPanel close];
-}
-
-- (IBAction)closeFiltersSearchPanel:(id)sender {
-    NSString * filterDescription = @"none";
-    
-    if ([self.filterSearchEnabled isEqualToNumber:[NSNumber numberWithBool:YES]]) {
-        NSMutableArray * predicates = [NSMutableArray arrayWithCapacity:20];
-        
-        if ([self.filterByAlwaysDisplay isEqualToNumber:[NSNumber numberWithBool:YES]]) {
-            NSPredicate * pred = [NSPredicate predicateWithFormat:@"always_display == yes"];
-            [predicates addObject:pred];
-        }
-        if ([self.filterByVeryRare isEqualToNumber:[NSNumber numberWithBool:YES]]) {
-            NSPredicate * pred = [NSPredicate predicateWithFormat:@"very_rare == yes"];
-            [predicates addObject:pred];
-        }
-        if ([self.filterByHidden isEqualToNumber:[NSNumber numberWithBool:YES]]) {
-            NSPredicate * pred = [NSPredicate predicateWithFormat:@"hidden == yes"];
-            [predicates addObject:pred];
-        }
-        
-        if ([self.filterByColorVariety isEqualToNumber:[NSNumber numberWithBool:YES]]) {
-            NSPredicate * pred = [NSPredicate predicateWithFormat:@"color_variety == yes"];
-            [predicates addObject:pred];
-        }
-        
-        if ([self.filterByGumVariety isEqualToNumber:[NSNumber numberWithBool:YES]]) {
-            NSPredicate * pred = [NSPredicate predicateWithFormat:@"gum_display == yes"];
-            [predicates addObject:pred];
-        }
-        
-        if ([self.filterByPlateVariety isEqualToNumber:[NSNumber numberWithBool:YES]]) {
-            NSPredicate * pred = [NSPredicate predicateWithFormat:@"plate_variety == yes"];
-            [predicates addObject:pred];
-        }
-        
-        if ([self.filterByTagVariety isEqualToNumber:[NSNumber numberWithBool:YES]]) {
-            NSPredicate * pred = [NSPredicate predicateWithFormat:@"tag_variety == yes"];
-            [predicates addObject:pred];
-        }
-        
-        if ([self.filterByPrintVariety isEqualToNumber:[NSNumber numberWithBool:YES]]) {
-            NSPredicate * pred = [NSPredicate predicateWithFormat:@"print_variety == yes"];
-            [predicates addObject:pred];
-        }
-        
-        if ([self.filterByColorError isEqualToNumber:[NSNumber numberWithBool:YES]]) {
-            NSPredicate * pred = [NSPredicate predicateWithFormat:@"color_error == yes"];
-            [predicates addObject:pred];
-        }
-        
-        if ([self.filterByTagError isEqualToNumber:[NSNumber numberWithBool:YES]]) {
-            NSPredicate * pred = [NSPredicate predicateWithFormat:@"tag_error == yes"];
-            [predicates addObject:pred];
-        }
-        
-        if ([self.filterByPlateError isEqualToNumber:[NSNumber numberWithBool:YES]]) {
-            NSPredicate * pred = [NSPredicate predicateWithFormat:@"plate_error == yes"];
-            [predicates addObject:pred];
-        }
-        
-        if ([self.filterByPerfError isEqualToNumber:[NSNumber numberWithBool:YES]]) {
-            NSPredicate * pred = [NSPredicate predicateWithFormat:@"perf_error == yes"];
-            [predicates addObject:pred];
-        }
-        
-        if ([self.filterByMultipleTransfer isEqualToNumber:[NSNumber numberWithBool:YES]]) {
-            NSPredicate * pred = [NSPredicate predicateWithFormat:@"multiple_transfer == yes"];
-            [predicates addObject:pred];
-        }
-        
-        if (predicates.count == 0) {
-            self.filtersPredicate = nil;
-        }
-        else if (predicates.count == 1) {
-            self.filtersPredicate = [predicates objectAtIndex:0];
-            filterDescription = @"one";
-        }
-        else if (predicates.count > 1) {
-            self.filtersPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:predicates];
-            filterDescription = @"some";
-        }
-    }
-    else {
-        self.filtersPredicate = nil;
-    }
-    
-    // Update the filter description.
-    [self.filtersSelected setStringValue:filterDescription];
-    
-    // Update the current search with the chages to this
-    // predicate.
-    [self updateCurrentSearch];
-    
-    // End the sheet.
-    NSApplication * app = [NSApplication sharedApplication];
-    [app endSheet:self.filtersSearchPanel];
-    [self.filtersSearchPanel close];
-}
-
-- (IBAction)includeCountriesInSearch:(id)sender {
-    NSArray * selectedCountries = self.countriesNotInSearchController.selectedObjects;
-    
-    [self.countriesInSearchController addObjects:selectedCountries];
-    [self.countriesNotInSearchController removeObjects:selectedCountries];
-}
-
-- (IBAction)excludeCountriesFromSearch:(id)sender {
-    NSArray * selectedCountries = self.countriesInSearchController.selectedObjects;
-    
-    [self.countriesNotInSearchController addObjects:selectedCountries];
-    [self.countriesInSearchController removeObjects:selectedCountries];
-}
-
-- (IBAction)includeSectionsInSearch:(id)sender {
-    NSArray * selectedSections = self.sectionsNotInSearchController.selectedObjects;
-    
-    [self.sectionsInSearchController addObjects:selectedSections];
-    [self.sectionsNotInSearchController removeObjects:selectedSections];
-}
-
-- (IBAction)excludeSectionsFromSearch:(id)sender {
-    NSArray * selectedSections = self.sectionsInSearchController.selectedObjects;
-    
-    [self.sectionsNotInSearchController addObjects:selectedSections];
-    [self.sectionsInSearchController removeObjects:selectedSections];
 }
 
 - (IBAction)viewSubvarieties:(id)sender {
-    if (   ([self.gpCatalogTable rowForView:sender] != self.gpCatalogTable.selectedRow)
-        || (self.gpCatalogEntriesController.selectedObjects.count != 1))
-        return;
+    NSInteger row = [self.gpCatalogTable rowForView:sender];
     
-    GPCatalog * theMajorVariety = nil;
-    NSArray * selectedObjects = self.gpCatalogEntriesController.selectedObjects;
-    if (selectedObjects != nil)
-        theMajorVariety = [selectedObjects objectAtIndex:0];
+    GPCatalog * theMajorVariety = self.gpCatalogEntriesController.arrangedObjects[row];
     
     if (theMajorVariety != nil && (theMajorVariety.subvarieties.count > 0)) {
         self.subvarietiesSearch = [NSPredicate predicateWithFormat:@"majorVariety.gp_catalog_number like %@", theMajorVariety.gp_catalog_number];
@@ -946,32 +474,20 @@ static NSString * DEFAULT_GPCATALOG_QUERY = @"is_default==0 and majorVariety==ni
 }
 
 - (IBAction)viewSetsForGPCatalogEntry:(id)sender {
-    if (   ([self.gpCatalogTable rowForView:sender] != self.gpCatalogTable.selectedRow)
-        || (self.gpCatalogEntriesController.selectedObjects.count != 1))
-        return;
-    
+    NSInteger row = [self.gpCatalogTable rowForView:sender];
     NSButton * llButton = (NSButton *)sender;
     
-    NSArray * selectedEntries = self.gpCatalogEntriesController.selectedObjects;
-    if (selectedEntries == nil) return;
-    
-    GPCatalog * selectedEntry = [selectedEntries objectAtIndex:0];
+    GPCatalog * selectedEntry = self.gpCatalogEntriesController.arrangedObjects[row];
     [self.setsPopoverController setSelectedCatalogEntry:selectedEntry];
     
     [self.setsPopover showRelativeToRect:llButton.bounds ofView:sender preferredEdge:self.gpCatalogTable.selectedRow];
 }
 
 - (IBAction)viewLooksLikeForGPCatalogEntry:(id)sender {
-    if (   ([self.gpCatalogTable rowForView:sender] != self.gpCatalogTable.selectedRow)
-        || (self.gpCatalogEntriesController.selectedObjects.count != 1))
-        return;
-    
+    NSInteger row = [self.gpCatalogTable rowForView:sender];
     NSButton * llButton = (NSButton *)sender;
     
-    NSArray * selectedEntries = self.gpCatalogEntriesController.selectedObjects;
-    if (selectedEntries == nil) return;
-    
-    GPCatalog * selectedEntry = [selectedEntries objectAtIndex:0];
+    GPCatalog * selectedEntry = self.gpCatalogEntriesController.arrangedObjects[row];
     [self.looksLikePopoverController setSelectedCatalogEntry:selectedEntry];
     
     [self.looksLikePopover showRelativeToRect:llButton.bounds ofView:sender preferredEdge:self.gpCatalogTable.selectedRow];
