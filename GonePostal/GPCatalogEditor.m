@@ -73,6 +73,8 @@
 @property (weak, nonatomic) IBOutlet NSArrayController * topicsInGPCatalogController;
 @property (weak, nonatomic) IBOutlet NSArrayController * identificationPicturesController;
 
+@property (strong, nonatomic) NSArray * gpCatalogEntries;
+
 @property (strong, nonatomic) NSPredicate * subvarietiesSearch;
 
 @property (strong, nonatomic) Topic * selectedTopic;
@@ -246,14 +248,31 @@
 }
 
 - (void)queryGPCatalog {
-    // (re)set the content inside the GPCatalog entries controller.
-    [self.gpCatalogEntriesController setFetchPredicate:self.assistedSearch.predicate];
-    [self.gpCatalogEntriesController fetch:self];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"GPCatalog" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+
+    [fetchRequest setPredicate:self.assistedSearch.predicate];
+
+    NSError *error = nil;
+    self.gpCatalogEntries = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if (self.gpCatalogEntries == nil) {
+        NSLog(@"Error fetching GPCatalog entries: %@ %@", error, error.userInfo);
+    }
 }
 
 - (void)querySubvarieties {
-    [self.gpCatalogEntriesController setFetchPredicate:self.subvarietiesSearch];
-    [self.gpCatalogEntriesController fetch:self];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"GPCatalog" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    [fetchRequest setPredicate:self.subvarietiesSearch];
+    
+    NSError *error = nil;
+    self.gpCatalogEntries = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if (self.gpCatalogEntries == nil) {
+        NSLog(@"Error fetching GPCatalog entries: %@ %@", error, error.userInfo);
+    }
 }
 
 - (IBAction)openAddToGPCatalog:(id)sender {
@@ -465,11 +484,10 @@
     [self queryGPCatalog];
     
     [self.gpCatalogEntriesController setSelectedObjects:@[theMajorVariety]];
+    NSUInteger indexOfMajorVariety = self.gpCatalogEntriesController.selectionIndex;
     
     // Make sure the selection is visable.
-    NSUInteger selRow = self.gpCatalogEntriesController.selectionIndex;
-    [self.gpCatalogTable scrollRowToVisible:selRow];
-    
+    [self.gpCatalogTable scrollRowToVisible:indexOfMajorVariety];
     self.subvarietiesActive = NO;
 }
 
