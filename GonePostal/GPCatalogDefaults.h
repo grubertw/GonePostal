@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "AlternateCatalogGroup.h"
 
 @interface GPCatalogDefaults : NSWindowController
 
@@ -15,9 +16,12 @@
 @property (strong, nonatomic) NSArray * countriesSortDescriptors;
 @property (strong, nonatomic) NSArray * formatsSortDescriptors;
 @property (strong, nonatomic) NSArray * altCatalogsSortDescriptors;
+@property (strong, nonatomic) NSArray * altCatalogSectionsSortDescriptors;
 @property (strong, nonatomic) NSArray * gpGroupsSortDescriptors;
 
 @property (weak, nonatomic) IBOutlet NSObjectController * gpCatalogDefaultsController;
+
+@property (strong, nonatomic) AlternateCatalogGroup * selectedAltCatalogSection;
 
 - (IBAction)save:(id)sender;
 

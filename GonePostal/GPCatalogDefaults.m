@@ -9,6 +9,7 @@
 #import "GPCatalogDefaults.h"
 #import "GPCatalog.h"
 #import "GPDocument.h"
+#import "AlternateCatalog.h"
 
 @interface GPCatalogDefaults ()
 
@@ -21,16 +22,19 @@
     self = [super initWithWindow:window];
     if (self) {
         NSSortDescriptor *countrySort = [[NSSortDescriptor alloc] initWithKey:@"country_sort_id" ascending:YES];
-        self.countriesSortDescriptors = @[countrySort];
+        _countriesSortDescriptors = @[countrySort];
         
         NSSortDescriptor *formatSort = [[NSSortDescriptor alloc] initWithKey:@"formatName" ascending:YES];
-        self.formatsSortDescriptors = @[formatSort];
+        _formatsSortDescriptors = @[formatSort];
         
         NSSortDescriptor *gpGroupSort = [[NSSortDescriptor alloc] initWithKey:@"group_name" ascending:YES];
-        self.gpGroupsSortDescriptors = @[gpGroupSort];
+        _gpGroupsSortDescriptors = @[gpGroupSort];
         
         NSSortDescriptor *altCatalogSort = [[NSSortDescriptor alloc] initWithKey:@"alternate_catalog_name" ascending:YES];
-        self.altCatalogsSortDescriptors = @[altCatalogSort];
+        _altCatalogsSortDescriptors = @[altCatalogSort];
+        
+        NSSortDescriptor *altCatalogSectionsSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+        _altCatalogSectionsSortDescriptors = @[altCatalogSectionsSort];
     }
     
     return self;
@@ -66,11 +70,28 @@
         GPCatalog * entry = [NSEntityDescription insertNewObjectForEntityForName:@"GPCatalog" inManagedObjectContext:self.managedObjectContext];
         entry.is_default = [NSNumber numberWithBool:YES];
         
+        // Create a row in the AlternateCatalogs table associated with the default.
+        // The catalog number for the row is NOT specified.
+        AlternateCatalog * altCatalog = [NSEntityDescription insertNewObjectForEntityForName:@"AlternateCatalog" inManagedObjectContext:self.managedObjectContext];
+        [entry addAlternateCatalogsObject:altCatalog];
+        
         [self.gpCatalogDefaultsController setContent:entry];
     }
 }
 
 - (IBAction)save:(id)sender {
+    // Save info into the associated default AlternateCatalog row.
+    GPCatalog * defaultEntry = self.gpCatalogDefaultsController.content;
+    
+    AlternateCatalog * defaultAltCatalog;
+    for (AlternateCatalog * ac in defaultEntry.alternateCatalogs) {
+        defaultAltCatalog = ac;
+        break;
+    }
+    
+    defaultAltCatalog.alternateCatalogName = defaultEntry.defaultCatalogName;
+    defaultAltCatalog.alternateCatalogGroup = self.selectedAltCatalogSection;
+    
     [self.document saveInPlace];
     
     [self.window performClose:self];
