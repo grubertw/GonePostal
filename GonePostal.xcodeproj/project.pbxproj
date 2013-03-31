@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1F0EC68F16D9430D00427B4C /* GPDocument.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EC68E16D9430D00427B4C /* GPDocument.xcdatamodel */; };
 		1F0EC69A16D945B500427B4C /* add_main_variety.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1F0EC69316D945B500427B4C /* add_main_variety.jpg */; };
 		1F0EC69B16D945B500427B4C /* add_minor_variation.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1F0EC69416D945B500427B4C /* add_minor_variation.jpg */; };
 		1F0EC69C16D945B500427B4C /* add_subvariety.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1F0EC69516D945B500427B4C /* add_subvariety.jpg */; };
@@ -132,6 +131,7 @@
 		1F2E54961707563400F177A0 /* Perfin.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E54951707563400F177A0 /* Perfin.m */; };
 		1F2E54991707563500F177A0 /* PerfinCatalog.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E54981707563500F177A0 /* PerfinCatalog.m */; };
 		1F2E549C1707563600F177A0 /* PerfinCatalogName.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E549B1707563600F177A0 /* PerfinCatalogName.m */; };
+		1F2E54A0170759FB00F177A0 /* GPDocument.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E549D170759FB00F177A0 /* GPDocument.xcdatamodeld */; };
 		1F49307916D93A9B0094672A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F49307816D93A9B0094672A /* Cocoa.framework */; };
 		1F49308316D93A9B0094672A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1F49308116D93A9B0094672A /* InfoPlist.strings */; };
 		1F49308516D93A9B0094672A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F49308416D93A9B0094672A /* main.m */; };
@@ -194,7 +194,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1F0EC68E16D9430D00427B4C /* GPDocument.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; name = GPDocument.xcdatamodel; path = ../GPDocument.xcdatamodel; sourceTree = "<group>"; };
 		1F0EC69316D945B500427B4C /* add_main_variety.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = add_main_variety.jpg; sourceTree = "<group>"; };
 		1F0EC69416D945B500427B4C /* add_minor_variation.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = add_minor_variation.jpg; sourceTree = "<group>"; };
 		1F0EC69516D945B500427B4C /* add_subvariety.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = add_subvariety.jpg; sourceTree = "<group>"; };
@@ -400,6 +399,8 @@
 		1F2E54981707563500F177A0 /* PerfinCatalog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerfinCatalog.m; sourceTree = "<group>"; };
 		1F2E549A1707563600F177A0 /* PerfinCatalogName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerfinCatalogName.h; sourceTree = "<group>"; };
 		1F2E549B1707563600F177A0 /* PerfinCatalogName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerfinCatalogName.m; sourceTree = "<group>"; };
+		1F2E549E170759FB00F177A0 /* GPDocument 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "GPDocument 2.xcdatamodel"; sourceTree = "<group>"; };
+		1F2E549F170759FB00F177A0 /* GPDocument.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GPDocument.xcdatamodel; sourceTree = "<group>"; };
 		1F49307516D93A9B0094672A /* GonePostal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GonePostal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F49307816D93A9B0094672A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		1F49307B16D93A9B0094672A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -506,7 +507,7 @@
 		1F0EC69016D944C500427B4C /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
-				1F0EC68E16D9430D00427B4C /* GPDocument.xcdatamodel */,
+				1F2E549D170759FB00F177A0 /* GPDocument.xcdatamodeld */,
 				1F0EC6A116D9467B00427B4C /* AlternateCatalog.h */,
 				1F0EC6A216D9467B00427B4C /* AlternateCatalog.m */,
 				1F0EC6A316D9467B00427B4C /* AlternateCatalogGroup.h */,
@@ -1106,7 +1107,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "#rsync -av /Users/travis/xcodeProjects/GonePostal gb_server:/pool/travis/xcodeProjects";
+			shellScript = "rsync -av /Users/travis/xcodeProjects/GonePostal gb_server:/pool/travis/xcodeProjects";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1117,7 +1118,6 @@
 			files = (
 				1F49308516D93A9B0094672A /* main.m in Sources */,
 				1F49308C16D93A9B0094672A /* GPDocument.m in Sources */,
-				1F0EC68F16D9430D00427B4C /* GPDocument.xcdatamodel in Sources */,
 				1F0EC6F516D9467B00427B4C /* AlternateCatalog.m in Sources */,
 				1F0EC6F616D9467B00427B4C /* AlternateCatalogGroup.m in Sources */,
 				1F0EC6F716D9467B00427B4C /* AlternateCatalogName.m in Sources */,
@@ -1221,6 +1221,7 @@
 				1F2E54961707563400F177A0 /* Perfin.m in Sources */,
 				1F2E54991707563500F177A0 /* PerfinCatalog.m in Sources */,
 				1F2E549C1707563600F177A0 /* PerfinCatalogName.m in Sources */,
+				1F2E54A0170759FB00F177A0 /* GPDocument.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1430,6 +1431,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1F2E549D170759FB00F177A0 /* GPDocument.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1F2E549E170759FB00F177A0 /* GPDocument 2.xcdatamodel */,
+				1F2E549F170759FB00F177A0 /* GPDocument.xcdatamodel */,
+			);
+			currentVersion = 1F2E549E170759FB00F177A0 /* GPDocument 2.xcdatamodel */;
+			path = GPDocument.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 1F49306D16D93A9B0094672A /* Project object */;
 }
