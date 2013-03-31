@@ -7,6 +7,8 @@
 //
 
 #import "GPCatalog+Duplicate.h"
+#import "AlternateCatalog.h"
+#import "AlternateCatalogName.h"
 
 @implementation GPCatalog (Duplicate)
 
@@ -60,6 +62,22 @@
     duplicate.defaultCatalogName = self.defaultCatalogName;
     duplicate.formatType = self.formatType;
 
+    // Also duplicate the first (default) alternate catalog row
+    AlternateCatalog * defaultAltCatalog;
+    for (AlternateCatalog * ac in self.alternateCatalogs) {
+        if ([ac.alternateCatalogName.alternate_catalog_name isEqualToString:self.defaultCatalogName.alternate_catalog_name]) {
+            defaultAltCatalog = ac;
+        }
+        break;
+    }
+    
+    AlternateCatalog * altCatalog = [NSEntityDescription insertNewObjectForEntityForName:@"AlternateCatalog" inManagedObjectContext:self.managedObjectContext];
+    altCatalog.alternateCatalogName = defaultAltCatalog.alternateCatalogName;
+    altCatalog.alternateCatalogGroup = defaultAltCatalog.alternateCatalogGroup;
+    altCatalog.alternate_catalog_number = defaultAltCatalog.alternate_catalog_number;
+    // Add to new entry.
+    [duplicate addAlternateCatalogsObject:altCatalog];
+    
     return duplicate;
 }
 

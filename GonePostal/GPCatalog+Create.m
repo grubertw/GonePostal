@@ -8,6 +8,7 @@
 
 #import "GPCatalog+Create.h"
 #import "GPCatalog+Duplicate.h"
+#import "AlternateCatalog.h"
 
 @implementation GPCatalog (Create)
 
@@ -81,6 +82,19 @@
         entry.country = defaults.country;
         entry.defaultCatalogName = defaults.defaultCatalogName;
         entry.formatType = defaults.formatType;
+        
+        AlternateCatalog * defaultAltCatalog;
+        for (AlternateCatalog * ac in defaults.alternateCatalogs) {
+            defaultAltCatalog = ac;
+            break;
+        }
+        
+        // Create an alternate catalog entry for this GPCatalog based on defaults.
+        AlternateCatalog * altCatalog = [NSEntityDescription insertNewObjectForEntityForName:@"AlternateCatalog" inManagedObjectContext:managedObjectContext];
+        altCatalog.alternateCatalogName = defaultAltCatalog.alternateCatalogName;
+        altCatalog.alternateCatalogGroup = defaultAltCatalog.alternateCatalogGroup;
+        // Add to new entry.
+        [entry addAlternateCatalogsObject:altCatalog];
     }
     
     return entry;
