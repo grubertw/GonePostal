@@ -40,6 +40,7 @@
 #import "GPSupportedLocalPrecancels.h"
 #import "GPSupportedPerfins.h"
 #import "GPSupportedPerfinCatalogs.h"
+#import "GPCatalog.h"
 
 // static indexes into the CustomSearches table for fetching data.
 const NSInteger ASSISTED_GP_CATALOG_EDITER_SEARCH_ID = 1;
@@ -56,7 +57,10 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
 
 // Private members and functions.
 @interface GPDocument()
+@property (weak, nonatomic) IBOutlet NSTableView * gpCollectionTable;
+@property (weak, nonatomic) IBOutlet NSArrayController * gpCollectionController;
 
+@property (weak, nonatomic) IBOutlet NSTextField * numCatalogEntriesDisplay;
 @end
 
 @implementation GPDocument
@@ -168,6 +172,17 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
 - (void)windowControllerDidLoadNib:(NSWindowController *)aController
 {
     [super windowControllerDidLoadNib:aController];
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"GPCatalog" inManagedObjectContext:self.managedObjectContext];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:entity];
+    
+    NSError *error = nil;
+    NSArray *results = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if (results) {
+        [self.numCatalogEntriesDisplay setIntegerValue:[results count]];
+    }
 }
 
 + (BOOL)autosavesInPlace

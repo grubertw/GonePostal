@@ -24,9 +24,6 @@ extern NSString * BASE_GP_CATALOG_QUERY_WITH_SUBVARIETIES;
 
 @property (strong, nonatomic) NSArray * gpCollectionSortDescriptors;
 
-@property (weak, nonatomic) IBOutlet NSTableView * gpCollectionTable;
-@property (weak, nonatomic) IBOutlet NSArrayController * gpCollectionController;
-
 /**
  * Load an assisted search from the StroredSearches database into
  * the referance ojbects listed below.  This method is called from
@@ -41,15 +38,6 @@ extern NSString * BASE_GP_CATALOG_QUERY_WITH_SUBVARIETIES;
 @property (strong, nonatomic) NSPredicate * filtersPredicate;
 @property (strong, nonatomic) NSPredicate * formatsPredicate;
 @property (strong, nonatomic) NSPredicate * locationsPredicate;
-
-- (IBAction)addGPCollection:(id)sender;
-
-- (IBAction)openGPCatalogEditor:(id)sender;
-- (IBAction)openUserGuide:(id)sender;
-- (IBAction)openReports:(id)sender;
-- (IBAction)openImportExport:(id)sender;
-
-- (IBAction)viewStamps:(id)sender;
 
 - (NSURL *)storeURLFromPath:(NSString *)filePath;
 
