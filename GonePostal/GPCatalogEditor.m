@@ -704,11 +704,7 @@
 - (IBAction)addPrecancel:(id)sender {
     BureauPrecancel * precancel = [NSEntityDescription insertNewObjectForEntityForName:@"BureauPrecancel" inManagedObjectContext:self.managedObjectContext];
     
-    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
-    if (entries == nil) return;
-    GPCatalog * entry = [entries objectAtIndex:0];
-    
-    [entry addBureauPrecancelsObject:precancel];
+    [self.precancelsController insertObject:precancel atArrangedObjectIndex:[self.precancelsController.arrangedObjects count]];
 }
 
 - (IBAction)removePrecancel:(id)sender {
@@ -736,11 +732,7 @@
 - (IBAction)addCancelation:(id)sender {
     Cancelations * cancelation = [NSEntityDescription insertNewObjectForEntityForName:@"Cancelations" inManagedObjectContext:self.managedObjectContext];
     
-    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
-    if (entries == nil) return;
-    GPCatalog * entry = [entries objectAtIndex:0];
-    
-    [entry addCancelationsObject:cancelation];
+    [self.cancelationsController insertObject:cancelation atArrangedObjectIndex:[self.cancelationsController.arrangedObjects count]];
 }
 
 - (IBAction)removeCancelation:(id)sender {
