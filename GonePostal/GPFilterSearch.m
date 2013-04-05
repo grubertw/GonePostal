@@ -46,6 +46,14 @@
             self.filterByHidden = [NSNumber numberWithBool:YES];
             filterCount++;
         }
+        else if ([leftExpression.keyPath isEqualToString:@"plated"]) {
+            self.filterByPlated = [NSNumber numberWithBool:YES];
+            filterCount++;
+        }
+        else if ([leftExpression.keyPath isEqualToString:@"surcharged"]) {
+            self.filterBySurcharged = [NSNumber numberWithBool:YES];
+            filterCount++;
+        }
         else if ([leftExpression.keyPath isEqualToString:@"color_variety"]) {
             self.filterByColorVariety = [NSNumber numberWithBool:YES];
             filterCount++;
@@ -66,6 +74,10 @@
             self.filterByPrintVariety = [NSNumber numberWithBool:YES];
             filterCount++;
         }
+        else if ([leftExpression.keyPath isEqualToString:@"watermark_variation"]) {
+            self.filterByWatermarkVariation = [NSNumber numberWithBool:YES];
+            filterCount++;
+        }
         else if ([leftExpression.keyPath isEqualToString:@"color_error"]) {
             self.filterByColorError = [NSNumber numberWithBool:YES];
             filterCount++;
@@ -80,6 +92,10 @@
         }
         else if ([leftExpression.keyPath isEqualToString:@"perf_error"]) {
             self.filterByPerfError = [NSNumber numberWithBool:YES];
+            filterCount++;
+        }
+        else if ([leftExpression.keyPath isEqualToString:@"watermark_error"]) {
+            self.filterByWatermarkError = [NSNumber numberWithBool:YES];
             filterCount++;
         }
         else if ([leftExpression.keyPath isEqualToString:@"multiple_transfer"]) {
@@ -138,6 +154,14 @@
             NSPredicate * pred = [NSPredicate predicateWithFormat:@"hidden == yes"];
             [predicates addObject:pred];
         }
+        if ([self.filterByPlated isEqualToNumber:[NSNumber numberWithBool:YES]]) {
+            NSPredicate * pred = [NSPredicate predicateWithFormat:@"plated == yes"];
+            [predicates addObject:pred];
+        }
+        if ([self.filterBySurcharged isEqualToNumber:[NSNumber numberWithBool:YES]]) {
+            NSPredicate * pred = [NSPredicate predicateWithFormat:@"surcharged == yes"];
+            [predicates addObject:pred];
+        }
         
         if ([self.filterByColorVariety isEqualToNumber:[NSNumber numberWithBool:YES]]) {
             NSPredicate * pred = [NSPredicate predicateWithFormat:@"color_variety == yes"];
@@ -164,6 +188,11 @@
             [predicates addObject:pred];
         }
         
+        if ([self.filterByWatermarkVariation isEqualToNumber:[NSNumber numberWithBool:YES]]) {
+            NSPredicate * pred = [NSPredicate predicateWithFormat:@"watermark_variation == yes"];
+            [predicates addObject:pred];
+        }
+        
         if ([self.filterByColorError isEqualToNumber:[NSNumber numberWithBool:YES]]) {
             NSPredicate * pred = [NSPredicate predicateWithFormat:@"color_error == yes"];
             [predicates addObject:pred];
@@ -181,6 +210,11 @@
         
         if ([self.filterByPerfError isEqualToNumber:[NSNumber numberWithBool:YES]]) {
             NSPredicate * pred = [NSPredicate predicateWithFormat:@"perf_error == yes"];
+            [predicates addObject:pred];
+        }
+        
+        if ([self.filterByWatermarkError isEqualToNumber:[NSNumber numberWithBool:YES]]) {
+            NSPredicate * pred = [NSPredicate predicateWithFormat:@"watermark_error == yes"];
             [predicates addObject:pred];
         }
         

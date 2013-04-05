@@ -1,8 +1,8 @@
 //
 //  GPCatalog.m
-//  GonePostalX
+//  GonePostal
 //
-//  Created by Travis Gruber on 2/20/13.
+//  Created by Travis Gruber on 4/2/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
@@ -79,6 +79,26 @@
 @dynamic variety_type;
 @dynamic very_rare;
 @dynamic watermark;
+@dynamic quantity_ordered;
+@dynamic quantity_sold;
+@dynamic paper_color;
+@dynamic perforation_type;
+@dynamic plate_variation_type;
+@dynamic press;
+@dynamic album_width;
+@dynamic album_height;
+@dynamic date_documented_first_use;
+@dynamic designers;
+@dynamic engravers;
+@dynamic surcharge_type;
+@dynamic long_description;
+@dynamic issue_name;
+@dynamic date_documented_first_use_exact;
+@dynamic date_issued_exact;
+@dynamic watermark_error;
+@dynamic watermark_variation;
+@dynamic plated;
+@dynamic surcharged;
 @dynamic alternateCatalogs;
 @dynamic bureauPrecancels;
 @dynamic cachets;

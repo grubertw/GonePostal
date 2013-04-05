@@ -457,7 +457,18 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
     NSURL * storeURL = [self storeURLFromPath:[[self fileURL] path]];
     NSPersistentStoreCoordinator *psc = [[self managedObjectContext] persistentStoreCoordinator];
     
-    NSPersistentStore * store = [psc addPersistentStoreWithType:NSSQLiteStoreType configuration:configuration URL:storeURL options:storeOptions error:outError];
+    // Attempt an automatic migration between versioned databases
+    // (NOTE:  This will fail if this is a release that does not map
+    // to a version in GPDocument.xdatamodeld)
+    NSDictionary * optsForAutoMigration =
+        @{NSMigratePersistentStoresAutomaticallyOption:@(YES),
+          NSInferMappingModelAutomaticallyOption:@(YES)};
+    
+    NSPersistentStore * store = [psc addPersistentStoreWithType:NSSQLiteStoreType
+                                                  configuration:configuration
+                                                            URL:storeURL
+                                                        options:optsForAutoMigration
+                                                          error:outError];
     
     return (store != nil);
 }

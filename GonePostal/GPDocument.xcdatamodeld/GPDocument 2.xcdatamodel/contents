@@ -88,6 +88,8 @@
         <relationship name="gpCatalogEntries" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="GPCatalog" inverseName="formatType" inverseEntity="GPCatalog" syncable="YES"/>
     </entity>
     <entity name="GPCatalog" representedClassName="GPCatalog">
+        <attribute name="album_height" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="album_width" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="alternate_picture_1" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="alternate_picture_2" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="alternate_picture_3" optional="YES" attributeType="String" syncable="YES"/>
@@ -99,10 +101,15 @@
         <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="color_error" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="color_variety" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="date_documented_first_use" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="date_documented_first_use_exact" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="date_issued" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="date_issued_exact" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="default_picture" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="denomination" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="design_measurement" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="designers" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="engravers" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="gp_catalog_number" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="gp_description" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="gum" optional="YES" attributeType="String" syncable="YES"/>
@@ -113,24 +120,35 @@
         <attribute name="is_custom" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="is_default" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="issue_location" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="issue_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="long_description" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="multiple_transfer" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="number_of_panes" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="number_of_plates" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="number_of_plates_used" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="other_error" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="pane_size" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="paper_color" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="paper_type" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="perf_error" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="perforation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="perforation_type" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="plate_block_quantity" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="plate_error" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="plate_size" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="plate_variation" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="plate_variation_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="plated" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="press" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="print" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="print_variety" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="printer" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="quantity_ordered" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="quantity_printed" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="quantity_sold" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="series" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="surcharge_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="surcharged" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="tag" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tag_error" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="tag_variety" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
@@ -138,6 +156,8 @@
         <attribute name="variety_type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="very_rare" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="watermark" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="watermark_error" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="watermark_variation" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <relationship name="alternateCatalogs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AlternateCatalog" inverseName="gpCatalogEntries" inverseEntity="AlternateCatalog" syncable="YES"/>
         <relationship name="bureauPrecancels" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BureauPrecancel" inverseName="gpCatalogEntry" inverseEntity="BureauPrecancel" syncable="YES"/>
         <relationship name="cachets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Cachet" inverseName="gpCatalog" inverseEntity="Cachet" syncable="YES"/>
@@ -367,46 +387,46 @@
         <relationship name="stamps" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Stamp" inverseName="valuation" inverseEntity="Stamp" syncable="YES"/>
     </entity>
     <elements>
-        <element name="AlternateCatalog" positionX="0" positionY="0" width="128" height="105"/>
-        <element name="AlternateCatalogGroup" positionX="0" positionY="0" width="128" height="90"/>
-        <element name="AlternateCatalogName" positionX="0" positionY="0" width="128" height="90"/>
-        <element name="BureauPrecancel" positionX="0" positionY="0" width="128" height="165"/>
-        <element name="Cachet" positionX="0" positionY="0" width="128" height="315"/>
-        <element name="CachetCatalogName" positionX="0" positionY="0" width="128" height="75"/>
-        <element name="CachetMakerName" positionX="0" positionY="0" width="128" height="75"/>
-        <element name="Cancelations" positionX="0" positionY="0" width="128" height="90"/>
-        <element name="CancelQuality" positionX="0" positionY="0" width="128" height="75"/>
-        <element name="Centering" positionX="0" positionY="0" width="128" height="105"/>
-        <element name="Country" positionX="0" positionY="0" width="128" height="90"/>
-        <element name="Dealer" positionX="0" positionY="0" width="128" height="75"/>
-        <element name="FDCIssueLocation" positionX="0" positionY="0" width="128" height="90"/>
-        <element name="Format" positionX="0" positionY="0" width="128" height="75"/>
-        <element name="GPCatalog" positionX="0" positionY="0" width="128" height="1080"/>
-        <element name="GPCatalogGroup" positionX="0" positionY="0" width="128" height="90"/>
-        <element name="GPCatalogSet" positionX="0" positionY="0" width="128" height="75"/>
-        <element name="GPCollection" positionX="0" positionY="0" width="128" height="90"/>
-        <element name="GPPicture" positionX="0" positionY="0" width="128" height="120"/>
-        <element name="Grade" positionX="0" positionY="0" width="128" height="105"/>
-        <element name="GumCondition" positionX="0" positionY="0" width="128" height="105"/>
-        <element name="Hinged" positionX="0" positionY="0" width="128" height="105"/>
-        <element name="LocalPrecancel" positionX="0" positionY="0" width="128" height="150"/>
-        <element name="Location" positionX="0" positionY="0" width="128" height="75"/>
-        <element name="LooksLike" positionX="0" positionY="0" width="128" height="90"/>
-        <element name="Lot" positionX="0" positionY="0" width="128" height="75"/>
-        <element name="Mount" positionX="0" positionY="0" width="128" height="105"/>
-        <element name="Perfin" positionX="0" positionY="0" width="128" height="300"/>
-        <element name="PerfinCatalog" positionX="0" positionY="0" width="128" height="90"/>
-        <element name="PerfinCatalogName" positionX="0" positionY="0" width="128" height="90"/>
-        <element name="PictureType" positionX="0" positionY="0" width="128" height="75"/>
-        <element name="PlateNumber" positionX="0" positionY="0" width="128" height="270"/>
-        <element name="PlateNumberInfo" positionX="0" positionY="0" width="128" height="105"/>
-        <element name="PlatePosition" positionX="0" positionY="0" width="128" height="75"/>
-        <element name="PlateUsage" positionX="0" positionY="0" width="128" height="120"/>
-        <element name="Soundness" positionX="0" positionY="0" width="128" height="105"/>
-        <element name="Stamp" positionX="0" positionY="0" width="128" height="765"/>
-        <element name="StampFormat" positionX="0" positionY="0" width="128" height="75"/>
-        <element name="StoredSearch" positionX="0" positionY="0" width="128" height="90"/>
-        <element name="Topic" positionX="0" positionY="0" width="128" height="90"/>
-        <element name="Valuation" positionX="0" positionY="0" width="128" height="60"/>
+        <element name="AlternateCatalog" positionX="-81" positionY="-9" width="128" height="105"/>
+        <element name="AlternateCatalogGroup" positionX="-308" positionY="36" width="128" height="90"/>
+        <element name="AlternateCatalogName" positionX="187" positionY="135" width="128" height="90"/>
+        <element name="BureauPrecancel" positionX="-335" positionY="267" width="128" height="165"/>
+        <element name="Cachet" positionX="223" positionY="918" width="128" height="315"/>
+        <element name="CachetCatalogName" positionX="432" positionY="1059" width="128" height="75"/>
+        <element name="CachetMakerName" positionX="432" positionY="1212" width="128" height="75"/>
+        <element name="Cancelations" positionX="-344" positionY="1044" width="128" height="90"/>
+        <element name="CancelQuality" positionX="-1341" positionY="474" width="128" height="75"/>
+        <element name="Centering" positionX="-1341" positionY="252" width="128" height="105"/>
+        <element name="Country" positionX="-317" positionY="-72" width="128" height="90"/>
+        <element name="Dealer" positionX="-1296" positionY="144" width="128" height="75"/>
+        <element name="FDCIssueLocation" positionX="198" positionY="1359" width="128" height="90"/>
+        <element name="Format" positionX="-342" positionY="780" width="128" height="75"/>
+        <element name="GPCatalog" positionX="-117" positionY="207" width="128" height="1378"/>
+        <element name="GPCatalogGroup" positionX="-326" positionY="153" width="128" height="90"/>
+        <element name="GPCatalogSet" positionX="-290" positionY="-153" width="128" height="75"/>
+        <element name="GPCollection" positionX="-1028" positionY="-171" width="128" height="90"/>
+        <element name="GPPicture" positionX="378" positionY="261" width="128" height="120"/>
+        <element name="Grade" positionX="-812" positionY="-69" width="128" height="105"/>
+        <element name="GumCondition" positionX="-801" positionY="300" width="128" height="105"/>
+        <element name="Hinged" positionX="-810" positionY="63" width="128" height="105"/>
+        <element name="LocalPrecancel" positionX="-810" positionY="840" width="128" height="150"/>
+        <element name="Location" positionX="-803" positionY="420" width="128" height="75"/>
+        <element name="LooksLike" positionX="-344" positionY="900" width="128" height="90"/>
+        <element name="Lot" positionX="-803" positionY="204" width="128" height="75"/>
+        <element name="Mount" positionX="-1350" positionY="579" width="128" height="105"/>
+        <element name="Perfin" positionX="-1557" positionY="825" width="128" height="300"/>
+        <element name="PerfinCatalog" positionX="-1755" positionY="702" width="128" height="90"/>
+        <element name="PerfinCatalogName" positionX="-1575" positionY="603" width="128" height="90"/>
+        <element name="PictureType" positionX="574" positionY="150" width="128" height="75"/>
+        <element name="PlateNumber" positionX="214" positionY="405" width="128" height="270"/>
+        <element name="PlateNumberInfo" positionX="160" positionY="-168" width="128" height="105"/>
+        <element name="PlatePosition" positionX="412" positionY="717" width="128" height="75"/>
+        <element name="PlateUsage" positionX="214" positionY="735" width="128" height="120"/>
+        <element name="Soundness" positionX="-1350" positionY="714" width="128" height="105"/>
+        <element name="Stamp" positionX="-1080" positionY="117" width="128" height="765"/>
+        <element name="StampFormat" positionX="-1341" positionY="375" width="128" height="75"/>
+        <element name="StoredSearch" positionX="-569" positionY="-171" width="128" height="90"/>
+        <element name="Topic" positionX="169" positionY="-27" width="128" height="90"/>
+        <element name="Valuation" positionX="-1296" positionY="18" width="128" height="60"/>
     </elements>
 </model>

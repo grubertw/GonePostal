@@ -26,6 +26,7 @@
 #import "StoredSearch.h"
 #import "Country.h"
 #import "GPCatalogGroup.h"
+#import "GPCatalogDefaults.h"
 
 // Private members.
 @interface GPCatalogEditor ()
@@ -400,6 +401,16 @@
     NSApplication * app = [NSApplication sharedApplication];
     [app endSheet:self.addToLooksLikePanel];
     [self.addToLooksLikePanel close];
+}
+
+- (IBAction)manageDefaults:(id)sender {
+    GPDocument * doc = (GPDocument *)self.document;
+    
+    GPCatalogDefaults * controller = [[GPCatalogDefaults alloc] initWithWindowNibName:@"GPCatalogDefaults"];
+    [doc addWindowController:controller];
+    [controller setManagedObjectContext:self.managedObjectContext];
+    
+    [controller.window makeKeyAndOrderFront:sender];
 }
 
 - (IBAction)manageSets:(id)sender {

@@ -12,9 +12,11 @@
 #import "GPCatalog+Duplicate.h"
 
 @interface GPAddToCatalogController ()
+@property (weak, nonatomic) IBOutlet NSTableView * addedGPIDsTable;
+@property (strong, nonatomic) IBOutlet NSArrayController * addedGPIDsController;
+@property (strong, nonatomic) NSMutableArray * addedGPIDs;
 
 @property bool savePressed;
-
 @end
 
 @implementation GPAddToCatalogController
@@ -23,25 +25,30 @@
 {
     self = [super initWithWindow:window];
     if (self) {
-        self.savePressed = false;
+        _savePressed = false;
         
         NSSortDescriptor *countrySort = [[NSSortDescriptor alloc] initWithKey:@"country_sort_id" ascending:YES];
-        self.countriesSortDescriptors = @[countrySort];
+        _countriesSortDescriptors = @[countrySort];
         
         NSSortDescriptor *formatSort = [[NSSortDescriptor alloc] initWithKey:@"formatName" ascending:YES];
-        self.formatsSortDescriptors = @[formatSort];
+        _formatsSortDescriptors = @[formatSort];
         
         NSSortDescriptor *altCatalogNameSort = [[NSSortDescriptor alloc] initWithKey:@"alternate_catalog_name" ascending:YES];
-        self.altCatalogNamesSortDescriptors = @[altCatalogNameSort];
+        _altCatalogNamesSortDescriptors = @[altCatalogNameSort];
         
         NSSortDescriptor *altCatalogSectionsSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
-        self.altCatalogSectionsSortDescriptors = @[altCatalogSectionsSort];
+        _altCatalogSectionsSortDescriptors = @[altCatalogSectionsSort];
         
         NSSortDescriptor *gpGroupSort = [[NSSortDescriptor alloc] initWithKey:@"group_name" ascending:YES];
-        self.gpGroupsSortDescriptors = @[gpGroupSort];
+        _gpGroupsSortDescriptors = @[gpGroupSort];
         
         NSSortDescriptor *altCatalogSort = [[NSSortDescriptor alloc] initWithKey:@"alternateCatalogName.alternate_catalog_name" ascending:YES];
-        self.altCatalogsSortDescriptors = @[altCatalogSort];
+        _altCatalogsSortDescriptors = @[altCatalogSort];
+        
+        NSSortDescriptor *gpCatalogSort = [[NSSortDescriptor alloc] initWithKey:@"gp_catalog_number" ascending:NO];
+        _gpCatalogSortDescriptors = @[gpCatalogSort];
+        
+        _addedGPIDs = [[NSMutableArray alloc] initWithCapacity:0];
     }
     
     return self;
@@ -73,9 +80,14 @@
         
         // Duplicate the GPCatalog entry inserted from the model controller.
         for (NSInteger i=0; i<count; i++) {
+            [self.addedGPIDs addObject:entry];
             [entry duplicateFromThis];
         }
     }
+    
+    // Track the added GPIDs for display purposes.
+    [self.addedGPIDs addObject:entry];
+    [self.addedGPIDsController setContent:self.addedGPIDs];
     
     // Save the managed object context
     [self.document saveInPlace];

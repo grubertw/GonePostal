@@ -20,6 +20,7 @@
 @property (strong, nonatomic) NSArray * altCatalogNamesSortDescriptors;
 @property (strong, nonatomic) NSArray * altCatalogSectionsSortDescriptors;
 @property (strong, nonatomic) NSArray * gpGroupsSortDescriptors;
+@property (strong, nonatomic) NSArray * gpCatalogSortDescriptors;
 
 @property (weak, nonatomic) IBOutlet NSObjectController * gpCatalogEntryController;
 @property (weak, nonatomic) IBOutlet NSArrayController * countriesController;
@@ -30,18 +31,5 @@
 @property (weak, nonatomic) IBOutlet NSArrayController * gpGroupsController;
 
 @property (weak, nonatomic) IBOutlet NSTextField * quantityInput;
-
-- (IBAction)addGPCatalogEntries:(id)sender;
-- (IBAction)addAlternateCatalogEntry:(id)sender;
-- (IBAction)save:(id)sender;
-- (IBAction)cancel:(id)sender;
-
-- (IBAction)addDefaultPicture:(id)sender;
-- (IBAction)addAlternatePicture1:(id)sender;
-- (IBAction)addAlternatePicture2:(id)sender;
-- (IBAction)addAlternatePicture3:(id)sender;
-- (IBAction)addAlternatePicture4:(id)sender;
-- (IBAction)addAlternatePicture5:(id)sender;
-- (IBAction)addAlternatePicture6:(id)sender;
 
 @end

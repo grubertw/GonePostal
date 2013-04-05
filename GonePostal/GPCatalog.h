@@ -1,8 +1,8 @@
 //
 //  GPCatalog.h
-//  GonePostalX
+//  GonePostal
 //
-//  Created by Travis Gruber on 2/20/13.
+//  Created by Travis Gruber on 4/2/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
@@ -63,6 +63,26 @@
 @property (nonatomic, retain) NSNumber * variety_type;
 @property (nonatomic, retain) NSNumber * very_rare;
 @property (nonatomic, retain) NSString * watermark;
+@property (nonatomic, retain) NSNumber * quantity_ordered;
+@property (nonatomic, retain) NSNumber * quantity_sold;
+@property (nonatomic, retain) NSString * paper_color;
+@property (nonatomic, retain) NSString * perforation_type;
+@property (nonatomic, retain) NSString * plate_variation_type;
+@property (nonatomic, retain) NSString * press;
+@property (nonatomic, retain) NSNumber * album_width;
+@property (nonatomic, retain) NSNumber * album_height;
+@property (nonatomic, retain) NSDate * date_documented_first_use;
+@property (nonatomic, retain) NSString * designers;
+@property (nonatomic, retain) NSString * engravers;
+@property (nonatomic, retain) NSString * surcharge_type;
+@property (nonatomic, retain) NSString * long_description;
+@property (nonatomic, retain) NSString * issue_name;
+@property (nonatomic, retain) NSNumber * date_documented_first_use_exact;
+@property (nonatomic, retain) NSNumber * date_issued_exact;
+@property (nonatomic, retain) NSNumber * watermark_error;
+@property (nonatomic, retain) NSNumber * watermark_variation;
+@property (nonatomic, retain) NSNumber * plated;
+@property (nonatomic, retain) NSNumber * surcharged;
 @property (nonatomic, retain) NSSet *alternateCatalogs;
 @property (nonatomic, retain) NSSet *bureauPrecancels;
 @property (nonatomic, retain) NSSet *cachets;

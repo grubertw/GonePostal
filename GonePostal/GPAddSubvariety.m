@@ -12,6 +12,11 @@
 #import "GPCatalog+Duplicate.h"
 
 @interface GPAddSubvariety ()
+@property (strong, nonatomic) IBOutlet NSArrayController * alternateCatalogsController;
+
+@property (weak, nonatomic) IBOutlet NSTableView * addedGPIDsTable;
+@property (strong, nonatomic) IBOutlet NSArrayController * addedGPIDsController;
+@property (strong, nonatomic) NSMutableArray * addedGPIDs;
 
 @property bool savePressed;
 
@@ -23,13 +28,24 @@
 {
     self = [super initWithWindow:window];
     if (self) {
-        self.savePressed = false;
+        _savePressed = false;
+        
+        NSSortDescriptor *gpCatalogSort = [[NSSortDescriptor alloc] initWithKey:@"gp_catalog_number" ascending:NO];
+        _gpCatalogSortDescriptors = @[gpCatalogSort];
         
         NSSortDescriptor *formatSort = [[NSSortDescriptor alloc] initWithKey:@"formatName" ascending:YES];
-        self.formatsSortDescriptors = @[formatSort];
+        _formatsSortDescriptors = @[formatSort];
         
         NSSortDescriptor *altCatalogSort = [[NSSortDescriptor alloc] initWithKey:@"alternateCatalogName.alternate_catalog_name" ascending:YES];
-        self.altCatalogsSortDescriptors = @[altCatalogSort];
+        _altCatalogsSortDescriptors = @[altCatalogSort];
+        
+        NSSortDescriptor *altCatalogNameSort = [[NSSortDescriptor alloc] initWithKey:@"alternate_catalog_name" ascending:YES];
+        _altCatalogNamesSortDescriptors = @[altCatalogNameSort];
+        
+        NSSortDescriptor *altCatalogSectionsSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+        _altCatalogSectionsSortDescriptors = @[altCatalogSectionsSort];
+        
+        _addedGPIDs = [[NSMutableArray alloc] initWithCapacity:0];
     }
     
     return self;
@@ -60,10 +76,15 @@
         
         // Duplicate the GPCatalog entry inserted from the model controller.
         for (NSInteger i=0; i<count; i++) {
+            [self.addedGPIDs addObject:entry];
             GPCatalog * dup = [entry duplicateFromThis];
             [self.theMajorVariety addSubvarietiesObject:dup];
         }
     }
+    
+    // Track the added GPIDs for display purposes.
+    [self.addedGPIDs addObject:entry];
+    [self.addedGPIDsController setContent:self.addedGPIDs];
     
     // Save the managed object context
     [self.document saveInPlace];
@@ -73,6 +94,10 @@
     [self.theMajorVariety addSubvarietiesObject:nextEntry];
     
     [self.gpCatalogEntryController setContent:nextEntry];
+}
+
+- (IBAction)addAlternateCatalogEntry:(id)sender {
+    [self.alternateCatalogsController add:self];
 }
 
 - (IBAction)save:(id)sender {

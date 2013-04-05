@@ -16,15 +16,19 @@
 @property (strong, nonatomic) NSNumber * filterByAlwaysDisplay;
 @property (strong, nonatomic) NSNumber * filterByVeryRare;
 @property (strong, nonatomic) NSNumber * filterByHidden;
+@property (strong, nonatomic) NSNumber * filterByPlated;
+@property (strong, nonatomic) NSNumber * filterBySurcharged;
 @property (strong, nonatomic) NSNumber * filterByColorVariety;
 @property (strong, nonatomic) NSNumber * filterByGumVariety;
 @property (strong, nonatomic) NSNumber * filterByPlateVariety;
 @property (strong, nonatomic) NSNumber * filterByTagVariety;
 @property (strong, nonatomic) NSNumber * filterByPrintVariety;
+@property (strong, nonatomic) NSNumber * filterByWatermarkVariation;
 @property (strong, nonatomic) NSNumber * filterByColorError;
 @property (strong, nonatomic) NSNumber * filterByTagError;
 @property (strong, nonatomic) NSNumber * filterByPlateError;
 @property (strong, nonatomic) NSNumber * filterByPerfError;
+@property (strong, nonatomic) NSNumber * filterByWatermarkError;
 @property (strong, nonatomic) NSNumber * filterByMultipleTransfer;
 
 @property (strong, nonatomic) NSString * filtersSelected;

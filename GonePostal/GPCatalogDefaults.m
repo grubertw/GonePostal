@@ -65,6 +65,14 @@
     if (results.count == 1) {
         GPCatalog * defaults = [results objectAtIndex:0];
         [self.gpCatalogDefaultsController setContent:defaults];
+        
+        AlternateCatalog * defaultAltCatalog;
+        for (AlternateCatalog * ac in defaults.alternateCatalogs) {
+            defaultAltCatalog = ac;
+            break;
+        }
+        
+        self.selectedAltCatalogSection = defaultAltCatalog.alternateCatalogGroup;
     }
     else if (results.count == 0) {
         GPCatalog * entry = [NSEntityDescription insertNewObjectForEntityForName:@"GPCatalog" inManagedObjectContext:self.managedObjectContext];

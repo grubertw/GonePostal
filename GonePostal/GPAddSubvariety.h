@@ -16,8 +16,11 @@
 
 @property (strong, nonatomic) GPCatalog * theMajorVariety;
 
+@property (strong, nonatomic) NSArray * gpCatalogSortDescriptors;
 @property (strong, nonatomic) NSArray * formatsSortDescriptors;
 @property (strong, nonatomic) NSArray * altCatalogsSortDescriptors;
+@property (strong, nonatomic) NSArray * altCatalogNamesSortDescriptors;
+@property (strong, nonatomic) NSArray * altCatalogSectionsSortDescriptors;
 
 @property (weak, nonatomic) IBOutlet NSObjectController * gpCatalogEntryController;
 
