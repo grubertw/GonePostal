@@ -58,6 +58,8 @@
 @property (weak, nonatomic) IBOutlet NSPopover * looksLikePopover;
 @property (weak, nonatomic) IBOutlet GPLooksLikePopoverController * looksLikePopoverController;
 
+@property (weak, nonatomic) IBOutlet NSTableView * plateNumberCombinationsTable;
+
 @property (weak, nonatomic) IBOutlet NSArrayController * gpCatalogEntriesController;
 @property (weak, nonatomic) IBOutlet NSArrayController * countriesController;
 @property (weak, nonatomic) IBOutlet NSArrayController * formatsController;
@@ -648,8 +650,11 @@
     // Increment the plate_number based on number of plate usages present.
     NSUInteger nextPlateNumber = entry.plateUsage.count + 1;
     [pu setPlate_number:[NSNumber numberWithUnsignedInteger:nextPlateNumber]];
+    [pu setUsage_color:entry.color];
     
     [entry addPlateUsageObject:pu];
+    
+    [self tableViewSelectionDidChange:nil];
 }
 
 - (IBAction)removePlateUsage:(id)sender {
@@ -661,6 +666,8 @@
     GPCatalog * entry = [entries objectAtIndex:0];
     
     [entry removePlateUsage:[NSSet setWithArray:selectedPlateUsages]];
+    
+    [self tableViewSelectionDidChange:nil];
 }
 
 - (IBAction)addPlateNumberCombination:(id)sender {
@@ -765,6 +772,27 @@
     GPCatalog * entry = [entries objectAtIndex:0];
     
     [entry removeTopics:[NSSet setWithArray:topics]];
+}
+
+- (void)tableViewSelectionDidChange:(NSNotification *)aNotification {
+    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
+    if (entries == nil) return;
+    GPCatalog * entry = entries[0];
+    
+    NSUInteger numPlates = [entry.plateUsage count];
+    
+    // Iterate through the table columns in the plate combos table.
+    // Hide columnes for plate usages that do not exist.
+    NSArray * columns = [self.plateNumberCombinationsTable tableColumns];
+    for (NSUInteger i=0; i < 8; i++) {
+        NSTableColumn * column = columns[i];
+        if (i < numPlates) {
+            [column setHidden:NO];
+        }
+        else {
+            [column setHidden:YES];
+        }
+    }
 }
 
 @end
