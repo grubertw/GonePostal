@@ -105,4 +105,19 @@
     [self.window performClose:self];
 }
 
+- (IBAction)clear:(id)sender {
+    GPCatalog * defaults = self.gpCatalogDefaultsController.content;
+    [self.managedObjectContext deleteObject:defaults];
+    
+    GPCatalog * entry = [NSEntityDescription insertNewObjectForEntityForName:@"GPCatalog" inManagedObjectContext:self.managedObjectContext];
+    entry.is_default = [NSNumber numberWithBool:YES];
+    
+    // Create a row in the AlternateCatalogs table associated with the default.
+    // The catalog number for the row is NOT specified.
+    AlternateCatalog * altCatalog = [NSEntityDescription insertNewObjectForEntityForName:@"AlternateCatalog" inManagedObjectContext:self.managedObjectContext];
+    [entry addAlternateCatalogsObject:altCatalog];
+    
+    [self.gpCatalogDefaultsController setContent:entry];
+}
+
 @end

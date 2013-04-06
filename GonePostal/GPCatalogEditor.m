@@ -32,6 +32,8 @@
 @interface GPCatalogEditor ()
 @property (strong, nonatomic) IBOutlet NSTableView * gpCatalogTable;
 
+@property (weak, nonatomic) IBOutlet NSScrollView * gpPicturesScroller;
+@property (weak, nonatomic) IBOutlet NSView * gpPicturesScrollContent;
 @property (weak, nonatomic) IBOutlet NSScrollView * identScroller;
 @property (weak, nonatomic) IBOutlet NSView * identScrollContent;
 @property (weak, nonatomic) IBOutlet NSScrollView * infoScroller;
@@ -202,6 +204,7 @@
 {
     [super windowDidLoad];
     
+    [self.gpPicturesScroller setDocumentView:self.gpPicturesScrollContent];
     [self.identScroller setDocumentView:self.identScrollContent];
     [self.infoScroller setDocumentView:self.infoScrollContent];
     [self.platesScroller setDocumentView:self.platesScrollContent];
