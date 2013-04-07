@@ -2,14 +2,14 @@
 //  Stamp.h
 //  GonePostal
 //
-//  Created by Travis Gruber on 3/9/13.
+//  Created by Travis Gruber on 4/6/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class BureauPrecancel, Cachet, CancelQuality, Centering, Dealer, GPCatalog, GPCollection, Grade, GumCondition, Hinged, LocalPrecancel, Location, Lot, Mount, Perfin, Soundness, Stamp, StampFormat, Valuation;
+@class BureauPrecancel, Cachet, CancelQuality, Centering, Dealer, GPCatalog, GPCollection, GPPicture, Grade, GumCondition, Hinged, LocalPrecancel, Location, Lot, Mount, Perfin, Soundness, Stamp, StampFormat, Valuation;
 
 @interface Stamp : NSManagedObject
 
@@ -41,6 +41,12 @@
 @property (nonatomic, retain) NSString * plate_location;
 @property (nonatomic, retain) NSNumber * purchase_amount;
 @property (nonatomic, retain) NSDate * purchase_date;
+@property (nonatomic, retain) NSString * source;
+@property (nonatomic, retain) NSString * history;
+@property (nonatomic, retain) NSString * census_id;
+@property (nonatomic, retain) NSString * certificates;
+@property (nonatomic, retain) BureauPrecancel *bureauPrecancel;
+@property (nonatomic, retain) Cachet *cachet;
 @property (nonatomic, retain) CancelQuality *cancelQuality;
 @property (nonatomic, retain) Centering *centering;
 @property (nonatomic, retain) NSSet *children;
@@ -59,8 +65,7 @@
 @property (nonatomic, retain) Perfin *perfin;
 @property (nonatomic, retain) Soundness *soundness;
 @property (nonatomic, retain) Valuation *valuation;
-@property (nonatomic, retain) Cachet *cachet;
-@property (nonatomic, retain) BureauPrecancel *bureauPrecancel;
+@property (nonatomic, retain) NSSet *extraPictures;
 @end
 
 @interface Stamp (CoreDataGeneratedAccessors)
@@ -69,5 +74,10 @@
 - (void)removeChildrenObject:(Stamp *)value;
 - (void)addChildren:(NSSet *)values;
 - (void)removeChildren:(NSSet *)values;
+
+- (void)addExtraPicturesObject:(GPPicture *)value;
+- (void)removeExtraPicturesObject:(GPPicture *)value;
+- (void)addExtraPictures:(NSSet *)values;
+- (void)removeExtraPictures:(NSSet *)values;
 
 @end

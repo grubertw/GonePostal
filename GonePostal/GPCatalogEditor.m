@@ -755,6 +755,17 @@
     [entry removeCancelations:[NSSet setWithArray:selectedCancelations]];
 }
 
+- (IBAction)addPictureToCancelation:(id)sender {
+    NSString * fileName = [self.document addPictureToWrapper];
+    if (fileName == nil) return;
+    
+    NSArray * selectedCancels = self.cancelationsController.selectedObjects;
+    if (selectedCancels) {
+        Cancelations * cancel = selectedCancels[0];
+        [cancel setPicture:fileName];
+    }
+}
+
 - (IBAction)addTopic:(id)sender {
     NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
     if (entries == nil) return;

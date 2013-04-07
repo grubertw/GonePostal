@@ -2,7 +2,7 @@
 //  Cancelations.m
 //  GonePostal
 //
-//  Created by Travis Gruber on 2/23/13.
+//  Created by Travis Gruber on 4/6/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
@@ -14,6 +14,7 @@
 
 @dynamic cancelation_description;
 @dynamic gp_cancelation_number;
+@dynamic picture;
 @dynamic gpCatlog;
 
 @end

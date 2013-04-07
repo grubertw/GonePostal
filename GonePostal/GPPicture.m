@@ -1,22 +1,24 @@
 //
 //  GPPicture.m
-//  GonePostalX
+//  GonePostal
 //
-//  Created by Travis Gruber on 2/8/13.
+//  Created by Travis Gruber on 4/6/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
 #import "GPPicture.h"
 #import "GPCatalog.h"
 #import "PictureType.h"
+#import "Stamp.h"
 
 
 @implementation GPPicture
 
-@dynamic is_default;
 @dynamic filename;
+@dynamic is_default;
 @dynamic name;
-@dynamic gpCatalog;
+@dynamic gpCatalogEntries;
 @dynamic pictureType;
+@dynamic stamps;
 
 @end

@@ -2,7 +2,7 @@
 //  Stamp.m
 //  GonePostal
 //
-//  Created by Travis Gruber on 3/9/13.
+//  Created by Travis Gruber on 4/6/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
@@ -14,6 +14,7 @@
 #import "Dealer.h"
 #import "GPCatalog.h"
 #import "GPCollection.h"
+#import "GPPicture.h"
 #import "Grade.h"
 #import "GumCondition.h"
 #import "Hinged.h"
@@ -58,6 +59,12 @@
 @dynamic plate_location;
 @dynamic purchase_amount;
 @dynamic purchase_date;
+@dynamic source;
+@dynamic history;
+@dynamic census_id;
+@dynamic certificates;
+@dynamic bureauPrecancel;
+@dynamic cachet;
 @dynamic cancelQuality;
 @dynamic centering;
 @dynamic children;
@@ -76,7 +83,6 @@
 @dynamic perfin;
 @dynamic soundness;
 @dynamic valuation;
-@dynamic cachet;
-@dynamic bureauPrecancel;
+@dynamic extraPictures;
 
 @end
