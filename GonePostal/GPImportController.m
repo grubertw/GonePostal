@@ -254,22 +254,19 @@ BOOL (^stringInArrayCompare)(id, NSUInteger, BOOL *) = ^(id obj, NSUInteger idx,
         NSMutableArray * csvColumns = [[NSMutableArray alloc] initWithCapacity:0];
         
         // Scan the line into an array of strings.
-        while (![commaScanner isAtEnd]) {
+        while (YES) {
             NSString * column;
             [commaScanner scanUpToCharactersFromSet:csvDelimeter intoString:&column];
-            [commaScanner setScanLocation:commaScanner.scanLocation+1];
             
             if (!column) column = NOT_AVAILABLE;
             [csvColumns addObject:column];
             //NSLog(@"  %@", column);
+            
+            if (![commaScanner isAtEnd])
+                [commaScanner setScanLocation:commaScanner.scanLocation+1];
+            else
+                break;
         }
-        
-        // Scan the last column
-        NSString * column;
-        [commaScanner scanUpToCharactersFromSet:nlCharSet intoString:&column];
-        if (!column) column = NOT_AVAILABLE;
-        [csvColumns addObject:column];
-        
         
         // Check for column number mismatch
         if (   [self.abortOnColumnNumberMisMatchCheck state] == NSOnState
@@ -376,7 +373,7 @@ BOOL (^stringInArrayCompare)(id, NSUInteger, BOOL *) = ^(id obj, NSUInteger idx,
                     if (country == nil) {
                         country = [NSEntityDescription insertNewObjectForEntityForName:@"Country" inManagedObjectContext:self.managedObjectContext];
                         country.country_name = csvColumns[i];
-                        country.country_sort_id = @([self.countries count] - 1);
+                        country.country_sort_id = @([self.countries count]);
                         
                         [self.countries setValue:country forKey:country.country_name];
                     }
