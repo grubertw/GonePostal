@@ -142,6 +142,8 @@
 		1F4930A916D93A9B0094672A /* GonePostalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4930A816D93A9B0094672A /* GonePostalTests.m */; };
 		1F53E31816F6466300B599E3 /* GPPlateUsageChooser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F53E31616F6466100B599E3 /* GPPlateUsageChooser.m */; };
 		1F53E31916F6466300B599E3 /* GPPlateUsageChooser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F53E31716F6466200B599E3 /* GPPlateUsageChooser.xib */; };
+		1F55AD8417120FAE0094C076 /* GPImportController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F55AD8217120FAE0094C076 /* GPImportController.m */; };
+		1F55AD8517120FAE0094C076 /* GPImportController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F55AD8317120FAE0094C076 /* GPImportController.xib */; };
 		1FC06C0716DC6B3600DA8DFB /* StoredSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC06C0616DC6B3600DA8DFB /* StoredSearch.m */; };
 		1FC06C0A16E2BA3800DA8DFB /* GPSearchSelectionTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC06C0916E2BA3800DA8DFB /* GPSearchSelectionTransformer.m */; };
 		1FC06C1016E4027F00DA8DFB /* GPStampViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC06C0E16E4027F00DA8DFB /* GPStampViewer.m */; };
@@ -418,6 +420,9 @@
 		1F53E31516F6466100B599E3 /* GPPlateUsageChooser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPPlateUsageChooser.h; sourceTree = "<group>"; };
 		1F53E31616F6466100B599E3 /* GPPlateUsageChooser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPPlateUsageChooser.m; sourceTree = "<group>"; };
 		1F53E31716F6466200B599E3 /* GPPlateUsageChooser.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GPPlateUsageChooser.xib; sourceTree = "<group>"; };
+		1F55AD8117120FAE0094C076 /* GPImportController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPImportController.h; sourceTree = "<group>"; };
+		1F55AD8217120FAE0094C076 /* GPImportController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPImportController.m; sourceTree = "<group>"; };
+		1F55AD8317120FAE0094C076 /* GPImportController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GPImportController.xib; sourceTree = "<group>"; };
 		1FC06C0516DC6B3600DA8DFB /* StoredSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoredSearch.h; sourceTree = "<group>"; };
 		1FC06C0616DC6B3600DA8DFB /* StoredSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoredSearch.m; sourceTree = "<group>"; };
 		1FC06C0816E2BA3800DA8DFB /* GPSearchSelectionTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPSearchSelectionTransformer.h; sourceTree = "<group>"; };
@@ -714,6 +719,7 @@
 				1F49308D16D93A9B0094672A /* GPDocument.xib */,
 				1F49309016D93A9B0094672A /* MainMenu.xib */,
 				1FC06C1216E41A7100DA8DFB /* Preferences */,
+				1F55AD7B1711FE640094C076 /* ImportExport */,
 				1FC06C1716E500BA00DA8DFB /* Search */,
 				1F0EC69116D9454B00427B4C /* CatalogViewControllers */,
 				1FC06C0B16E4008800DA8DFB /* StampViewControllers */,
@@ -760,6 +766,16 @@
 				1F4930A416D93A9B0094672A /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1F55AD7B1711FE640094C076 /* ImportExport */ = {
+			isa = PBXGroup;
+			children = (
+				1F55AD8317120FAE0094C076 /* GPImportController.xib */,
+				1F55AD8117120FAE0094C076 /* GPImportController.h */,
+				1F55AD8217120FAE0094C076 /* GPImportController.m */,
+			);
+			name = ImportExport;
 			sourceTree = "<group>";
 		};
 		1FC06C0B16E4008800DA8DFB /* StampViewControllers */ = {
@@ -1069,6 +1085,7 @@
 				1F2E54861700F99D00F177A0 /* GPSupportedLocalPrecancels.xib in Resources */,
 				1F2E548B1700FA2E00F177A0 /* GPSupportedPerfins.xib in Resources */,
 				1F2E54901701239900F177A0 /* GPSupportedPerfinCatalogs.xib in Resources */,
+				1F55AD8517120FAE0094C076 /* GPImportController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1223,6 +1240,7 @@
 				1FCC1B521710D84900A81196 /* Stamp.m in Sources */,
 				1FCC1B551710D84B00A81196 /* Cancelations.m in Sources */,
 				1FCC1B581710D84D00A81196 /* GPPicture.m in Sources */,
+				1F55AD8417120FAE0094C076 /* GPImportController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

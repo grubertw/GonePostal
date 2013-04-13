@@ -41,6 +41,7 @@
 #import "GPSupportedPerfins.h"
 #import "GPSupportedPerfinCatalogs.h"
 #import "GPCatalog.h"
+#import "GPImportController.h"
 
 // static indexes into the CustomSearches table for fetching data.
 const NSInteger ASSISTED_GP_CATALOG_EDITER_SEARCH_ID = 1;
@@ -258,7 +259,13 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
     
 }
 
-- (IBAction)openImportExport:(id)sender {
+- (IBAction)openImport:(id)sender {
+    GPImportController * import = [[GPImportController alloc] initWithWindowNibName:@"GPImportController"];
+    [self addWindowController:import];
+    [import.window makeKeyAndOrderFront:self];
+}
+
+- (IBAction)openExport:(id)sender {
     
 }
 
