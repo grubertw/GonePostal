@@ -52,6 +52,6 @@ extern NSString * BASE_GP_CATALOG_QUERY_WITH_SUBVARIETIES;
  *
  * Returns NIL if there is an error.
  */
-- (NSString *)addPictureToWrapper;
+- (NSString *)addPictureToWrapperUsingGPID:(NSString *)gpid forAttribute:(NSString *)attributeName;
 
 @end

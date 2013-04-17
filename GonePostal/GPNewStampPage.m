@@ -199,7 +199,7 @@
 }
 
 - (IBAction)addDefaultPicture:(id)sender {
-    NSString * fileName = [self.doc addPictureToWrapper];
+    NSString * fileName = [self.doc addPictureToWrapperUsingGPID:self.stamp.gpCatalog.gp_catalog_number forAttribute:@"stamp.default_picture"];
     if (fileName == nil) return;
     
     // Store the filename into the model.
@@ -207,7 +207,7 @@
 }
 
 - (IBAction)addAlternatePicture1:(id)sender {
-    NSString * fileName = [self.doc addPictureToWrapper];
+    NSString * fileName = [self.doc addPictureToWrapperUsingGPID:self.stamp.gpCatalog.gp_catalog_number forAttribute:@"stamp.alternate_picture_1"];
     if (fileName == nil) return;
     
     // Store the filename into the model.
@@ -215,7 +215,7 @@
 }
 
 - (IBAction)addAlternatePicture2:(id)sender {
-    NSString * fileName = [self.doc addPictureToWrapper];
+    NSString * fileName = [self.doc addPictureToWrapperUsingGPID:self.stamp.gpCatalog.gp_catalog_number forAttribute:@"stamp.alternate_picture_2"];
     if (fileName == nil) return;
     
     // Store the filename into the model.
@@ -223,7 +223,7 @@
 }
 
 - (IBAction)addAlternatePicture3:(id)sender {
-    NSString * fileName = [self.doc addPictureToWrapper];
+    NSString * fileName = [self.doc addPictureToWrapperUsingGPID:self.stamp.gpCatalog.gp_catalog_number forAttribute:@"stamp.alternate_picture_3"];
     if (fileName == nil) return;
     
     // Store the filename into the model.
@@ -231,7 +231,7 @@
 }
 
 - (IBAction)addAlternatePicture4:(id)sender {
-    NSString * fileName = [self.doc addPictureToWrapper];
+    NSString * fileName = [self.doc addPictureToWrapperUsingGPID:self.stamp.gpCatalog.gp_catalog_number forAttribute:@"stamp.alternate_picture_4"];
     if (fileName == nil) return;
     
     // Store the filename into the model.
@@ -239,7 +239,7 @@
 }
 
 - (IBAction)addAlternatePicture5:(id)sender {
-    NSString * fileName = [self.doc addPictureToWrapper];
+    NSString * fileName = [self.doc addPictureToWrapperUsingGPID:self.stamp.gpCatalog.gp_catalog_number forAttribute:@"stamp.alternate_picture_5"];
     if (fileName == nil) return;
     
     // Store the filename into the model.
@@ -247,7 +247,7 @@
 }
 
 - (IBAction)addAlternatePicture6:(id)sender {
-    NSString * fileName = [self.doc addPictureToWrapper];
+    NSString * fileName = [self.doc addPictureToWrapperUsingGPID:self.stamp.gpCatalog.gp_catalog_number forAttribute:@"stamp.alternate_picture_6"];;
     if (fileName == nil) return;
     
     // Store the filename into the model.

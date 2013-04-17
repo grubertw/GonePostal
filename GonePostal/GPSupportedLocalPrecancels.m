@@ -33,10 +33,9 @@
 }
 
 - (IBAction)addPicture:(id)sender {
-    NSString * fileName = [self.document addPictureToWrapper];
-    if (fileName == nil) return;
-    
     for (LocalPrecancel * lc in self.modelController.selectedObjects) {
+        NSString * fileName = [self.document addPictureToWrapperUsingGPID:lc.gp_precancel_number forAttribute:@"picture"];
+        if (fileName == nil) return;
         lc.picture = fileName;
     }
 }

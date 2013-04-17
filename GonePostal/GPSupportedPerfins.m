@@ -44,12 +44,12 @@
 }
 
 - (IBAction)addPicture:(id)sender {
-    NSString * fileName = [self.document addPictureToWrapper];
-    if (fileName == nil) return;
-    
     NSInteger selectedRow = [self.perfinsTable rowForView:sender];
     
     Perfin * perfin = self.perfinsController.arrangedObjects[selectedRow];
+    NSString * fileName = [self.document addPictureToWrapperUsingGPID:perfin.gp_perfin_number forAttribute:@"picture"];
+    if (fileName == nil) return;
+    
     perfin.picture = fileName;
 }
 

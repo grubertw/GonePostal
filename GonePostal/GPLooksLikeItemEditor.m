@@ -50,10 +50,13 @@
 }
 
 - (IBAction)addPicture:(id)sender {
-    NSString * fileName = [self.gpDocument addPictureToWrapper];
+    LooksLike * ll = self.looksLikeController.content;
+    
+    NSString * llName = [NSString stringWithFormat:@"looksLike %@", ll.name];
+    
+    NSString * fileName = [self.gpDocument addPictureToWrapperUsingGPID:llName forAttribute:@"picture"];
     if (fileName == nil) return;
     
-    LooksLike * ll = self.looksLikeController.content;
     ll.picture = fileName;
 }
 

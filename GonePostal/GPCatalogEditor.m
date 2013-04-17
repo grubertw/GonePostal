@@ -543,96 +543,106 @@
 }
 
 - (IBAction)addDefaultPicture:(id)sender {
-    NSString * fileName = [self.document addPictureToWrapper];
-    if (fileName == nil) return;
-    
     // Store the filename into the model.
     NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
+        
+        NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"default_picture"];
+        if (fileName == nil) return;
+        
         entry.default_picture = fileName;
     }
 }
 
 - (IBAction)addAlternatePicture1:(id)sender {
-    NSString * fileName = [self.document addPictureToWrapper];
-    if (fileName == nil) return;
-    
     // Store the filename into the model.
     NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
+        
+        NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"alternate_picture_1"];
+        if (fileName == nil) return;
+        
         entry.alternate_picture_1 = fileName;
       }
 }
 
 - (IBAction)addAlternatePicture2:(id)sender {
-    NSString * fileName = [self.document addPictureToWrapper];
-    if (fileName == nil) return;
-    
     // Store the filename into the model.
     NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
+        
+        NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"alternate_picture_2"];
+        if (fileName == nil) return;
+        
         entry.alternate_picture_2 = fileName;
     }
 }
 
 - (IBAction)addAlternatePicture3:(id)sender {
-    NSString * fileName = [self.document addPictureToWrapper];
-    if (fileName == nil) return;
     
     // Store the filename into the model.
     NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
+        
+        NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"alternate_picture_3"];
+        if (fileName == nil) return;
+        
         entry.alternate_picture_3 = fileName;
     }
 }
 
 - (IBAction)addAlternatePicture4:(id)sender {
-    NSString * fileName = [self.document addPictureToWrapper];
-    if (fileName == nil) return;
-    
     // Store the filename into the model.
     NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
+        
+        NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"alternate_picture_4"];
+        if (fileName == nil) return;
+        
         entry.alternate_picture_4 = fileName;
     }
 }
 
 - (IBAction)addAlternatePicture5:(id)sender {
-    NSString * fileName = [self.document addPictureToWrapper];
-    if (fileName == nil) return;
-    
     // Store the filename into the model.
     NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
+        
+        NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"alternate_picture_5"];
+        if (fileName == nil) return;
+        
         entry.alternate_picture_5 = fileName;
     }
 }
 
 - (IBAction)addAlternatePicture6:(id)sender {
-    NSString * fileName = [self.document addPictureToWrapper];
-    if (fileName == nil) return;
-    
     // Store the filename into the model.
     NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
+        
+        NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"alternate_picture_6"];
+        if (fileName == nil) return;
+        
         entry.alternate_picture_6 = fileName;
     }
 }
 
 - (IBAction)addIdentificationPicture:(id)sender {
-    NSString * fileName = [self.document addPictureToWrapper];
-    if (fileName == nil) return;
-    
     NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
     if (entries == nil) return;
     GPCatalog * entry = [entries objectAtIndex:0];
+    
+    NSString * numIdentPics = [NSString stringWithFormat:@"extraPicture %ld", [entry.extraPictures count]];
+    
+    NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:numIdentPics];
+    if (fileName == nil) return;
     
     GPPicture * identPic = [NSEntityDescription insertNewObjectForEntityForName:@"GPPicture" inManagedObjectContext:self.managedObjectContext];
     identPic.filename = fileName;
@@ -735,13 +745,14 @@
 }
 
 - (IBAction)addPictureToPrecancel:(id)sender {
-    NSString * fileName = [self.document addPictureToWrapper];
-    if (fileName == nil) return;
     
     // Store the filename into the model.
     NSArray * selectedPrecancels = self.precancelsController.selectedObjects;
     if (selectedPrecancels == nil) return;
     BureauPrecancel * precancel = [selectedPrecancels objectAtIndex:0];
+    
+    NSString * fileName = [self.document addPictureToWrapperUsingGPID:precancel.gp_precancel_number forAttribute:@"picture"];
+    if (fileName == nil) return;
     
     [precancel setPicture:fileName];
 }
@@ -763,12 +774,13 @@
 }
 
 - (IBAction)addPictureToCancelation:(id)sender {
-    NSString * fileName = [self.document addPictureToWrapper];
-    if (fileName == nil) return;
-    
     NSArray * selectedCancels = self.cancelationsController.selectedObjects;
     if (selectedCancels) {
         Cancelations * cancel = selectedCancels[0];
+        
+        NSString * fileName = [self.document addPictureToWrapperUsingGPID:cancel.gp_cancelation_number forAttribute:@"picture"];
+        if (fileName == nil) return;
+        
         [cancel setPicture:fileName];
     }
 }

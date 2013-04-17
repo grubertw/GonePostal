@@ -63,6 +63,9 @@ static NSString * EXPERT_SUBVARIETY_GPID = @"EXP";
         NSDocumentController * docController = [NSDocumentController sharedDocumentController];
         GPDocument * doc = [docController currentDocument];
         
+        // Save main context before doing any imports.
+        [doc saveInPlace];
+        
         // Create a managed object context seporate from the persistant document's instance.
         _managedObjectContext = [[NSManagedObjectContext alloc] init];
         [_managedObjectContext setPersistentStoreCoordinator:[doc.managedObjectContext persistentStoreCoordinator]];

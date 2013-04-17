@@ -135,66 +135,78 @@
 }
 
 - (IBAction)addDefaultPicture:(id)sender {
-    NSString * fileName = [self.document addPictureToWrapper];
-    if (fileName == nil) return;
-    
     // Store the filename into the model.
     GPCatalog * entry = self.gpCatalogEntryController.content;
+    
+    NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"default_picture"];
+    if (fileName == nil) return;
+    
     entry.default_picture = fileName;
 }
 
 - (IBAction)addAlternatePicture1:(id)sender {
-    NSString * fileName = [self.document addPictureToWrapper];
+    // Store the filename into the model.
+    GPCatalog * entry = self.gpCatalogEntryController.content;
+    
+    NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"alternate_picture_1"];
     if (fileName == nil) return;
     
     // Store the filename into the model.
-    GPCatalog * entry = self.gpCatalogEntryController.content;
     entry.alternate_picture_1 = fileName;
 }
 
 - (IBAction)addAlternatePicture2:(id)sender {
-    NSString * fileName = [self.document addPictureToWrapper];
+    // Store the filename into the model.
+    GPCatalog * entry = self.gpCatalogEntryController.content;
+    
+    NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"alternate_picture_2"];
     if (fileName == nil) return;
     
     // Store the filename into the model.
-    GPCatalog * entry = self.gpCatalogEntryController.content;
     entry.alternate_picture_2 = fileName;
 }
 
 - (IBAction)addAlternatePicture3:(id)sender {
-    NSString * fileName = [self.document addPictureToWrapper];
+    // Store the filename into the model.
+    GPCatalog * entry = self.gpCatalogEntryController.content;
+    
+    NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"alternate_picture_3"];
     if (fileName == nil) return;
     
     // Store the filename into the model.
-    GPCatalog * entry = self.gpCatalogEntryController.content;
     entry.alternate_picture_3 = fileName;
 }
 
 - (IBAction)addAlternatePicture4:(id)sender {
-    NSString * fileName = [self.document addPictureToWrapper];
+    // Store the filename into the model.
+    GPCatalog * entry = self.gpCatalogEntryController.content;
+    
+    NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"alternate_picture_4"];
     if (fileName == nil) return;
     
     // Store the filename into the model.
-    GPCatalog * entry = self.gpCatalogEntryController.content;
     entry.alternate_picture_4 = fileName;
 }
 
 - (IBAction)addAlternatePicture5:(id)sender {
-    NSString * fileName = [self.document addPictureToWrapper];
-    if (fileName == nil) return;
-    
     // Store the filename into the model.
     GPCatalog * entry = self.gpCatalogEntryController.content;
     
+    NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"alternate_picture_5"];
+    if (fileName == nil) return;
+    
+    // Store the filename into the model.
     entry.alternate_picture_5 = fileName;
 }
 
 - (IBAction)addAlternatePicture6:(id)sender {
-    NSString * fileName = [self.document addPictureToWrapper];
+    // Store the filename into the model.
+    GPCatalog * entry = self.gpCatalogEntryController.content;
+    
+    NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"alternate_picture_6"];
     if (fileName == nil) return;
     
     // Store the filename into the model.
-    GPCatalog * entry = self.gpCatalogEntryController.content;
     entry.alternate_picture_6 = fileName;
 }
 
