@@ -120,7 +120,8 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
                 self.locationsPredicate = representingPredicate;
             }
             else if (   ![leftExpression.keyPath isEqualToString:@"is_default"]
-                     && ![leftExpression.keyPath isEqualToString:@"majorVariety"]) {
+                     && ![leftExpression.keyPath isEqualToString:@"majorVariety"]
+                     && ![leftExpression.keyPath isEqualToString:@"looksLike.name"]) {
                 self.filtersPredicate = representingPredicate;
             }
         }
@@ -648,66 +649,6 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
     [fileWrapper addFileWrapper:imageFile];
     
     return fileName;
-}
-
-- (IBAction)convertPictureNames:(id)sender {
-    NSString * gpWrapperPath = [[self fileURL] path];
-    NSFileManager * fileManager = [NSFileManager defaultManager];
-    
-    NSFetchRequest * fetch = [[NSFetchRequest alloc] initWithEntityName:@"GPCatalog"];
-    
-    NSArray * results = [self.managedObjectContext executeFetchRequest:fetch error:nil];
-    for (GPCatalog * entry in results) {
-        if (entry.default_picture) {
-            NSString * oldPath = [gpWrapperPath stringByAppendingPathComponent:entry.default_picture];
-            NSString * hashedFileName = [self hashFileNameForGPID:entry.gp_catalog_number andAttributeName:@"default_picture"];
-            entry.default_picture = hashedFileName;
-            NSString * newPath = [gpWrapperPath stringByAppendingPathComponent:hashedFileName];
-            [fileManager moveItemAtPath:oldPath toPath:newPath error:nil];
-        }
-        if (entry.alternate_picture_1) {
-            NSString * oldPath = [gpWrapperPath stringByAppendingPathComponent:entry.alternate_picture_1];
-            NSString * hashedFileName = [self hashFileNameForGPID:entry.gp_catalog_number andAttributeName:@"alternate_picture_1"];
-            entry.alternate_picture_1 = hashedFileName;
-            NSString * newPath = [gpWrapperPath stringByAppendingPathComponent:hashedFileName];
-            [fileManager moveItemAtPath:oldPath toPath:newPath error:nil];
-        }
-        if (entry.alternate_picture_2) {
-            NSString * oldPath = [gpWrapperPath stringByAppendingPathComponent:entry.alternate_picture_2];
-            NSString * hashedFileName = [self hashFileNameForGPID:entry.gp_catalog_number andAttributeName:@"alternate_picture_2"];
-            entry.alternate_picture_2 = hashedFileName;
-            NSString * newPath = [gpWrapperPath stringByAppendingPathComponent:hashedFileName];
-            [fileManager moveItemAtPath:oldPath toPath:newPath error:nil];
-        }
-        if (entry.alternate_picture_3) {
-            NSString * oldPath = [gpWrapperPath stringByAppendingPathComponent:entry.alternate_picture_3];
-            NSString * hashedFileName = [self hashFileNameForGPID:entry.gp_catalog_number andAttributeName:@"alternate_picture_3"];
-            entry.alternate_picture_3 = hashedFileName;
-            NSString * newPath = [gpWrapperPath stringByAppendingPathComponent:hashedFileName];
-            [fileManager moveItemAtPath:oldPath toPath:newPath error:nil];
-        }
-        if (entry.alternate_picture_4) {
-            NSString * oldPath = [gpWrapperPath stringByAppendingPathComponent:entry.alternate_picture_4];
-            NSString * hashedFileName = [self hashFileNameForGPID:entry.gp_catalog_number andAttributeName:@"alternate_picture_4"];
-            entry.alternate_picture_4 = hashedFileName;
-            NSString * newPath = [gpWrapperPath stringByAppendingPathComponent:hashedFileName];
-            [fileManager moveItemAtPath:oldPath toPath:newPath error:nil];
-        }
-        if (entry.alternate_picture_5) {
-            NSString * oldPath = [gpWrapperPath stringByAppendingPathComponent:entry.alternate_picture_5];
-            NSString * hashedFileName = [self hashFileNameForGPID:entry.gp_catalog_number andAttributeName:@"alternate_picture_5"];
-            entry.alternate_picture_5 = hashedFileName;
-            NSString * newPath = [gpWrapperPath stringByAppendingPathComponent:hashedFileName];
-            [fileManager moveItemAtPath:oldPath toPath:newPath error:nil];
-        }
-        if (entry.alternate_picture_6) {
-            NSString * oldPath = [gpWrapperPath stringByAppendingPathComponent:entry.alternate_picture_6];
-            NSString * hashedFileName = [self hashFileNameForGPID:entry.gp_catalog_number andAttributeName:@"alternate_picture_6"];
-            entry.alternate_picture_6 = hashedFileName;
-            NSString * newPath = [gpWrapperPath stringByAppendingPathComponent:hashedFileName];
-            [fileManager moveItemAtPath:oldPath toPath:newPath error:nil];
-        }
-    }
 }
 
 @end

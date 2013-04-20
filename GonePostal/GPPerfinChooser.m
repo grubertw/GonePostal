@@ -66,6 +66,9 @@
         [app endSheet:self.view.window];
         [self.view.window close];
     }
+    else {
+        [self.drawer close];
+    }
 }
 
 @end

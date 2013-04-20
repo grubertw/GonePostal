@@ -109,6 +109,7 @@
     // Place the Chooser views into panels which will be launched as sheets.
     self.plateNumberChooser.panel = [[NSPanel alloc] initWithContentRect:self.plateNumberChooser.view.bounds styleMask:NSTexturedBackgroundWindowMask backing:NSBackingStoreBuffered defer:YES];
     [self.plateNumberChooser.panel setContentView:self.plateNumberChooser.view];
+    [self.plateNumberChooser setPlateInfoField:self.plateInfoField];
     
     self.cachetChooser.panel = [[NSPanel alloc] initWithContentRect:self.cachetChooser.view.bounds styleMask:NSTexturedBackgroundWindowMask backing:NSBackingStoreBuffered defer:YES];
     [self.cachetChooser.panel setContentView:self.cachetChooser.view];
@@ -136,66 +137,31 @@
 - (IBAction)addPlate:(id)sender {
     NSApplication * app = [NSApplication sharedApplication];
     
-    [app beginSheet:self.plateNumberChooser.view.window modalForWindow:self.view.window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
+    [app beginSheet:self.plateNumberChooser.view.window modalForWindow:self.view.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
 }
 
 - (IBAction)chooseBureauPrecancel:(id)sender {
     NSApplication * app = [NSApplication sharedApplication];
     
-    [app beginSheet:self.bureauPrecancelChooser.view.window modalForWindow:self.view.window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
+    [app beginSheet:self.bureauPrecancelChooser.view.window modalForWindow:self.view.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
 }
 
 - (IBAction)chooseCachet:(id)sender {
     NSApplication * app = [NSApplication sharedApplication];
     
-    [app beginSheet:self.cachetChooser.view.window modalForWindow:self.view.window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
+    [app beginSheet:self.cachetChooser.view.window modalForWindow:self.view.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
 }
 
 - (IBAction)chooseLocalPrecancel:(id)sender {
     NSApplication * app = [NSApplication sharedApplication];
     
-    [app beginSheet:self.localPrecancelChooser.view.window modalForWindow:self.view.window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
+    [app beginSheet:self.localPrecancelChooser.view.window modalForWindow:self.view.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
 }
 
 - (IBAction)choosePerfin:(id)sender {
     NSApplication * app = [NSApplication sharedApplication];
     
-    [app beginSheet:self.perfinChooser.view.window modalForWindow:self.view.window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
-}
-
-- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
-    if (returnCode == GP_PLATE_NUMBER_CHOOSER_MODAL_RETURN_CODE) {
-        NSString * plateInfo = @"Plate\n";
-        NSUInteger cnt = 0;
-        
-        for (PlateUsage * pu in self.selectedGPCatalog.plateUsage) {
-            if ([pu.plate_number isEqualToNumber:@(1)])
-                plateInfo = [plateInfo stringByAppendingFormat:@"\t%@\n", self.stamp.plate_1];
-            else if ([pu.plate_number isEqualToNumber:@(2)])
-                plateInfo = [plateInfo stringByAppendingFormat:@"\t%@\n", self.stamp.plate_2];
-            else if ([pu.plate_number isEqualToNumber:@(3)])
-                plateInfo = [plateInfo stringByAppendingFormat:@"\t%@\n", self.stamp.plate_3];
-            else if ([pu.plate_number isEqualToNumber:@(4)])
-                plateInfo = [plateInfo stringByAppendingFormat:@"\t%@\n", self.stamp.plate_4];
-            else if ([pu.plate_number isEqualToNumber:@(5)])
-                plateInfo = [plateInfo stringByAppendingFormat:@"\t%@\n", self.stamp.plate_5];
-            else if ([pu.plate_number isEqualToNumber:@(6)])
-                plateInfo = [plateInfo stringByAppendingFormat:@"\t%@\n", self.stamp.plate_6];
-            else if ([pu.plate_number isEqualToNumber:@(7)])
-                plateInfo = [plateInfo stringByAppendingFormat:@"\t%@\n", self.stamp.plate_7];
-            else if ([pu.plate_number isEqualToNumber:@(8)])
-                plateInfo = [plateInfo stringByAppendingFormat:@"\t%@\n", self.stamp.plate_8];
-            
-            cnt++;
-            if (cnt != [self.selectedGPCatalog.plateUsage count]) {
-                plateInfo = [plateInfo stringByAppendingString:@"AND\n"];
-            }
-        }
-        plateInfo = [plateInfo stringByAppendingFormat:@"AT\n\t%@", self.plateNumberChooser.selectedPlatePosition];
-        
-        [self.plateInfoField setStringValue:plateInfo];
-    }
-    
+    [app beginSheet:self.perfinChooser.view.window modalForWindow:self.view.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
 }
 
 - (IBAction)addDefaultPicture:(id)sender {

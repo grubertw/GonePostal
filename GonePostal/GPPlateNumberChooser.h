@@ -10,8 +10,6 @@
 #import "GPCatalog.h"
 #import "Stamp.h"
 
-extern const NSUInteger GP_PLATE_NUMBER_CHOOSER_MODAL_RETURN_CODE;
-
 @interface GPPlateNumberChooser : NSViewController
 
 // The GPCatalog entry associated with the stamp
@@ -25,6 +23,11 @@ extern const NSUInteger GP_PLATE_NUMBER_CHOOSER_MODAL_RETURN_CODE;
 @property (strong, nonatomic) NSArray * plateCombinationsSortDescriptors;
 
 @property (strong, nonatomic) NSPanel * panel;
+@property (strong, nonatomic) NSDrawer * drawer;
+
+// Formats selected plate info into this control, which
+// is owned by the parent.
+@property (weak, nonatomic) NSTextField *plateInfoField;
 
 @property (strong, nonatomic) NSString * selectedPlatePosition;
 
@@ -34,5 +37,7 @@ extern const NSUInteger GP_PLATE_NUMBER_CHOOSER_MODAL_RETURN_CODE;
  * when done is pressed.
  */
 - (id)initAsSheet:(BOOL)isSheet modifyingStamp:(Stamp *)stamp;
+
+- (void)formatPlateInfo;
 
 @end

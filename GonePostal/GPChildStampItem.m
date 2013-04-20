@@ -7,9 +7,12 @@
 //
 
 #import "GPChildStampItem.h"
+#import "GPDocument.h"
+#import "GPStampDetail.h"
+#import "Stamp.h"
 
 @interface GPChildStampItem ()
-
+@property (strong, nonatomic) GPDocument * doc;
 @end
 
 @implementation GPChildStampItem
@@ -18,10 +21,18 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Initialization code here.
+        NSDocumentController * docController = [NSDocumentController sharedDocumentController];
+        _doc = [docController currentDocument];
     }
-    
     return self;
+}
+
+-(IBAction)showStampDetail:(id)sender {
+    Stamp * stamp = self.representedObject;
+    
+    GPStampDetail * sd = [[GPStampDetail alloc] initWithStamp:stamp];
+    [self.doc addWindowController:sd];
+    [sd.window makeKeyAndOrderFront:sender];
 }
 
 @end

@@ -12,12 +12,16 @@
 #import "GPSectionSearch.h"
 #import "GPFilterSearch.h"
 #import "GPCatalog.h"
+#import "GPCatalogDetail.h"
 
 @interface GPCatalogChooserPage ()
 @property (weak, nonatomic) IBOutlet NSButton * changeFiltersButton;
 @property (weak, nonatomic) IBOutlet NSTableView * gpCatalogTable;
 
 @property (nonatomic) BOOL viewSubvarieties;
+
+@property (strong, nonatomic) NSPopover * catalogDetailPopover;
+@property (strong, nonatomic) GPCatalogDetail * catalogDetail;
 
 @property (strong, nonatomic) GPDocument * doc;
 
@@ -52,6 +56,7 @@
     }
     
     if (self.selectedLooksLike != nil) {
+        //NSLog(@"looksLike.name like %@", self.selectedLooksLike.name);
         [predicateArray addObject:[NSPredicate predicateWithFormat:@"looksLike.name like %@", self.selectedLooksLike.name]];
     }
     
@@ -89,6 +94,14 @@
         _sectionsPredicate = sectionsPredicate;
         _filtersPredicate = filtersPredicate;
         
+        // Rebuild the query so as NOT to contain looks-like.
+        NSMutableArray * predicateArray = [NSMutableArray arrayWithCapacity:0];
+        [predicateArray addObject:[NSPredicate predicateWithFormat:BASE_GP_CATALOG_QUERY]];
+        if (countriesPredicate) [predicateArray addObject:countriesPredicate];
+        if (sectionsPredicate) [predicateArray addObject:sectionsPredicate];
+        if (filtersPredicate) [predicateArray addObject:filtersPredicate];
+        self.assistedSearch.predicate = [NSCompoundPredicate andPredicateWithSubpredicates:predicateArray];
+        
         // Create the sort descripors
         NSSortDescriptor *gpCountrySort = [[NSSortDescriptor alloc] initWithKey:@"country.country_sort_id" ascending:YES];
         NSSortDescriptor *groupSort = [[NSSortDescriptor alloc] initWithKey:@"catalogGroup.group_number" ascending:YES];
@@ -99,6 +112,14 @@
         _countrySearchController = [[GPCountrySearch alloc] initWithPredicate:countriesPredicate forStamp:NO];
         _sectionSearchController = [[GPSectionSearch alloc] initWithPredicate:sectionsPredicate forStamp:NO];
         _filterSearchController = [[GPFilterSearch alloc] initWithPredicate:filtersPredicate];
+        
+        // Initialize the datalog detail popover.
+        _catalogDetail = [[GPCatalogDetail alloc] initWithManagedObjectContext:self.managedObjectContext];
+        _catalogDetailPopover = [[NSPopover alloc] init];
+        _catalogDetailPopover.contentViewController = self.catalogDetail;
+        _catalogDetailPopover.appearance = NSPopoverAppearanceMinimal;
+        _catalogDetailPopover.behavior = NSPopoverBehaviorTransient;
+        
     }
     
     return self;
@@ -157,6 +178,14 @@
     NSApplication * app = [NSApplication sharedApplication];
     
     [app beginSheet:self.filterSearchController.panel modalForWindow:self.view.window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
+}
+
+- (IBAction)showCatalogDetail:(NSButton *)sender {
+    NSInteger selectedRow = [self.gpCatalogTable rowForView:sender];
+    GPCatalog * gpCatalog = self.gpCatalogController.arrangedObjects[selectedRow];
+    [self.catalogDetail setGpCatalog:gpCatalog];
+    
+    [self.catalogDetailPopover showRelativeToRect:sender.bounds ofView:sender preferredEdge:selectedRow];
 }
 
 - (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {

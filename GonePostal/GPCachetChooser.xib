@@ -325,7 +325,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{194, -2}, {73, 32}}</string>
 						<reference key="NSSuperview" ref="10294486"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="945865366">
@@ -367,7 +366,6 @@
 						</set>
 						<string key="NSFrame">{{117, 9}, {106, 76}}</string>
 						<reference key="NSSuperview" ref="336204220"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSImageCell" key="NSCell" id="995177203">
@@ -606,6 +604,14 @@
 						<reference key="destination" ref="10294486"/>
 					</object>
 					<int key="connectionID">499</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">cachetTable</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="216524644"/>
+					</object>
+					<int key="connectionID">504</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -3139,9 +3145,9 @@
 					<reference ref="825776623"/>
 				</array>
 				<string key="431.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<array class="NSMutableArray" key="432.IBNSViewMetadataConstraints">
-					<reference ref="619746896"/>
+				<array key="432.IBNSViewMetadataConstraints">
 					<reference ref="212885697"/>
+					<reference ref="619746896"/>
 				</array>
 				<boolean value="NO" key="432.IBNSViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
 				<string key="432.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3238,7 +3244,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">503</int>
+			<int key="maxID">504</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
