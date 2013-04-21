@@ -2,7 +2,7 @@
 //  Stamp.m
 //  GonePostal
 //
-//  Created by Travis Gruber on 4/6/13.
+//  Created by Travis Gruber on 4/20/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
@@ -23,6 +23,7 @@
 #import "Lot.h"
 #import "Mount.h"
 #import "Perfin.h"
+#import "SaleHistory.h"
 #import "Soundness.h"
 #import "Stamp.h"
 #import "StampFormat.h"
@@ -40,8 +41,11 @@
 @dynamic alternate_picture_6;
 @dynamic cancelation_date;
 @dynamic cancelation_type;
+@dynamic census_id;
+@dynamic certificates;
 @dynamic default_picture;
 @dynamic faults;
+@dynamic history;
 @dynamic inprint_1;
 @dynamic inprint_2;
 @dynamic inventory_number;
@@ -60,9 +64,7 @@
 @dynamic purchase_amount;
 @dynamic purchase_date;
 @dynamic source;
-@dynamic history;
-@dynamic census_id;
-@dynamic certificates;
+@dynamic plate_position;
 @dynamic bureauPrecancel;
 @dynamic cachet;
 @dynamic cancelQuality;
@@ -70,6 +72,7 @@
 @dynamic children;
 @dynamic collection;
 @dynamic dealer;
+@dynamic extraPictures;
 @dynamic format;
 @dynamic gpCatalog;
 @dynamic grade;
@@ -83,6 +86,6 @@
 @dynamic perfin;
 @dynamic soundness;
 @dynamic valuation;
-@dynamic extraPictures;
+@dynamic saleHistory;
 
 @end

@@ -247,6 +247,10 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
     [self.gpCollectionController insert:sender];
 }
 
+- (IBAction)removeGPCollection:(id)sender {
+    [self.gpCollectionController remove:sender];
+}
+
 - (IBAction)openGPCatalogEditor:(id)sender {
     // initialize and load the GPCatalog editor's assisted search.
     [self loadAssistedSearch:ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];

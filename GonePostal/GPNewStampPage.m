@@ -132,6 +132,10 @@
     [self.bureauPrecancelChooser setSelectedGPCatalog:gpCatalog];
     
     [self.stamp setGpCatalog:gpCatalog];
+    
+    // Set the primary picture to be the same as the catalog picture untill
+    // the user overrides it.
+    [self.stamp setDefault_picture:gpCatalog.default_picture];
 }
 
 - (IBAction)addPlate:(id)sender {

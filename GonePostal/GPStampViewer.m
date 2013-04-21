@@ -102,7 +102,8 @@
         _locationsPredicate = locationsPredicate;
         
         NSSortDescriptor *stampSort = [[NSSortDescriptor alloc] initWithKey:@"gpCatalog.gp_catalog_number" ascending:YES];
-        _stampSortDescriptors = @[stampSort];
+        NSSortDescriptor *formatSort = [[NSSortDescriptor alloc] initWithKey:@"format.name" ascending:YES];
+        _stampSortDescriptors = @[stampSort, formatSort];
         
         // Initialize the assisted search panels.
         _countrySearchController = [[GPCountrySearch alloc] initWithPredicate:countriesPredicate forStamp:YES];

@@ -30,7 +30,7 @@
 -(IBAction)showStampDetail:(id)sender {
     Stamp * stamp = self.representedObject;
     
-    GPStampDetail * sd = [[GPStampDetail alloc] initWithStamp:stamp];
+    GPStampDetail * sd = [[GPStampDetail alloc] initWithStamp:stamp isExample:NO];
     [self.doc addWindowController:sd];
     [sd.window makeKeyAndOrderFront:sender];
 }

@@ -27,6 +27,7 @@
 #import "Country.h"
 #import "GPCatalogGroup.h"
 #import "GPCatalogDefaults.h"
+#import "GPStampExamples.h"
 
 // Private members.
 @interface GPCatalogEditor ()
@@ -659,6 +660,16 @@
     GPCatalog * entry = [entries objectAtIndex:0];
     
     [entry removeExtraPictures:[NSSet setWithArray:selectedIdentPics]];
+}
+
+- (IBAction)openStampExamples:(id)sender {
+    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
+    if (entries == nil) return;
+    GPCatalog * entry = [entries objectAtIndex:0];
+    
+    GPStampExamples * examplesController = [[GPStampExamples alloc] initWithGPCatalog:entry];
+    [self.document addWindowController:examplesController];
+    [examplesController.window makeKeyAndOrderFront:sender];
 }
 
 - (IBAction)addPlateUsage:(id)sender {

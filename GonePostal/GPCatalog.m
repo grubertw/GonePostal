@@ -2,7 +2,7 @@
 //  GPCatalog.m
 //  GonePostal
 //
-//  Created by Travis Gruber on 4/2/13.
+//  Created by Travis Gruber on 4/20/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
@@ -29,6 +29,8 @@
 
 @implementation GPCatalog
 
+@dynamic album_height;
+@dynamic album_width;
 @dynamic alternate_picture_1;
 @dynamic alternate_picture_2;
 @dynamic alternate_picture_3;
@@ -40,10 +42,15 @@
 @dynamic color;
 @dynamic color_error;
 @dynamic color_variety;
+@dynamic date_documented_first_use;
+@dynamic date_documented_first_use_exact;
 @dynamic date_issued;
+@dynamic date_issued_exact;
 @dynamic default_picture;
 @dynamic denomination;
 @dynamic design_measurement;
+@dynamic designers;
+@dynamic engravers;
 @dynamic gp_catalog_number;
 @dynamic gp_description;
 @dynamic gum;
@@ -54,24 +61,35 @@
 @dynamic is_custom;
 @dynamic is_default;
 @dynamic issue_location;
+@dynamic issue_name;
+@dynamic long_description;
 @dynamic multiple_transfer;
 @dynamic number_of_panes;
 @dynamic number_of_plates;
 @dynamic number_of_plates_used;
 @dynamic other_error;
 @dynamic pane_size;
+@dynamic paper_color;
 @dynamic paper_type;
 @dynamic perf_error;
 @dynamic perforation;
+@dynamic perforation_type;
 @dynamic plate_block_quantity;
 @dynamic plate_error;
 @dynamic plate_size;
 @dynamic plate_variation;
+@dynamic plate_variation_type;
+@dynamic plated;
+@dynamic press;
 @dynamic print;
 @dynamic print_variety;
 @dynamic printer;
+@dynamic quantity_ordered;
 @dynamic quantity_printed;
+@dynamic quantity_sold;
 @dynamic series;
+@dynamic surcharge_type;
+@dynamic surcharged;
 @dynamic tag;
 @dynamic tag_error;
 @dynamic tag_variety;
@@ -79,26 +97,8 @@
 @dynamic variety_type;
 @dynamic very_rare;
 @dynamic watermark;
-@dynamic quantity_ordered;
-@dynamic quantity_sold;
-@dynamic paper_color;
-@dynamic perforation_type;
-@dynamic plate_variation_type;
-@dynamic press;
-@dynamic album_width;
-@dynamic album_height;
-@dynamic date_documented_first_use;
-@dynamic designers;
-@dynamic engravers;
-@dynamic surcharge_type;
-@dynamic long_description;
-@dynamic issue_name;
-@dynamic date_documented_first_use_exact;
-@dynamic date_issued_exact;
 @dynamic watermark_error;
 @dynamic watermark_variation;
-@dynamic plated;
-@dynamic surcharged;
 @dynamic alternateCatalogs;
 @dynamic bureauPrecancels;
 @dynamic cachets;
@@ -118,5 +118,6 @@
 @dynamic stamps;
 @dynamic subvarieties;
 @dynamic topics;
+@dynamic examples;
 
 @end

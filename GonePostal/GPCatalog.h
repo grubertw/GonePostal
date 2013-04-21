@@ -2,7 +2,7 @@
 //  GPCatalog.h
 //  GonePostal
 //
-//  Created by Travis Gruber on 4/2/13.
+//  Created by Travis Gruber on 4/20/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
@@ -13,6 +13,8 @@
 
 @interface GPCatalog : NSManagedObject
 
+@property (nonatomic, retain) NSNumber * album_height;
+@property (nonatomic, retain) NSNumber * album_width;
 @property (nonatomic, retain) NSString * alternate_picture_1;
 @property (nonatomic, retain) NSString * alternate_picture_2;
 @property (nonatomic, retain) NSString * alternate_picture_3;
@@ -24,10 +26,15 @@
 @property (nonatomic, retain) NSString * color;
 @property (nonatomic, retain) NSNumber * color_error;
 @property (nonatomic, retain) NSNumber * color_variety;
+@property (nonatomic, retain) NSDate * date_documented_first_use;
+@property (nonatomic, retain) NSNumber * date_documented_first_use_exact;
 @property (nonatomic, retain) NSDate * date_issued;
+@property (nonatomic, retain) NSNumber * date_issued_exact;
 @property (nonatomic, retain) NSString * default_picture;
 @property (nonatomic, retain) NSString * denomination;
 @property (nonatomic, retain) NSString * design_measurement;
+@property (nonatomic, retain) NSString * designers;
+@property (nonatomic, retain) NSString * engravers;
 @property (nonatomic, retain) NSString * gp_catalog_number;
 @property (nonatomic, retain) NSString * gp_description;
 @property (nonatomic, retain) NSString * gum;
@@ -38,24 +45,35 @@
 @property (nonatomic, retain) NSNumber * is_custom;
 @property (nonatomic, retain) NSNumber * is_default;
 @property (nonatomic, retain) NSString * issue_location;
+@property (nonatomic, retain) NSString * issue_name;
+@property (nonatomic, retain) NSString * long_description;
 @property (nonatomic, retain) NSNumber * multiple_transfer;
 @property (nonatomic, retain) NSNumber * number_of_panes;
 @property (nonatomic, retain) NSNumber * number_of_plates;
 @property (nonatomic, retain) NSNumber * number_of_plates_used;
 @property (nonatomic, retain) NSNumber * other_error;
 @property (nonatomic, retain) NSNumber * pane_size;
+@property (nonatomic, retain) NSString * paper_color;
 @property (nonatomic, retain) NSString * paper_type;
 @property (nonatomic, retain) NSNumber * perf_error;
 @property (nonatomic, retain) NSString * perforation;
+@property (nonatomic, retain) NSString * perforation_type;
 @property (nonatomic, retain) NSNumber * plate_block_quantity;
 @property (nonatomic, retain) NSNumber * plate_error;
 @property (nonatomic, retain) NSNumber * plate_size;
 @property (nonatomic, retain) NSNumber * plate_variation;
+@property (nonatomic, retain) NSString * plate_variation_type;
+@property (nonatomic, retain) NSNumber * plated;
+@property (nonatomic, retain) NSString * press;
 @property (nonatomic, retain) NSString * print;
 @property (nonatomic, retain) NSNumber * print_variety;
 @property (nonatomic, retain) NSString * printer;
+@property (nonatomic, retain) NSNumber * quantity_ordered;
 @property (nonatomic, retain) NSNumber * quantity_printed;
+@property (nonatomic, retain) NSNumber * quantity_sold;
 @property (nonatomic, retain) NSString * series;
+@property (nonatomic, retain) NSString * surcharge_type;
+@property (nonatomic, retain) NSNumber * surcharged;
 @property (nonatomic, retain) NSString * tag;
 @property (nonatomic, retain) NSNumber * tag_error;
 @property (nonatomic, retain) NSNumber * tag_variety;
@@ -63,26 +81,8 @@
 @property (nonatomic, retain) NSNumber * variety_type;
 @property (nonatomic, retain) NSNumber * very_rare;
 @property (nonatomic, retain) NSString * watermark;
-@property (nonatomic, retain) NSNumber * quantity_ordered;
-@property (nonatomic, retain) NSNumber * quantity_sold;
-@property (nonatomic, retain) NSString * paper_color;
-@property (nonatomic, retain) NSString * perforation_type;
-@property (nonatomic, retain) NSString * plate_variation_type;
-@property (nonatomic, retain) NSString * press;
-@property (nonatomic, retain) NSNumber * album_width;
-@property (nonatomic, retain) NSNumber * album_height;
-@property (nonatomic, retain) NSDate * date_documented_first_use;
-@property (nonatomic, retain) NSString * designers;
-@property (nonatomic, retain) NSString * engravers;
-@property (nonatomic, retain) NSString * surcharge_type;
-@property (nonatomic, retain) NSString * long_description;
-@property (nonatomic, retain) NSString * issue_name;
-@property (nonatomic, retain) NSNumber * date_documented_first_use_exact;
-@property (nonatomic, retain) NSNumber * date_issued_exact;
 @property (nonatomic, retain) NSNumber * watermark_error;
 @property (nonatomic, retain) NSNumber * watermark_variation;
-@property (nonatomic, retain) NSNumber * plated;
-@property (nonatomic, retain) NSNumber * surcharged;
 @property (nonatomic, retain) NSSet *alternateCatalogs;
 @property (nonatomic, retain) NSSet *bureauPrecancels;
 @property (nonatomic, retain) NSSet *cachets;
@@ -102,6 +102,7 @@
 @property (nonatomic, retain) NSSet *stamps;
 @property (nonatomic, retain) NSSet *subvarieties;
 @property (nonatomic, retain) NSSet *topics;
+@property (nonatomic, retain) NSSet *examples;
 @end
 
 @interface GPCatalog (CoreDataGeneratedAccessors)
@@ -170,5 +171,10 @@
 - (void)removeTopicsObject:(Topic *)value;
 - (void)addTopics:(NSSet *)values;
 - (void)removeTopics:(NSSet *)values;
+
+- (void)addExamplesObject:(Stamp *)value;
+- (void)removeExamplesObject:(Stamp *)value;
+- (void)addExamples:(NSSet *)values;
+- (void)removeExamples:(NSSet *)values;
 
 @end

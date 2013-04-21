@@ -25,7 +25,8 @@
 @property (strong, nonatomic) NSArray * lotSortDescriptors;
 @property (strong, nonatomic) NSArray * locationSortDescriptors;
 @property (strong, nonatomic) NSArray * mountSortDescriptors;
+@property (strong, nonatomic) NSArray * saleHistorySortDescriptors;
 
-- (id)initWithStamp:(Stamp *)stamp;
+- (id)initWithStamp:(Stamp *)stamp isExample:(BOOL)isExample;
 
 @end

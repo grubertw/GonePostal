@@ -26,7 +26,15 @@
 @property (weak, nonatomic) IBOutlet NSScrollView * stampPicsScrollView;
 @property (weak, nonatomic) IBOutlet NSView * stampPicsScrollContent;
 
+@property (weak, nonatomic) IBOutlet NSTabView * bottomTabs;
+@property (weak, nonatomic) IBOutlet NSTabViewItem * historyAndStorageTab;
+@property (weak, nonatomic) IBOutlet NSTabViewItem * saleHistoryTab;
+
 @property (weak, nonatomic) IBOutlet NSTextField *plateInfoField;
+
+@property (strong, nonatomic) IBOutlet NSArrayController * saleHistoryController;
+
+@property (nonatomic) BOOL isExample;
 
 @property (strong, nonatomic) GPPlateNumberChooser * plateNumberChooser;
 @property (strong, nonatomic) GPCachetChooser * cachetChooser;
@@ -42,12 +50,12 @@
 
 @implementation GPStampDetail
 
-
-- (id)initWithStamp:(Stamp *)stamp {
+- (id)initWithStamp:(Stamp *)stamp isExample:(BOOL)isExample {
     self = [super initWithWindowNibName:@"GPStampDetail"];
     if (self) {
         _managedObjectContext = stamp.managedObjectContext;
         _stamp = stamp;
+        _isExample = isExample;
         
         // Initialize the sort descriptors
         NSSortDescriptor *formatSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
@@ -82,6 +90,9 @@
         
         NSSortDescriptor *mountSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
         _mountSortDescriptors = @[mountSort];
+        
+        NSSortDescriptor *saleHistorySort = [[NSSortDescriptor alloc] initWithKey:@"dateSold" ascending:NO];
+        _saleHistorySortDescriptors = @[saleHistorySort];
         
         // Intialize the chooser drawers.
         _plateNumberChooser = [[GPPlateNumberChooser alloc] initAsSheet:NO modifyingStamp:self.stamp];
@@ -141,6 +152,13 @@
     [self.catalogDetail.drawer setParentWindow:self.window];
     [self.catalogDetail.drawer setContentView:self.catalogDetail.view];
     
+    // Show the correct tabs for example stamps vs stamps in a collection.
+    if (self.isExample) {
+        [self.bottomTabs removeTabViewItem:self.historyAndStorageTab];
+    }
+    else {
+        [self.bottomTabs removeTabViewItem:self.saleHistoryTab];
+    }
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
@@ -176,6 +194,14 @@
 
 - (IBAction)choosePerfin:(id)sender {
     [self.perfinChooser.drawer open:sender];
+}
+
+- (IBAction)addSaleHistory:(id)sender {
+    [self.saleHistoryController insert:sender];
+}
+
+- (IBAction)removeSaleHistory:(id)sender {
+    [self.saleHistoryController remove:sender];
 }
 
 - (IBAction)addDefaultPicture:(id)sender {
