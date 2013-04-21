@@ -81,6 +81,8 @@
         self.stamp.plate_8 = selectedPlateCombo.plate8;
         self.stamp.inprint_1 = selectedPlateCombo.imprint_1;
         self.stamp.inprint_2 = selectedPlateCombo.imprint_2;
+        
+        self.stamp.plate_position = self.selectedPlatePosition;
     }
     
     // Format the selected plate info into the control set by the parent.
@@ -152,7 +154,14 @@
         }
     }
     
-    plateInfo = [plateInfo stringByAppendingFormat:@"At position %@", self.selectedPlatePosition];
+    if (self.stamp.inprint_1) {
+        plateInfo = [plateInfo stringByAppendingFormat:@"with Imprint #%@", self.stamp.inprint_1];
+    }
+    if (self.stamp.inprint_2) {
+        plateInfo = [plateInfo stringByAppendingFormat:@" and Imprint #%@", self.stamp.inprint_2];
+    }
+    
+    plateInfo = [plateInfo stringByAppendingFormat:@"At position %@", self.stamp.plate_position];
     
     [self.plateInfoField setStringValue:plateInfo];
 }
