@@ -7,6 +7,7 @@
 //
 
 #import "GPStampViewer.h"
+#import "GPStampDetail.h"
 #import "Stamp.h"
 #import "GPAddStampController.h"
 #import "GPDocument.h"
@@ -17,34 +18,13 @@
 #import "GPChildStampItem.h"
 #import "GPParentStampItem.h"
 
-@implementation MyStamps
-- (NSCollectionViewItem *)newItemForRepresentedObject:(id)object {
-    Stamp * stamp = (Stamp *)object;
-    
-    // If the stamp has chilren, use the parent cell.
-    if ([stamp.children count] == 0) {
-        GPChildStampItem * childCVItem = [[GPChildStampItem alloc] initWithNibName:@"GPChildStampItem" bundle:nil];
-        [childCVItem setRepresentedObject:stamp];
-        return childCVItem;
-    }
-    // else use the child cell.
-    else {
-        GPParentStampItem * parentCVItem = [[GPParentStampItem alloc] initWithNibName:@"GPParentStampItem" bundle:nil];
-        [parentCVItem setRepresentedObject:stamp];
-        return parentCVItem;
-    }
-}
-@end
-
-
-
 @interface GPStampViewer ()
 @property (strong, nonatomic) GPCountrySearch * countrySearchController;
 @property (strong, nonatomic) GPSectionSearch * sectionSearchController;
 @property (strong, nonatomic) GPFormatSearch * formatSearchController;
 @property (strong, nonatomic) GPLocationSearch * locationSearchController;
 
-@property (weak, nonatomic) IBOutlet MyStamps * stampCollectionView;
+@property (strong, nonatomic) IBOutlet NSTableView * stampsTable;
 @property (weak, nonatomic) IBOutlet NSArrayController * stampsController;
 @end
 
@@ -119,11 +99,6 @@
 {
     [super windowDidLoad];
     
-    NSSize minSize;
-    minSize.height = 116;
-    minSize.width = 985;
-    [self.stampCollectionView setMinItemSize:minSize];
-    
     // Place the AssistedSearch views into panels which will be launched as sheets.
     self.countrySearchController.panel = [[NSPanel alloc] initWithContentRect:self.countrySearchController.view.bounds styleMask:NSTexturedBackgroundWindowMask backing:NSBackingStoreBuffered defer:YES];
     [self.countrySearchController.panel setContentView:self.countrySearchController.view];
@@ -149,6 +124,15 @@
 - (void)refilterStamps {
     [self.stampsController setFilterPredicate:self.assistedSearch.predicate];
     [self.stampsController rearrangeObjects];
+}
+
+-(IBAction)showStampDetail:(NSButton *)sender {
+    NSInteger row = [self.stampsTable rowForView:sender];
+    Stamp * stamp = self.stampsController.arrangedObjects[row];
+    
+    GPStampDetail * sd = [[GPStampDetail alloc] initWithStamp:stamp isExample:NO];
+    [self.document addWindowController:sd];
+    [sd.window makeKeyAndOrderFront:sender];
 }
 
 - (IBAction)openAddFromGPCatalog:(id)sender {

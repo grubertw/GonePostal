@@ -14,7 +14,7 @@
 @interface MyStamps : NSCollectionView
 @end
 
-@interface GPStampViewer : NSWindowController
+@interface GPStampViewer : NSWindowController <NSTableViewDelegate>
 
 @property (strong, nonatomic) GPCollection * myCollection;
 @property (strong, nonatomic) Stamp * selectedComposite;

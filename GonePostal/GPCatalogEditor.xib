@@ -2463,7 +2463,6 @@
 																<reference key="NSHScroller" ref="488170801"/>
 																<reference key="NSContentView" ref="750080238"/>
 																<reference key="NSHeaderClipView" ref="437218684"/>
-																<reference key="NSCornerView" ref="944060640"/>
 																<bytes key="NSScrollAmts">QSAAAEEgAABCUAAAQlAAAA</bytes>
 																<double key="NSMinMagnification">0.25</double>
 																<double key="NSMaxMagnification">4</double>
@@ -2794,7 +2793,6 @@
 																<reference key="NSHScroller" ref="498899147"/>
 																<reference key="NSContentView" ref="539359271"/>
 																<reference key="NSHeaderClipView" ref="351407811"/>
-																<reference key="NSCornerView" ref="388522622"/>
 																<bytes key="NSScrollAmts">QSAAAEEgAABCUAAAQlAAAA</bytes>
 																<double key="NSMinMagnification">0.25</double>
 																<double key="NSMaxMagnification">4</double>
@@ -9018,15 +9016,15 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: objectValue.gp_catalog_number</string>
-						<reference key="source" ref="713137396"/>
+						<string key="label">value: objectValue</string>
+						<reference key="source" ref="522919516"/>
 						<reference key="destination" ref="563731091"/>
 						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="713137396"/>
+							<reference key="NSSource" ref="522919516"/>
 							<reference key="NSDestination" ref="563731091"/>
-							<string key="NSLabel">value: objectValue.gp_catalog_number</string>
+							<string key="NSLabel">value: objectValue</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">objectValue.gp_catalog_number</string>
+							<string key="NSKeyPath">objectValue</string>
 							<object class="NSDictionary" key="NSOptions">
 								<string key="NS.key.0">NSValueTransformerName</string>
 								<string key="NS.object.0">GPAlternateCatalogNumberTransformer</string>
@@ -9034,7 +9032,7 @@
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">3029</int>
+					<int key="connectionID">7720</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -10600,26 +10598,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: self.currMajorVariety.gp_catalog_number</string>
-						<reference key="source" ref="769673892"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="769673892"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: self.currMajorVariety.gp_catalog_number</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">self.currMajorVariety.gp_catalog_number</string>
-							<object class="NSDictionary" key="NSOptions">
-								<string key="NS.key.0">NSValueTransformerName</string>
-								<string key="NS.object.0">GPAlternateCatalogNumberTransformer</string>
-							</object>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">7711</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
 						<string key="label">hidden: self.currMajorVariety</string>
 						<reference key="source" ref="769673892"/>
 						<reference key="destination" ref="1001"/>
@@ -10637,6 +10615,26 @@
 						</object>
 					</object>
 					<int key="connectionID">7713</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: self.currMajorVariety</string>
+						<reference key="source" ref="769673892"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="769673892"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">value: self.currMajorVariety</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">self.currMajorVariety</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">GPAlternateCatalogNumberTransformer</string>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">7721</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -34023,7 +34021,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">7718</int>
+			<int key="maxID">7721</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>

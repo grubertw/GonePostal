@@ -24,39 +24,17 @@
     return self;
 }
 
-// Transform a default catalog name into it's associated
-// alternate catalog number, based on the gp catalog ID.
+// Find the alternate calalog number within the GPCatalog entry.
 - (id)transformedValue:(id)value {
-    if (value == nil) return nil;
+    if (![value isMemberOfClass:[GPCatalog class]]) return nil;
+ 
+    GPCatalog * gpCatalogEntry = (GPCatalog *)value;
     
-    // First get the GPCatalog based on GPID
-    NSEntityDescription *gpCatalogEntity = [NSEntityDescription entityForName:@"GPCatalog" inManagedObjectContext:self.managedObjectContext];
-    
-    NSFetchRequest *gpCatalogFetch = [[NSFetchRequest alloc] init];
-    [gpCatalogFetch setEntity:gpCatalogEntity];
-    
-    NSPredicate *gpCatalogQuery = [NSPredicate predicateWithFormat:@"(gp_catalog_number like %@)", value];
-    [gpCatalogFetch setPredicate:gpCatalogQuery];
-    
-    // Execute the query
-    NSError *error = nil;
-    
-    NSArray *results = [self.managedObjectContext executeFetchRequest:gpCatalogFetch error:&error];
-    if (results == nil) {
-        NSLog(@"Error fetching entry %@, %@", error, [error userInfo]);
-	    return nil;
-    }
-
-    if (results.count != 1) return nil;
-    GPCatalog * gpCatalogEntry = [results objectAtIndex:0];
+    NSString * altCatalogNumber;
     
     // Next, iterate through all the alternate catalogs for this GPCatalog,
     // searching for the default.
-    NSEnumerator * setEnum = gpCatalogEntry.alternateCatalogs.objectEnumerator;
-    AlternateCatalog * altCatalog;
-    
-    NSString * altCatalogNumber = nil;
-    while ((altCatalog = [setEnum nextObject])) {
+    for (AlternateCatalog * altCatalog in gpCatalogEntry.alternateCatalogs) {
         if ([altCatalog.alternateCatalogName.alternate_catalog_name isEqualToString:gpCatalogEntry.defaultCatalogName.alternate_catalog_name]) {
             altCatalogNumber = altCatalog.alternate_catalog_number;
             break;
