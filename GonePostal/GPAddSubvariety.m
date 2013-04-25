@@ -45,6 +45,9 @@
         NSSortDescriptor *altCatalogSectionsSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
         _altCatalogSectionsSortDescriptors = @[altCatalogSectionsSort];
         
+        NSSortDescriptor *subTypesSort = [[NSSortDescriptor alloc] initWithKey:@"sortID" ascending:YES];
+        _subvarietyTypesSortDescriptors = @[subTypesSort];
+        
         _addedGPIDs = [[NSMutableArray alloc] initWithCapacity:0];
     }
     

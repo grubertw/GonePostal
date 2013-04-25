@@ -245,43 +245,6 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
     }
 }
 
-- (IBAction)parseSubvarietyTypes:(id)sender {
-    NSFetchRequest * gpfetch = [[NSFetchRequest alloc] initWithEntityName:@"GPCatalog"];
-    NSPredicate * gpQueryForSUB = [NSPredicate predicateWithFormat:@"gp_catalog_number CONTAINS 'SUB'"];
-    [gpfetch setPredicate:gpQueryForSUB];
-    
-    NSArray * gpresults = [self.managedObjectContext executeFetchRequest:gpfetch error:nil];
-    NSLog(@"num found SUB = %ld", [gpresults count]);
-    
-    NSFetchRequest * subfetch = [[NSFetchRequest alloc] initWithEntityName:@"GPSubvarietyType"];
-    NSArray * subTypes = [self.managedObjectContext executeFetchRequest:subfetch error:nil];
-    NSLog(@"num found GPSubvarietyType(s) = %ld", [subTypes count]);
-    
-    GPSubvarietyType * typeSUB;
-    GPSubvarietyType * typeEXP;
-    
-    for (GPSubvarietyType * type in subTypes) {
-        if ([type.acronym isEqualToString:@"SUB"])
-            typeSUB = type;
-        else if ([type.acronym isEqualToString:@"EXP"])
-            typeEXP = type;
-    }
-    
-    for (GPCatalog * entry in gpresults) {
-        entry.subvarietyType = typeSUB;
-    }
-    
-    NSPredicate * gpQueryForEXP = [NSPredicate predicateWithFormat:@"gp_catalog_number CONTAINS 'EXP'"];
-    [gpfetch setPredicate:gpQueryForEXP];
-    
-    gpresults = [self.managedObjectContext executeFetchRequest:gpfetch error:nil];
-    NSLog(@"num found EXP = %ld", [gpresults count]);
-    
-    for (GPCatalog * entry in gpresults) {
-        entry.subvarietyType = typeEXP;
-    }
-}
-
 - (IBAction)addGPCollection:(id)sender {
     [self.gpCollectionController insert:sender];
 }

@@ -21,6 +21,7 @@
 @property (strong, nonatomic) NSArray * altCatalogsSortDescriptors;
 @property (strong, nonatomic) NSArray * altCatalogNamesSortDescriptors;
 @property (strong, nonatomic) NSArray * altCatalogSectionsSortDescriptors;
+@property (strong, nonatomic) NSArray * subvarietyTypesSortDescriptors;
 
 @property (weak, nonatomic) IBOutlet NSObjectController * gpCatalogEntryController;
 
