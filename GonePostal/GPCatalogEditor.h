@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "GPCatalog.h"
 #import "GPCatalogSet.h"
 #import "GPSetPopoverController.h"
 #import "GPLooksLikePopoverController.h"
@@ -15,6 +16,7 @@
 #import "GPCountrySearch.h"
 #import "GPSectionSearch.h"
 #import "GPFilterSearch.h"
+#import "GPSubvarietySearch.h"
 
 @interface GPCatalogEditor : NSWindowController <NSTableViewDelegate>
 
@@ -36,6 +38,7 @@
 @property (strong, nonatomic) NSArray * cancelationsSortDescriptors;
 @property (strong, nonatomic) NSArray * topicsSortDescriptors;
 @property (strong, nonatomic) NSArray * identificationPicturesSortDescriptors;
+@property (strong, nonatomic) NSArray * subvarietyTypesSortDescriptors;
 
 @property (strong, nonatomic) StoredSearch * assistedSearch;
 @property (strong, nonatomic) NSPredicate * countriesPredicate;
@@ -45,10 +48,12 @@
 @property (strong, nonatomic) GPCountrySearch * countrySearchController;
 @property (strong, nonatomic) GPSectionSearch * sectionSearchController;
 @property (strong, nonatomic) GPFilterSearch * filterSearchController;
+@property (strong, nonatomic) GPSubvarietySearch * subvarietySearchController;
 
 - (id)initWithAssistedSearch:(StoredSearch *)assistedSearch countrySearch:(NSPredicate *)countriesPredicate sectionSearch:(NSPredicate *)sectionsPredicate filterSearch:(NSPredicate *)filtersPredicate;
 
-@property (nonatomic) bool subvarietiesActive;
+// If not null, then user is viewing subvarieties.
+@property (strong, nonatomic) GPCatalog * currMajorVariety;
 
 - (void)queryGPCatalog;
 - (void)querySubvarieties;

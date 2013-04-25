@@ -1,8 +1,8 @@
 //
 //  AlternateCatalogName.h
-//  GonePostalX
+//  GonePostal
 //
-//  Created by Travis Gruber on 1/20/13.
+//  Created by Travis Gruber on 4/21/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
@@ -14,6 +14,7 @@
 @interface AlternateCatalogName : NSManagedObject
 
 @property (nonatomic, retain) NSString * alternate_catalog_name;
+@property (nonatomic, retain) NSString * abriviation;
 @property (nonatomic, retain) NSSet *alternateCatalogs;
 @property (nonatomic, retain) NSSet *gpCatalogEntries;
 @end

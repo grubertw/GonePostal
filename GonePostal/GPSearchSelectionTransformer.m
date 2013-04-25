@@ -9,6 +9,7 @@
 #import "GPSearchSelectionTransformer.h"
 #import "Country.h"
 #import "GPCatalogGroup.h"
+#import "GPSubvarietyType.h"
 
 @implementation GPSearchSelectionTransformer
 
@@ -31,6 +32,9 @@
         }
         else if ([searchObject isMemberOfClass:[GPCatalogGroup class]]) {
             searchName = ((GPCatalogGroup *)searchObject).group_name;
+        }
+        else if ([searchObject isMemberOfClass:[GPSubvarietyType class]]) {
+            searchName = ((GPSubvarietyType *)searchObject).acronym;
         }
         else {
             searchName = @"one";

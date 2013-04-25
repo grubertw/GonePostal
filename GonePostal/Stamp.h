@@ -2,7 +2,7 @@
 //  Stamp.h
 //  GonePostal
 //
-//  Created by Travis Gruber on 4/20/13.
+//  Created by Travis Gruber on 4/21/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
@@ -42,10 +42,12 @@
 @property (nonatomic, retain) NSString * plate_7;
 @property (nonatomic, retain) NSString * plate_8;
 @property (nonatomic, retain) NSString * plate_location;
+@property (nonatomic, retain) NSString * plate_position;
 @property (nonatomic, retain) NSNumber * purchase_amount;
 @property (nonatomic, retain) NSDate * purchase_date;
 @property (nonatomic, retain) NSString * source;
-@property (nonatomic, retain) NSString * plate_position;
+@property (nonatomic, retain) NSString * gp_stamp_number;
+@property (nonatomic, retain) NSNumber * last_sale_price;
 @property (nonatomic, retain) BureauPrecancel *bureauPrecancel;
 @property (nonatomic, retain) Cachet *cachet;
 @property (nonatomic, retain) CancelQuality *cancelQuality;
@@ -65,9 +67,9 @@
 @property (nonatomic, retain) Mount *mount;
 @property (nonatomic, retain) Stamp *parent;
 @property (nonatomic, retain) Perfin *perfin;
+@property (nonatomic, retain) NSSet *saleHistory;
 @property (nonatomic, retain) Soundness *soundness;
 @property (nonatomic, retain) Valuation *valuation;
-@property (nonatomic, retain) NSSet *saleHistory;
 @end
 
 @interface Stamp (CoreDataGeneratedAccessors)

@@ -2,14 +2,14 @@
 //  GPCatalog.h
 //  GonePostal
 //
-//  Created by Travis Gruber on 4/20/13.
+//  Created by Travis Gruber on 4/21/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class AlternateCatalog, AlternateCatalogName, BureauPrecancel, Cachet, Cancelations, Country, FDCIssueLocation, Format, GPCatalog, GPCatalogGroup, GPCatalogSet, GPPicture, LooksLike, PlateNumber, PlateNumberInfo, PlateUsage, Stamp, Topic;
+@class AlternateCatalog, AlternateCatalogName, Attachment, BureauPrecancel, Cachet, Cancelations, Country, Format, GPCatalog, GPCatalogGroup, GPCatalogSet, GPPicture, GPSubvarietyType, LooksLike, PlateNumber, PlateNumberInfo, PlateUsage, Stamp, Topic;
 
 @interface GPCatalog : NSManagedObject
 
@@ -91,8 +91,8 @@
 @property (nonatomic, retain) NSSet *catalogSets;
 @property (nonatomic, retain) Country *country;
 @property (nonatomic, retain) AlternateCatalogName *defaultCatalogName;
+@property (nonatomic, retain) NSSet *examples;
 @property (nonatomic, retain) NSSet *extraPictures;
-@property (nonatomic, retain) NSSet *fdcIssueLocation;
 @property (nonatomic, retain) Format *formatType;
 @property (nonatomic, retain) LooksLike *looksLike;
 @property (nonatomic, retain) GPCatalog *majorVariety;
@@ -102,7 +102,8 @@
 @property (nonatomic, retain) NSSet *stamps;
 @property (nonatomic, retain) NSSet *subvarieties;
 @property (nonatomic, retain) NSSet *topics;
-@property (nonatomic, retain) NSSet *examples;
+@property (nonatomic, retain) GPSubvarietyType *subvarietyType;
+@property (nonatomic, retain) NSSet *attachments;
 @end
 
 @interface GPCatalog (CoreDataGeneratedAccessors)
@@ -132,15 +133,15 @@
 - (void)addCatalogSets:(NSSet *)values;
 - (void)removeCatalogSets:(NSSet *)values;
 
+- (void)addExamplesObject:(Stamp *)value;
+- (void)removeExamplesObject:(Stamp *)value;
+- (void)addExamples:(NSSet *)values;
+- (void)removeExamples:(NSSet *)values;
+
 - (void)addExtraPicturesObject:(GPPicture *)value;
 - (void)removeExtraPicturesObject:(GPPicture *)value;
 - (void)addExtraPictures:(NSSet *)values;
 - (void)removeExtraPictures:(NSSet *)values;
-
-- (void)addFdcIssueLocationObject:(FDCIssueLocation *)value;
-- (void)removeFdcIssueLocationObject:(FDCIssueLocation *)value;
-- (void)addFdcIssueLocation:(NSSet *)values;
-- (void)removeFdcIssueLocation:(NSSet *)values;
 
 - (void)addPlateNumberInfosObject:(PlateNumberInfo *)value;
 - (void)removePlateNumberInfosObject:(PlateNumberInfo *)value;
@@ -172,9 +173,9 @@
 - (void)addTopics:(NSSet *)values;
 - (void)removeTopics:(NSSet *)values;
 
-- (void)addExamplesObject:(Stamp *)value;
-- (void)removeExamplesObject:(Stamp *)value;
-- (void)addExamples:(NSSet *)values;
-- (void)removeExamples:(NSSet *)values;
+- (void)addAttachmentsObject:(Attachment *)value;
+- (void)removeAttachmentsObject:(Attachment *)value;
+- (void)addAttachments:(NSSet *)values;
+- (void)removeAttachments:(NSSet *)values;
 
 @end

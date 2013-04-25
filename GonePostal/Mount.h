@@ -1,8 +1,8 @@
 //
 //  Mount.h
-//  GonePostalX
+//  GonePostal
 //
-//  Created by Travis Gruber on 2/15/13.
+//  Created by Travis Gruber on 4/21/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
@@ -13,9 +13,11 @@
 
 @interface Mount : NSManagedObject
 
-@property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * abriviation;
+@property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSNumber * size;
+@property (nonatomic, retain) NSNumber * height;
+@property (nonatomic, retain) NSNumber * width;
 @property (nonatomic, retain) NSSet *stamps;
 @end
 

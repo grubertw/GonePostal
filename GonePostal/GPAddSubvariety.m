@@ -122,7 +122,7 @@
     [self.document saveInPlace];
     
     // Reload the catalog editor's content
-    if (self.catalogEditor.subvarietiesActive)
+    if (self.catalogEditor.currMajorVariety)
         [self.catalogEditor querySubvarieties];
     else
         [self.catalogEditor queryGPCatalog];

@@ -92,6 +92,14 @@
 												<reference key="NSOnImage" ref="647920233"/>
 												<reference key="NSMixedImage" ref="746879217"/>
 											</object>
+											<object class="NSMenuItem" id="806602143">
+												<reference key="NSMenu" ref="912907054"/>
+												<string key="NSTitle">GP Subvariety Types</string>
+												<string key="NSKeyEquiv"/>
+												<int key="NSMnemonicLoc">2147483647</int>
+												<reference key="NSOnImage" ref="647920233"/>
+												<reference key="NSMixedImage" ref="746879217"/>
+											</object>
 											<object class="NSMenuItem" id="772995943">
 												<reference key="NSMenu" ref="912907054"/>
 												<bool key="NSIsDisabled">YES</bool>
@@ -2200,6 +2208,14 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
+						<string key="label">editSupportedSubvarietyTypes:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="806602143"/>
+					</object>
+					<int key="connectionID">637</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
 						<string key="label">addFontTrait:</string>
 						<reference key="source" ref="739804602"/>
 						<reference key="destination" ref="481459203"/>
@@ -3138,6 +3154,7 @@
 							<reference ref="27344540"/>
 							<reference ref="727122279"/>
 							<reference ref="1054879662"/>
+							<reference ref="806602143"/>
 						</array>
 						<reference key="parent" ref="1065408960"/>
 					</object>
@@ -3373,6 +3390,11 @@
 						<reference key="object" ref="1054879662"/>
 						<reference key="parent" ref="912907054"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">636</int>
+						<reference key="object" ref="806602143"/>
+						<reference key="parent" ref="912907054"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -3550,13 +3572,14 @@
 				<string key="619.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="620.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="621.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="636.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="92.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">635</int>
+			<int key="maxID">637</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3586,6 +3609,7 @@
 						<string key="editSupportedPlatePositions:">id</string>
 						<string key="editSupportedSoundness:">id</string>
 						<string key="editSupportedStampFormats:">id</string>
+						<string key="editSupportedSubvarietyTypes:">id</string>
 						<string key="openGPCatalogDefaults:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
@@ -3679,6 +3703,10 @@
 						</object>
 						<object class="IBActionInfo" key="editSupportedStampFormats:">
 							<string key="name">editSupportedStampFormats:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="editSupportedSubvarietyTypes:">
+							<string key="name">editSupportedSubvarietyTypes:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="openGPCatalogDefaults:">

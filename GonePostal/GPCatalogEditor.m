@@ -28,6 +28,7 @@
 #import "GPCatalogGroup.h"
 #import "GPCatalogDefaults.h"
 #import "GPStampExamples.h"
+#import "GPSubvarietySearch.h"
 
 // Private members.
 @interface GPCatalogEditor ()
@@ -81,6 +82,7 @@
 
 @property (strong, nonatomic) NSArray * gpCatalogEntries;
 
+@property (strong, nonatomic) NSPredicate * subBasePredicate;
 @property (strong, nonatomic) NSPredicate * subvarietiesSearch;
 
 @property (strong, nonatomic) Topic * selectedTopic;
@@ -93,7 +95,7 @@
     // Clear the present search and rebuild from scratch
     // All persisted info about the search should be loaded
     // into the three predicates at this point.
-    NSMutableArray * predicateArray = [NSMutableArray arrayWithCapacity:4];
+    NSMutableArray * predicateArray = [NSMutableArray arrayWithCapacity:0];
     [predicateArray addObject:[NSPredicate predicateWithFormat:BASE_GP_CATALOG_QUERY]];
     
     if (self.countrySearchController.predicate != nil) {
@@ -131,8 +133,6 @@
     
     self = [super initWithWindowNibName:@"GPCatalogEditor"];
     if (self) {
-        _subvarietiesActive = NO;
-        
         _assistedSearch = assistedSearch;
         _countriesPredicate = countriesPredicate;
         _sectionsPredicate = sectionsPredicate;
@@ -145,8 +145,9 @@
         // Create the sort descripors
         NSSortDescriptor *gpCountrySort = [[NSSortDescriptor alloc] initWithKey:@"country.country_sort_id" ascending:YES];
         NSSortDescriptor *groupSort = [[NSSortDescriptor alloc] initWithKey:@"catalogGroup.group_number" ascending:YES];
+        NSSortDescriptor *subTypeSort = [[NSSortDescriptor alloc] initWithKey:@"subvarietyType.sortID" ascending:YES];
         NSSortDescriptor *catalogNumberSort = [[NSSortDescriptor alloc] initWithKey:@"gp_catalog_number" ascending:YES];
-        self.gpCatalogEntriesSortDescriptors = @[gpCountrySort, groupSort, catalogNumberSort];
+        self.gpCatalogEntriesSortDescriptors = @[gpCountrySort, groupSort, subTypeSort, catalogNumberSort];
         
         NSSortDescriptor *countrySort = [[NSSortDescriptor alloc] initWithKey:@"country_sort_id" ascending:YES];
         self.countriesSortDescriptors = @[countrySort];
@@ -205,10 +206,14 @@
         NSSortDescriptor *identPicsSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
         self.identificationPicturesSortDescriptors = @[identPicsSort];
         
+        NSSortDescriptor *subTypesSort = [[NSSortDescriptor alloc] initWithKey:@"sortID" ascending:YES];
+        self.subvarietyTypesSortDescriptors = @[subTypesSort];
+        
         // Initialize the assisted search panels.
         _countrySearchController = [[GPCountrySearch alloc] initWithPredicate:countriesPredicate forStamp:NO];
         _sectionSearchController = [[GPSectionSearch alloc] initWithPredicate:sectionsPredicate forStamp:NO];
         _filterSearchController = [[GPFilterSearch alloc] initWithPredicate:filtersPredicate];
+        _subvarietySearchController = [[GPSubvarietySearch alloc] initWithPredicate:nil forStamp:NO];
     }
     
     return self;
@@ -253,6 +258,9 @@
     
     self.filterSearchController.panel = [[NSPanel alloc] initWithContentRect:self.filterSearchController.view.bounds styleMask:NSTexturedBackgroundWindowMask backing:NSBackingStoreBuffered defer:YES];
     [self.filterSearchController.panel setContentView:self.filterSearchController.view];
+    
+    self.subvarietySearchController.panel = [[NSPanel alloc] initWithContentRect:self.subvarietySearchController.view.bounds styleMask:NSTexturedBackgroundWindowMask backing:NSBackingStoreBuffered defer:YES];
+    [self.subvarietySearchController.panel setContentView:self.subvarietySearchController.view];
     
     // Show the active filter search.
     [self.filtersActive setTitle:self.filterSearchController.filtersSelected];
@@ -343,7 +351,7 @@
     
     [self.document saveInPlace];
     
-    if (self.subvarietiesActive)
+    if (self.currMajorVariety)
         [self querySubvarieties];
     else
         [self queryGPCatalog];
@@ -357,7 +365,7 @@
         [self.managedObjectContext deleteObject:entry];
     }
     
-    if (self.subvarietiesActive)
+    if (self.currMajorVariety)
         [self querySubvarieties];
     else
         [self queryGPCatalog];
@@ -478,45 +486,70 @@
     [app beginSheet:self.filterSearchController.panel modalForWindow:self.window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
 }
 
+- (IBAction)openSubvarietySearchPanel:(id)sender {
+    NSApplication * app = [NSApplication sharedApplication];
+    
+    [app beginSheet:self.subvarietySearchController.panel modalForWindow:self.window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
+}
+
 - (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
-    [self updateCurrentSearch];
+    if (self.currMajorVariety)
+        [self updateSubvarietiesSearch];
+    else
+        [self updateCurrentSearch];
+}
+
+- (void)updateSubvarietiesSearch {
+    NSMutableArray * predicateArray = [NSMutableArray arrayWithCapacity:0];
+    [predicateArray addObject:self.subBasePredicate];
+    
+    if (self.filterSearchController.predicate != nil) {
+        [predicateArray addObject:self.filterSearchController.predicate];
+    }
+    
+    if (self.subvarietySearchController.predicate != nil) {
+        [predicateArray addObject:self.subvarietySearchController.predicate];
+    }
+    
+    // If there is only one element in the array,
+    // a compound predicate isn't needed.
+    if (predicateArray.count == 1) {
+        self.subvarietiesSearch = [predicateArray objectAtIndex:0];
+    }
+    else {
+        // AND together predicates into a compound predicate.
+        self.subvarietiesSearch = [NSCompoundPredicate andPredicateWithSubpredicates:predicateArray];
+    }
+    
+    [self querySubvarieties];
 }
 
 - (IBAction)viewSubvarieties:(id)sender {
     NSInteger row = [self.gpCatalogTable rowForView:sender];
-    
     GPCatalog * theMajorVariety = self.gpCatalogEntriesController.arrangedObjects[row];
     
     if (theMajorVariety != nil && (theMajorVariety.subvarieties.count > 0)) {
-        self.subvarietiesSearch = [NSPredicate predicateWithFormat:@"majorVariety.gp_catalog_number like %@", theMajorVariety.gp_catalog_number];
+        self.subBasePredicate = [NSPredicate predicateWithFormat:@"majorVariety.gp_catalog_number like %@", theMajorVariety.gp_catalog_number];
         
-        [self querySubvarieties];
+        [self updateSubvarietiesSearch];
         
         // Set the selection to the first subvariety.
         [self.gpCatalogEntriesController setSelectionIndex:0];
         
-        self.subvarietiesActive = YES;
+        self.currMajorVariety = theMajorVariety;
     }
 }
 
 - (IBAction)closeSubvarieties:(id)sender {
-    // Get the major variety from the selection.
-    GPCatalog * theMajorVariety = nil;
-    NSArray * selectedObjects = self.gpCatalogEntriesController.selectedObjects;
-    if (selectedObjects != nil) {
-        GPCatalog * entry = [selectedObjects objectAtIndex:0];
-        theMajorVariety = entry.majorVariety;
-    }
-    
     // Restore the current search.
     [self queryGPCatalog];
     
-    [self.gpCatalogEntriesController setSelectedObjects:@[theMajorVariety]];
+    [self.gpCatalogEntriesController setSelectedObjects:@[self.currMajorVariety]];
     NSUInteger indexOfMajorVariety = self.gpCatalogEntriesController.selectionIndex;
     
     // Make sure the selection is visable.
     [self.gpCatalogTable scrollRowToVisible:indexOfMajorVariety];
-    self.subvarietiesActive = NO;
+    self.currMajorVariety = nil;
 }
 
 - (IBAction)viewSetsForGPCatalogEntry:(id)sender {

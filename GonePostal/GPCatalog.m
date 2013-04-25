@@ -2,23 +2,24 @@
 //  GPCatalog.m
 //  GonePostal
 //
-//  Created by Travis Gruber on 4/20/13.
+//  Created by Travis Gruber on 4/21/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
 #import "GPCatalog.h"
 #import "AlternateCatalog.h"
 #import "AlternateCatalogName.h"
+#import "Attachment.h"
 #import "BureauPrecancel.h"
 #import "Cachet.h"
 #import "Cancelations.h"
 #import "Country.h"
-#import "FDCIssueLocation.h"
 #import "Format.h"
 #import "GPCatalog.h"
 #import "GPCatalogGroup.h"
 #import "GPCatalogSet.h"
 #import "GPPicture.h"
+#import "GPSubvarietyType.h"
 #import "LooksLike.h"
 #import "PlateNumber.h"
 #import "PlateNumberInfo.h"
@@ -107,8 +108,8 @@
 @dynamic catalogSets;
 @dynamic country;
 @dynamic defaultCatalogName;
+@dynamic examples;
 @dynamic extraPictures;
-@dynamic fdcIssueLocation;
 @dynamic formatType;
 @dynamic looksLike;
 @dynamic majorVariety;
@@ -118,6 +119,7 @@
 @dynamic stamps;
 @dynamic subvarieties;
 @dynamic topics;
-@dynamic examples;
+@dynamic subvarietyType;
+@dynamic attachments;
 
 @end

@@ -1,8 +1,8 @@
 //
 //  AlternateCatalogName.m
-//  GonePostalX
+//  GonePostal
 //
-//  Created by Travis Gruber on 1/20/13.
+//  Created by Travis Gruber on 4/21/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
@@ -14,6 +14,7 @@
 @implementation AlternateCatalogName
 
 @dynamic alternate_catalog_name;
+@dynamic abriviation;
 @dynamic alternateCatalogs;
 @dynamic gpCatalogEntries;
 

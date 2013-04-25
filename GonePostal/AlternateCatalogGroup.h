@@ -1,8 +1,8 @@
 //
 //  AlternateCatalogGroup.h
-//  GonePostalX
+//  GonePostal
 //
-//  Created by Travis Gruber on 1/20/13.
+//  Created by Travis Gruber on 4/21/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
@@ -15,6 +15,7 @@
 
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSNumber * sort_id;
+@property (nonatomic, retain) NSString * abriviation;
 @property (nonatomic, retain) NSSet *alternateCatalogs;
 @end
 
