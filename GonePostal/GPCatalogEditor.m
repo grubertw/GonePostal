@@ -29,6 +29,7 @@
 #import "GPCatalogDefaults.h"
 #import "GPStampExamples.h"
 #import "GPSubvarietySearch.h"
+#import "GPAddBureauPrecancel.h"
 
 // Private members.
 @interface GPCatalogEditor ()
@@ -61,6 +62,7 @@
 @property (weak, nonatomic) IBOutlet GPLooksLikePopoverController * looksLikePopoverController;
 
 @property (weak, nonatomic) IBOutlet NSTableView * plateNumberCombinationsTable;
+@property (weak, nonatomic) IBOutlet NSTableView * bureauPrecancelsTable;
 
 @property (weak, nonatomic) IBOutlet NSArrayController * gpCatalogEntriesController;
 @property (weak, nonatomic) IBOutlet NSArrayController * countriesController;
@@ -773,32 +775,24 @@
 }
 
 - (IBAction)addPrecancel:(id)sender {
-    BureauPrecancel * precancel = [NSEntityDescription insertNewObjectForEntityForName:@"BureauPrecancel" inManagedObjectContext:self.managedObjectContext];
-    
-    [self.precancelsController insertObject:precancel atArrangedObjectIndex:[self.precancelsController.arrangedObjects count]];
-}
-
-- (IBAction)removePrecancel:(id)sender {
-    NSArray * selectedPrecancels = self.precancelsController.selectedObjects;
-    
     NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
     if (entries == nil) return;
     GPCatalog * entry = [entries objectAtIndex:0];
     
-    [entry removeBureauPrecancels:[NSSet setWithArray:selectedPrecancels]];
+    GPAddBureauPrecancel * controller = [[GPAddBureauPrecancel alloc] initWithGPCatalog:entry];
+    [self.document addWindowController:controller];
+    
+    [controller.window makeKeyAndOrderFront:sender];
 }
 
-- (IBAction)addPictureToPrecancel:(id)sender {
+- (IBAction)addPictureToPrecancel:(NSButton *)sender {
+    NSInteger row = [self.bureauPrecancelsTable rowForView:sender];
+    BureauPrecancel * bc = self.precancelsController.arrangedObjects[row];
     
-    // Store the filename into the model.
-    NSArray * selectedPrecancels = self.precancelsController.selectedObjects;
-    if (selectedPrecancels == nil) return;
-    BureauPrecancel * precancel = [selectedPrecancels objectAtIndex:0];
-    
-    NSString * fileName = [self.document addPictureToWrapperUsingGPID:precancel.gp_precancel_number forAttribute:@"picture"];
+    NSString * fileName = [self.document addPictureToWrapperUsingGPID:bc.gp_precancel_number forAttribute:@"picture"];
     if (fileName == nil) return;
     
-    [precancel setPicture:fileName];
+    [bc setPicture:fileName];
 }
 
 - (IBAction)addCancelation:(id)sender {

@@ -79,6 +79,7 @@
     duplicate.country = self.country;
     duplicate.defaultCatalogName = self.defaultCatalogName;
     duplicate.formatType = self.formatType;
+    duplicate.subvarietyType = self.subvarietyType;
 
     // Also duplicate the first (default) alternate catalog row
     AlternateCatalog * defaultAltCatalog;

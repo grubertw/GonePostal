@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F0B49FC172AFED400BC00A3 /* GPAddBureauPrecancel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0B49FA172AFED400BC00A3 /* GPAddBureauPrecancel.m */; };
+		1F0B49FD172AFED400BC00A3 /* GPAddBureauPrecancel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0B49FB172AFED400BC00A3 /* GPAddBureauPrecancel.xib */; };
+		1F0B4A03172B078800BC00A3 /* BureauPrecancel+Duplicate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0B4A02172B078800BC00A3 /* BureauPrecancel+Duplicate.m */; };
+		1F0B4A05172B528E00BC00A3 /* ExceptionHandling.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F0B4A04172B528E00BC00A3 /* ExceptionHandling.framework */; };
 		1F0EC69A16D945B500427B4C /* add_main_variety.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1F0EC69316D945B500427B4C /* add_main_variety.jpg */; };
 		1F0EC69B16D945B500427B4C /* add_minor_variation.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1F0EC69416D945B500427B4C /* add_minor_variation.jpg */; };
 		1F0EC69C16D945B500427B4C /* add_subvariety.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1F0EC69516D945B500427B4C /* add_subvariety.jpg */; };
@@ -87,10 +91,6 @@
 		1F0EC78D16D95C9300427B4C /* GPSetPopoverController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0EC78B16D95C9300427B4C /* GPSetPopoverController.xib */; };
 		1F0EC79716DA7AA600427B4C /* GPTopicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EC79516DA7AA600427B4C /* GPTopicsController.m */; };
 		1F0EC79816DA7AA600427B4C /* GPTopicsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0EC79616DA7AA600427B4C /* GPTopicsController.xib */; };
-		1F2E54441700D4D300F177A0 /* GPChildStampItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E54421700D4D200F177A0 /* GPChildStampItem.m */; };
-		1F2E54451700D4D300F177A0 /* GPChildStampItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F2E54431700D4D200F177A0 /* GPChildStampItem.xib */; };
-		1F2E54491700D5B600F177A0 /* GPParentStampItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E54471700D5B500F177A0 /* GPParentStampItem.m */; };
-		1F2E544A1700D5B600F177A0 /* GPParentStampItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F2E54481700D5B500F177A0 /* GPParentStampItem.xib */; };
 		1F2E544E1700F56800F177A0 /* GPSupportedCancelQuality.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E544C1700F56800F177A0 /* GPSupportedCancelQuality.m */; };
 		1F2E544F1700F56800F177A0 /* GPSupportedCancelQuality.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F2E544D1700F56800F177A0 /* GPSupportedCancelQuality.xib */; };
 		1F2E54531700F5EC00F177A0 /* GPSupportedCentering.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E54511700F5EC00F177A0 /* GPSupportedCentering.m */; };
@@ -209,6 +209,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1F0B49F9172AFED400BC00A3 /* GPAddBureauPrecancel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPAddBureauPrecancel.h; sourceTree = "<group>"; };
+		1F0B49FA172AFED400BC00A3 /* GPAddBureauPrecancel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPAddBureauPrecancel.m; sourceTree = "<group>"; };
+		1F0B49FB172AFED400BC00A3 /* GPAddBureauPrecancel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GPAddBureauPrecancel.xib; sourceTree = "<group>"; };
+		1F0B4A01172B078800BC00A3 /* BureauPrecancel+Duplicate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BureauPrecancel+Duplicate.h"; sourceTree = "<group>"; };
+		1F0B4A02172B078800BC00A3 /* BureauPrecancel+Duplicate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BureauPrecancel+Duplicate.m"; sourceTree = "<group>"; };
+		1F0B4A04172B528E00BC00A3 /* ExceptionHandling.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExceptionHandling.framework; path = System/Library/Frameworks/ExceptionHandling.framework; sourceTree = SDKROOT; };
 		1F0EC69316D945B500427B4C /* add_main_variety.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = add_main_variety.jpg; sourceTree = "<group>"; };
 		1F0EC69416D945B500427B4C /* add_minor_variation.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = add_minor_variation.jpg; sourceTree = "<group>"; };
 		1F0EC69516D945B500427B4C /* add_subvariety.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = add_subvariety.jpg; sourceTree = "<group>"; };
@@ -342,12 +348,6 @@
 		1F0EC79416DA7AA600427B4C /* GPTopicsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPTopicsController.h; sourceTree = "<group>"; };
 		1F0EC79516DA7AA600427B4C /* GPTopicsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPTopicsController.m; sourceTree = "<group>"; };
 		1F0EC79616DA7AA600427B4C /* GPTopicsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GPTopicsController.xib; sourceTree = "<group>"; };
-		1F2E54411700D4D100F177A0 /* GPChildStampItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPChildStampItem.h; sourceTree = "<group>"; };
-		1F2E54421700D4D200F177A0 /* GPChildStampItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPChildStampItem.m; sourceTree = "<group>"; };
-		1F2E54431700D4D200F177A0 /* GPChildStampItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GPChildStampItem.xib; sourceTree = "<group>"; };
-		1F2E54461700D5B500F177A0 /* GPParentStampItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPParentStampItem.h; sourceTree = "<group>"; };
-		1F2E54471700D5B500F177A0 /* GPParentStampItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPParentStampItem.m; sourceTree = "<group>"; };
-		1F2E54481700D5B500F177A0 /* GPParentStampItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GPParentStampItem.xib; sourceTree = "<group>"; };
 		1F2E544B1700F56800F177A0 /* GPSupportedCancelQuality.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPSupportedCancelQuality.h; sourceTree = "<group>"; };
 		1F2E544C1700F56800F177A0 /* GPSupportedCancelQuality.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPSupportedCancelQuality.m; sourceTree = "<group>"; };
 		1F2E544D1700F56800F177A0 /* GPSupportedCancelQuality.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GPSupportedCancelQuality.xib; sourceTree = "<group>"; };
@@ -529,6 +529,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F0B4A05172B528E00BC00A3 /* ExceptionHandling.framework in Frameworks */,
 				1F49307916D93A9B0094672A /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -575,6 +576,8 @@
 				1F0EC6A216D9467B00427B4C /* AlternateCatalog.m */,
 				1FF6257716EC5F7200D4D849 /* BureauPrecancel.h */,
 				1FF6257816EC5F7200D4D849 /* BureauPrecancel.m */,
+				1F0B4A01172B078800BC00A3 /* BureauPrecancel+Duplicate.h */,
+				1F0B4A02172B078800BC00A3 /* BureauPrecancel+Duplicate.m */,
 				1FF6257416EC5F7200D4D849 /* Cachet.h */,
 				1FF6257516EC5F7200D4D849 /* Cachet.m */,
 				1F0EC6AB16D9467B00427B4C /* CachetCatalogName.h */,
@@ -669,6 +672,8 @@
 				1F0EC78A16D95C9300427B4C /* GPSetPopoverController.m */,
 				1FD76871172349A300AD6C5F /* GPStampExamples.h */,
 				1FD76872172349A300AD6C5F /* GPStampExamples.m */,
+				1F0B49F9172AFED400BC00A3 /* GPAddBureauPrecancel.h */,
+				1F0B49FA172AFED400BC00A3 /* GPAddBureauPrecancel.m */,
 			);
 			name = CatalogViewControllers;
 			sourceTree = "<group>";
@@ -687,6 +692,7 @@
 				1F0EC76116D9481000427B4C /* GPSetController.xib */,
 				1F0EC78B16D95C9300427B4C /* GPSetPopoverController.xib */,
 				1FD76873172349A300AD6C5F /* GPStampExamples.xib */,
+				1F0B49FB172AFED400BC00A3 /* GPAddBureauPrecancel.xib */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -713,6 +719,7 @@
 		1F49306C16D93A9B0094672A = {
 			isa = PBXGroup;
 			children = (
+				1F0B4A04172B528E00BC00A3 /* ExceptionHandling.framework */,
 				1F49307E16D93A9B0094672A /* GonePostal */,
 				1F4930A116D93A9B0094672A /* GonePostalTests */,
 				1F49307716D93A9B0094672A /* Frameworks */,
@@ -827,10 +834,6 @@
 				1FC06C0C16E400B400DA8DFB /* UI */,
 				1FC06C0D16E4027F00DA8DFB /* GPStampViewer.h */,
 				1FC06C0E16E4027F00DA8DFB /* GPStampViewer.m */,
-				1F2E54411700D4D100F177A0 /* GPChildStampItem.h */,
-				1F2E54421700D4D200F177A0 /* GPChildStampItem.m */,
-				1F2E54461700D5B500F177A0 /* GPParentStampItem.h */,
-				1F2E54471700D5B500F177A0 /* GPParentStampItem.m */,
 				1F55AD86171A70A30094C076 /* GPStampDetail.h */,
 				1F55AD87171A70A30094C076 /* GPStampDetail.m */,
 				1FD76862171E62F400AD6C5F /* GPCatalogDetail.h */,
@@ -863,8 +866,6 @@
 			isa = PBXGroup;
 			children = (
 				1FC06C0F16E4027F00DA8DFB /* GPStampViewer.xib */,
-				1F2E54431700D4D200F177A0 /* GPChildStampItem.xib */,
-				1F2E54481700D5B500F177A0 /* GPParentStampItem.xib */,
 				1F55AD88171A70A30094C076 /* GPStampDetail.xib */,
 				1FD76864171E62F400AD6C5F /* GPCatalogDetail.xib */,
 				1FF6255616E9B05400D4D849 /* GPAddStampController.xib */,
@@ -1124,8 +1125,6 @@
 				1FF6259616F03FD000D4D849 /* GPLocalPrecancelChooser.xib in Resources */,
 				1FF6259B16F0403F00D4D849 /* GPPerfinChooser.xib in Resources */,
 				1F53E31916F6466300B599E3 /* GPPlateUsageChooser.xib in Resources */,
-				1F2E54451700D4D300F177A0 /* GPChildStampItem.xib in Resources */,
-				1F2E544A1700D5B600F177A0 /* GPParentStampItem.xib in Resources */,
 				1F2E544F1700F56800F177A0 /* GPSupportedCancelQuality.xib in Resources */,
 				1F2E54541700F5EC00F177A0 /* GPSupportedCentering.xib in Resources */,
 				1F2E54591700F66A00F177A0 /* GPSupportedDealers.xib in Resources */,
@@ -1147,6 +1146,7 @@
 				1F78571A172467DB00A5A07B /* GPIcon.icns in Resources */,
 				1FDEC32D1724D3A800304557 /* GPSupportedSubvarietyTypes.xib in Resources */,
 				1FDEC33B1724FA3800304557 /* GPSubvarietySearch.xib in Resources */,
+				1F0B49FD172AFED400BC00A3 /* GPAddBureauPrecancel.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1186,7 +1186,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "rsync -av /Users/travis/xcodeProjects/GonePostal gb_server:/pool/travis/xcodeProjects";
+			shellScript = "#rsync -av /Users/travis/xcodeProjects/GonePostal gb_server:/pool/travis/xcodeProjects";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1271,8 +1271,6 @@
 				1FF6259516F03FD000D4D849 /* GPLocalPrecancelChooser.m in Sources */,
 				1FF6259A16F0403F00D4D849 /* GPPerfinChooser.m in Sources */,
 				1F53E31816F6466300B599E3 /* GPPlateUsageChooser.m in Sources */,
-				1F2E54441700D4D300F177A0 /* GPChildStampItem.m in Sources */,
-				1F2E54491700D5B600F177A0 /* GPParentStampItem.m in Sources */,
 				1F2E544E1700F56800F177A0 /* GPSupportedCancelQuality.m in Sources */,
 				1F2E54531700F5EC00F177A0 /* GPSupportedCentering.m in Sources */,
 				1F2E54581700F66A00F177A0 /* GPSupportedDealers.m in Sources */,
@@ -1309,6 +1307,8 @@
 				1FDEC3301724F56600304557 /* AlternateCatalogGroup.m in Sources */,
 				1FDEC3331724F56700304557 /* AlternateCatalogName.m in Sources */,
 				1FDEC33A1724FA3800304557 /* GPSubvarietySearch.m in Sources */,
+				1F0B49FC172AFED400BC00A3 /* GPAddBureauPrecancel.m in Sources */,
+				1F0B4A03172B078800BC00A3 /* BureauPrecancel+Duplicate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1497,7 +1497,7 @@
 				1F4930AB16D93A9B0094672A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		1F4930AC16D93A9B0094672A /* Build configuration list for PBXNativeTarget "GonePostal" */ = {
 			isa = XCConfigurationList;
@@ -1506,7 +1506,7 @@
 				1F4930AE16D93A9B0094672A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		1F4930AF16D93A9B0094672A /* Build configuration list for PBXNativeTarget "GonePostalTests" */ = {
 			isa = XCConfigurationList;
@@ -1515,7 +1515,7 @@
 				1F4930B116D93A9B0094672A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 

@@ -25,9 +25,8 @@
         _gpCatalog = gpCatalog;
         _managedObjectContext = gpCatalog.managedObjectContext;
         
-        NSSortDescriptor *stampSort = [[NSSortDescriptor alloc] initWithKey:@"gpCatalog.gp_catalog_number" ascending:YES];
         NSSortDescriptor *formatSort = [[NSSortDescriptor alloc] initWithKey:@"format.name" ascending:YES];
-        _stampSortDescriptors = @[stampSort, formatSort];
+        _stampSortDescriptors = @[formatSort];
     }
     return self;
 }
@@ -48,6 +47,7 @@
     
     [stamp setGpCatalog:self.gpCatalog];
     [stamp setDefault_picture:self.gpCatalog.default_picture];
+    [stamp setGp_stamp_number:self.gpCatalog.gp_catalog_number];
     
     [self.stampExamplesController addObject:stamp];
 }

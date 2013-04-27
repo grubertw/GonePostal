@@ -15,8 +15,6 @@
 #import "GPSectionSearch.h"
 #import "GPFormatSearch.h"
 #import "GPLocationSearch.h"
-#import "GPChildStampItem.h"
-#import "GPParentStampItem.h"
 
 @interface GPStampViewer ()
 @property (strong, nonatomic) GPCountrySearch * countrySearchController;
@@ -81,7 +79,7 @@
         _formatsPredicate = formatsPredicate;
         _locationsPredicate = locationsPredicate;
         
-        NSSortDescriptor *stampSort = [[NSSortDescriptor alloc] initWithKey:@"gpCatalog.gp_catalog_number" ascending:YES];
+        NSSortDescriptor *stampSort = [[NSSortDescriptor alloc] initWithKey:@"gp_stamp_number" ascending:YES];
         NSSortDescriptor *formatSort = [[NSSortDescriptor alloc] initWithKey:@"format.name" ascending:YES];
         _stampSortDescriptors = @[stampSort, formatSort];
         
