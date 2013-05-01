@@ -21,6 +21,9 @@
         // Create the sort descripors
         NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
         _sortDescriptors = @[sort];
+        
+        NSSortDescriptor *formatTypeSort = [[NSSortDescriptor alloc] initWithKey:@"formatName" ascending:YES];
+        _formatTypeSortDescriptors = @[formatTypeSort];
     }
     
     return self;

@@ -168,7 +168,6 @@ static NSString * EXPERT_SUBVARIETY_GPID = @"EXP";
     [self.availableGPCatalogAttributes removeObject:[gpCatalogProperties objectForKey:@"cancelations"]];
     [self.availableGPCatalogAttributes removeObject:[gpCatalogProperties objectForKey:@"catalogSets"]];
     [self.availableGPCatalogAttributes removeObject:[gpCatalogProperties objectForKey:@"defaultCatalogName"]];
-    [self.availableGPCatalogAttributes removeObject:[gpCatalogProperties objectForKey:@"fdcIssueLocation"]];
     [self.availableGPCatalogAttributes removeObject:[gpCatalogProperties objectForKey:@"looksLike"]];
     [self.availableGPCatalogAttributes removeObject:[gpCatalogProperties objectForKey:@"majorVariety"]];
     [self.availableGPCatalogAttributes removeObject:[gpCatalogProperties objectForKey:@"plateNumberInfos"]];

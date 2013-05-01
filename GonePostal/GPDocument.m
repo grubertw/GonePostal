@@ -46,6 +46,7 @@
 #import "GPSubvarietyType.h"
 
 #import "CommonCrypto/CommonDigest.h"
+#import "ExceptionHandling/NSExceptionHandler.h"
 
 // static indexes into the CustomSearches table for fetching data.
 const NSInteger ASSISTED_GP_CATALOG_EDITER_SEARCH_ID = 1;
@@ -170,6 +171,11 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
         [NSValueTransformer setValueTransformer:plate7Exists forName:@"Plate7ExistsChecker"];
         id plate8Exists = [[GPPlateUsageExistsChecker alloc] initWithPlateNumberCheck:[NSNumber numberWithUnsignedInt:8]];
         [NSValueTransformer setValueTransformer:plate8Exists forName:@"Plate8ExistsChecker"];
+        
+        // Configure the global exception handler
+        NSExceptionHandler * defaultHandler = [NSExceptionHandler defaultExceptionHandler];
+        [defaultHandler setExceptionHandlingMask:NSLogAndHandleEveryExceptionMask];
+        [defaultHandler setDelegate:self];
     }
     return self;
 }
@@ -663,6 +669,38 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
     [fileWrapper addFileWrapper:imageFile];
     
     return fileName;
+}
+
+- (BOOL)exceptionHandler:(NSExceptionHandler *)sender shouldHandleException:(NSException *)exception mask:(unsigned int)aMask {
+    // Let the default exception handler do it's thing for now.
+    return YES;
+}
+
+- (BOOL)exceptionHandler:(NSExceptionHandler *)sender shouldLogException:(NSException *)exception mask:(unsigned int)aMask {
+    [self printStackTrace:exception];
+    return YES;
+}
+
+- (void)printStackTrace:(NSException *)e
+{
+    NSString *stack = [[e userInfo] objectForKey:NSStackTraceKey];
+    if (stack) {
+        NSTask *ls = [[NSTask alloc] init];
+        NSString *pid = [[NSNumber numberWithInt:[[NSProcessInfo processInfo] processIdentifier]] stringValue];
+        NSMutableArray *args = [NSMutableArray arrayWithCapacity:20];
+        
+        [args addObject:@"-p"];
+        [args addObject:pid];
+        [args addObjectsFromArray:[stack componentsSeparatedByString:@"  "]];
+        // Note: function addresses are separated by double spaces, not a single space.
+        
+        [ls setLaunchPath:@"/usr/bin/atos"];
+        [ls setArguments:args];
+        [ls launch];
+        
+    } else {
+        NSLog(@"No stack trace available.");
+    }
 }
 
 @end

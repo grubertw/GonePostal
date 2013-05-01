@@ -569,7 +569,6 @@
 						<string key="NSFrame">{{194, 0}, {73, 32}}</string>
 						<reference key="NSSuperview" ref="303377889"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="233151135">
@@ -613,7 +612,7 @@
 										<string key="NSFrameSize">{198, 132}</string>
 										<reference key="NSSuperview" ref="895848294"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="728919033"/>
+										<reference key="NSNextKeyView" ref="44390436"/>
 										<string key="NSReuseIdentifierKey">_NS:13</string>
 										<bool key="NSEnabled">YES</bool>
 										<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -737,7 +736,6 @@
 								<string key="NSFrame">{{1, 134}, {198, 15}}</string>
 								<reference key="NSSuperview" ref="180496125"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:60</string>
 								<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 								<int key="NSsFlags">1</int>
@@ -765,7 +763,7 @@
 						<string key="NSFrameSize">{200, 150}</string>
 						<reference key="NSSuperview" ref="999054302"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="44390436"/>
+						<reference key="NSNextKeyView" ref="895848294"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<int key="NSsFlags">133682</int>
 						<reference key="NSVScroller" ref="728919033"/>
@@ -1097,7 +1095,7 @@
 										<string key="NSCellIdentifier">_NS:9</string>
 										<int key="NSAlign">0</int>
 										<int key="NSScale">0</int>
-										<int key="NSStyle">2</int>
+										<int key="NSStyle">1</int>
 										<bool key="NSAnimates">NO</bool>
 									</object>
 									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -4571,6 +4569,7 @@
 				</array>
 				<boolean value="NO" key="965.IBNSViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
 				<string key="965.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="966.CustomClassName">GPPopupImage</string>
 				<array key="966.IBNSViewMetadataConstraints">
 					<reference ref="987538502"/>
 					<reference ref="213253266"/>
@@ -4598,20 +4597,6 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">GPPerfinChooser</string>
 					<string key="superclassName">NSViewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="closeChooser:">id</string>
-						<string key="viewAltCatalogs:">NSButton</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="closeChooser:">
-							<string key="name">closeChooser:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="viewAltCatalogs:">
-							<string key="name">viewAltCatalogs:</string>
-							<string key="candidateClassName">NSButton</string>
-						</object>
-					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="altPerfinsPopover">NSPopover</string>
 						<string key="altPerfinsViewController">NSViewController</string>
@@ -4644,6 +4629,14 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/GPPerfinChooser.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">GPPopupImage</string>
+					<string key="superclassName">NSImageView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/GPPopupImage.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
