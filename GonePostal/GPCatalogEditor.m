@@ -122,7 +122,11 @@
         self.assistedSearch.predicate = [NSCompoundPredicate andPredicateWithSubpredicates:predicateArray];
     }
     
-    [self.document saveInPlace];
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+    }
     
     // Refresh the active filter search.
     [self.filtersActive setTitle:self.filterSearchController.filtersSelected];
@@ -351,7 +355,11 @@
         [entry duplicateFromThis];
     }
     
-    [self.document saveInPlace];
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+    }
     
     if (self.currMajorVariety)
         [self querySubvarieties];
@@ -365,6 +373,21 @@
     for (NSUInteger i=0; i<selectedEntries.count; i++) {
         GPCatalog * entry = [selectedEntries objectAtIndex:i];
         [self.managedObjectContext deleteObject:entry];
+        
+        NSError * error;
+        if (![self.managedObjectContext save:&error]) {
+            NSAlert * errSheet;
+            if (   [[error domain] isEqualToString:NSCocoaErrorDomain]
+                && [error code] == NSValidationRelationshipDeniedDeleteError) {
+                errSheet = [NSAlert alertWithMessageText:@"Delete Error" defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:@"Unable to remove catalog entry. Entry has one or more subvarieties."];
+            }
+            else {
+                errSheet = [NSAlert alertWithError:error];
+            }
+            [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+            [self.managedObjectContext undo];
+            return;
+        }
     }
     
     if (self.currMajorVariety)
@@ -576,6 +599,12 @@
 
 - (IBAction)addAlternateCatalog:(id)sender {
     [self.altCatalogsController add:self];
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
 }
 
 - (IBAction)addDefaultPicture:(id)sender {
@@ -684,6 +713,12 @@
     identPic.filename = fileName;
     
     [entry addExtraPicturesObject:identPic];
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
 }
 
 - (IBAction)removeIdentificationPicture:(id)sender {
@@ -695,6 +730,13 @@
     GPCatalog * entry = [entries objectAtIndex:0];
     
     [entry removeExtraPictures:[NSSet setWithArray:selectedIdentPics]];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
 }
 
 - (IBAction)openStampExamples:(id)sender {
@@ -720,6 +762,12 @@
     [pu setUsage_color:entry.color];
     
     [entry addPlateUsageObject:pu];
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
     
     [self tableViewSelectionDidChange:nil];
 }
@@ -734,6 +782,13 @@
     
     [entry removePlateUsage:[NSSet setWithArray:selectedPlateUsages]];
     
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
+    
     [self tableViewSelectionDidChange:nil];
 }
 
@@ -741,6 +796,13 @@
     PlateNumber * pn = [NSEntityDescription insertNewObjectForEntityForName:@"PlateNumber" inManagedObjectContext:self.managedObjectContext];
    
     [self.plateNumberCombinationsController insertObject:pn atArrangedObjectIndex:[self.plateNumberCombinationsController.arrangedObjects count]];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
 }
 
 - (IBAction)removePlateNumberCombination:(id)sender {
@@ -751,6 +813,13 @@
     GPCatalog * entry = [entries objectAtIndex:0];
     
     [entry removePlateNumbers:[NSSet setWithArray:selectedPlateNumbers]];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
 }
 
 - (IBAction)addCachet:(id)sender {
@@ -761,6 +830,13 @@
     GPCatalog * entry = [entries objectAtIndex:0];
     
     [entry addCachetsObject:cachet];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
 }
 
 - (IBAction)removeCachet:(id)sender {
@@ -772,6 +848,13 @@
     GPCatalog * entry = [entries objectAtIndex:0];
     
     [entry removeCachets:[NSSet setWithArray:selectedCachets]];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
 }
 
 - (IBAction)addPrecancel:(id)sender {
@@ -783,6 +866,13 @@
     [self.document addWindowController:controller];
     
     [controller.window makeKeyAndOrderFront:sender];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
 }
 
 - (IBAction)addPictureToPrecancel:(NSButton *)sender {
@@ -799,6 +889,13 @@
     Cancelations * cancelation = [NSEntityDescription insertNewObjectForEntityForName:@"Cancelations" inManagedObjectContext:self.managedObjectContext];
     
     [self.cancelationsController insertObject:cancelation atArrangedObjectIndex:[self.cancelationsController.arrangedObjects count]];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
 }
 
 - (IBAction)removeCancelation:(id)sender {
@@ -809,6 +906,13 @@
     GPCatalog * entry = [entries objectAtIndex:0];
     
     [entry removeCancelations:[NSSet setWithArray:selectedCancelations]];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
 }
 
 - (IBAction)addPictureToCancelation:(id)sender {
@@ -829,6 +933,13 @@
     GPCatalog * entry = [entries objectAtIndex:0];
     
     [entry addTopicsObject:self.selectedTopic];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
 }
 
 - (IBAction)removeTopic:(id)sender {
@@ -840,6 +951,13 @@
     GPCatalog * entry = [entries objectAtIndex:0];
     
     [entry removeTopics:[NSSet setWithArray:topics]];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification {

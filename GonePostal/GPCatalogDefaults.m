@@ -109,6 +109,13 @@
     GPCatalog * defaults = self.gpCatalogDefaultsController.content;
     [self.managedObjectContext deleteObject:defaults];
     
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
+    
     GPCatalog * entry = [NSEntityDescription insertNewObjectForEntityForName:@"GPCatalog" inManagedObjectContext:self.managedObjectContext];
     entry.is_default = [NSNumber numberWithBool:YES];
     
@@ -118,6 +125,12 @@
     [entry addAlternateCatalogsObject:altCatalog];
     
     [self.gpCatalogDefaultsController setContent:entry];
+    
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext rollback];
+    }
 }
 
 @end

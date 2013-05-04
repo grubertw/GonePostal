@@ -65,6 +65,13 @@
     
     LooksLike * ll = self.looksLikeController.content;
     [ll removeTheseGPCatalogEntries:[NSSet setWithArray:selectedGPCatalogEntries]];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.view.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
 }
 
 @end

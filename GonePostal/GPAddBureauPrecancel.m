@@ -28,8 +28,6 @@
         NSSortDescriptor *precancelSort = [[NSSortDescriptor alloc] initWithKey:@"gp_precancel_number" ascending:NO];
         _precancelsSortDescriptors = @[precancelSort];
         
-        [self.document saveInPlace];
-        
         _currPrecancel = [NSEntityDescription insertNewObjectForEntityForName:@"BureauPrecancel" inManagedObjectContext:_managedObjectContext];
         
         _addedPrecancels = [[NSMutableArray alloc] initWithCapacity:4];
@@ -41,6 +39,13 @@
 - (void)windowDidLoad
 {
     [super windowDidLoad];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.window performClose:self];
+    }
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
@@ -62,7 +67,13 @@
     // Add to catalog.
     [self.gpCatalog addBureauPrecancelsObject:self.currPrecancel];
     
-    [self.document saveInPlace];
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
     
     // Duplicate a new precancel
     BureauPrecancel * nextPrecancel = [self.currPrecancel duplicate];
@@ -75,7 +86,13 @@
     // Add to catalog.
     [self.gpCatalog addBureauPrecancelsObject:self.currPrecancel];
     
-    [self.document saveInPlace];
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
+    
     [self.window performClose:sender];
 }
 

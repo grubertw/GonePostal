@@ -59,7 +59,13 @@
     [super windowDidLoad];
     
     // Save any uncommited changes before beginning.
-    [self.document saveInPlace];
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.window performClose:self];
+        return;
+    }
 
     // Create a new entry from the defaults.
     GPCatalog * entry = [GPCatalog createFromDefaultsUsingManagedObjectContext:self.managedObjectContext];
@@ -89,8 +95,13 @@
     [self.addedGPIDs addObject:entry];
     [self.addedGPIDsController setContent:self.addedGPIDs];
     
-    // Save the managed object context
-    [self.document saveInPlace];
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
 
     // Prepare for the next entry.
     GPCatalog * nextEntry = [entry duplicateFromThis];
@@ -118,8 +129,12 @@
         }
     }
     
-    // Save the managed object context and close the window.
-    [self.document saveInPlace];
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
     
     // Reload the catalog editor's content
     [self.catalogEditor queryGPCatalog];

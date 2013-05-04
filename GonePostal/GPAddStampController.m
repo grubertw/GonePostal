@@ -44,7 +44,6 @@ static NSString * NEW_STAMP_PAGE_TITLE = @"Specify Stamp Specifics";
         
         NSDocumentController * docController = [NSDocumentController sharedDocumentController];
         GPDocument * doc = [docController currentDocument];
-        [doc saveInPlace];
         
         _managedObjectContext = self.myCollection.managedObjectContext;
         
@@ -201,6 +200,13 @@ static NSString * NEW_STAMP_PAGE_TITLE = @"Specify Stamp Specifics";
     else {
         // Add the new stamp to the collection.
         [self.myCollection addStampsObject:self.gpNewStampPage.stamp];
+        
+        NSError * error;
+        if (![self.managedObjectContext save:&error]) {
+            NSAlert * errSheet = [NSAlert alertWithError:error];
+            [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+            [self.managedObjectContext rollback];
+        }
     }
 }
 

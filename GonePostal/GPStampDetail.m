@@ -21,10 +21,16 @@
 #import "LocalPrecancel.h"
 #import "Perfin.h"
 #import "PlateUsage.h"
+#import "StampFormat.h"
 
 @interface GPStampDetail ()
 @property (weak, nonatomic) IBOutlet NSScrollView * stampPicsScrollView;
 @property (weak, nonatomic) IBOutlet NSView * stampPicsScrollContent;
+
+@property (weak, nonatomic) IBOutlet NSTabView * sideTabs;
+@property (strong, nonatomic) IBOutlet NSTabViewItem * cachetTab;
+@property (strong, nonatomic) IBOutlet NSTabViewItem * platesTab;
+@property (strong, nonatomic) IBOutlet NSTabViewItem * perfinsTab;
 
 @property (weak, nonatomic) IBOutlet NSTabView * bottomTabs;
 @property (weak, nonatomic) IBOutlet NSTabViewItem * historyAndStorageTab;
@@ -159,6 +165,63 @@
     else {
         [self.bottomTabs removeTabViewItem:self.saleHistoryTab];
     }
+    
+    // Register this object as a key-value observer of the stamp
+    // (used to show and hide tabs, based on the format)
+    [self.stamp addObserver:self forKeyPath:@"format" options:NSKeyValueObservingOptionNew context:nil];
+    
+    [self resequenceTabsForStamp:self.stamp];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    if ([keyPath isEqualToString:@"format"] && [object isMemberOfClass:[Stamp class]]) {
+        Stamp * stamp = (Stamp *)object;
+        [self resequenceTabsForStamp:stamp];
+    }
+}
+
+- (void)resequenceTabsForStamp:(Stamp *)stamp {
+    NSInteger tabIndexToInsert = 0;
+    
+    // Show or hide the tabs, based on the display BOOLs of the StampFormat.
+    if (stamp.format.displayCachetInfo) {
+        if ([self.sideTabs indexOfTabViewItem:self.cachetTab] == NSNotFound) {
+            [self.sideTabs insertTabViewItem:self.cachetTab atIndex:tabIndexToInsert];
+        }
+        tabIndexToInsert++;
+    }
+    else {
+        if ([self.sideTabs indexOfTabViewItem:self.cachetTab] != NSNotFound) {
+            [self.sideTabs removeTabViewItem:self.cachetTab];
+        }
+    }
+    
+    if (stamp.format.displayPlateInfo) {
+        if ([self.sideTabs indexOfTabViewItem:self.platesTab] == NSNotFound) {
+            [self.sideTabs insertTabViewItem:self.platesTab atIndex:tabIndexToInsert];
+        }
+        tabIndexToInsert++;
+    }
+    else {
+        if ([self.sideTabs indexOfTabViewItem:self.platesTab] != NSNotFound) {
+            [self.sideTabs removeTabViewItem:self.platesTab];
+        }
+    }
+    
+    if (stamp.format.displayPerfinInfo) {
+        if ([self.sideTabs indexOfTabViewItem:self.perfinsTab] == NSNotFound) {
+            [self.sideTabs insertTabViewItem:self.perfinsTab atIndex:tabIndexToInsert];
+        }
+        tabIndexToInsert++;
+    }
+    else {
+        if ([self.sideTabs indexOfTabViewItem:self.perfinsTab] != NSNotFound) {
+            [self.sideTabs removeTabViewItem:self.perfinsTab];
+        }
+    }
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
@@ -258,6 +321,10 @@
     
     // Store the filename into the model.
     self.stamp.alternate_picture_6 = fileName;
+}
+
+- (void)windowWillClose:(NSNotification *)notification {
+    [self.stamp removeObserver:self forKeyPath:@"format"];
 }
 
 @end

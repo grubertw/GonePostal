@@ -50,10 +50,24 @@
     [stamp setGp_stamp_number:self.gpCatalog.gp_catalog_number];
     
     [self.stampExamplesController addObject:stamp];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
 }
 
 - (IBAction)removeStampExample:(id)sender {
     [self.stampExamplesController remove:sender];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
 }
 
 - (IBAction)showDetail:(NSButton *)sender {

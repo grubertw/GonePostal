@@ -37,10 +37,12 @@
 
 - (IBAction)addTopic:(id)sender {
     [self.modelController insert:self];
+    [self.managedObjectContext save:nil];
 }
 
 - (IBAction)removeTopic:(id)sender {
     [self.modelController remove:self];
+    [self.managedObjectContext save:nil];
 }
 
 @end

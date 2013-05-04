@@ -36,14 +36,35 @@
 
 - (IBAction)addSet:(id)sender {
     [self.gpCatalogSetsController insert:sender];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
 }
 
 - (IBAction)removeSet:(id)sender {
     [self.gpCatalogSetsController remove:sender];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
 }
 
 - (IBAction)removeCatalogEntries:(id)sender {
     [self.gpCatalogsController removeObjects:self.gpCatalogsController.selectedObjects];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
 }
 
 @end

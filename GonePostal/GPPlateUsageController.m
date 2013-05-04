@@ -47,6 +47,13 @@
     
     if (self.selectedPlatePosition == nil) return;
     [plateUsage addPlatePositionsObject:self.selectedPlatePosition];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.view.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
 }
 
 - (IBAction)removePlatePositionFromPlateUsage:(id)sender {
@@ -54,6 +61,13 @@
     
     NSArray * selectedPlatePositions = self.platePositionsInPlateUsageController.selectedObjects;
     [plateUsage removePlatePositions:[NSSet setWithArray:selectedPlatePositions]];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.view.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
 }
 
 @end

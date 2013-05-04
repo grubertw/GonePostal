@@ -51,10 +51,27 @@
     [newModel setCountry_sort_id:[NSNumber numberWithInt:sortID]];
     
     [self.countryDataController addObject:newModel];
+    [self.managedObjectContext save:nil];
 }
 
 - (IBAction)deleteCountry:(id)sender {
     [self.countryDataController remove:self.countryDataController];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet;
+        
+        if (   [[error domain] isEqualToString:NSCocoaErrorDomain]
+            && [error code] == NSValidationRelationshipDeniedDeleteError) {
+            errSheet = [NSAlert alertWithMessageText:@"Delete Error" defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:@"Item is currently in use within the GP Catalog."];
+        }
+        else {
+            errSheet = [NSAlert alertWithError:error];
+        }
+        
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
 }
 
 - (IBAction)reSort:(id)sender {

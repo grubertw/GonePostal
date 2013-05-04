@@ -9,7 +9,12 @@
 #import "GPSupportedStampFormats.h"
 
 @interface GPSupportedStampFormats ()
-@property (weak, nonatomic) IBOutlet NSArrayController * modelController;
+@property (weak, nonatomic) IBOutlet NSTableView * stampFormatsTable;
+
+@property (weak, nonatomic) IBOutlet NSPopover * allowedFormatTypesPopover;
+@property (strong, nonatomic) IBOutlet NSArrayController * allowedFormatTypes;
+
+@property (strong, nonatomic) IBOutlet NSArrayController * modelController;
 @end
 
 @implementation GPSupportedStampFormats
@@ -33,12 +38,64 @@
     return @"Supported Formats";
 }
 
+- (IBAction)editAllowedStampFormats:(NSButton *)sender {
+    NSInteger row = [self.stampFormatsTable rowForView:sender];
+    self.selectedStampFormat = self.modelController.arrangedObjects[row];
+    
+    [self.allowedFormatTypesPopover showRelativeToRect:sender.bounds ofView:sender preferredEdge:row];
+}
+
+- (IBAction)addToAllowedFormatTypes:(id)sender {
+    [self.selectedStampFormat addContainersObject:self.formatTypeToAdd];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
+}
+
+- (IBAction)removeFromAllowedFormatTypes:(id)sender {
+    [self.allowedFormatTypes remove:sender];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
+}
+
 - (IBAction)addStampFormat:(id)sender {
     [self.modelController insert:self];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
 }
 
 - (IBAction)deleteStampFormat:(id)sender {
     [self.modelController remove:self];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet;
+        
+        if (   [[error domain] isEqualToString:NSCocoaErrorDomain]
+            && [error code] == NSValidationRelationshipDeniedDeleteError) {
+            errSheet = [NSAlert alertWithMessageText:@"Delete Error" defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:@"Item is currently in use within a stamp collection."];
+        }
+        else {
+            errSheet = [NSAlert alertWithError:error];
+        }
+        
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
 }
 
 @end
