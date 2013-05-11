@@ -30,6 +30,7 @@
 #import "GPStampExamples.h"
 #import "GPSubvarietySearch.h"
 #import "GPAddBureauPrecancel.h"
+#import "GPCustomSearch.h"
 
 // Private members.
 @interface GPCatalogEditor ()
@@ -81,6 +82,7 @@
 @property (weak, nonatomic) IBOutlet NSArrayController * topicsController;
 @property (weak, nonatomic) IBOutlet NSArrayController * topicsInGPCatalogController;
 @property (weak, nonatomic) IBOutlet NSArrayController * identificationPicturesController;
+@property (weak, nonatomic) IBOutlet NSArrayController * customSearchController;
 
 @property (strong, nonatomic) NSArray * gpCatalogEntries;
 
@@ -132,6 +134,7 @@
     [self.filtersActive setTitle:self.filterSearchController.filtersSelected];
     
     // Refetch the GP Catalog Data.
+    self.currSearch = self.assistedSearch.predicate;
     [self queryGPCatalog];
 }
 
@@ -215,6 +218,9 @@
         NSSortDescriptor *subTypesSort = [[NSSortDescriptor alloc] initWithKey:@"sortID" ascending:YES];
         self.subvarietyTypesSortDescriptors = @[subTypesSort];
         
+        NSSortDescriptor *customSearchSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+        self.customSearchSortDescriptors = @[customSearchSort];
+        
         // Initialize the assisted search panels.
         _countrySearchController = [[GPCountrySearch alloc] initWithPredicate:countriesPredicate forStamp:NO];
         _sectionSearchController = [[GPSectionSearch alloc] initWithPredicate:sectionsPredicate forStamp:NO];
@@ -272,6 +278,7 @@
     [self.filtersActive setTitle:self.filterSearchController.filtersSelected];
     
     // Fetch the GP Catalog Data.
+    self.currSearch = self.assistedSearch.predicate;
     [self queryGPCatalog];
 }
 
@@ -284,7 +291,7 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"GPCatalog" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
 
-    [fetchRequest setPredicate:self.assistedSearch.predicate];
+    [fetchRequest setPredicate:self.currSearch];
 
     NSError *error = nil;
     self.gpCatalogEntries = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
@@ -575,6 +582,48 @@
     // Make sure the selection is visable.
     [self.gpCatalogTable scrollRowToVisible:indexOfMajorVariety];
     self.currMajorVariety = nil;
+}
+
+- (IBAction)addCustomSearch:(id)sender {
+    StoredSearch * customSearch = [NSEntityDescription insertNewObjectForEntityForName:@"StoredSearch" inManagedObjectContext:self.managedObjectContext];
+    customSearch.identifier = @(CUSTOM_GP_CATALOG_SEARCH_ID);
+    customSearch.name = @"New Search";
+    self.currCustomSearch = customSearch;
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
+    
+    [self.customSearchController fetch:sender];
+}
+
+- (IBAction)removeCustomSearch:(id)sender {
+    [self.customSearchController removeObject:self.currCustomSearch];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
+}
+
+- (IBAction)editCustomSearch:(id)sender {
+    if (!self.currCustomSearch) return;
+    
+    GPCustomSearch * customSearchController = [[GPCustomSearch alloc] initWithStoredSearch:self.currCustomSearch];
+    [self.document addWindowController:customSearchController];
+    [customSearchController.window makeKeyAndOrderFront:sender];
+}
+
+- (IBAction)executeCustomSearch:(id)sender {
+    if (!self.currCustomSearch || !self.currCustomSearch.predicate) return;
+    
+    self.currSearch = self.currCustomSearch.predicate;
+    [self queryGPCatalog];
 }
 
 - (IBAction)viewSetsForGPCatalogEntry:(id)sender {

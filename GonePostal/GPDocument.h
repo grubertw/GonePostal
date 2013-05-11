@@ -13,6 +13,8 @@
 extern const NSInteger ASSISTED_GP_CATALOG_EDITER_SEARCH_ID;
 extern const NSInteger ASSISTED_GP_CATALOG_BROWSER_SEARCH_ID;
 extern const NSInteger ASSISTED_STAMP_LIST_VIEWER_SEARCH_ID;
+extern const NSInteger CUSTOM_GP_CATALOG_SEARCH_ID; // Multiple predicates with diferent names share this ID.
+extern const NSInteger CUSTOM_STAMP_SEARCH_ID;
 
 extern NSString * BASE_GP_CATALOG_QUERY;
 extern NSString * BASE_GP_CATALOG_QUERY_WITH_SUBVARIETIES;

@@ -13,12 +13,13 @@
 #import "GPFilterSearch.h"
 #import "GPCatalog.h"
 #import "GPCatalogDetail.h"
+#import "GPCustomSearch.h"
 
 @interface GPCatalogChooserPage ()
 @property (weak, nonatomic) IBOutlet NSButton * changeFiltersButton;
 @property (weak, nonatomic) IBOutlet NSTableView * gpCatalogTable;
 
-@property (nonatomic) BOOL viewSubvarieties;
+@property (strong, nonatomic) IBOutlet NSArrayController * customSearchController;
 
 @property (strong, nonatomic) NSPopover * catalogDetailPopover;
 @property (strong, nonatomic) GPCatalogDetail * catalogDetail;
@@ -35,13 +36,7 @@
     // All persisted info about the search should be loaded
     // into the three predicates at this point.
     NSMutableArray * predicateArray = [NSMutableArray arrayWithCapacity:4];
-    
-    if (self.viewSubvarieties) {
-        [predicateArray addObject:[NSPredicate predicateWithFormat:BASE_GP_CATALOG_QUERY_WITH_SUBVARIETIES]];
-    }
-    else {
-        [predicateArray addObject:[NSPredicate predicateWithFormat:BASE_GP_CATALOG_QUERY]];
-    }
+    [predicateArray addObject:[NSPredicate predicateWithFormat:BASE_GP_CATALOG_QUERY]];
     
     if (self.countrySearchController.predicate != nil) {
         [predicateArray addObject:self.countrySearchController.predicate];
@@ -76,6 +71,7 @@
     [self.changeFiltersButton setTitle:self.filterSearchController.filtersSelected];
     
     // Refetch the GP Catalog Data.
+    self.currSearch = self.assistedSearch.predicate;
     [self queryGPCatalog];
 }
 
@@ -83,8 +79,6 @@
     
     self = [super initWithNibName:@"GPCatalogChooserPage" bundle:nil];
     if (self) {
-        _viewSubvarieties = NO;
-        
         NSDocumentController * docController = [NSDocumentController sharedDocumentController];
         _doc = [docController currentDocument];
         _managedObjectContext = self.doc.managedObjectContext;
@@ -107,6 +101,9 @@
         NSSortDescriptor *groupSort = [[NSSortDescriptor alloc] initWithKey:@"catalogGroup.group_number" ascending:YES];
         NSSortDescriptor *catalogNumberSort = [[NSSortDescriptor alloc] initWithKey:@"gp_catalog_number" ascending:YES];
         _gpCatalogSortDescriptors = @[gpCountrySort, groupSort, catalogNumberSort];
+        
+        NSSortDescriptor *customSearchSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+        _customSearchSortDescriptors = @[customSearchSort];
         
         // Initialize the assisted search panels.
         _countrySearchController = [[GPCountrySearch alloc] initWithPredicate:countriesPredicate forStamp:NO];
@@ -141,6 +138,7 @@
     // Set the active filter search.
     [self.changeFiltersButton setTitle:self.filterSearchController.filtersSelected];
     
+    self.currSearch = self.assistedSearch.predicate;
     [self queryGPCatalog];
 }
 
@@ -152,14 +150,8 @@
 }
 
 - (void)queryGPCatalog {
-    [self.gpCatalogController setFetchPredicate:self.assistedSearch.predicate];
+    [self.gpCatalogController setFetchPredicate:self.currSearch];
     [self.gpCatalogController fetch:self];
-}
-
-- (IBAction)viewSubvarietiesSelected:(id)sender {
-    self.viewSubvarieties = (((NSButton *)sender).state == NSOnState);
-    
-    [self updateCurrentSearch];
 }
 
 - (IBAction)openCountriesSearchPanel:(id)sender {
@@ -190,6 +182,48 @@
 
 - (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
     [self updateCurrentSearch];
+}
+
+- (IBAction)addCustomSearch:(id)sender {
+    StoredSearch * customSearch = [NSEntityDescription insertNewObjectForEntityForName:@"StoredSearch" inManagedObjectContext:self.managedObjectContext];
+    customSearch.identifier = @(CUSTOM_GP_CATALOG_SEARCH_ID);
+    customSearch.name = @"New Search";
+    self.currCustomSearch = customSearch;
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.view.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
+    
+    [self.customSearchController fetch:sender];
+}
+
+- (IBAction)removeCustomSearch:(id)sender {
+    [self.customSearchController removeObject:self.currCustomSearch];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.view.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
+}
+
+- (IBAction)editCustomSearch:(id)sender {
+    if (!self.currCustomSearch) return;
+    
+    GPCustomSearch * customSearchController = [[GPCustomSearch alloc] initWithStoredSearch:self.currCustomSearch];
+    [self.doc addWindowController:customSearchController];
+    [customSearchController.window makeKeyAndOrderFront:sender];
+}
+
+- (IBAction)executeCustomSearch:(id)sender {
+    if (!self.currCustomSearch || !self.currCustomSearch.predicate) return;
+    
+    self.currSearch = self.currCustomSearch.predicate;
+    [self queryGPCatalog];
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)notification {

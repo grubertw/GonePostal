@@ -39,6 +39,7 @@
 @property (strong, nonatomic) NSArray * topicsSortDescriptors;
 @property (strong, nonatomic) NSArray * identificationPicturesSortDescriptors;
 @property (strong, nonatomic) NSArray * subvarietyTypesSortDescriptors;
+@property (strong, nonatomic) NSArray * customSearchSortDescriptors;
 
 @property (strong, nonatomic) StoredSearch * assistedSearch;
 @property (strong, nonatomic) NSPredicate * countriesPredicate;
@@ -49,6 +50,9 @@
 @property (strong, nonatomic) GPSectionSearch * sectionSearchController;
 @property (strong, nonatomic) GPFilterSearch * filterSearchController;
 @property (strong, nonatomic) GPSubvarietySearch * subvarietySearchController;
+
+@property (strong, nonatomic) NSPredicate * currSearch;
+@property (strong, nonatomic) StoredSearch * currCustomSearch;
 
 - (id)initWithAssistedSearch:(StoredSearch *)assistedSearch countrySearch:(NSPredicate *)countriesPredicate sectionSearch:(NSPredicate *)sectionsPredicate filterSearch:(NSPredicate *)filtersPredicate;
 

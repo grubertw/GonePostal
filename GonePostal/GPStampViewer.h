@@ -21,12 +21,16 @@
 
 @property (strong, nonatomic) NSManagedObjectContext * managedObjectContext;
 @property (strong, nonatomic) NSArray * stampSortDescriptors;
+@property (strong, nonatomic) NSArray * customSearchSortDescriptors;
 
 @property (strong, nonatomic) StoredSearch * assistedSearch;
 @property (strong, nonatomic) NSPredicate * countriesPredicate;
 @property (strong, nonatomic) NSPredicate * sectionsPredicate;
 @property (strong, nonatomic) NSPredicate * formatsPredicate;
 @property (strong, nonatomic) NSPredicate * locationsPredicate;
+
+@property (strong, nonatomic) NSPredicate * currSearch;
+@property (strong, nonatomic) StoredSearch * currCustomSearch;
 
 - (id)initWithCollection:(GPCollection *)myCollection assistedSearch:(StoredSearch *)assistedSearch countrySearch:(NSPredicate *)countriesPredicate sectionSearch:(NSPredicate *)sectionsPredicate formatSearch:(NSPredicate *)formatsPredicate locationSearch:(NSPredicate *)locationsPredicate;
 

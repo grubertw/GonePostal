@@ -20,6 +20,7 @@
 @property (strong, nonatomic) GPCatalog * selectedGPCatalog;
 
 @property (strong, nonatomic) NSArray * gpCatalogSortDescriptors;
+@property (strong, nonatomic) NSArray * customSearchSortDescriptors;
 
 @property (strong, nonatomic) GPCountrySearch * countrySearchController;
 @property (strong, nonatomic) GPSectionSearch * sectionSearchController;
@@ -31,6 +32,9 @@
 @property (strong, nonatomic) NSPredicate * filtersPredicate;
 
 @property (strong, nonatomic) IBOutlet NSArrayController * gpCatalogController;
+
+@property (strong, nonatomic) NSPredicate * currSearch;
+@property (strong, nonatomic) StoredSearch * currCustomSearch;
 
 - (id)initWithAssistedSearch:(StoredSearch *)assistedSearch countrySearch:(NSPredicate *)countriesPredicate sectionSearch:(NSPredicate *)sectionsPredicate filterSearch:(NSPredicate *)filtersPredicate;
 

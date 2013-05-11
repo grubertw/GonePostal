@@ -49,9 +49,11 @@
 #import "ExceptionHandling/NSExceptionHandler.h"
 
 // static indexes into the CustomSearches table for fetching data.
-const NSInteger ASSISTED_GP_CATALOG_EDITER_SEARCH_ID = 1;
-const NSInteger ASSISTED_GP_CATALOG_BROWSER_SEARCH_ID = 2;
-const NSInteger ASSISTED_STAMP_LIST_VIEWER_SEARCH_ID = 3;
+const NSInteger ASSISTED_GP_CATALOG_EDITER_SEARCH_ID        = 1;
+const NSInteger ASSISTED_GP_CATALOG_BROWSER_SEARCH_ID       = 2;
+const NSInteger ASSISTED_STAMP_LIST_VIEWER_SEARCH_ID        = 3;
+const NSInteger CUSTOM_GP_CATALOG_SEARCH_ID                 = 4;
+const NSInteger CUSTOM_STAMP_SEARCH_ID                      = 5;
 
 NSString * BASE_GP_CATALOG_QUERY = @"is_default==0 and majorVariety==nil";
 NSString * BASE_GP_CATALOG_QUERY_WITH_SUBVARIETIES = @"is_default==0";

@@ -15,12 +15,15 @@
 #import "GPSectionSearch.h"
 #import "GPFormatSearch.h"
 #import "GPLocationSearch.h"
+#import "GPCustomSearch.h"
 
 @interface GPStampViewer ()
 @property (strong, nonatomic) GPCountrySearch * countrySearchController;
 @property (strong, nonatomic) GPSectionSearch * sectionSearchController;
 @property (strong, nonatomic) GPFormatSearch * formatSearchController;
 @property (strong, nonatomic) GPLocationSearch * locationSearchController;
+
+@property (strong, nonatomic) IBOutlet NSArrayController * customSearchController;
 
 @property (strong, nonatomic) IBOutlet NSTableView * stampsTable;
 @property (weak, nonatomic) IBOutlet NSArrayController * stampsController;
@@ -63,6 +66,7 @@
     [self.document saveInPlace];
     
     // refilter the stamp Data.
+    self.currSearch = self.assistedSearch.predicate;
     [self refilterStamps];
 }
 
@@ -82,6 +86,9 @@
         NSSortDescriptor *stampSort = [[NSSortDescriptor alloc] initWithKey:@"gp_stamp_number" ascending:YES];
         NSSortDescriptor *formatSort = [[NSSortDescriptor alloc] initWithKey:@"format.name" ascending:YES];
         _stampSortDescriptors = @[stampSort, formatSort];
+        
+        NSSortDescriptor *customSearchSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+        _customSearchSortDescriptors = @[customSearchSort];
         
         // Initialize the assisted search panels.
         _countrySearchController = [[GPCountrySearch alloc] initWithPredicate:countriesPredicate forStamp:YES];
@@ -112,6 +119,7 @@
     
     // Fetch the stamps, based on the parsed predicate information performed
     // by the search controllers.
+    self.currSearch = self.assistedSearch.predicate;
     [self refilterStamps];
 }
 
@@ -120,7 +128,7 @@
 }
 
 - (void)refilterStamps {
-    [self.stampsController setFilterPredicate:self.assistedSearch.predicate];
+    [self.stampsController setFilterPredicate:self.currSearch];
     [self.stampsController rearrangeObjects];
 }
 
@@ -182,6 +190,48 @@
 
 - (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
     [self updateCurrentSearch];
+}
+
+- (IBAction)addCustomSearch:(id)sender {
+    StoredSearch * customSearch = [NSEntityDescription insertNewObjectForEntityForName:@"StoredSearch" inManagedObjectContext:self.managedObjectContext];
+    customSearch.identifier = @(CUSTOM_STAMP_SEARCH_ID);
+    customSearch.name = @"New Search";
+    self.currCustomSearch = customSearch;
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
+    
+    [self.customSearchController fetch:sender];
+}
+
+- (IBAction)removeCustomSearch:(id)sender {
+    [self.customSearchController removeObject:self.currCustomSearch];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
+}
+
+- (IBAction)editCustomSearch:(id)sender {
+    if (!self.currCustomSearch) return;
+    
+    GPCustomSearch * customSearchController = [[GPCustomSearch alloc] initWithStoredSearch:self.currCustomSearch];
+    [self.document addWindowController:customSearchController];
+    [customSearchController.window makeKeyAndOrderFront:sender];
+}
+
+- (IBAction)executeCustomSearch:(id)sender {
+    if (!self.currCustomSearch || !self.currCustomSearch.predicate) return;
+    
+    self.currSearch = self.currCustomSearch.predicate;
+    [self refilterStamps];
 }
 
 - (IBAction)closeChildren:(id)sender {
