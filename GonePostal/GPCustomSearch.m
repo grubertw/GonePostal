@@ -10,18 +10,28 @@
 #import "GPDocument.h"
 
 @interface GPCustomSearch ()
-@property (weak, nonatomic) IBOutlet NSPredicateEditor * predicateEditor;
+@property (strong, nonatomic) NSNumber * searchID;
+@property (strong, nonatomic) IBOutlet NSArrayController * customSearchController;
 
+@property (weak, nonatomic) IBOutlet NSPredicateEditor * predicateEditor;
 @property (strong, nonatomic) IBOutlet NSPredicateEditorRowTemplate *compoundTemplate;
+
+@property (strong, nonatomic) StoredSearch * currSearch;
 @end
 
 @implementation GPCustomSearch
 
-- initWithStoredSearch:(StoredSearch *)storedSearch {
+- initWithStoredSearchIdentifier:(NSNumber *)identifier {
     self = [super initWithWindowNibName:@"GPCustomSearch"];
     if (self) {
-        _storedSearch = storedSearch;
-        _managedObjectContext = storedSearch.managedObjectContext;
+        _searchID = identifier;
+        
+        NSDocumentController * docController = [NSDocumentController sharedDocumentController];
+        GPDocument * doc = [docController currentDocument];
+        _managedObjectContext = doc.managedObjectContext;
+        
+        NSSortDescriptor *customSearchSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+        _customSearchSortDescriptors = @[customSearchSort];
     }
     return self;
 }
@@ -33,6 +43,29 @@
 - (void)windowDidLoad {
     [super windowDidLoad];
     
+    NSPredicate * pred = [NSPredicate predicateWithFormat:@"identifier == %ld",[self.searchID integerValue]];
+    
+    [self.customSearchController setFetchPredicate:pred];
+    [self.customSearchController fetch:self];
+}
+
+- (void)tableViewSelectionDidChange:(NSNotification *)aNotification {
+    if (self.currSearch && self.predicateEditor.objectValue) {
+        self.currSearch.predicate = self.predicateEditor.objectValue;
+        
+        NSError * error;
+        if (![self.managedObjectContext save:&error]) {
+            NSAlert * errSheet = [NSAlert alertWithError:error];
+            [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+            [self.managedObjectContext undo];
+        }
+    }
+    
+    if (self.customSearchController.selectedObjects.count == 0) return;
+    
+    StoredSearch * storedSearch = self.customSearchController.selectedObjects[0];
+    self.currSearch = storedSearch;
+    
     NSMutableArray * expressions = [[NSMutableArray alloc] initWithCapacity:0];
     
     NSMutableArray * availableTemplates = [[NSMutableArray alloc] initWithCapacity:0];
@@ -43,7 +76,7 @@
     NSMenuItem * menuItem;
     NSUInteger count = 0;
     
-    if ([self.storedSearch.identifier isEqualToNumber:@(CUSTOM_GP_CATALOG_SEARCH_ID)]) {
+    if ([storedSearch.identifier isEqualToNumber:@(CUSTOM_GP_CATALOG_SEARCH_ID)]) {
         [expressions addObject:[NSExpression expressionForKeyPath:@"background_information"]];
         [expressions addObject:[NSExpression expressionForKeyPath:@"color"]];
         [expressions addObject:[NSExpression expressionForKeyPath:@"denomination"]];
@@ -181,7 +214,7 @@
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Show Default Catalog"];
         
     }
-    else if ([self.storedSearch.identifier isEqualToNumber:@(CUSTOM_STAMP_SEARCH_ID)]) {
+    else if ([storedSearch.identifier isEqualToNumber:@(CUSTOM_STAMP_SEARCH_ID)]) {
         [expressions addObject:[NSExpression expressionForKeyPath:@"gpCatalog.color"]];
         [expressions addObject:[NSExpression expressionForKeyPath:@"gpCatalog.denomination"]];
         [expressions addObject:[NSExpression expressionForKeyPath:@"gpCatalog.design_measurement"]];
@@ -324,22 +357,50 @@
     }
     
     [self.predicateEditor setRowTemplates:availableTemplates];
-    [self.predicateEditor setObjectValue:self.storedSearch.predicate];
+    [self.predicateEditor setObjectValue:storedSearch.predicate];
     
     // If the predicate is empty, add the first row(s) for the user.
-    if (!self.storedSearch.predicate) {
+    if (!storedSearch.predicate) {
         [self.predicateEditor addRow:self];
     }
 }
 
-- (IBAction)saveSearch:(id)sender {
-    self.storedSearch.predicate = self.predicateEditor.objectValue;
+- (IBAction)addCustomSearch:(id)sender {
+    StoredSearch * customSearch = [NSEntityDescription insertNewObjectForEntityForName:@"StoredSearch" inManagedObjectContext:self.managedObjectContext];
+    customSearch.identifier = self.searchID;
+    customSearch.name = @"New Search";
     
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
         [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
         [self.managedObjectContext undo];
+    }
+    
+    [self.customSearchController fetch:sender];
+}
+
+- (IBAction)removeCustomSearch:(id)sender {
+    [self.customSearchController remove:sender];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
+}
+
+- (IBAction)saveSearch:(id)sender {
+    if (self.currSearch && self.predicateEditor.objectValue) {
+        self.currSearch.predicate = self.predicateEditor.objectValue;
+        
+        NSError * error;
+        if (![self.managedObjectContext save:&error]) {
+            NSAlert * errSheet = [NSAlert alertWithError:error];
+            [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+            [self.managedObjectContext undo];
+        }
     }
     
     [self.window performClose:sender];

@@ -184,37 +184,8 @@
     [self updateCurrentSearch];
 }
 
-- (IBAction)addCustomSearch:(id)sender {
-    StoredSearch * customSearch = [NSEntityDescription insertNewObjectForEntityForName:@"StoredSearch" inManagedObjectContext:self.managedObjectContext];
-    customSearch.identifier = @(CUSTOM_GP_CATALOG_SEARCH_ID);
-    customSearch.name = @"New Search";
-    self.currCustomSearch = customSearch;
-    
-    NSError * error;
-    if (![self.managedObjectContext save:&error]) {
-        NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.view.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
-        [self.managedObjectContext undo];
-    }
-    
-    [self.customSearchController fetch:sender];
-}
-
-- (IBAction)removeCustomSearch:(id)sender {
-    [self.customSearchController removeObject:self.currCustomSearch];
-    
-    NSError * error;
-    if (![self.managedObjectContext save:&error]) {
-        NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.view.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
-        [self.managedObjectContext undo];
-    }
-}
-
 - (IBAction)editCustomSearch:(id)sender {
-    if (!self.currCustomSearch) return;
-    
-    GPCustomSearch * customSearchController = [[GPCustomSearch alloc] initWithStoredSearch:self.currCustomSearch];
+    GPCustomSearch * customSearchController = [[GPCustomSearch alloc] initWithStoredSearchIdentifier:@(CUSTOM_GP_CATALOG_SEARCH_ID)];
     [self.doc addWindowController:customSearchController];
     [customSearchController.window makeKeyAndOrderFront:sender];
 }

@@ -9,11 +9,12 @@
 #import <Cocoa/Cocoa.h>
 #import "StoredSearch.h"
 
-@interface GPCustomSearch : NSWindowController
+@interface GPCustomSearch : NSWindowController <NSTableViewDelegate>
 
 @property (strong, nonatomic) NSManagedObjectContext * managedObjectContext;
-@property (strong, nonatomic) StoredSearch * storedSearch;
 
-- (id)initWithStoredSearch:(StoredSearch *)storedSearch;
+@property (strong, nonatomic) NSArray * customSearchSortDescriptors;
+
+- (id)initWithStoredSearchIdentifier:(NSNumber *)identifier;
 
 @end

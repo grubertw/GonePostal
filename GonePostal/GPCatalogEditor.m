@@ -219,7 +219,7 @@
         self.subvarietyTypesSortDescriptors = @[subTypesSort];
         
         NSSortDescriptor *customSearchSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
-        self.customSearchSortDescriptors = @[customSearchSort];
+        _customSearchSortDescriptors = @[customSearchSort];
         
         // Initialize the assisted search panels.
         _countrySearchController = [[GPCountrySearch alloc] initWithPredicate:countriesPredicate forStamp:NO];
@@ -584,37 +584,8 @@
     self.currMajorVariety = nil;
 }
 
-- (IBAction)addCustomSearch:(id)sender {
-    StoredSearch * customSearch = [NSEntityDescription insertNewObjectForEntityForName:@"StoredSearch" inManagedObjectContext:self.managedObjectContext];
-    customSearch.identifier = @(CUSTOM_GP_CATALOG_SEARCH_ID);
-    customSearch.name = @"New Search";
-    self.currCustomSearch = customSearch;
-    
-    NSError * error;
-    if (![self.managedObjectContext save:&error]) {
-        NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
-        [self.managedObjectContext undo];
-    }
-    
-    [self.customSearchController fetch:sender];
-}
-
-- (IBAction)removeCustomSearch:(id)sender {
-    [self.customSearchController removeObject:self.currCustomSearch];
-    
-    NSError * error;
-    if (![self.managedObjectContext save:&error]) {
-        NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
-        [self.managedObjectContext undo];
-    }
-}
-
 - (IBAction)editCustomSearch:(id)sender {
-    if (!self.currCustomSearch) return;
-    
-    GPCustomSearch * customSearchController = [[GPCustomSearch alloc] initWithStoredSearch:self.currCustomSearch];
+    GPCustomSearch * customSearchController = [[GPCustomSearch alloc] initWithStoredSearchIdentifier:@(CUSTOM_GP_CATALOG_SEARCH_ID)];
     [self.document addWindowController:customSearchController];
     [customSearchController.window makeKeyAndOrderFront:sender];
 }
