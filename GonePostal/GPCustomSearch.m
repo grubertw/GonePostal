@@ -146,6 +146,20 @@
         
         
         expressions = [[NSMutableArray alloc] initWithCapacity:0];
+        [expressions addObject:[NSExpression expressionForKeyPath:@"alternateCatalogs.alternate_catalog_number"]];
+        [expressions addObject:[NSExpression expressionForKeyPath:@"alternateCatalogs.alternateCatalogName.alternate_catalog_name"]];
+        
+        predicateTemplate = [[NSPredicateEditorRowTemplate alloc] initWithLeftExpressions:expressions rightExpressionAttributeType:NSStringAttributeType modifier:NSAnyPredicateModifier operators:@[@(NSLikePredicateOperatorType)] options:0];
+        [availableTemplates addObject:predicateTemplate];
+        
+        count = 0;
+        lhsButton = predicateTemplate.templateViews[0];
+        menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Catalog Number"];
+        menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Catalog Name"];
+        
+        
+        
+        expressions = [[NSMutableArray alloc] initWithCapacity:0];
         [expressions addObject:[NSExpression expressionForKeyPath:@"album_height"]];
         [expressions addObject:[NSExpression expressionForKeyPath:@"album_width"]];
         [expressions addObject:[NSExpression expressionForKeyPath:@"number_of_panes"]];
@@ -316,6 +330,20 @@
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Lot"];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Mount"];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Soundness"];
+        
+        
+        
+//        expressions = [[NSMutableArray alloc] initWithCapacity:0];
+//        [expressions addObject:[NSExpression expressionForKeyPath:@"gpCatalog.alternateCatalogs.alternate_catalog_number"]];
+//        [expressions addObject:[NSExpression expressionForKeyPath:@"gpCatalog.alternateCatalogs.alternateCatalogName.alternate_catalog_name"]];
+//        
+//        predicateTemplate = [[NSPredicateEditorRowTemplate alloc] initWithLeftExpressions:expressions rightExpressionAttributeType:NSStringAttributeType modifier:NSAnyPredicateModifier operators:@[@(NSLikePredicateOperatorType)] options:0];
+//        [availableTemplates addObject:predicateTemplate];
+//        
+//        count = 0;
+//        lhsButton = predicateTemplate.templateViews[0];
+//        menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Catalog Number"];
+//        menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Catalog Name"];
         
         
         
