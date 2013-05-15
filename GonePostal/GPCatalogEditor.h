@@ -18,7 +18,7 @@
 #import "GPFilterSearch.h"
 #import "GPSubvarietySearch.h"
 
-@interface GPCatalogEditor : NSWindowController <NSTableViewDelegate>
+@interface GPCatalogEditor : NSWindowController <NSTableViewDelegate, NSTextFieldDelegate>
 
 @property (strong, nonatomic) NSManagedObjectContext * managedObjectContext;
 

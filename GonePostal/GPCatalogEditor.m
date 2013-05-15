@@ -25,6 +25,8 @@
 #import "GPPicture.h"
 #import "StoredSearch.h"
 #import "Country.h"
+#import "AlternateCatalog.h"
+#import "AlternateCatalogName.h"
 #import "GPCatalogGroup.h"
 #import "GPCatalogDefaults.h"
 #import "GPStampExamples.h"
@@ -46,6 +48,9 @@
 @property (weak, nonatomic) IBOutlet NSView * platesScrollContent;
 @property (weak, nonatomic) IBOutlet NSCollectionView * plateUsageCollectionView;
 @property (weak, nonatomic) IBOutlet NSCollectionView * cachetCollectionView;
+
+@property (weak, nonatomic) IBOutlet NSPopUpButton * gotoPopup;
+@property (weak, nonatomic) IBOutlet NSTextField * gotoField;
 
 @property (weak, nonatomic) IBOutlet NSButton * filtersActive;
 
@@ -311,6 +316,48 @@
     self.gpCatalogEntries = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
     if (self.gpCatalogEntries == nil) {
         NSLog(@"Error fetching GPCatalog entries: %@ %@", error, error.userInfo);
+    }
+}
+
+- (void)controlTextDidChange:(NSNotification *)aNotification {
+    NSTextField * textField = aNotification.object;
+    
+    if ([textField isEqualTo:self.gotoField]) {
+        NSArray * entries = self.gpCatalogEntriesController.arrangedObjects;
+        NSInteger searchType = [[self.gotoPopup selectedItem] tag];
+        NSString * typedValue = self.gotoField.stringValue;
+        
+        NSUInteger foundEntryRow = 0;
+        NSRange findOP = {NSNotFound, 0};
+        
+        for (NSUInteger row=0; row < [entries count]; row++) {
+            GPCatalog * entry = entries[row];
+            
+            if (searchType == 1) {
+                findOP = [entry.gp_catalog_number rangeOfString:typedValue];
+            }
+            else if (searchType == 2) {
+                NSString * altCatalogNumber;
+
+                for (AlternateCatalog * altCatalog in entry.alternateCatalogs) {
+                    if ([altCatalog.alternateCatalogName.alternate_catalog_name isEqualToString:entry.defaultCatalogName.alternate_catalog_name]) {
+                        altCatalogNumber = altCatalog.alternate_catalog_number;
+                        break;
+                    }
+                }
+                
+                findOP = [altCatalogNumber rangeOfString:typedValue];
+            }
+            
+            if (findOP.length > 0) {
+                foundEntryRow = row;
+                break;
+            }
+        }
+        
+        NSIndexSet * changeToSelection = [NSIndexSet indexSetWithIndex:foundEntryRow];
+        [self.gpCatalogTable selectRowIndexes:changeToSelection byExtendingSelection:NO];
+        [self.gpCatalogTable scrollRowToVisible:foundEntryRow];
     }
 }
 
