@@ -22,6 +22,7 @@
 @property (strong, nonatomic) NSManagedObjectContext * managedObjectContext;
 @property (strong, nonatomic) NSArray * stampSortDescriptors;
 @property (strong, nonatomic) NSArray * customSearchSortDescriptors;
+@property (strong, nonatomic) NSArray * wantSellListsSortDescriptors;
 
 @property (strong, nonatomic) StoredSearch * assistedSearch;
 @property (strong, nonatomic) NSPredicate * countriesPredicate;
@@ -31,6 +32,9 @@
 
 @property (strong, nonatomic) NSPredicate * currSearch;
 @property (strong, nonatomic) StoredSearch * currCustomSearch;
+
+@property (nonatomic) BOOL inStampCollection;
+@property (nonatomic) BOOL inItemsSold;
 
 - (id)initWithCollection:(GPCollection *)myCollection assistedSearch:(StoredSearch *)assistedSearch countrySearch:(NSPredicate *)countriesPredicate sectionSearch:(NSPredicate *)sectionsPredicate formatSearch:(NSPredicate *)formatsPredicate locationSearch:(NSPredicate *)locationsPredicate;
 

@@ -2,14 +2,14 @@
 //  GPCatalog.h
 //  GonePostal
 //
-//  Created by Travis Gruber on 4/21/13.
+//  Created by Travis Gruber on 5/24/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class AlternateCatalog, AlternateCatalogName, Attachment, BureauPrecancel, Cachet, Cancelations, Country, Format, GPCatalog, GPCatalogGroup, GPCatalogSet, GPPicture, GPSubvarietyType, LooksLike, PlateNumber, PlateNumberInfo, PlateUsage, Stamp, Topic;
+@class AlternateCatalog, AlternateCatalogName, Attachment, BureauPrecancel, Cachet, Cancelations, Country, Format, GPCatalog, GPCatalogGroup, GPCatalogSet, GPPicture, GPSalesGroup, GPSubvarietyType, LooksLike, PlateNumber, PlateNumberInfo, PlateUsage, Stamp, Topic;
 
 @interface GPCatalog : NSManagedObject
 
@@ -83,7 +83,9 @@
 @property (nonatomic, retain) NSString * watermark;
 @property (nonatomic, retain) NSNumber * watermark_error;
 @property (nonatomic, retain) NSNumber * watermark_variation;
+@property (nonatomic, retain) NSNumber * printing_on_back;
 @property (nonatomic, retain) NSSet *alternateCatalogs;
+@property (nonatomic, retain) NSSet *attachments;
 @property (nonatomic, retain) NSSet *bureauPrecancels;
 @property (nonatomic, retain) NSSet *cachets;
 @property (nonatomic, retain) NSSet *cancelations;
@@ -99,11 +101,11 @@
 @property (nonatomic, retain) NSSet *plateNumberInfos;
 @property (nonatomic, retain) NSSet *plateNumbers;
 @property (nonatomic, retain) NSSet *plateUsage;
+@property (nonatomic, retain) GPSalesGroup *salesGroup;
 @property (nonatomic, retain) NSSet *stamps;
 @property (nonatomic, retain) NSSet *subvarieties;
-@property (nonatomic, retain) NSSet *topics;
 @property (nonatomic, retain) GPSubvarietyType *subvarietyType;
-@property (nonatomic, retain) NSSet *attachments;
+@property (nonatomic, retain) NSSet *topics;
 @end
 
 @interface GPCatalog (CoreDataGeneratedAccessors)
@@ -112,6 +114,11 @@
 - (void)removeAlternateCatalogsObject:(AlternateCatalog *)value;
 - (void)addAlternateCatalogs:(NSSet *)values;
 - (void)removeAlternateCatalogs:(NSSet *)values;
+
+- (void)addAttachmentsObject:(Attachment *)value;
+- (void)removeAttachmentsObject:(Attachment *)value;
+- (void)addAttachments:(NSSet *)values;
+- (void)removeAttachments:(NSSet *)values;
 
 - (void)addBureauPrecancelsObject:(BureauPrecancel *)value;
 - (void)removeBureauPrecancelsObject:(BureauPrecancel *)value;
@@ -172,10 +179,5 @@
 - (void)removeTopicsObject:(Topic *)value;
 - (void)addTopics:(NSSet *)values;
 - (void)removeTopics:(NSSet *)values;
-
-- (void)addAttachmentsObject:(Attachment *)value;
-- (void)removeAttachmentsObject:(Attachment *)value;
-- (void)addAttachments:(NSSet *)values;
-- (void)removeAttachments:(NSSet *)values;
 
 @end

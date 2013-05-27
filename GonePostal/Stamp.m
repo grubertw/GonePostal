@@ -2,7 +2,7 @@
 //  Stamp.m
 //  GonePostal
 //
-//  Created by Travis Gruber on 4/28/13.
+//  Created by Travis Gruber on 5/26/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
@@ -54,6 +54,7 @@
 @dynamic manual_value;
 @dynamic mint_used;
 @dynamic notes;
+@dynamic parentType;
 @dynamic plate_1;
 @dynamic plate_2;
 @dynamic plate_3;
@@ -67,13 +68,12 @@
 @dynamic purchase_amount;
 @dynamic purchase_date;
 @dynamic source;
-@dynamic parentType;
 @dynamic bureauPrecancel;
 @dynamic cachet;
 @dynamic cancelQuality;
 @dynamic centering;
 @dynamic children;
-@dynamic collection;
+@dynamic collections;
 @dynamic dealer;
 @dynamic extraPictures;
 @dynamic format;

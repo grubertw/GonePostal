@@ -2,7 +2,7 @@
 //  Stamp.h
 //  GonePostal
 //
-//  Created by Travis Gruber on 4/28/13.
+//  Created by Travis Gruber on 5/26/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
@@ -35,6 +35,7 @@
 @property (nonatomic, retain) NSNumber * manual_value;
 @property (nonatomic, retain) NSNumber * mint_used;
 @property (nonatomic, retain) NSString * notes;
+@property (nonatomic, retain) NSNumber * parentType;
 @property (nonatomic, retain) NSString * plate_1;
 @property (nonatomic, retain) NSString * plate_2;
 @property (nonatomic, retain) NSString * plate_3;
@@ -48,13 +49,12 @@
 @property (nonatomic, retain) NSNumber * purchase_amount;
 @property (nonatomic, retain) NSDate * purchase_date;
 @property (nonatomic, retain) NSString * source;
-@property (nonatomic, retain) NSNumber * parentType;
 @property (nonatomic, retain) BureauPrecancel *bureauPrecancel;
 @property (nonatomic, retain) Cachet *cachet;
 @property (nonatomic, retain) CancelQuality *cancelQuality;
 @property (nonatomic, retain) Centering *centering;
 @property (nonatomic, retain) NSSet *children;
-@property (nonatomic, retain) GPCollection *collection;
+@property (nonatomic, retain) NSSet *collections;
 @property (nonatomic, retain) Dealer *dealer;
 @property (nonatomic, retain) NSSet *extraPictures;
 @property (nonatomic, retain) StampFormat *format;
@@ -79,6 +79,11 @@
 - (void)removeChildrenObject:(Stamp *)value;
 - (void)addChildren:(NSSet *)values;
 - (void)removeChildren:(NSSet *)values;
+
+- (void)addCollectionsObject:(GPCollection *)value;
+- (void)removeCollectionsObject:(GPCollection *)value;
+- (void)addCollections:(NSSet *)values;
+- (void)removeCollections:(NSSet *)values;
 
 - (void)addExtraPicturesObject:(GPPicture *)value;
 - (void)removeExtraPicturesObject:(GPPicture *)value;

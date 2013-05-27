@@ -1,8 +1,8 @@
 //
 //  PlateNumber.m
-//  GonePostalX
+//  GonePostal
 //
-//  Created by Travis Gruber on 2/17/13.
+//  Created by Travis Gruber on 5/26/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
@@ -26,6 +26,7 @@
 @dynamic plate7;
 @dynamic plate8;
 @dynamic very_rare;
+@dynamic number_of_stamps;
 @dynamic gpCatalogEntry;
 
 @end

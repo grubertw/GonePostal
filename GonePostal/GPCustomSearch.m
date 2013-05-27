@@ -218,6 +218,7 @@
         [expressions addObject:[NSExpression expressionForKeyPath:@"has_subvarieties"]];
         [expressions addObject:[NSExpression expressionForKeyPath:@"is_custum"]];
         [expressions addObject:[NSExpression expressionForKeyPath:@"is_default"]];
+        [expressions addObject:[NSExpression expressionForKeyPath:@"printing_on_back"]];
         predicateTemplate = [[NSPredicateEditorRowTemplate alloc] initWithLeftExpressions:expressions rightExpressionAttributeType:NSBooleanAttributeType modifier:NSDirectPredicateModifier operators:@[@(NSEqualToPredicateOperatorType),@(NSNotEqualToPredicateOperatorType)] options:0];
         [availableTemplates addObject:predicateTemplate];
         
@@ -226,6 +227,7 @@
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Has Subvarieties"];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"User Catalog"];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Show Default Catalog"];
+        menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Printing on Back"];
         
     }
     else if ([storedSearch.identifier isEqualToNumber:@(CUSTOM_STAMP_SEARCH_ID)]) {

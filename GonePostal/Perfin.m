@@ -2,11 +2,12 @@
 //  Perfin.m
 //  GonePostal
 //
-//  Created by Travis Gruber on 3/30/13.
+//  Created by Travis Gruber on 5/16/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
 #import "Perfin.h"
+#import "GPSalesGroup.h"
 #import "PerfinCatalog.h"
 #import "PerfinCatalogName.h"
 #import "Stamp.h"
@@ -31,5 +32,6 @@
 @dynamic alternateCatalogs;
 @dynamic defaultCatalog;
 @dynamic stamps;
+@dynamic salesGroup;
 
 @end

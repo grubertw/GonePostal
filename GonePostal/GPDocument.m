@@ -16,14 +16,8 @@
 #import "GPCatalogDefaults.h"
 #import "GPPlatePositionsController.h"
 #import "NSPersistentDocument+FileWrapperSupport.h"
-#import "GPFilenameTransformer.h"
-#import "GPAlternateCatalogNumberTransformer.h"
-#import "GPEmptySetChecker.h"
-#import "GPMultipleSelectionChecker.h"
-#import "GPPlateUsageExistsChecker.h"
 #import "GPSupportedCachetCatalogsController.h"
 #import "GPSupportedCachetMakersController.h"
-#import "GPSearchSelectionTransformer.h"
 #import "StoredSearch.h"
 #import "GPStampViewer.h"
 #import "GPSupportedCancelQuality.h"
@@ -45,6 +39,15 @@
 #import "GPSupportedSubvarietyTypes.h"
 #import "GPSubvarietyType.h"
 
+#import "GPFilenameTransformer.h"
+#import "GPAlternateCatalogNumberTransformer.h"
+#import "GPEmptySetChecker.h"
+#import "GPMultipleSelectionChecker.h"
+#import "GPPlateUsageExistsChecker.h"
+#import "GPSearchSelectionTransformer.h"
+#import "GPManualValueSummer.h"
+#import "GPSetCounter.h"
+
 #import "CommonCrypto/CommonDigest.h"
 #import "ExceptionHandling/NSExceptionHandler.h"
 
@@ -54,6 +57,11 @@ const NSInteger ASSISTED_GP_CATALOG_BROWSER_SEARCH_ID       = 2;
 const NSInteger ASSISTED_STAMP_LIST_VIEWER_SEARCH_ID        = 3;
 const NSInteger CUSTOM_GP_CATALOG_SEARCH_ID                 = 4;
 const NSInteger CUSTOM_STAMP_SEARCH_ID                      = 5;
+
+const NSInteger GP_COLLECTION_TYPE_NORMAL                   = 1;
+const NSInteger GP_COLLECTION_TYPE_WANT_LIST                = 2;
+const NSInteger GP_COLLECTION_TYPE_SELL_LIST                = 3;
+const NSInteger GP_COLLECTION_TYPE_ITEMS_SOLD               = 4;
 
 NSString * BASE_GP_CATALOG_QUERY = @"is_default==0 and majorVariety==nil";
 NSString * BASE_GP_CATALOG_QUERY_WITH_SUBVARIETIES = @"is_default==0";
@@ -68,6 +76,7 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
 
 // Private members and functions.
 @interface GPDocument()
+@property (weak, nonatomic) IBOutlet NSWindow * mainWindow;
 @property (weak, nonatomic) IBOutlet NSTableView * gpCollectionTable;
 @property (weak, nonatomic) IBOutlet NSArrayController * gpCollectionController;
 
@@ -174,6 +183,12 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
         id plate8Exists = [[GPPlateUsageExistsChecker alloc] initWithPlateNumberCheck:[NSNumber numberWithUnsignedInt:8]];
         [NSValueTransformer setValueTransformer:plate8Exists forName:@"Plate8ExistsChecker"];
         
+        id manualValueTransformer = [[GPManualValueSummer alloc] init];
+        [NSValueTransformer setValueTransformer:manualValueTransformer forName:@"GPManualValueSummer"];
+        
+        id setCounter = [[GPSetCounter alloc] init];
+        [NSValueTransformer setValueTransformer:setCounter forName:@"GPSetCounter"];
+        
         // Configure the global exception handler
         NSExceptionHandler * defaultHandler = [NSExceptionHandler defaultExceptionHandler];
         [defaultHandler setExceptionHandlingMask:NSLogAndHandleEveryExceptionMask];
@@ -254,11 +269,39 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
 }
 
 - (IBAction)addGPCollection:(id)sender {
-    [self.gpCollectionController insert:sender];
+    GPCollection * newCollection = [NSEntityDescription insertNewObjectForEntityForName:@"GPCollection" inManagedObjectContext:self.managedObjectContext];
+    newCollection.name = @"New Collection";
+    newCollection.type = @(GP_COLLECTION_TYPE_NORMAL);
+    [self.gpCollectionController addObject:newCollection];
+    
+    // Create the sold stamps collection if it does not exist.
+    NSFetchRequest * collectionFetch = [NSFetchRequest fetchRequestWithEntityName:@"GPCollection"];
+    NSPredicate * soldListSearch = [NSPredicate predicateWithFormat:@"type == 4"];
+    [collectionFetch setPredicate:soldListSearch];
+    
+    NSError * error;
+    NSArray * results = [self.managedObjectContext executeFetchRequest:collectionFetch error:&error];
+    if (results && ([results count] == 0)) {
+        GPCollection * soldList = [NSEntityDescription insertNewObjectForEntityForName:@"GPCollection" inManagedObjectContext:self.managedObjectContext];
+        soldList.type = @(GP_COLLECTION_TYPE_ITEMS_SOLD);
+    }
+    
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.mainWindow modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
 }
 
 - (IBAction)removeGPCollection:(id)sender {
     [self.gpCollectionController remove:sender];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.mainWindow modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
 }
 
 - (IBAction)openGPCatalogEditor:(id)sender {

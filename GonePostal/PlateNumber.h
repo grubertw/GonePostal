@@ -1,8 +1,8 @@
 //
 //  PlateNumber.h
-//  GonePostalX
+//  GonePostal
 //
-//  Created by Travis Gruber on 2/17/13.
+//  Created by Travis Gruber on 5/26/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
@@ -27,6 +27,7 @@
 @property (nonatomic, retain) NSString * plate7;
 @property (nonatomic, retain) NSString * plate8;
 @property (nonatomic, retain) NSNumber * very_rare;
+@property (nonatomic, retain) NSNumber * number_of_stamps;
 @property (nonatomic, retain) GPCatalog *gpCatalogEntry;
 
 @end

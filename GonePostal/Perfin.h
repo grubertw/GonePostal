@@ -2,14 +2,14 @@
 //  Perfin.h
 //  GonePostal
 //
-//  Created by Travis Gruber on 3/30/13.
+//  Created by Travis Gruber on 5/16/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class PerfinCatalog, PerfinCatalogName, Stamp;
+@class GPSalesGroup, PerfinCatalog, PerfinCatalogName, Stamp;
 
 @interface Perfin : NSManagedObject
 
@@ -30,6 +30,7 @@
 @property (nonatomic, retain) NSSet *alternateCatalogs;
 @property (nonatomic, retain) PerfinCatalogName *defaultCatalog;
 @property (nonatomic, retain) NSSet *stamps;
+@property (nonatomic, retain) GPSalesGroup *salesGroup;
 @end
 
 @interface Perfin (CoreDataGeneratedAccessors)

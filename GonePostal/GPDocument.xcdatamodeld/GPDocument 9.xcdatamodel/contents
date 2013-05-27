@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12D78" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="AlternateCatalog" representedClassName="AlternateCatalog" syncable="YES">
+        <attribute name="alternate_catalog_number" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="alternateCatalogGroup" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AlternateCatalogGroup" inverseName="alternateCatalogs" inverseEntity="AlternateCatalogGroup" syncable="YES"/>
+        <relationship name="alternateCatalogName" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AlternateCatalogName" inverseName="alternateCatalogs" inverseEntity="AlternateCatalogName" syncable="YES"/>
+        <relationship name="gpCatalogEntries" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="GPCatalog" inverseName="alternateCatalogs" inverseEntity="GPCatalog" syncable="YES"/>
+    </entity>
+    <entity name="AlternateCatalogGroup" representedClassName="AlternateCatalogGroup" syncable="YES">
+        <attribute name="abriviation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sort_id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="alternateCatalogs" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="AlternateCatalog" inverseName="alternateCatalogGroup" inverseEntity="AlternateCatalog" syncable="YES"/>
+    </entity>
+    <entity name="AlternateCatalogName" representedClassName="AlternateCatalogName" syncable="YES">
+        <attribute name="abriviation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="alternate_catalog_name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="alternateCatalogs" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="AlternateCatalog" inverseName="alternateCatalogName" inverseEntity="AlternateCatalog" syncable="YES"/>
+        <relationship name="gpCatalogEntries" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="GPCatalog" inverseName="defaultCatalogName" inverseEntity="GPCatalog" syncable="YES"/>
+    </entity>
+    <entity name="Attachment" representedClassName="Attachment" syncable="YES">
+        <attribute name="attachmentDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fileURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="gpCatalogEntry" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GPCatalog" inverseName="attachments" inverseEntity="GPCatalog" syncable="YES"/>
+    </entity>
+    <entity name="BureauPrecancel" representedClassName="BureauPrecancel" syncable="YES">
+        <attribute name="cancel_style" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gp_precancel_number" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="picture" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pss_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="state" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="variety_description" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="gpCatalogEntry" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GPCatalog" inverseName="bureauPrecancels" inverseEntity="GPCatalog" syncable="YES"/>
+        <relationship name="stamps" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Stamp" inverseName="bureauPrecancel" inverseEntity="Stamp" syncable="YES"/>
+    </entity>
+    <entity name="Cachet" representedClassName="Cachet" syncable="YES">
+        <attribute name="alternate_picture_1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="alternate_picture_2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="alternate_picture_3" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="alternate_picture_4" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="alternate_picture_5" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="alternate_picture_6" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cachet_description" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cachet_picture" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cachet_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="design_description" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="external_catalog_number" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="first_cachet" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="gp_cachet_number" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="cachetCatalog" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CachetCatalogName" inverseName="cachets" inverseEntity="CachetCatalogName" syncable="YES"/>
+        <relationship name="cachetMakerName" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CachetMakerName" inverseName="cachets" inverseEntity="CachetMakerName" syncable="YES"/>
+        <relationship name="gpCatalog" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GPCatalog" inverseName="cachets" inverseEntity="GPCatalog" syncable="YES"/>
+        <relationship name="stamps" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Stamp" inverseName="cachet" inverseEntity="Stamp" syncable="YES"/>
+    </entity>
+    <entity name="CachetCatalogName" representedClassName="CachetCatalogName" syncable="YES">
+        <attribute name="cachet_catalog_name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="cachets" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Cachet" inverseName="cachetCatalog" inverseEntity="Cachet" syncable="YES"/>
+    </entity>
+    <entity name="CachetMakerName" representedClassName="CachetMakerName" syncable="YES">
+        <attribute name="cachet_maker_name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="cachets" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Cachet" inverseName="cachetMakerName" inverseEntity="Cachet" syncable="YES"/>
+    </entity>
+    <entity name="Cancelations" representedClassName="Cancelations" syncable="YES">
+        <attribute name="cancelation_description" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gp_cancelation_number" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="picture" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="gpCatlog" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GPCatalog" inverseName="cancelations" inverseEntity="GPCatalog" syncable="YES"/>
+    </entity>
+    <entity name="CancelQuality" representedClassName="CancelQuality" syncable="YES">
+        <attribute name="abriviation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cq_description" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="stamps" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Stamp" inverseName="cancelQuality" inverseEntity="Stamp" syncable="YES"/>
+    </entity>
+    <entity name="Centering" representedClassName="Centering" syncable="YES">
+        <attribute name="abriviation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="centering_description" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="stamps" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Stamp" inverseName="centering" inverseEntity="Stamp" syncable="YES"/>
+    </entity>
+    <entity name="Country" representedClassName="Country" syncable="YES">
+        <attribute name="country_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="country_sort_id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="gpCatalogEntries" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="GPCatalog" inverseName="country" inverseEntity="GPCatalog" syncable="YES"/>
+    </entity>
+    <entity name="Dealer" representedClassName="Dealer" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="stamps" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Stamp" inverseName="dealer" inverseEntity="Stamp" syncable="YES"/>
+    </entity>
+    <entity name="Format" representedClassName="Format" syncable="YES">
+        <attribute name="formatName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="allowedStampFormats" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="StampFormat" inverseName="containers" inverseEntity="StampFormat" syncable="YES"/>
+        <relationship name="gpCatalogEntries" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="GPCatalog" inverseName="formatType" inverseEntity="GPCatalog" syncable="YES"/>
+    </entity>
+    <entity name="GPCatalog" representedClassName="GPCatalog">
+        <attribute name="album_height" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="album_width" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="alternate_picture_1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="alternate_picture_2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="alternate_picture_3" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="alternate_picture_4" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="alternate_picture_5" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="alternate_picture_6" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="always_display" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
+        <attribute name="background_information" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="color_error" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="color_variety" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="date_documented_first_use" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="date_documented_first_use_exact" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="date_issued" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="date_issued_exact" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="default_picture" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="denomination" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="design_measurement" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="designers" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="engravers" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gp_catalog_number" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="gp_description" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gum" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gum_variety" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="has_subvarieties" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="hidden" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="identification_notes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="is_custom" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="is_default" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="issue_location" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="issue_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="long_description" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="multiple_transfer" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="number_of_panes" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="number_of_plates" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="number_of_plates_used" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="other_error" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="pane_size" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="paper_color" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="paper_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="perf_error" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="perforation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="perforation_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="plate_block_quantity" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="plate_error" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="plate_size" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="plate_variation" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="plate_variation_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="plated" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="press" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="print" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="print_variety" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="printer" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="printing_on_back" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="quantity_ordered" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="quantity_printed" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="quantity_sold" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="series" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="surcharge_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="surcharged" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="tag" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tag_error" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="tag_variety" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="variety_description" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="variety_type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="very_rare" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="watermark" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="watermark_error" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="watermark_variation" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <relationship name="alternateCatalogs" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="AlternateCatalog" inverseName="gpCatalogEntries" inverseEntity="AlternateCatalog" syncable="YES"/>
+        <relationship name="attachments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Attachment" inverseName="gpCatalogEntry" inverseEntity="Attachment" syncable="YES"/>
+        <relationship name="bureauPrecancels" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="BureauPrecancel" inverseName="gpCatalogEntry" inverseEntity="BureauPrecancel" syncable="YES"/>
+        <relationship name="cachets" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Cachet" inverseName="gpCatalog" inverseEntity="Cachet" syncable="YES"/>
+        <relationship name="cancelations" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Cancelations" inverseName="gpCatlog" inverseEntity="Cancelations" syncable="YES"/>
+        <relationship name="catalogGroup" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GPCatalogGroup" inverseName="gpCatalogEntries" inverseEntity="GPCatalogGroup" syncable="YES"/>
+        <relationship name="catalogSets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GPCatalogSet" inverseName="gpCatalogEntries" inverseEntity="GPCatalogSet" syncable="YES"/>
+        <relationship name="country" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Country" inverseName="gpCatalogEntries" inverseEntity="Country" syncable="YES"/>
+        <relationship name="defaultCatalogName" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AlternateCatalogName" inverseName="gpCatalogEntries" inverseEntity="AlternateCatalogName" syncable="YES"/>
+        <relationship name="examples" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Stamp" inverseName="gpCatalog" inverseEntity="Stamp" syncable="YES"/>
+        <relationship name="extraPictures" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="GPPicture" inverseName="gpCatalogEntries" inverseEntity="GPPicture" syncable="YES"/>
+        <relationship name="formatType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Format" inverseName="gpCatalogEntries" inverseEntity="Format" syncable="YES"/>
+        <relationship name="looksLike" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LooksLike" inverseName="theseGPCatalogEntries" inverseEntity="LooksLike" syncable="YES"/>
+        <relationship name="majorVariety" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GPCatalog" inverseName="subvarieties" inverseEntity="GPCatalog" syncable="YES"/>
+        <relationship name="plateNumberInfos" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PlateNumberInfo" inverseName="gpCatalogEntries" inverseEntity="PlateNumberInfo" syncable="YES"/>
+        <relationship name="plateNumbers" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PlateNumber" inverseName="gpCatalogEntry" inverseEntity="PlateNumber" syncable="YES"/>
+        <relationship name="plateUsage" optional="YES" toMany="YES" maxCount="8" deletionRule="Cascade" destinationEntity="PlateUsage" inverseName="gpCatalogEntry" inverseEntity="PlateUsage" syncable="YES"/>
+        <relationship name="salesGroup" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GPSalesGroup" inverseName="catalogEntries" inverseEntity="GPSalesGroup" syncable="YES"/>
+        <relationship name="stamps" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Stamp" inverseName="gpCatalog" inverseEntity="Stamp" syncable="YES"/>
+        <relationship name="subvarieties" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="GPCatalog" inverseName="majorVariety" inverseEntity="GPCatalog" syncable="YES"/>
+        <relationship name="subvarietyType" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GPSubvarietyType" inverseName="gpCatalogEntries" inverseEntity="GPSubvarietyType" syncable="YES"/>
+        <relationship name="topics" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Topic" inverseName="gpCatalogEntries" inverseEntity="Topic" syncable="YES"/>
+        <userInfo/>
+    </entity>
+    <entity name="GPCatalogGroup" representedClassName="GPCatalogGroup" syncable="YES">
+        <attribute name="group_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="group_number" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="gpCatalogEntries" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="GPCatalog" inverseName="catalogGroup" inverseEntity="GPCatalog" syncable="YES"/>
+    </entity>
+    <entity name="GPCatalogSet" representedClassName="GPCatalogSet" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="gpCatalogEntries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GPCatalog" inverseName="catalogSets" inverseEntity="GPCatalog" syncable="YES"/>
+    </entity>
+    <entity name="GPCollection" representedClassName="GPCollection" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="value" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="sellLists" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="GPCollection" inverseName="sellTarget" inverseEntity="GPCollection" syncable="YES"/>
+        <relationship name="sellTarget" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GPCollection" inverseName="sellLists" inverseEntity="GPCollection" syncable="YES"/>
+        <relationship name="stamps" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Stamp" inverseName="collections" inverseEntity="Stamp" syncable="YES"/>
+        <relationship name="wantLists" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="GPCollection" inverseName="wantTarget" inverseEntity="GPCollection" syncable="YES"/>
+        <relationship name="wantTarget" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GPCollection" inverseName="wantLists" inverseEntity="GPCollection" syncable="YES"/>
+    </entity>
+    <entity name="GPPicture" representedClassName="GPPicture" syncable="YES">
+        <attribute name="filename" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="is_default" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="gpCatalogEntries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GPCatalog" inverseName="extraPictures" inverseEntity="GPCatalog" syncable="YES"/>
+        <relationship name="pictureType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PictureType" inverseName="pictures" inverseEntity="PictureType" syncable="YES"/>
+        <relationship name="stamps" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Stamp" inverseName="extraPictures" inverseEntity="Stamp" syncable="YES"/>
+    </entity>
+    <entity name="GPSalesGroup" representedClassName="GPSalesGroup" syncable="YES">
+        <attribute name="lastDateUpdated" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="purchaseKey" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="salePrice" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="salesID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="version" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="catalogEntries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GPCatalog" inverseName="salesGroup" inverseEntity="GPCatalog" syncable="YES"/>
+        <relationship name="perfinEntries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Perfin" inverseName="salesGroup" inverseEntity="Perfin" syncable="YES"/>
+    </entity>
+    <entity name="GPSubvarietyType" representedClassName="GPSubvarietyType" syncable="YES">
+        <attribute name="acronym" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sortID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="subDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="gpCatalogEntries" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="GPCatalog" inverseName="subvarietyType" inverseEntity="GPCatalog" syncable="YES"/>
+    </entity>
+    <entity name="Grade" representedClassName="Grade" syncable="YES">
+        <attribute name="abriviation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="grade_description" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="stamps" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Stamp" inverseName="grade" inverseEntity="Stamp" syncable="YES"/>
+    </entity>
+    <entity name="GumCondition" representedClassName="GumCondition" syncable="YES">
+        <attribute name="abriviation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gc_description" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="stamps" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Stamp" inverseName="gumCondition" inverseEntity="Stamp" syncable="YES"/>
+    </entity>
+    <entity name="Hinged" representedClassName="Hinged" syncable="YES">
+        <attribute name="abriviation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="hinged_description" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="stamps" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Stamp" inverseName="hinged" inverseEntity="Stamp" syncable="YES"/>
+    </entity>
+    <entity name="LocalPrecancel" representedClassName="LocalPrecancel" syncable="YES">
+        <attribute name="cancel_style" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gp_precancel_number" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="picture" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pss_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="state" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="stamps" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Stamp" inverseName="localPrecancel" inverseEntity="Stamp" syncable="YES"/>
+    </entity>
+    <entity name="Location" representedClassName="Location" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="stamps" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Stamp" inverseName="location" inverseEntity="Stamp" syncable="YES"/>
+    </entity>
+    <entity name="LooksLike" representedClassName="LooksLike" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="picture" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="theseGPCatalogEntries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GPCatalog" inverseName="looksLike" inverseEntity="GPCatalog" syncable="YES"/>
+    </entity>
+    <entity name="Lot" representedClassName="Lot" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="stamps" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Stamp" inverseName="lot" inverseEntity="Stamp" syncable="YES"/>
+    </entity>
+    <entity name="Mount" representedClassName="Mount" syncable="YES">
+        <attribute name="abriviation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="height" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="size" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="width" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="stamps" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Stamp" inverseName="mount" inverseEntity="Stamp" syncable="YES"/>
+    </entity>
+    <entity name="Perfin" representedClassName="Perfin" syncable="YES">
+        <attribute name="additional_info" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="company_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="company_verified" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="general_or_revenue" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gp_perfin_number" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="letter_height" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="number_of_holes" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="picture" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="precancel" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="punch_description" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="scarcity_rating" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="time_frame" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="alternateCatalogs" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PerfinCatalog" inverseName="perfins" inverseEntity="PerfinCatalog" syncable="YES"/>
+        <relationship name="defaultCatalog" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="PerfinCatalogName" inverseName="perfins" inverseEntity="PerfinCatalogName" syncable="YES"/>
+        <relationship name="salesGroup" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GPSalesGroup" inverseName="perfinEntries" inverseEntity="GPSalesGroup" syncable="YES"/>
+        <relationship name="stamps" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Stamp" inverseName="perfin" inverseEntity="Stamp" syncable="YES"/>
+    </entity>
+    <entity name="PerfinCatalog" representedClassName="PerfinCatalog" syncable="YES">
+        <attribute name="perfin_catalog_number" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="catalogName" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="PerfinCatalogName" inverseName="perfinCatalogs" inverseEntity="PerfinCatalogName" syncable="YES"/>
+        <relationship name="perfins" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Perfin" inverseName="alternateCatalogs" inverseEntity="Perfin" syncable="YES"/>
+    </entity>
+    <entity name="PerfinCatalogName" representedClassName="PerfinCatalogName" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="perfinCatalogs" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="PerfinCatalog" inverseName="catalogName" inverseEntity="PerfinCatalog" syncable="YES"/>
+        <relationship name="perfins" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Perfin" inverseName="defaultCatalog" inverseEntity="Perfin" syncable="YES"/>
+    </entity>
+    <entity name="PictureType" representedClassName="PictureType" syncable="YES">
+        <attribute name="picture_type" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="pictures" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="GPPicture" inverseName="pictureType" inverseEntity="GPPicture" syncable="YES"/>
+    </entity>
+    <entity name="PlateNumber" representedClassName="PlateNumber" syncable="YES">
+        <attribute name="combination_unknown" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="imprint_1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imprint_2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="marking" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="max_percentage" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="number_of_stamps" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="plate1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="plate2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="plate3" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="plate4" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="plate5" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="plate6" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="plate7" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="plate8" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="very_rare" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="gpCatalogEntry" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GPCatalog" inverseName="plateNumbers" inverseEntity="GPCatalog" syncable="YES"/>
+    </entity>
+    <entity name="PlateNumberInfo" representedClassName="PlateNumberInfo" syncable="YES">
+        <attribute name="plate_color" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="plate_sequence" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="plate_usage" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="gpCatalogEntries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GPCatalog" inverseName="plateNumberInfos" inverseEntity="GPCatalog" syncable="YES"/>
+    </entity>
+    <entity name="PlatePosition" representedClassName="PlatePosition" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="plateUsage" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="PlateUsage" inverseName="platePositions" inverseEntity="PlateUsage" syncable="YES"/>
+    </entity>
+    <entity name="PlateUsage" representedClassName="PlateUsage" syncable="YES">
+        <attribute name="plate_number" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="plate_usage_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="usage_color" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="gpCatalogEntry" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GPCatalog" inverseName="plateUsage" inverseEntity="GPCatalog" syncable="YES"/>
+        <relationship name="platePositions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PlatePosition" inverseName="plateUsage" inverseEntity="PlatePosition" syncable="YES"/>
+    </entity>
+    <entity name="SaleHistory" representedClassName="SaleHistory" syncable="YES">
+        <attribute name="askingPrice" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="auctionNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dateSold" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="lotNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="saleDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="salePrice" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="soldBy" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="stamp" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Stamp" inverseName="saleHistory" inverseEntity="Stamp" syncable="YES"/>
+    </entity>
+    <entity name="Soundness" representedClassName="Soundness" syncable="YES">
+        <attribute name="abriviation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="soundness_description" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="stamps" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Stamp" inverseName="soundness" inverseEntity="Stamp" syncable="YES"/>
+    </entity>
+    <entity name="Stamp" representedClassName="Stamp" syncable="YES">
+        <attribute name="address_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="alternate_picture_1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="alternate_picture_2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="alternate_picture_3" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="alternate_picture_4" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="alternate_picture_5" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="alternate_picture_6" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cancelation_date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="cancelation_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="census_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="certificates" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="default_picture" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="faults" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gp_stamp_number" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="history" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="inprint_1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="inprint_2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="inventory_number" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="last_sale_price" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="manual_value" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="mint_used" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="parentType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="plate_1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="plate_2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="plate_3" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="plate_4" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="plate_5" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="plate_6" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="plate_7" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="plate_8" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="plate_location" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="plate_position" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="purchase_amount" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="purchase_date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="source" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="bureauPrecancel" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="BureauPrecancel" inverseName="stamps" inverseEntity="BureauPrecancel" syncable="YES"/>
+        <relationship name="cachet" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Cachet" inverseName="stamps" inverseEntity="Cachet" syncable="YES"/>
+        <relationship name="cancelQuality" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="CancelQuality" inverseName="stamps" inverseEntity="CancelQuality" syncable="YES"/>
+        <relationship name="centering" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Centering" inverseName="stamps" inverseEntity="Centering" syncable="YES"/>
+        <relationship name="children" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Stamp" inverseName="parent" inverseEntity="Stamp" syncable="YES"/>
+        <relationship name="collections" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GPCollection" inverseName="stamps" inverseEntity="GPCollection" syncable="YES"/>
+        <relationship name="dealer" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Dealer" inverseName="stamps" inverseEntity="Dealer" syncable="YES"/>
+        <relationship name="extraPictures" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="GPPicture" inverseName="stamps" inverseEntity="GPPicture" syncable="YES"/>
+        <relationship name="format" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="StampFormat" inverseName="stamps" inverseEntity="StampFormat" syncable="YES"/>
+        <relationship name="gpCatalog" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GPCatalog" inverseName="examples" inverseEntity="GPCatalog" syncable="YES"/>
+        <relationship name="grade" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Grade" inverseName="stamps" inverseEntity="Grade" syncable="YES"/>
+        <relationship name="gumCondition" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GumCondition" inverseName="stamps" inverseEntity="GumCondition" syncable="YES"/>
+        <relationship name="hinged" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Hinged" inverseName="stamps" inverseEntity="Hinged" syncable="YES"/>
+        <relationship name="localPrecancel" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="LocalPrecancel" inverseName="stamps" inverseEntity="LocalPrecancel" syncable="YES"/>
+        <relationship name="location" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="stamps" inverseEntity="Location" syncable="YES"/>
+        <relationship name="lot" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Lot" inverseName="stamps" inverseEntity="Lot" syncable="YES"/>
+        <relationship name="mount" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Mount" inverseName="stamps" inverseEntity="Mount" syncable="YES"/>
+        <relationship name="parent" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Stamp" inverseName="children" inverseEntity="Stamp" syncable="YES"/>
+        <relationship name="perfin" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Perfin" inverseName="stamps" inverseEntity="Perfin" syncable="YES"/>
+        <relationship name="saleHistory" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SaleHistory" inverseName="stamp" inverseEntity="SaleHistory" syncable="YES"/>
+        <relationship name="soundness" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Soundness" inverseName="stamps" inverseEntity="Soundness" syncable="YES"/>
+        <relationship name="valuation" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Valuation" inverseName="stamps" inverseEntity="Valuation" syncable="YES"/>
+    </entity>
+    <entity name="StampFormat" representedClassName="StampFormat" syncable="YES">
+        <attribute name="displayBureauPrecancelInfo" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="displayCachetInfo" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="displayCancelationInfo" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="displayLocalPrecancelInfo" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="displayPerfinInfo" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="displayPlateInfo" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="containers" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Format" inverseName="allowedStampFormats" inverseEntity="Format" syncable="YES"/>
+        <relationship name="stamps" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Stamp" inverseName="format" inverseEntity="Stamp" syncable="YES"/>
+    </entity>
+    <entity name="StoredSearch" representedClassName="StoredSearch" syncable="YES">
+        <attribute name="identifier" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="predicate" optional="YES" attributeType="Transformable" syncable="YES"/>
+    </entity>
+    <entity name="Topic" representedClassName="Topic" syncable="YES">
+        <attribute name="topic_description" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="topic_name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="gpCatalogEntries" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="GPCatalog" inverseName="topics" inverseEntity="GPCatalog" syncable="YES"/>
+    </entity>
+    <entity name="Valuation" representedClassName="Valuation" syncable="YES">
+        <relationship name="stamps" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Stamp" inverseName="valuation" inverseEntity="Stamp" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="AlternateCatalog" positionX="-81" positionY="-9" width="128" height="105"/>
+        <element name="AlternateCatalogGroup" positionX="-308" positionY="36" width="128" height="105"/>
+        <element name="AlternateCatalogName" positionX="187" positionY="135" width="128" height="105"/>
+        <element name="Attachment" positionX="144" positionY="1526" width="128" height="103"/>
+        <element name="BureauPrecancel" positionX="-425" positionY="276" width="128" height="180"/>
+        <element name="Cachet" positionX="223" positionY="918" width="128" height="315"/>
+        <element name="CachetCatalogName" positionX="432" positionY="1059" width="128" height="75"/>
+        <element name="CachetMakerName" positionX="432" positionY="1212" width="128" height="75"/>
+        <element name="Cancelations" positionX="-344" positionY="1044" width="128" height="105"/>
+        <element name="CancelQuality" positionX="-1361" positionY="597" width="128" height="105"/>
+        <element name="Centering" positionX="-1341" positionY="252" width="128" height="105"/>
+        <element name="Country" positionX="-317" positionY="-72" width="128" height="90"/>
+        <element name="Dealer" positionX="-1296" positionY="144" width="128" height="75"/>
+        <element name="Format" positionX="-342" positionY="780" width="128" height="90"/>
+        <element name="GPCatalog" positionX="-117" positionY="207" width="128" height="1440"/>
+        <element name="GPCatalogGroup" positionX="-326" positionY="153" width="128" height="90"/>
+        <element name="GPCatalogSet" positionX="-297" positionY="-171" width="128" height="75"/>
+        <element name="GPCollection" positionX="-1053" positionY="-189" width="128" height="165"/>
+        <element name="GPPicture" positionX="378" positionY="261" width="128" height="135"/>
+        <element name="GPSalesGroup" positionX="-425" positionY="476" width="128" height="163"/>
+        <element name="GPSubvarietyType" positionX="-369" positionY="1269" width="128" height="105"/>
+        <element name="Grade" positionX="-812" positionY="-69" width="128" height="105"/>
+        <element name="GumCondition" positionX="-801" positionY="300" width="128" height="105"/>
+        <element name="Hinged" positionX="-810" positionY="63" width="128" height="105"/>
+        <element name="LocalPrecancel" positionX="-810" positionY="876" width="128" height="150"/>
+        <element name="Location" positionX="-846" positionY="420" width="128" height="75"/>
+        <element name="LooksLike" positionX="-344" positionY="900" width="128" height="90"/>
+        <element name="Lot" positionX="-803" positionY="204" width="128" height="75"/>
+        <element name="Mount" positionX="-1361" positionY="711" width="128" height="135"/>
+        <element name="Perfin" positionX="-1557" positionY="825" width="128" height="313"/>
+        <element name="PerfinCatalog" positionX="-1755" positionY="702" width="128" height="90"/>
+        <element name="PerfinCatalogName" positionX="-1575" positionY="603" width="128" height="90"/>
+        <element name="PictureType" positionX="574" positionY="150" width="128" height="75"/>
+        <element name="PlateNumber" positionX="214" positionY="405" width="128" height="285"/>
+        <element name="PlateNumberInfo" positionX="160" positionY="-168" width="128" height="105"/>
+        <element name="PlatePosition" positionX="412" positionY="717" width="128" height="75"/>
+        <element name="PlateUsage" positionX="214" positionY="735" width="128" height="120"/>
+        <element name="SaleHistory" positionX="-1235" positionY="1008" width="128" height="165"/>
+        <element name="Soundness" positionX="-1343" positionY="855" width="128" height="105"/>
+        <element name="Stamp" positionX="-1080" positionY="108" width="128" height="915"/>
+        <element name="StampFormat" positionX="-1361" positionY="405" width="128" height="180"/>
+        <element name="StoredSearch" positionX="-569" positionY="-171" width="128" height="90"/>
+        <element name="Topic" positionX="169" positionY="-27" width="128" height="90"/>
+        <element name="Valuation" positionX="-1296" positionY="18" width="128" height="60"/>
+    </elements>
+</model>
