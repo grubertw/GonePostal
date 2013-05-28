@@ -47,6 +47,7 @@
 #import "GPSearchSelectionTransformer.h"
 #import "GPManualValueSummer.h"
 #import "GPSetCounter.h"
+#import "GPSellListLocator.h"
 
 #import "CommonCrypto/CommonDigest.h"
 #import "ExceptionHandling/NSExceptionHandler.h"
@@ -188,6 +189,9 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
         
         id setCounter = [[GPSetCounter alloc] init];
         [NSValueTransformer setValueTransformer:setCounter forName:@"GPSetCounter"];
+        
+        id sellListLocator = [[GPSellListLocator alloc] init];
+        [NSValueTransformer setValueTransformer:sellListLocator forName:@"GPSellListLocator"];
         
         // Configure the global exception handler
         NSExceptionHandler * defaultHandler = [NSExceptionHandler defaultExceptionHandler];

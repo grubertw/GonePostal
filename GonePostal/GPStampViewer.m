@@ -18,6 +18,8 @@
 #import "GPCustomSearch.h"
 
 @interface GPStampViewer ()
+@property (strong, nonatomic) NSString * windowName;
+
 @property (strong, nonatomic) GPCountrySearch * countrySearchController;
 @property (strong, nonatomic) GPSectionSearch * sectionSearchController;
 @property (strong, nonatomic) GPFormatSearch * formatSearchController;
@@ -27,6 +29,8 @@
 
 @property (weak, nonatomic) IBOutlet NSTableView * stampsTable;
 @property (strong, nonatomic) IBOutlet NSArrayController * stampsController;
+
+@property (weak, nonatomic) IBOutlet NSTextField * wantListTitle;
 
 @property (strong, nonatomic) NSPanel * chooseSellListPanel;
 @property (weak, nonatomic) IBOutlet NSView * chooseSellListView;
@@ -87,6 +91,8 @@
         _myCollection = myCollection;
         _managedObjectContext = myCollection.managedObjectContext;
         
+        _windowName = self.myCollection.name;
+        
         _assistedSearch = assistedSearch;
         _countriesPredicate = countriesPredicate;
         _sectionsPredicate = sectionsPredicate;
@@ -142,10 +148,12 @@
     // by the search controllers.
     self.currSearch = self.assistedSearch.predicate;
     [self refilterStamps];
+    
+    [self.wantListTitle setHidden:YES];
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
-    return self.myCollection.name;
+    return self.windowName;
 }
 
 - (void)refilterStamps {
@@ -374,13 +382,18 @@
     if (self.inManageWantLists) {
         [self.stampsTable setBackgroundColor:[NSColor colorWithDeviceRed:0 green:0.9 blue:0 alpha:0.1]];
         self.inItemsSold = YES;
+        [self.wantListTitle setTextColor:[NSColor colorWithDeviceRed:0 green:0.7 blue:0 alpha:1]];
     }
     else {
-        [self.stampsTable setBackgroundColor:[NSColor colorWithDeviceRed:0.9 green:0 blue:0 alpha:0.1]];
+        [self.stampsTable setBackgroundColor:[NSColor colorWithDeviceRed:0.7 green:0 blue:0 alpha:0.1]];
+        [self.wantListTitle setTextColor:[NSColor colorWithDeviceRed:0.9 green:0 blue:0 alpha:1]];
     }
     
     [self.manageWantSellPanel orderOut:sender];
     self.inStampCollection = NO;
+    
+    [self.wantListTitle setStringValue:self.myCollection.name];
+    [self.wantListTitle setHidden:NO];
 }
 
 - (IBAction)returnToCollection:(id)sender {
@@ -397,6 +410,7 @@
     
     self.inStampCollection = YES;
     self.inItemsSold = NO;
+    [self.wantListTitle setHidden:YES];
 }
 
 - (IBAction)deleteStamp:(id)sender {
