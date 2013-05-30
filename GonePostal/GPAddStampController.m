@@ -49,7 +49,8 @@ static NSString * NEW_STAMP_PAGE_TITLE = @"Specify Stamp Specifics";
         
         if (mode == 1) {
             // Instantiate and initilize all three wizard pages.
-            _gpLocatorPage = [[GPLocatorPage alloc] initWithNibName:@"GPLocatorPage" bundle:nil];
+            [doc loadAssistedSearch:ASSISTED_LOOKS_LIKE_BROWSER_SEARCH_ID];
+            _gpLocatorPage = [[GPLocatorPage alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate];
             
             // If the locator is being used, clear the catalog browser search in favor
             // of the LooksLike.

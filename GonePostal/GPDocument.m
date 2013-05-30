@@ -58,6 +58,7 @@ const NSInteger ASSISTED_GP_CATALOG_BROWSER_SEARCH_ID       = 2;
 const NSInteger ASSISTED_STAMP_LIST_VIEWER_SEARCH_ID        = 3;
 const NSInteger CUSTOM_GP_CATALOG_SEARCH_ID                 = 4;
 const NSInteger CUSTOM_STAMP_SEARCH_ID                      = 5;
+const NSInteger ASSISTED_LOOKS_LIKE_BROWSER_SEARCH_ID       = 6;
 
 const NSInteger GP_COLLECTION_TYPE_NORMAL                   = 1;
 const NSInteger GP_COLLECTION_TYPE_WANT_LIST                = 2;
@@ -263,7 +264,8 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
             self.assistedSearch = [NSEntityDescription insertNewObjectForEntityForName:@"StoredSearch" inManagedObjectContext:self.managedObjectContext];
             self.assistedSearch.predicate = [NSPredicate predicateWithFormat:BASE_GP_CATALOG_QUERY];
         }
-        else if (searchID == ASSISTED_STAMP_LIST_VIEWER_SEARCH_ID) {
+        else if (   searchID == ASSISTED_STAMP_LIST_VIEWER_SEARCH_ID
+                 || searchID == ASSISTED_LOOKS_LIKE_BROWSER_SEARCH_ID) {
             // Leave predicate empty until user enters a search.
             self.assistedSearch = [NSEntityDescription insertNewObjectForEntityForName:@"StoredSearch" inManagedObjectContext:self.managedObjectContext];
         }

@@ -13,6 +13,8 @@
 @property (strong, nonatomic) NSManagedObjectContext * managedObjectContext;
 
 @property (strong, nonatomic) NSArray * gpCatalogEntriesSortDescriptors;
+@property (strong, nonatomic) NSArray * countrySortDescriptors;
+@property (strong, nonatomic) NSArray * sectionSortDescriptors;
 
 @property (weak, nonatomic) IBOutlet NSArrayController * gpCatalogsController;
 @property (weak, nonatomic) IBOutlet NSObjectController * looksLikeController;
