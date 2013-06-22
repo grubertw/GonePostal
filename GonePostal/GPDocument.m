@@ -48,6 +48,9 @@
 #import "GPManualValueSummer.h"
 #import "GPSetCounter.h"
 #import "GPSellListLocator.h"
+#import "GPCompositeTypeTransformer.h"
+#import "GPStampHasChildrenOrDetailTransformer.h"
+#import "GPStampDescriptionTransformer.h"
 
 #import "CommonCrypto/CommonDigest.h"
 #import "ExceptionHandling/NSExceptionHandler.h"
@@ -59,14 +62,15 @@ const NSInteger ASSISTED_STAMP_LIST_VIEWER_SEARCH_ID        = 3;
 const NSInteger CUSTOM_GP_CATALOG_SEARCH_ID                 = 4;
 const NSInteger CUSTOM_STAMP_SEARCH_ID                      = 5;
 const NSInteger ASSISTED_LOOKS_LIKE_BROWSER_SEARCH_ID       = 6;
+const NSInteger ASSISTED_SETS_BROWSER_SEARCH_ID             = 7;
 
 const NSInteger GP_COLLECTION_TYPE_NORMAL                   = 1;
 const NSInteger GP_COLLECTION_TYPE_WANT_LIST                = 2;
 const NSInteger GP_COLLECTION_TYPE_SELL_LIST                = 3;
 const NSInteger GP_COLLECTION_TYPE_ITEMS_SOLD               = 4;
 
-NSString * BASE_GP_CATALOG_QUERY = @"is_default==0 and majorVariety==nil";
-NSString * BASE_GP_CATALOG_QUERY_WITH_SUBVARIETIES = @"is_default==0";
+NSString * BASE_GP_CATALOG_QUERY = @"is_default==0 and composite_placeholder==0 and majorVariety==nil";
+NSString * BASE_GP_CATALOG_QUERY_WITH_SUBVARIETIES = @"is_default==0 and composite_placeholder==0";
 
 // Salt to use when generating filename hashes.
 NSString * FILENAME_HASH_SALT = @"p81VkYYb6d50wJ9aFmm0";
@@ -136,6 +140,7 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
                 self.locationsPredicate = representingPredicate;
             }
             else if (   ![leftExpression.keyPath isEqualToString:@"is_default"]
+                     && ![leftExpression.keyPath isEqualToString:@"composite_placeholder"]
                      && ![leftExpression.keyPath isEqualToString:@"majorVariety"]
                      && ![leftExpression.keyPath isEqualToString:@"looksLike.name"]) {
                 self.filtersPredicate = representingPredicate;
@@ -194,6 +199,15 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
         id sellListLocator = [[GPSellListLocator alloc] init];
         [NSValueTransformer setValueTransformer:sellListLocator forName:@"GPSellListLocator"];
         
+        id compositeTypeTransformer = [[GPCompositeTypeTransformer alloc] init];
+        [NSValueTransformer setValueTransformer:compositeTypeTransformer forName:@"GPCompositeTypeTransformer"];
+        
+        id childrenOrDetail = [[GPStampHasChildrenOrDetailTransformer alloc] init];
+        [NSValueTransformer setValueTransformer:childrenOrDetail forName:@"GPStampHasChildrenOrDetailTransformer"];
+        
+        id stampDescription = [[GPStampDescriptionTransformer alloc] init];
+        [NSValueTransformer setValueTransformer:stampDescription forName:@"GPStampDescriptionTransformer"];
+        
         // Configure the global exception handler
         NSExceptionHandler * defaultHandler = [NSExceptionHandler defaultExceptionHandler];
         [defaultHandler setExceptionHandlingMask:NSLogAndHandleEveryExceptionMask];
@@ -219,6 +233,10 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
     NSArray *results = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
     if (results) {
         [self.numCatalogEntriesDisplay setIntegerValue:[results count]];
+        
+//        for (GPCatalog * entry in results) {
+//            entry.composite_placeholder = @(NO);
+//        }
     }
 }
 

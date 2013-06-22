@@ -26,6 +26,9 @@
 @property (strong, nonatomic) NSArray * locationSortDescriptors;
 @property (strong, nonatomic) NSArray * mountSortDescriptors;
 @property (strong, nonatomic) NSArray * saleHistorySortDescriptors;
+@property (strong, nonatomic) NSArray * sellListsSortDescriptors;
+
+@property (strong, nonatomic) NSPredicate * sellListsFilter;
 
 - (id)initWithStamp:(Stamp *)stamp isExample:(BOOL)isExample;
 

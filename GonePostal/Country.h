@@ -2,14 +2,14 @@
 //  Country.h
 //  GonePostal
 //
-//  Created by Travis Gruber on 5/30/13.
+//  Created by Travis Gruber on 6/2/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class GPCatalog, LooksLike;
+@class GPCatalog, GPCatalogSet, LooksLike;
 
 @interface Country : NSManagedObject
 
@@ -17,6 +17,7 @@
 @property (nonatomic, retain) NSNumber * country_sort_id;
 @property (nonatomic, retain) NSSet *gpCatalogEntries;
 @property (nonatomic, retain) NSSet *looksLikes;
+@property (nonatomic, retain) NSSet *gpCatalogSets;
 @end
 
 @interface Country (CoreDataGeneratedAccessors)
@@ -30,5 +31,10 @@
 - (void)removeLooksLikesObject:(LooksLike *)value;
 - (void)addLooksLikes:(NSSet *)values;
 - (void)removeLooksLikes:(NSSet *)values;
+
+- (void)addGpCatalogSetsObject:(GPCatalogSet *)value;
+- (void)removeGpCatalogSetsObject:(GPCatalogSet *)value;
+- (void)addGpCatalogSets:(NSSet *)values;
+- (void)removeGpCatalogSets:(NSSet *)values;
 
 @end

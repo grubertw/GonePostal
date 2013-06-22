@@ -9,6 +9,7 @@
 #import "GPAddStampController.h"
 #import "GPDocument.h"
 #import "GPCatalog.h"
+#import "Stamp+CreateComposite.h"
 
 @interface GPAddStampController ()
 @property (nonatomic) NSUInteger operatingMode;
@@ -199,8 +200,26 @@ static NSString * NEW_STAMP_PAGE_TITLE = @"Specify Stamp Specifics";
         [self.managedObjectContext rollback];
     }
     else {
-        // Add the new stamp to the collection.
-        [self.myCollection addStampsObject:self.gpNewStampPage.stamp];
+        // Get the quantity input for creating a multi-quantity composite.
+        NSInteger compositeQuantity = [self.gpNewStampPage.compositeQuantityInput integerValue];
+        
+        if (compositeQuantity > 1) {
+            if (self.composite != nil) return;
+            
+            // Create a multi-quantity composite and add it to the collection
+            // as one item.
+            Stamp * composite = [self.gpNewStampPage.stamp createCompositeFromThisContainingAmount:compositeQuantity];
+            [self.myCollection addStampsObject:composite];
+        }
+        else {
+            if (self.composite == nil) {
+                // Add the new stamp to the collection.
+                [self.myCollection addStampsObject:self.gpNewStampPage.stamp];
+            }
+            else {
+                [self.composite addChildrenObject:self.gpNewStampPage.stamp];
+            }
+        }
         
         NSError * error;
         if (![self.managedObjectContext save:&error]) {

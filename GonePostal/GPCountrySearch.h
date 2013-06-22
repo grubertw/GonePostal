@@ -14,6 +14,9 @@
 @property (strong, nonatomic) NSArray * sortDescriptors;
 @property (strong, nonatomic) NSPredicate * predicate;
 
+@property (strong, nonatomic) NSMutableArray * itemsInSearch;
+@property (strong, nonatomic) NSMutableArray * itemsNotInSearch;
+
 @property (strong, nonatomic) NSPanel * panel;
 
 - (id)initWithPredicate:(NSPredicate *)predicate forStamp:(bool)isStampPredicate;

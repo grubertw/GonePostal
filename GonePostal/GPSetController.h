@@ -16,6 +16,8 @@
 
 @property (strong, nonatomic) NSArray * gpCatalogSetsSortDescriptors;
 @property (strong, nonatomic) NSArray * gpCatalogEntriesSortDescriptors;
+@property (strong, nonatomic) NSArray * countrySortDescriptors;
+@property (strong, nonatomic) NSArray * sectionSortDescriptors;
 
 @property (weak, nonatomic) IBOutlet NSArrayController * gpCatalogSetsController;
 @property (weak, nonatomic) IBOutlet NSArrayController * gpCatalogsController;

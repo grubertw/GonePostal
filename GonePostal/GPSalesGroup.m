@@ -2,24 +2,28 @@
 //  GPSalesGroup.m
 //  GonePostal
 //
-//  Created by Travis Gruber on 5/16/13.
+//  Created by Travis Gruber on 6/2/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
 #import "GPSalesGroup.h"
 #import "GPCatalog.h"
+#import "GPCatalogGroup.h"
+#import "GPCatalogSet.h"
 #import "Perfin.h"
 
 
 @implementation GPSalesGroup
 
-@dynamic name;
-@dynamic version;
-@dynamic salePrice;
 @dynamic lastDateUpdated;
-@dynamic salesID;
+@dynamic name;
 @dynamic purchaseKey;
+@dynamic salePrice;
+@dynamic salesID;
+@dynamic version;
 @dynamic catalogEntries;
 @dynamic perfinEntries;
+@dynamic catalogGroups;
+@dynamic catalogSets;
 
 @end

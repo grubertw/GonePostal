@@ -27,4 +27,6 @@
 @property (strong, nonatomic) NSArray * locationSortDescriptors;
 @property (strong, nonatomic) NSArray * mountSortDescriptors;
 
+@property (weak, nonatomic) IBOutlet NSTextField * compositeQuantityInput;
+
 @end

@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "Stamp.h"
 #import "GPCollection.h"
 #import "GPLocatorPage.h"
 #import "GPCatalogChooserPage.h"
@@ -15,6 +16,8 @@
 @interface GPAddStampController : NSWindowController <NSPageControllerDelegate>
 
 @property (strong, nonatomic) GPCollection * myCollection;
+@property (strong, nonatomic) Stamp * composite;
+
 @property (strong, nonatomic) NSManagedObjectContext * managedObjectContext;
 
 @property (strong, nonatomic) GPLocatorPage * gpLocatorPage;

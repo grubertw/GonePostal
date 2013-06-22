@@ -7,6 +7,7 @@
 //
 
 #import "GPManualValueSummer.h"
+#import "GPCollection.h"
 #import "Stamp.h"
 
 @implementation GPManualValueSummer
@@ -16,20 +17,38 @@
 
 - (id)transformedValue:(id)value {
     if (value == nil) return nil;
-    if (![value isKindOfClass:[NSSet class]]) return nil;
-    NSSet * stamps = value;
     
     float netWorth = 0.0;
     
-    id obj = [stamps anyObject];
-    if (obj != nil && [obj isMemberOfClass:[Stamp class]]) {
-        for (Stamp * stamp in stamps) {
-            netWorth += [stamp.manual_value floatValue];
+    if ([value isKindOfClass:[GPCollection class]]) {
+        GPCollection * collection = (GPCollection *)value;
+        
+        for (Stamp * stamp in collection.stamps) {
+            netWorth += [self valueOfStamp:stamp];
         }
+    }
+    else if ([value isKindOfClass:[Stamp class]]) {
+        Stamp * stamp = (Stamp *)value;
+        netWorth = [self valueOfStamp:stamp];
     }
     
     NSNumber * rc = @(netWorth);
     return rc;
+}
+
+- (float)valueOfStamp:(Stamp *)stamp {
+    float worth = 0;
+    
+    if ([stamp.children count] > 0) {
+        for (Stamp * child in stamp.children) {
+            worth += [child.manual_value floatValue];
+        }
+    }
+    else {
+        worth = [stamp.manual_value floatValue];
+    }
+    
+    return worth;
 }
 
 @end

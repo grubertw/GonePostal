@@ -10,14 +10,22 @@
 #import "GPStampDetail.h"
 #import "Stamp.h"
 #import "GPAddStampController.h"
+#import "GPSetChooser.h"
 #import "GPDocument.h"
 #import "GPCountrySearch.h"
 #import "GPSectionSearch.h"
 #import "GPFormatSearch.h"
 #import "GPLocationSearch.h"
 #import "GPCustomSearch.h"
+#import "Stamp+CreateComposite.h"
 
 @interface GPStampViewer ()
+@property (strong, nonatomic) NSColor * COLLECTION_COLOR;
+@property (strong, nonatomic) NSColor * CHILDREN_COLOR;
+@property (strong, nonatomic) NSColor * WANT_LIST_COLOR;
+@property (strong, nonatomic) NSColor * SELL_LIST_COLOR;
+@property (strong, nonatomic) NSColor * SOLD_LIST_COLOR;
+
 @property (strong, nonatomic) NSString * windowName;
 
 @property (strong, nonatomic) GPCountrySearch * countrySearchController;
@@ -29,6 +37,11 @@
 
 @property (weak, nonatomic) IBOutlet NSTableView * stampsTable;
 @property (strong, nonatomic) IBOutlet NSArrayController * stampsController;
+@property (strong, nonatomic) id currStampsContainer;
+
+@property (strong, nonatomic) NSPanel * createCompositePanel;
+@property (weak, nonatomic) IBOutlet NSView * createCompositeView;
+@property (weak, nonatomic) IBOutlet NSButton * setOrIntegralCompositeCheckBox;
 
 @property (weak, nonatomic) IBOutlet NSTextField * wantListTitle;
 
@@ -88,6 +101,13 @@
     
     self = [super initWithWindowNibName:@"GPStampViewer"];
     if (self) {
+        _COLLECTION_COLOR = [NSColor colorWithDeviceRed:1 green:1 blue:1 alpha:0.1];
+        _CHILDREN_COLOR = [NSColor colorWithDeviceRed:0.75 green:0.75 blue:1 alpha:0.2];
+        _WANT_LIST_COLOR = [NSColor colorWithDeviceRed:0 green:0.9 blue:0 alpha:0.1];
+        _SELL_LIST_COLOR = [NSColor colorWithDeviceRed:0.7 green:0 blue:0 alpha:0.1];
+        _SOLD_LIST_COLOR = [NSColor colorWithDeviceRed:0.75 green:0 blue:0 alpha:0.2];
+        
+        
         _myCollection = myCollection;
         _managedObjectContext = myCollection.managedObjectContext;
         
@@ -141,11 +161,15 @@
     [self.locationSearchController.panel setContentView:self.locationSearchController.view];
     
     // Setup other sheets.
+    self.createCompositePanel = [[NSPanel alloc] initWithContentRect:self.createCompositeView.bounds styleMask:NSTexturedBackgroundWindowMask backing:NSBackingStoreBuffered defer:YES];
+    [self.createCompositePanel setContentView:self.createCompositeView];
+    
     self.chooseSellListPanel = [[NSPanel alloc] initWithContentRect:self.chooseSellListView.bounds styleMask:NSTexturedBackgroundWindowMask backing:NSBackingStoreBuffered defer:YES];
     [self.chooseSellListPanel setContentView:self.chooseSellListView];
     
     // Fetch the stamps, based on the parsed predicate information performed
     // by the search controllers.
+    [self changeStampContent:self.myCollection];
     self.currSearch = self.assistedSearch.predicate;
     [self refilterStamps];
     
@@ -161,17 +185,66 @@
     [self.stampsController rearrangeObjects];
 }
 
+- (void)changeStampContent:(id)content {
+    id oldContent = self.currStampsContainer;
+    
+    if (oldContent && [oldContent isMemberOfClass:[GPCollection class]]) {
+        [oldContent removeObserver:self forKeyPath:@"stamps"];
+    }
+    else if (oldContent && [oldContent isMemberOfClass:[Stamp class]]) {
+        [oldContent removeObserver:self forKeyPath:@"children"];
+    }
+    
+    if ([content isMemberOfClass:[GPCollection class]]) {
+        GPCollection * collection = (GPCollection *)content;
+        [collection addObserver:self forKeyPath:@"stamps" options:NSKeyValueObservingOptionNew context:nil];
+        
+        [self.stampsController setContent:collection.stamps];
+    }
+    else if ([content isMemberOfClass:[Stamp class]]) {
+        Stamp * composite = (Stamp *)content;
+        [composite addObserver:self forKeyPath:@"children" options:NSKeyValueObservingOptionNew context:nil];
+        [self.stampsController setContent:composite.children];
+    }
+    
+    self.currStampsContainer = content;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([object isMemberOfClass:[GPCollection class]]) {
+        GPCollection * collection = (GPCollection *)object;
+        [self.stampsController setContent:collection.stamps];
+    }
+    else if ([object isMemberOfClass:[Stamp class]]) {
+        Stamp * composite = (Stamp *)object;
+        [self.stampsController setContent:composite.children];
+    }
+}
+
 -(IBAction)showStampDetail:(NSButton *)sender {
     NSInteger row = [self.stampsTable rowForView:sender];
     Stamp * stamp = self.stampsController.arrangedObjects[row];
     
-    GPStampDetail * sd = [[GPStampDetail alloc] initWithStamp:stamp isExample:NO];
-    [self.document addWindowController:sd];
-    [sd.window makeKeyAndOrderFront:sender];
+    if ([stamp.children count] > 0) {
+        self.selectedComposite = stamp;
+        
+        [self changeStampContent:stamp];
+        [self.stampsTable setBackgroundColor:self.CHILDREN_COLOR];
+        
+        self.inStampCollection = NO;
+        self.inItemsSold = YES;
+    }
+    else {
+        GPStampDetail * sd = [[GPStampDetail alloc] initWithStamp:stamp isExample:NO];
+        [self.document addWindowController:sd];
+        [sd.window makeKeyAndOrderFront:sender];
+    }
 }
 
 - (IBAction)openAddFromGPCatalog:(id)sender {
     GPAddStampController * addStampController = [[GPAddStampController alloc] initWithCollection:self.myCollection operatingMode:2];
+    [addStampController setComposite:self.selectedComposite];
     
     GPDocument * doc = self.document;
     [doc addWindowController:addStampController];
@@ -179,11 +252,72 @@
 }
 
 - (IBAction)openAddCompositeEditor:(id)sender {
+    NSApplication * app = [NSApplication sharedApplication];
     
+    [self.managedObjectContext save:nil];
+    [app beginSheet:self.createCompositePanel modalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+}
+
+- (IBAction)createComposite:(id)sender {
+    NSArray * selectedStamps = [self.stampsController selectedObjects];
+    if (!selectedStamps) return;
+    
+    NSApplication * app = [NSApplication sharedApplication];
+    
+    NSInteger compositeType;
+    if (self.setOrIntegralCompositeCheckBox.state == NSOnState) {
+        compositeType = COMPOSITE_TYPE_INTEGRAL;
+    }
+    else {
+        compositeType = COMPOSITE_TYPE_SET;
+    }
+    
+    for (Stamp * stamp in selectedStamps) {
+        if ([stamp.children count] > 0) {
+            [self.managedObjectContext rollback];
+            
+            [app endSheet:self.createCompositePanel];
+            [self.createCompositePanel close];
+            
+            NSAlert * alertSheet = [NSAlert alertWithMessageText:nil defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:@"A Composite item cannot be placed within another composite.  Please remove the composite item from your selection."];
+            
+            [alertSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+            return;
+        }
+        
+        [self.myCollection removeStampsObject:stamp];
+    }
+    
+    Stamp * composite = [Stamp createCompositeType:compositeType fromSet:[NSSet setWithArray:selectedStamps]];
+    [self.myCollection addStampsObject:composite];
+    
+    // End the sheet.
+    [app endSheet:self.createCompositePanel];
+    [self.createCompositePanel close];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext rollback];
+    }
+}
+
+- (IBAction)cancelComposite:(id)sender {
+    NSApplication * app = [NSApplication sharedApplication];
+    
+    // End the sheet.
+    [app endSheet:self.createCompositePanel];
+    [self.createCompositePanel close];
 }
 
 - (IBAction)openAddSetChooser:(id)sender {
+    GPDocument * doc = [self document];
+    [doc loadAssistedSearch:ASSISTED_SETS_BROWSER_SEARCH_ID];
+    GPSetChooser * setChooser = [[GPSetChooser alloc] initWithGPCollection:self.myCollection andAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate];
     
+    [doc addWindowController:setChooser];
+    [setChooser.window makeKeyAndOrderFront:sender];
 }
 
 - (IBAction)openLocator:(id)sender {
@@ -234,8 +368,32 @@
     [self refilterStamps];
 }
 
+- (IBAction)editComposite:(id)sender {
+    GPStampDetail * sd = [[GPStampDetail alloc] initWithStamp:self.selectedComposite isExample:NO];
+    [self.document addWindowController:sd];
+    [sd.window makeKeyAndOrderFront:sender];
+}
+
 - (IBAction)closeChildren:(id)sender {
+    [self changeStampContent:self.myCollection];
     
+    if ([self.myCollection.type isEqualToNumber:@(GP_COLLECTION_TYPE_WANT_LIST)]) {
+        [self.stampsTable setBackgroundColor:self.WANT_LIST_COLOR];
+    }
+    else if ([self.myCollection.type isEqualToNumber:@(GP_COLLECTION_TYPE_SELL_LIST)]) {
+        [self.stampsTable setBackgroundColor:self.SELL_LIST_COLOR];
+    }
+    else if ([self.myCollection.type isEqualToNumber:@(GP_COLLECTION_TYPE_ITEMS_SOLD)]) {
+        [self.stampsTable setBackgroundColor:self.SOLD_LIST_COLOR];
+    }
+    else {
+        [self.stampsTable setBackgroundColor:self.COLLECTION_COLOR];
+        self.inStampCollection = YES;
+    }
+    
+    self.selectedComposite = nil;
+    
+    self.inItemsSold = NO;
 }
 
 - (IBAction)manageWantLists:(id)sender {
@@ -280,6 +438,13 @@
     [self.chooseSellListPanel close];
 }
 
+- (IBAction)cancelAddToSellList:(id)sender {
+    // End the sheet.
+    NSApplication * app = [NSApplication sharedApplication];
+    [app endSheet:self.chooseSellListPanel];
+    [self.chooseSellListPanel close];
+}
+
 - (IBAction)acquired:(id)sender {
     NSArray * selectedStamps = [self.stampsController selectedObjects];
     
@@ -308,6 +473,7 @@
             GPCollection * sellTarget = self.myCollection.sellTarget;
             if (sellTarget) {
                 [sellTarget removeStampsObject:stamp];
+                continue;
             }
             
             for (GPCollection * sellList in self.myCollection.sellLists) {
@@ -328,9 +494,9 @@
     NSArray * results = [self.managedObjectContext executeFetchRequest:collectionFetch error:nil];
     if (results && ([results count] == 1)) {
         GPCollection * soldList = results[0];
-        [self.stampsController setContent:soldList.stamps];
+        [self changeStampContent:soldList];
         
-        [self.stampsTable setBackgroundColor:[NSColor colorWithDeviceRed:0.75 green:0 blue:0 alpha:0.2]];
+        [self.stampsTable setBackgroundColor:self.SOLD_LIST_COLOR];
     }
 }
 
@@ -377,15 +543,15 @@
     
     GPCollection * selectedCollection = self.wantSellListsController.selectedObjects[0];
     [self setMyCollection:selectedCollection];
-    [self.stampsController setContent:selectedCollection.stamps];
+    [self changeStampContent:selectedCollection];
     
     if (self.inManageWantLists) {
-        [self.stampsTable setBackgroundColor:[NSColor colorWithDeviceRed:0 green:0.9 blue:0 alpha:0.1]];
+        [self.stampsTable setBackgroundColor:self.WANT_LIST_COLOR];
         self.inItemsSold = YES;
         [self.wantListTitle setTextColor:[NSColor colorWithDeviceRed:0 green:0.7 blue:0 alpha:1]];
     }
     else {
-        [self.stampsTable setBackgroundColor:[NSColor colorWithDeviceRed:0.7 green:0 blue:0 alpha:0.1]];
+        [self.stampsTable setBackgroundColor:self.SELL_LIST_COLOR];
         [self.wantListTitle setTextColor:[NSColor colorWithDeviceRed:0.9 green:0 blue:0 alpha:1]];
     }
     
@@ -396,6 +562,10 @@
     [self.wantListTitle setHidden:NO];
 }
 
+- (IBAction)cancelViewWantSellList:(id)sender {
+    [self.manageWantSellPanel orderOut:sender];
+}
+
 - (IBAction)returnToCollection:(id)sender {
     if ([self.myCollection.type isEqualToNumber:@(GP_COLLECTION_TYPE_WANT_LIST)]) {
         [self setMyCollection:self.myCollection.wantTarget];
@@ -404,23 +574,133 @@
         [self setMyCollection:self.myCollection.sellTarget];
     }
     
-    [self.stampsController setContent:self.myCollection.stamps];
+    [self changeStampContent:self.myCollection];
     
-    [self.stampsTable setBackgroundColor:[NSColor colorWithDeviceRed:1 green:1 blue:1 alpha:0.1]];
+    [self.stampsTable setBackgroundColor:self.COLLECTION_COLOR];
     
     self.inStampCollection = YES;
     self.inItemsSold = NO;
     [self.wantListTitle setHidden:YES];
+    self.selectedComposite = nil;
 }
 
 - (IBAction)deleteStamp:(id)sender {
-    [self.stampsController remove:sender];
+    NSArray * selected = [self.stampsController selectedObjects];
+    if (!selected) return;
+    
+    for (Stamp * stamp in selected) {
+        // Check if stamp has children.  If so, make sure the user wants to delete.
+        if ([stamp.children count] > 0) {
+       
+            NSAlert * alertSheet = [NSAlert alertWithMessageText:nil defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:@"Are you sure you want to delete %@? The composite has %ld children which will also be deleted.", stamp.gp_stamp_number, [stamp.children count]];
+            [alertSheet beginSheetModalForWindow:self.window modalDelegate:self didEndSelector:@selector(userConfirmedCompositeDelete:returnCode:contextInfo:) contextInfo:(__bridge void *)(stamp)];
+            return;
+        }
+        else if (stamp.parent != nil) {
+            [stamp.parent removeChildrenObject:stamp];
+        }
+        else if (stamp.parent == nil) {
+            [self.myCollection removeStampsObject:stamp];
+            
+            if (self.myCollection.sellTarget) {
+                [self.myCollection.sellTarget removeStampsObject:stamp];
+            }
+            
+            for (GPCollection * sellList in self.myCollection.sellLists) {
+                [sellList removeStampsObject:stamp];
+            }
+        }
+    }
     
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
         [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
         [self.managedObjectContext undo];
+    }
+}
+
+- (void)userConfirmedCompositeDelete:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+    if (returnCode == NSAlertDefaultReturn && contextInfo != nil) {
+        Stamp * composite = (__bridge Stamp *)contextInfo;
+        
+        [self.myCollection removeStampsObject:composite];
+        if (self.myCollection.sellTarget) {
+            [self.myCollection.sellTarget removeStampsObject:composite];
+        }
+        
+        for (GPCollection * sellList in self.myCollection.sellLists) {
+            [sellList removeStampsObject:composite];
+        }
+        
+        [self.managedObjectContext deleteObject:composite];
+        
+        NSError * error;
+        if (![self.managedObjectContext save:&error]) {
+            [alert.window orderOut:self];
+            NSAlert * errSheet = [NSAlert alertWithError:error];
+            [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+            [self.managedObjectContext undo];
+        }
+    }
+}
+
+- (IBAction)breakDownComposite:(id)sender {
+    NSArray * selected = [self.stampsController selectedObjects];
+    if (!selected || [selected count] > 1) return;
+    
+    Stamp * composite = self.stampsController.selectedObjects[0];
+    
+    if (composite.parentType == nil) {
+        NSAlert * alertSheet = [NSAlert alertWithMessageText:nil defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:@"Selected stamp is not a composite.  Only a composite stamp can be broken down into the collection."];
+        
+        [alertSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        return;
+    }
+    
+    if ([composite.parentType isEqualToNumber:@(COMPOSITE_TYPE_INTEGRAL)]) {
+        NSAlert * alertSheet = [NSAlert alertWithMessageText:nil defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:@"Integral composite %@ cannot be borken down into the collection.  Click remove if you wish to remove this composite from your collection.", composite.gp_stamp_number];
+        
+        [alertSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        return;
+    }
+   
+    NSAlert * alertSheet = [NSAlert alertWithMessageText:nil defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:@"Composite %@ will be broken down into your collection. %ld stamps will be added.  Are you sure you wish to proceed?", composite.gp_stamp_number, [composite.children count]];
+    [alertSheet beginSheetModalForWindow:self.window modalDelegate:self didEndSelector:@selector(userConfirmedCompositeBreakdown:returnCode:contextInfo:) contextInfo:(__bridge void *)(composite)];
+}
+
+- (void)userConfirmedCompositeBreakdown:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+    if (returnCode == NSAlertDefaultReturn && contextInfo != nil) {
+        Stamp * composite = (__bridge Stamp *)contextInfo;
+        NSSet * children = [[NSSet alloc] initWithSet:[composite children]];
+        
+        for (Stamp * child in children) {
+            [composite removeChildrenObject:child];
+            [self.myCollection addStampsObject:child];
+            
+            if (self.myCollection.sellTarget != nil) {
+                [self.myCollection.sellTarget addStampsObject:child];
+            }
+            
+            for (GPCollection * sellList in self.myCollection.sellLists) {
+                for (Stamp * stamp in sellList.stamps) {
+                    if ([stamp isEqualTo:composite]) {
+                        [sellList addStampsObject:child];
+                    }
+                }
+            }
+        }
+        
+        [self.myCollection removeStampsObject:composite];
+        [self.managedObjectContext deleteObject:composite];
+        
+        NSError * error;
+        if (![self.managedObjectContext save:&error]) {
+            [alert.window orderOut:self];
+            NSAlert * errSheet = [NSAlert alertWithError:error];
+            [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+            [self.managedObjectContext undo];
+        }
     }
 }
 

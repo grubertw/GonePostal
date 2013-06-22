@@ -2,7 +2,7 @@
 //  GPCatalog.m
 //  GonePostal
 //
-//  Created by Travis Gruber on 5/24/13.
+//  Created by Travis Gruber on 6/2/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
@@ -86,6 +86,7 @@
 @dynamic print;
 @dynamic print_variety;
 @dynamic printer;
+@dynamic printing_on_back;
 @dynamic quantity_ordered;
 @dynamic quantity_printed;
 @dynamic quantity_sold;
@@ -101,7 +102,7 @@
 @dynamic watermark;
 @dynamic watermark_error;
 @dynamic watermark_variation;
-@dynamic printing_on_back;
+@dynamic composite_placeholder;
 @dynamic alternateCatalogs;
 @dynamic attachments;
 @dynamic bureauPrecancels;

@@ -20,6 +20,12 @@
     if (self) {
         NSSortDescriptor *setSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
         self.gpCatalogSetsSortDescriptors = @[setSort];
+        
+        NSSortDescriptor *countrySort = [[NSSortDescriptor alloc] initWithKey:@"country_name" ascending:YES];
+        self.countrySortDescriptors = @[countrySort];
+        
+        NSSortDescriptor *sectionSort = [[NSSortDescriptor alloc] initWithKey:@"group_name" ascending:YES];
+        self.sectionSortDescriptors = @[sectionSort];
     }
     
     return self;

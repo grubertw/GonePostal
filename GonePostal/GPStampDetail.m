@@ -35,10 +35,12 @@
 @property (weak, nonatomic) IBOutlet NSTabView * bottomTabs;
 @property (weak, nonatomic) IBOutlet NSTabViewItem * historyAndStorageTab;
 @property (weak, nonatomic) IBOutlet NSTabViewItem * saleHistoryTab;
+@property (weak, nonatomic) IBOutlet NSTabViewItem * sellListsTab;
 
 @property (weak, nonatomic) IBOutlet NSTextField *plateInfoField;
 
 @property (strong, nonatomic) IBOutlet NSArrayController * saleHistoryController;
+@property (strong, nonatomic) IBOutlet NSArrayController * sellListsController;
 
 @property (nonatomic) BOOL isExample;
 
@@ -99,6 +101,11 @@
         
         NSSortDescriptor *saleHistorySort = [[NSSortDescriptor alloc] initWithKey:@"dateSold" ascending:NO];
         _saleHistorySortDescriptors = @[saleHistorySort];
+        
+        NSSortDescriptor *sellListsSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+        _sellListsSortDescriptors = @[sellListsSort];
+        
+        _sellListsFilter = [NSPredicate predicateWithFormat:@"type == %ld", GP_COLLECTION_TYPE_SELL_LIST];
         
         // Intialize the chooser drawers.
         _plateNumberChooser = [[GPPlateNumberChooser alloc] initAsSheet:NO modifyingStamp:self.stamp];
@@ -161,6 +168,7 @@
     // Show the correct tabs for example stamps vs stamps in a collection.
     if (self.isExample) {
         [self.bottomTabs removeTabViewItem:self.historyAndStorageTab];
+        [self.bottomTabs removeTabViewItem:self.sellListsTab];
     }
     else {
         [self.bottomTabs removeTabViewItem:self.saleHistoryTab];
@@ -321,6 +329,10 @@
     
     // Store the filename into the model.
     self.stamp.alternate_picture_6 = fileName;
+}
+
+- (IBAction)removeFromSellList:(id)sender {
+    [self.sellListsController remove:sender];
 }
 
 - (void)windowWillClose:(NSNotification *)notification {

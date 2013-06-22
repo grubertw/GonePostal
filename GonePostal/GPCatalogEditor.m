@@ -68,6 +68,8 @@
 @property (weak, nonatomic) IBOutlet GPLooksLikePopoverController * looksLikePopoverController;
 
 @property (weak, nonatomic) IBOutlet NSTableView * plateNumberCombinationsTable;
+@property (weak, nonatomic) IBOutlet NSTableColumn * plateNumberComboUnknownColumn;
+
 @property (weak, nonatomic) IBOutlet NSTableView * bureauPrecancelsTable;
 
 @property (weak, nonatomic) IBOutlet NSArrayController * gpCatalogEntriesController;
@@ -451,6 +453,26 @@
 }
 
 - (IBAction)addToGPCatalogSet:(id)sender {
+    // Determine the current country and section being viewed.
+    // If there are multiple or none, set the catalogSetsController's
+    // fetch predicate to nil to fetch all sets.
+    Country * selectedCountry;
+    GPCatalogGroup * selectedSection;
+    
+    if (   [self.countrySearchController.itemsInSearch count] == 1
+        && [self.sectionSearchController.itemsInSearch count] == 1) {
+        selectedCountry = self.countrySearchController.itemsInSearch[0];
+        selectedSection = self.sectionSearchController.itemsInSearch[0];
+        
+        NSPredicate * setFilter = [NSPredicate predicateWithFormat:@"country.country_sort_id == %@ and catalogGroup.group_number == %@", selectedCountry.country_sort_id, selectedSection.group_number];
+        [self.gpCatalogSetsController setFetchPredicate:setFilter];
+        [self.gpCatalogSetsController fetch:sender];
+    }
+    else {
+        [self.gpCatalogSetsController setFetchPredicate:nil];
+        [self.gpCatalogSetsController fetch:sender];
+    }
+    
     // Run the add to set panel as a sheet on top of the catalog editor.
     NSApplication * app = [NSApplication sharedApplication];
     [app beginSheet:self.addToSetPanel modalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
@@ -1045,6 +1067,13 @@
         else {
             [column setHidden:YES];
         }
+    }
+    
+    if (numPlates > 1) {
+        [self.plateNumberComboUnknownColumn setHidden:NO];
+    }
+    else {
+        [self.plateNumberComboUnknownColumn setHidden:YES];
     }
 }
 

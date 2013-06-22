@@ -17,8 +17,6 @@ static NSString * PREDICATE_FORMAT_FOR_GPCATALG = @"country.country_sort_id == %
 @property (weak, nonatomic) IBOutlet NSArrayController * itemsInSearchController;
 @property (weak, nonatomic) IBOutlet NSArrayController * itemsNotInSearchController;
 
-@property (strong, nonatomic) NSMutableArray * itemsInSearch;
-@property (strong, nonatomic) NSMutableArray * itemsNotInSearch;
 @property bool isStampPredicate;
 @end
 

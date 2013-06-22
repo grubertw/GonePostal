@@ -101,6 +101,8 @@
     // Initialize the scroller
     [self.scroller setDocumentView:self.scrollContent];
     
+    [self.compositeQuantityInput setIntegerValue:1];
+    
     // Set the scroller to the top.
     NSPoint newOrigin = NSMakePoint(0, NSMaxY([[self.scroller documentView] frame]) -
                                     [[self.scroller contentView] bounds].size.height);

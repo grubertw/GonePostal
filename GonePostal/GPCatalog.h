@@ -2,7 +2,7 @@
 //  GPCatalog.h
 //  GonePostal
 //
-//  Created by Travis Gruber on 5/24/13.
+//  Created by Travis Gruber on 6/2/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
@@ -68,6 +68,7 @@
 @property (nonatomic, retain) NSString * print;
 @property (nonatomic, retain) NSNumber * print_variety;
 @property (nonatomic, retain) NSString * printer;
+@property (nonatomic, retain) NSNumber * printing_on_back;
 @property (nonatomic, retain) NSNumber * quantity_ordered;
 @property (nonatomic, retain) NSNumber * quantity_printed;
 @property (nonatomic, retain) NSNumber * quantity_sold;
@@ -83,7 +84,7 @@
 @property (nonatomic, retain) NSString * watermark;
 @property (nonatomic, retain) NSNumber * watermark_error;
 @property (nonatomic, retain) NSNumber * watermark_variation;
-@property (nonatomic, retain) NSNumber * printing_on_back;
+@property (nonatomic, retain) NSNumber * composite_placeholder;
 @property (nonatomic, retain) NSSet *alternateCatalogs;
 @property (nonatomic, retain) NSSet *attachments;
 @property (nonatomic, retain) NSSet *bureauPrecancels;
