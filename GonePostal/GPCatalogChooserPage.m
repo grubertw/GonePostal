@@ -14,12 +14,17 @@
 #import "GPCatalog.h"
 #import "GPCatalogDetail.h"
 #import "GPCustomSearch.h"
+#import "AlternateCatalog.h"
+#import "AlternateCatalogName.h"
 
 @interface GPCatalogChooserPage ()
 @property (weak, nonatomic) IBOutlet NSButton * changeFiltersButton;
 @property (weak, nonatomic) IBOutlet NSTableView * gpCatalogTable;
 
 @property (strong, nonatomic) IBOutlet NSArrayController * customSearchController;
+
+@property (weak, nonatomic) IBOutlet NSPopUpButton * gotoPopup;
+@property (weak, nonatomic) IBOutlet NSTextField * gotoField;
 
 @property (strong, nonatomic) NSPopover * catalogDetailPopover;
 @property (strong, nonatomic) GPCatalogDetail * catalogDetail;
@@ -152,6 +157,48 @@
 - (void)queryGPCatalog {
     [self.gpCatalogController setFetchPredicate:self.currSearch];
     [self.gpCatalogController fetch:self];
+}
+
+- (void)controlTextDidChange:(NSNotification *)aNotification {
+    NSTextField * textField = aNotification.object;
+    
+    if ([textField isEqualTo:self.gotoField]) {
+        NSArray * entries = self.gpCatalogController.arrangedObjects;
+        NSInteger searchType = [[self.gotoPopup selectedItem] tag];
+        NSString * typedValue = self.gotoField.stringValue;
+        
+        NSUInteger foundEntryRow = 0;
+        NSRange findOP = {NSNotFound, 0};
+        
+        for (NSUInteger row=0; row < [entries count]; row++) {
+            GPCatalog * entry = entries[row];
+            
+            if (searchType == 1) {
+                findOP = [entry.gp_catalog_number rangeOfString:typedValue];
+            }
+            else if (searchType == 2) {
+                NSString * altCatalogNumber;
+                
+                for (AlternateCatalog * altCatalog in entry.alternateCatalogs) {
+                    if ([altCatalog.alternateCatalogName.alternate_catalog_name isEqualToString:entry.defaultCatalogName.alternate_catalog_name]) {
+                        altCatalogNumber = altCatalog.alternate_catalog_number;
+                        break;
+                    }
+                }
+                
+                findOP = [altCatalogNumber rangeOfString:typedValue];
+            }
+            
+            if (findOP.length > 0) {
+                foundEntryRow = row;
+                break;
+            }
+        }
+        
+        NSIndexSet * changeToSelection = [NSIndexSet indexSetWithIndex:foundEntryRow];
+        [self.gpCatalogTable selectRowIndexes:changeToSelection byExtendingSelection:NO];
+        [self.gpCatalogTable scrollRowToVisible:foundEntryRow];
+    }
 }
 
 - (IBAction)openCountriesSearchPanel:(id)sender {

@@ -339,4 +339,8 @@
     [self.stamp removeObserver:self forKeyPath:@"format"];
 }
 
+- (IBAction)done:(id)sender {
+    [self.window performClose:sender];
+}
+
 @end

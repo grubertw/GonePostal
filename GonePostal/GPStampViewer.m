@@ -18,6 +18,8 @@
 #import "GPLocationSearch.h"
 #import "GPCustomSearch.h"
 #import "Stamp+CreateComposite.h"
+#import "AlternateCatalog.h"
+#import "AlternateCatalogName.h"
 
 @interface GPStampViewer ()
 @property (strong, nonatomic) NSColor * COLLECTION_COLOR;
@@ -38,6 +40,9 @@
 @property (weak, nonatomic) IBOutlet NSTableView * stampsTable;
 @property (strong, nonatomic) IBOutlet NSArrayController * stampsController;
 @property (strong, nonatomic) id currStampsContainer;
+
+@property (weak, nonatomic) IBOutlet NSPopUpButton * gotoPopup;
+@property (weak, nonatomic) IBOutlet NSTextField * gotoField;
 
 @property (strong, nonatomic) NSPanel * createCompositePanel;
 @property (weak, nonatomic) IBOutlet NSView * createCompositeView;
@@ -219,6 +224,50 @@
     else if ([object isMemberOfClass:[Stamp class]]) {
         Stamp * composite = (Stamp *)object;
         [self.stampsController setContent:composite.children];
+    }
+}
+
+- (void)controlTextDidChange:(NSNotification *)aNotification {
+    NSTextField * textField = aNotification.object;
+    
+    if ([textField isEqualTo:self.gotoField]) {
+        NSArray * entries = self.stampsController.arrangedObjects;
+        NSInteger searchType = [[self.gotoPopup selectedItem] tag];
+        NSString * typedValue = self.gotoField.stringValue;
+        
+        NSUInteger foundEntryRow = 0;
+        NSRange findOP = {NSNotFound, 0};
+        
+        for (NSUInteger row=0; row < [entries count]; row++) {
+            Stamp * entry = entries[row];
+            
+            if (searchType == 1) {
+                findOP = [entry.gp_stamp_number rangeOfString:typedValue];
+            }
+            else if (searchType == 2) {
+                NSString * altCatalogNumber;
+                
+                if (!entry.gpCatalog) continue;
+                
+                for (AlternateCatalog * altCatalog in entry.gpCatalog.alternateCatalogs) {
+                    if ([altCatalog.alternateCatalogName.alternate_catalog_name isEqualToString:entry.gpCatalog.defaultCatalogName.alternate_catalog_name]) {
+                        altCatalogNumber = altCatalog.alternate_catalog_number;
+                        break;
+                    }
+                }
+                
+                findOP = [altCatalogNumber rangeOfString:typedValue];
+            }
+            
+            if (findOP.length > 0) {
+                foundEntryRow = row;
+                break;
+            }
+        }
+        
+        NSIndexSet * changeToSelection = [NSIndexSet indexSetWithIndex:foundEntryRow];
+        [self.stampsTable selectRowIndexes:changeToSelection byExtendingSelection:NO];
+        [self.stampsTable scrollRowToVisible:foundEntryRow];
     }
 }
 
@@ -702,6 +751,10 @@
             [self.managedObjectContext undo];
         }
     }
+}
+
+- (IBAction)done:(id)sender {
+    [self.window performClose:sender];
 }
 
 @end

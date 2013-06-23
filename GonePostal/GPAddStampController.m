@@ -198,6 +198,7 @@ static NSString * NEW_STAMP_PAGE_TITLE = @"Specify Stamp Specifics";
         // Rollback all changed to the managed object context
         // that have not been explicitly saved.
         [self.managedObjectContext rollback];
+        [self.managedObjectContext save:nil];
     }
     else {
         // Get the quantity input for creating a multi-quantity composite.

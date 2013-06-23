@@ -240,21 +240,6 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
     }
 }
 
-- (IBAction)fixCompositePlaceholder:(id)sender {
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"GPCatalog" inManagedObjectContext:self.managedObjectContext];
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    [fetchRequest setEntity:entity];
-    
-    NSError *error = nil;
-    NSArray *results = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if (results) {
-        for (GPCatalog * entry in results) {
-            entry.composite_placeholder = @(NO);
-        }
-    }
-}
-
 + (BOOL)autosavesInPlace
 {
     return NO;
