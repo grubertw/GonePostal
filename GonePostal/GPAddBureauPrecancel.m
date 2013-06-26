@@ -30,6 +30,8 @@
         
         _currPrecancel = [NSEntityDescription insertNewObjectForEntityForName:@"BureauPrecancel" inManagedObjectContext:_managedObjectContext];
         
+        _currPrecancel.gp_precancel_number = gpCatalog.gp_catalog_number;
+        
         _addedPrecancels = [[NSMutableArray alloc] initWithCapacity:4];
         _savePressed = NO;
     }

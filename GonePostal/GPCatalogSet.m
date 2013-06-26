@@ -2,7 +2,7 @@
 //  GPCatalogSet.m
 //  GonePostal
 //
-//  Created by Travis Gruber on 6/2/13.
+//  Created by Travis Gruber on 6/25/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
@@ -16,9 +16,10 @@
 @implementation GPCatalogSet
 
 @dynamic name;
+@dynamic gp_set_number;
+@dynamic catalogGroup;
+@dynamic country;
 @dynamic gpCatalogEntries;
 @dynamic salesGroup;
-@dynamic country;
-@dynamic catalogGroup;
 
 @end

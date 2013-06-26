@@ -7,6 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "GPCountrySearch.h"
+#import "GPSectionSearch.h"
+#import "StoredSearch.h"
 
 @interface GPLooksLikeController : NSWindowController
 
@@ -16,7 +19,13 @@
 
 @property (weak, nonatomic) IBOutlet NSArrayController * looksLikeController;
 
-- (IBAction)addLooksLike:(id)sender;
-- (IBAction)removeLooksLike:(id)sender;
+@property (strong, nonatomic) GPCountrySearch * countrySearchController;
+@property (strong, nonatomic) GPSectionSearch * sectionSearchController;
+
+@property (strong, nonatomic) StoredSearch * assistedSearch;
+@property (strong, nonatomic) NSPredicate * countriesPredicate;
+@property (strong, nonatomic) NSPredicate * sectionsPredicate;
+
+- (id)initWithAssistedSearch:(StoredSearch *)assistedSearch countrySearch:(NSPredicate *)countriesPredicate sectionSearch:(NSPredicate *)sectionsPredicate;
 
 @end

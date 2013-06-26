@@ -49,7 +49,7 @@
 - (id)initWithAssistedSearch:(StoredSearch *)assistedSearch countrySearch:(NSPredicate *)countriesPredicate sectionSearch:(NSPredicate *)sectionsPredicate {
     self = [super initWithNibName:@"GPLocatorPage" bundle:nil];
     if (self) {
-        NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+        NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"gp_lookslike_number" ascending:YES];
         _sortDescriptors = @[sort];
         
         NSDocumentController * docController = [NSDocumentController sharedDocumentController];

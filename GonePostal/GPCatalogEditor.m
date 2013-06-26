@@ -552,10 +552,10 @@
 - (IBAction)manageLooksLike:(id)sender {
     GPDocument * doc = (GPDocument *)self.document;
     
-    GPLooksLikeController * controller = [[GPLooksLikeController alloc] initWithWindowNibName:@"GPLooksLikeController"];
-    [doc addWindowController:controller];
-    [controller setManagedObjectContext:self.managedObjectContext];
+    [doc loadAssistedSearch:ASSISTED_LOOKS_LIKE_EDITOR_SEARCH_ID];
+    GPLooksLikeController * controller = [[GPLooksLikeController alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate];
     
+    [doc addWindowController:controller];
     [controller.window makeKeyAndOrderFront:sender];
 }
 
@@ -920,6 +920,8 @@
     
     [entry addCachetsObject:cachet];
     
+    cachet.gp_cachet_number = entry.gp_catalog_number;
+    
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
@@ -975,9 +977,15 @@
 }
 
 - (IBAction)addCancelation:(id)sender {
+    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
+    if (entries == nil) return;
+    GPCatalog * entry = [entries objectAtIndex:0];
+    
     Cancelations * cancelation = [NSEntityDescription insertNewObjectForEntityForName:@"Cancelations" inManagedObjectContext:self.managedObjectContext];
     
     [self.cancelationsController insertObject:cancelation atArrangedObjectIndex:[self.cancelationsController.arrangedObjects count]];
+    
+    cancelation.gp_cancelation_number = entry.gp_catalog_number;
     
     NSError * error;
     if (![self.managedObjectContext save:&error]) {

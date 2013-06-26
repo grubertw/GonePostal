@@ -2,7 +2,7 @@
 //  LooksLike.m
 //  GonePostal
 //
-//  Created by Travis Gruber on 5/30/13.
+//  Created by Travis Gruber on 6/25/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
@@ -16,8 +16,9 @@
 
 @dynamic name;
 @dynamic picture;
-@dynamic country;
+@dynamic gp_lookslike_number;
 @dynamic catalogGroup;
+@dynamic country;
 @dynamic theseGPCatalogEntries;
 
 @end

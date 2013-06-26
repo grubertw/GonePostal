@@ -17,6 +17,7 @@ extern const NSInteger CUSTOM_GP_CATALOG_SEARCH_ID; // Multiple predicates with 
 extern const NSInteger CUSTOM_STAMP_SEARCH_ID;
 extern const NSInteger ASSISTED_LOOKS_LIKE_BROWSER_SEARCH_ID;
 extern const NSInteger ASSISTED_SETS_BROWSER_SEARCH_ID;
+extern const NSInteger ASSISTED_LOOKS_LIKE_EDITOR_SEARCH_ID;
 
 extern const NSInteger GP_COLLECTION_TYPE_NORMAL;
 extern const NSInteger GP_COLLECTION_TYPE_WANT_LIST;
