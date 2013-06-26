@@ -189,20 +189,21 @@
         NSSortDescriptor *plateUsageSort = [[NSSortDescriptor alloc] initWithKey:@"plate_number" ascending:YES];
         self.plateUsageSortDescriptors = @[plateUsageSort];
         
-        NSComparator plateNumberCompare = ^(id obj1, id obj2) {
-            if ([obj1 integerValue] > [obj2 integerValue]) {
-                return (NSComparisonResult)NSOrderedDescending;
-            }
-            
-            if ([obj1 integerValue] < [obj2 integerValue]) {
-                return (NSComparisonResult)NSOrderedAscending;
-            }
-            return (NSComparisonResult)NSOrderedSame;
-        };
+//        NSComparator plateNumberCompare = ^(id obj1, id obj2) {
+//            if ([obj1 integerValue] > [obj2 integerValue]) {
+//                return (NSComparisonResult)NSOrderedDescending;
+//            }
+//            
+//            if ([obj1 integerValue] < [obj2 integerValue]) {
+//                return (NSComparisonResult)NSOrderedAscending;
+//            }
+//            return (NSComparisonResult)NSOrderedSame;
+//        };
         
-        NSSortDescriptor *plateNumber1Sort = [[NSSortDescriptor alloc] initWithKey:@"plate1" ascending:YES comparator:plateNumberCompare];
-        NSSortDescriptor *plateNumber2Sort = [[NSSortDescriptor alloc] initWithKey:@"plate2" ascending:YES comparator:plateNumberCompare];
-        self.plateNumberSortDescriptors = @[plateNumber1Sort, plateNumber2Sort];
+        NSSortDescriptor *plateNumber1Sort = [[NSSortDescriptor alloc] initWithKey:@"plate1" ascending:YES];
+        NSSortDescriptor *plateNumber2Sort = [[NSSortDescriptor alloc] initWithKey:@"plate2" ascending:YES];
+        NSSortDescriptor *numberOfStampsSort = [[NSSortDescriptor alloc] initWithKey:@"number_of_stamps" ascending:YES];
+        self.plateNumberSortDescriptors = @[plateNumber1Sort, plateNumber2Sort, numberOfStampsSort];
         
         NSSortDescriptor *cachetSort = [[NSSortDescriptor alloc] initWithKey:@"gp_cachet_number" ascending:YES];
         self.cachetSortDescriptors = @[cachetSort];
