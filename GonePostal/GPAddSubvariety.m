@@ -70,6 +70,16 @@
     // Create the subvariety from the major variety.
     GPCatalog * subvariety = [GPCatalog createFromMajorVariety:self.theMajorVariety];
     [self.gpCatalogEntryController setContent:subvariety];
+    
+    // Set the default subvariety type.
+    NSFetchRequest * subFetch = [NSFetchRequest fetchRequestWithEntityName:@"GPSubvarietyType"];
+    NSPredicate * subPred = [NSPredicate predicateWithFormat:@"acronym like %@", @"SUB"];
+    [subFetch setPredicate:subPred];
+    
+    NSArray * subs = [self.managedObjectContext executeFetchRequest:subFetch error:nil];
+    if (subs) {
+        subvariety.subvarietyType = subs[0];
+    }
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
