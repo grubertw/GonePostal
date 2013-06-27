@@ -103,6 +103,7 @@
         [expressions addObject:[NSExpression expressionForKeyPath:@"tag"]];
         [expressions addObject:[NSExpression expressionForKeyPath:@"variety_description"]];
         [expressions addObject:[NSExpression expressionForKeyPath:@"watermark"]];
+        [expressions addObject:[NSExpression expressionForKeyPath:@"default_picture"]];
         [expressions addObject:[NSExpression expressionForKeyPath:@"catalogGroup.group_name"]];
         [expressions addObject:[NSExpression expressionForKeyPath:@"country.country_name"]];
         [expressions addObject:[NSExpression expressionForKeyPath:@"formatType.formatName"]];
@@ -138,6 +139,7 @@
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Tagging"];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Variety Description"];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Watermark"];
+        menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Picture"];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Catalog Section"];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Country"];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Format Type"];
@@ -228,7 +230,6 @@
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"User Catalog"];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Show Default Catalog"];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Printing on Back"];
-        
     }
     else if ([storedSearch.identifier isEqualToNumber:@(CUSTOM_STAMP_SEARCH_ID)]) {
         [expressions addObject:[NSExpression expressionForKeyPath:@"gpCatalog.color"]];

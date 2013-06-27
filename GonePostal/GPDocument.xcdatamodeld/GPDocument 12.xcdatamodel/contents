@@ -28,7 +28,7 @@
         <attribute name="cancel_style" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="gp_precancel_number" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="picture" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="picture" optional="YES" attributeType="String" defaultValueString="empty" syncable="YES"/>
         <attribute name="pss_type" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="state" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="variety_description" optional="YES" attributeType="String" syncable="YES"/>
@@ -43,7 +43,7 @@
         <attribute name="alternate_picture_5" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="alternate_picture_6" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="cachet_description" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="cachet_picture" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cachet_picture" optional="YES" attributeType="String" defaultValueString="empty" syncable="YES"/>
         <attribute name="cachet_type" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="design_description" optional="YES" attributeType="String" syncable="YES"/>
@@ -66,7 +66,7 @@
     <entity name="Cancelations" representedClassName="Cancelations" syncable="YES">
         <attribute name="cancelation_description" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="gp_cancelation_number" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="picture" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="picture" optional="YES" attributeType="String" defaultValueString="empty" syncable="YES"/>
         <relationship name="gpCatlog" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GPCatalog" inverseName="cancelations" inverseEntity="GPCatalog" syncable="YES"/>
     </entity>
     <entity name="CancelQuality" representedClassName="CancelQuality" syncable="YES">
@@ -116,7 +116,7 @@
         <attribute name="date_documented_first_use_exact" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="date_issued" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="date_issued_exact" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
-        <attribute name="default_picture" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="default_picture" optional="YES" attributeType="String" defaultValueString="empty" syncable="YES"/>
         <attribute name="denomination" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="design_measurement" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="designers" optional="YES" attributeType="String" syncable="YES"/>
@@ -268,7 +268,7 @@
         <attribute name="cancel_style" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="gp_precancel_number" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="picture" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="picture" optional="YES" attributeType="String" defaultValueString="empty" syncable="YES"/>
         <attribute name="pss_type" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="state" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="stamps" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Stamp" inverseName="localPrecancel" inverseEntity="Stamp" syncable="YES"/>
@@ -307,7 +307,7 @@
         <attribute name="letter_height" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="number_of_holes" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="picture" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="picture" optional="YES" attributeType="String" defaultValueString="empty" syncable="YES"/>
         <attribute name="precancel" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="punch_description" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="scarcity_rating" optional="YES" attributeType="String" syncable="YES"/>
@@ -396,7 +396,7 @@
         <attribute name="certificates" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="composite_description" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="composite_name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="default_picture" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="default_picture" optional="YES" attributeType="String" defaultValueString="empty" syncable="YES"/>
         <attribute name="faults" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="gp_stamp_number" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="history" optional="YES" attributeType="String" syncable="YES"/>
@@ -498,7 +498,7 @@
         <element name="LooksLike" positionX="-344" positionY="900" width="128" height="135"/>
         <element name="Lot" positionX="-803" positionY="204" width="128" height="75"/>
         <element name="Mount" positionX="-1361" positionY="711" width="128" height="135"/>
-        <element name="Perfin" positionX="-1557" positionY="825" width="128" height="313"/>
+        <element name="Perfin" positionX="-1557" positionY="825" width="128" height="315"/>
         <element name="PerfinCatalog" positionX="-1755" positionY="702" width="128" height="90"/>
         <element name="PerfinCatalogName" positionX="-1575" positionY="603" width="128" height="90"/>
         <element name="PictureType" positionX="574" positionY="150" width="128" height="75"/>
