@@ -51,6 +51,7 @@
 #import "GPCompositeTypeTransformer.h"
 #import "GPStampHasChildrenOrDetailTransformer.h"
 #import "GPStampDescriptionTransformer.h"
+#import "GPPictureTransformer.h"
 
 #import "CommonCrypto/CommonDigest.h"
 #import "ExceptionHandling/NSExceptionHandler.h"
@@ -208,6 +209,9 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
         
         id stampDescription = [[GPStampDescriptionTransformer alloc] init];
         [NSValueTransformer setValueTransformer:stampDescription forName:@"GPStampDescriptionTransformer"];
+        
+        id pictureTransformer = [[GPPictureTransformer alloc] initWithDocument:self];
+        [NSValueTransformer setValueTransformer:pictureTransformer forName:@"GPPictureTransformer"];
         
         // Configure the global exception handler
         NSExceptionHandler * defaultHandler = [NSExceptionHandler defaultExceptionHandler];

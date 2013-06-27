@@ -135,10 +135,6 @@
     
     [self.stamp setGpCatalog:gpCatalog];
     
-    // Set the primary picture to be the same as the catalog picture untill
-    // the user overrides it.
-    [self.stamp setDefault_picture:gpCatalog.default_picture];
-    
     // Copy the GPID from the catalog into the stamp.
     [self.stamp setGp_stamp_number:gpCatalog.gp_catalog_number];
 }
