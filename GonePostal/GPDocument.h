@@ -64,4 +64,11 @@ extern NSString * BASE_GP_CATALOG_QUERY_WITH_SUBVARIETIES;
  */
 - (NSString *)addPictureToWrapperUsingGPID:(NSString *)gpid forAttribute:(NSString *)attributeName;
 
+/**
+ * Creates a crypographic hash of the filename for a GPID.
+ * The attribute field should objectify the GPID in some way,
+ * such as the class name for the GPID in question.
+ */
+- (NSString *)hashFileNameForGPID:(NSString *)gpid andAttributeName:(NSString *)attributeName;
+
 @end

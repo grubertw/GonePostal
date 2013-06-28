@@ -139,6 +139,8 @@
 		1F5D05CC177A71910007D781 /* LooksLike.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F5D05CB177A71910007D781 /* LooksLike.m */; };
 		1F5D05CF177A71920007D781 /* GPCatalogSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F5D05CE177A71920007D781 /* GPCatalogSet.m */; };
 		1F5D05D2177B7DF90007D781 /* GPPictureTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F5D05D1177B7DF90007D781 /* GPPictureTransformer.m */; };
+		1F5D05D6177CE5480007D781 /* GPCatalogPictureSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F5D05D4177CE5480007D781 /* GPCatalogPictureSelector.m */; };
+		1F5D05D7177CE5480007D781 /* GPCatalogPictureSelector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F5D05D5177CE5480007D781 /* GPCatalogPictureSelector.xib */; };
 		1F78571A172467DB00A5A07B /* GPIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 1F785719172467DB00A5A07B /* GPIcon.icns */; };
 		1FACDE1D173EC4E8008C6ED2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FFE7040173E991800D2F176 /* QuartzCore.framework */; };
 		1FC06C0716DC6B3600DA8DFB /* StoredSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC06C0616DC6B3600DA8DFB /* StoredSearch.m */; };
@@ -443,6 +445,9 @@
 		1F5D05CE177A71920007D781 /* GPCatalogSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPCatalogSet.m; sourceTree = "<group>"; };
 		1F5D05D0177B7DF90007D781 /* GPPictureTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPPictureTransformer.h; sourceTree = "<group>"; };
 		1F5D05D1177B7DF90007D781 /* GPPictureTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPPictureTransformer.m; sourceTree = "<group>"; };
+		1F5D05D3177CE5480007D781 /* GPCatalogPictureSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPCatalogPictureSelector.h; sourceTree = "<group>"; };
+		1F5D05D4177CE5480007D781 /* GPCatalogPictureSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPCatalogPictureSelector.m; sourceTree = "<group>"; };
+		1F5D05D5177CE5480007D781 /* GPCatalogPictureSelector.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GPCatalogPictureSelector.xib; sourceTree = "<group>"; };
 		1F785719172467DB00A5A07B /* GPIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = GPIcon.icns; path = ../GPIcon.icns; sourceTree = "<group>"; };
 		1FC06C0516DC6B3600DA8DFB /* StoredSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoredSearch.h; sourceTree = "<group>"; };
 		1FC06C0616DC6B3600DA8DFB /* StoredSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoredSearch.m; sourceTree = "<group>"; };
@@ -735,8 +740,10 @@
 				1F0EC78A16D95C9300427B4C /* GPSetPopoverController.m */,
 				1FD76871172349A300AD6C5F /* GPStampExamples.h */,
 				1FD76872172349A300AD6C5F /* GPStampExamples.m */,
-				1F0B49F9172AFED400BC00A3 /* GPAddBureauPrecancel.h */,
 				1F0B49FA172AFED400BC00A3 /* GPAddBureauPrecancel.m */,
+				1F0B49F9172AFED400BC00A3 /* GPAddBureauPrecancel.h */,
+				1F5D05D3177CE5480007D781 /* GPCatalogPictureSelector.h */,
+				1F5D05D4177CE5480007D781 /* GPCatalogPictureSelector.m */,
 			);
 			name = CatalogViewControllers;
 			sourceTree = "<group>";
@@ -756,6 +763,7 @@
 				1F0EC78B16D95C9300427B4C /* GPSetPopoverController.xib */,
 				1FD76873172349A300AD6C5F /* GPStampExamples.xib */,
 				1F0B49FB172AFED400BC00A3 /* GPAddBureauPrecancel.xib */,
+				1F5D05D5177CE5480007D781 /* GPCatalogPictureSelector.xib */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -1234,6 +1242,7 @@
 				1F0B49FD172AFED400BC00A3 /* GPAddBureauPrecancel.xib in Resources */,
 				1FF1F6751736C4ED00DD9813 /* GPCustomSearch.xib in Resources */,
 				1FDDDCA6175D992E00830C80 /* GPSetChooser.xib in Resources */,
+				1F5D05D7177CE5480007D781 /* GPCatalogPictureSelector.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1273,7 +1282,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "rsync -av /Users/travis/xcodeProjects/GonePostal gb_server:/pool/travis/xcodeProjects";
+			shellScript = "#rsync -av /Users/travis/xcodeProjects/GonePostal gb_server:/pool/travis/xcodeProjects";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1408,6 +1417,7 @@
 				1F5D05CC177A71910007D781 /* LooksLike.m in Sources */,
 				1F5D05CF177A71920007D781 /* GPCatalogSet.m in Sources */,
 				1F5D05D2177B7DF90007D781 /* GPPictureTransformer.m in Sources */,
+				1F5D05D6177CE5480007D781 /* GPCatalogPictureSelector.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

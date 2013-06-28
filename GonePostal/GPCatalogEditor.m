@@ -33,6 +33,7 @@
 #import "GPSubvarietySearch.h"
 #import "GPAddBureauPrecancel.h"
 #import "GPCustomSearch.h"
+#import "GPCatalogPictureSelector.h"
 
 // Private members.
 @interface GPCatalogEditor ()
@@ -703,10 +704,34 @@
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
         
-        NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"default_picture"];
+        NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"GPCatalog.default_picture"];
         if (fileName == nil) return;
         
         entry.default_picture = fileName;
+    }
+}
+
+- (IBAction)addDefaultPictureFromCatalog:(id)sender {
+    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
+    if (entries.count > 0) {
+        GPCatalog * entry = [entries objectAtIndex:0];
+    
+        [self.document loadAssistedSearch:ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
+        GPDocument * doc = [self document];
+        
+        GPCatalogPictureSelector * controller = [[GPCatalogPictureSelector alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate filterSearch:doc.filtersPredicate targetAttributeName:@"GPCatalog.default_picture"];
+        [controller setTargetGPCatalog:entry];
+        
+        [doc addWindowController:controller];
+        [controller.window makeKeyAndOrderFront:sender];
+    }
+}
+
+- (IBAction)removeDefaultPicture:(id)sender {
+    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
+    if (entries.count > 0) {
+        GPCatalog * entry = [entries objectAtIndex:0];
+        entry.default_picture = @"empty";
     }
 }
 
@@ -716,11 +741,35 @@
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
         
-        NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"alternate_picture_1"];
+        NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"GPCatalog.alternate_picture_1"];
         if (fileName == nil) return;
         
         entry.alternate_picture_1 = fileName;
       }
+}
+
+- (IBAction)addAlternatePicture1FromCatalog:(id)sender {
+    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
+    if (entries.count > 0) {
+        GPCatalog * entry = [entries objectAtIndex:0];
+        
+        [self.document loadAssistedSearch:ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
+        GPDocument * doc = [self document];
+        
+        GPCatalogPictureSelector * controller = [[GPCatalogPictureSelector alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate filterSearch:doc.filtersPredicate targetAttributeName:@"GPCatalog.alternate_picture_1"];
+        [controller setTargetGPCatalog:entry];
+        
+        [doc addWindowController:controller];
+        [controller.window makeKeyAndOrderFront:sender];
+    }
+}
+
+- (IBAction)removeAlternatePicture1:(id)sender {
+    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
+    if (entries.count > 0) {
+        GPCatalog * entry = [entries objectAtIndex:0];
+        entry.alternate_picture_1 = @"empty";
+    }
 }
 
 - (IBAction)addAlternatePicture2:(id)sender {
@@ -729,10 +778,34 @@
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
         
-        NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"alternate_picture_2"];
+        NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"GPCatalog.alternate_picture_2"];
         if (fileName == nil) return;
         
         entry.alternate_picture_2 = fileName;
+    }
+}
+
+- (IBAction)addAlternatePicture2FromCatalog:(id)sender {
+    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
+    if (entries.count > 0) {
+        GPCatalog * entry = [entries objectAtIndex:0];
+        
+        [self.document loadAssistedSearch:ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
+        GPDocument * doc = [self document];
+        
+        GPCatalogPictureSelector * controller = [[GPCatalogPictureSelector alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate filterSearch:doc.filtersPredicate targetAttributeName:@"GPCatalog.alternate_picture_2"];
+        [controller setTargetGPCatalog:entry];
+        
+        [doc addWindowController:controller];
+        [controller.window makeKeyAndOrderFront:sender];
+    }
+}
+
+- (IBAction)removeAlternatePicture2:(id)sender {
+    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
+    if (entries.count > 0) {
+        GPCatalog * entry = [entries objectAtIndex:0];
+        entry.alternate_picture_2 = @"empty";
     }
 }
 
@@ -743,10 +816,34 @@
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
         
-        NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"alternate_picture_3"];
+        NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"GPCatalog.alternate_picture_3"];
         if (fileName == nil) return;
         
         entry.alternate_picture_3 = fileName;
+    }
+}
+
+- (IBAction)addAlternatePicture3FromCatalog:(id)sender {
+    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
+    if (entries.count > 0) {
+        GPCatalog * entry = [entries objectAtIndex:0];
+        
+        [self.document loadAssistedSearch:ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
+        GPDocument * doc = [self document];
+        
+        GPCatalogPictureSelector * controller = [[GPCatalogPictureSelector alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate filterSearch:doc.filtersPredicate targetAttributeName:@"GPCatalog.alternate_picture_3"];
+        [controller setTargetGPCatalog:entry];
+        
+        [doc addWindowController:controller];
+        [controller.window makeKeyAndOrderFront:sender];
+    }
+}
+
+- (IBAction)removeAlternatePicture3:(id)sender {
+    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
+    if (entries.count > 0) {
+        GPCatalog * entry = [entries objectAtIndex:0];
+        entry.alternate_picture_3 = @"empty";
     }
 }
 
@@ -756,10 +853,34 @@
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
         
-        NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"alternate_picture_4"];
+        NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"GPCatalog.alternate_picture_4"];
         if (fileName == nil) return;
         
         entry.alternate_picture_4 = fileName;
+    }
+}
+
+- (IBAction)addAlternatePicture4FromCatalog:(id)sender {
+    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
+    if (entries.count > 0) {
+        GPCatalog * entry = [entries objectAtIndex:0];
+        
+        [self.document loadAssistedSearch:ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
+        GPDocument * doc = [self document];
+        
+        GPCatalogPictureSelector * controller = [[GPCatalogPictureSelector alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate filterSearch:doc.filtersPredicate targetAttributeName:@"GPCatalog.alternate_picture_4"];
+        [controller setTargetGPCatalog:entry];
+        
+        [doc addWindowController:controller];
+        [controller.window makeKeyAndOrderFront:sender];
+    }
+}
+
+- (IBAction)removeAlternatePicture4:(id)sender {
+    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
+    if (entries.count > 0) {
+        GPCatalog * entry = [entries objectAtIndex:0];
+        entry.alternate_picture_4 = @"empty";
     }
 }
 
@@ -769,10 +890,34 @@
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
         
-        NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"alternate_picture_5"];
+        NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"GPCatalog.alternate_picture_5"];
         if (fileName == nil) return;
         
         entry.alternate_picture_5 = fileName;
+    }
+}
+
+- (IBAction)addAlternatePicture5FromCatalog:(id)sender {
+    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
+    if (entries.count > 0) {
+        GPCatalog * entry = [entries objectAtIndex:0];
+        
+        [self.document loadAssistedSearch:ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
+        GPDocument * doc = [self document];
+        
+        GPCatalogPictureSelector * controller = [[GPCatalogPictureSelector alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate filterSearch:doc.filtersPredicate targetAttributeName:@"GPCatalog.alternate_picture_5"];
+        [controller setTargetGPCatalog:entry];
+        
+        [doc addWindowController:controller];
+        [controller.window makeKeyAndOrderFront:sender];
+    }
+}
+
+- (IBAction)removeAlternatePicture5:(id)sender {
+    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
+    if (entries.count > 0) {
+        GPCatalog * entry = [entries objectAtIndex:0];
+        entry.alternate_picture_5 = @"empty";
     }
 }
 
@@ -782,10 +927,34 @@
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
         
-        NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"alternate_picture_6"];
+        NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"GPCatalog.alternate_picture_6"];
         if (fileName == nil) return;
         
         entry.alternate_picture_6 = fileName;
+    }
+}
+
+- (IBAction)addAlternatePicture6FromCatalog:(id)sender {
+    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
+    if (entries.count > 0) {
+        GPCatalog * entry = [entries objectAtIndex:0];
+        
+        [self.document loadAssistedSearch:ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
+        GPDocument * doc = [self document];
+        
+        GPCatalogPictureSelector * controller = [[GPCatalogPictureSelector alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate filterSearch:doc.filtersPredicate targetAttributeName:@"GPCatalog.alternate_picture_6"];
+        [controller setTargetGPCatalog:entry];
+        
+        [doc addWindowController:controller];
+        [controller.window makeKeyAndOrderFront:sender];
+    }
+}
+
+- (IBAction)removeAlternatePicture6:(id)sender {
+    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
+    if (entries.count > 0) {
+        GPCatalog * entry = [entries objectAtIndex:0];
+        entry.alternate_picture_6 = @"empty";
     }
 }
 

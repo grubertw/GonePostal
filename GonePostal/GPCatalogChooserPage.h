@@ -11,6 +11,7 @@
 #import "GPCountrySearch.h"
 #import "GPSectionSearch.h"
 #import "GPFilterSearch.h"
+#import "GPSubvarietySearch.h"
 #import "LooksLike.h"
 
 @interface GPCatalogChooserPage : NSViewController <NSTableViewDelegate>
@@ -25,6 +26,7 @@
 @property (strong, nonatomic) GPCountrySearch * countrySearchController;
 @property (strong, nonatomic) GPSectionSearch * sectionSearchController;
 @property (strong, nonatomic) GPFilterSearch * filterSearchController;
+@property (strong, nonatomic) GPSubvarietySearch * subvarietySearchController;
 
 @property (strong, nonatomic) StoredSearch * assistedSearch;
 @property (strong, nonatomic) NSPredicate * countriesPredicate;
@@ -37,5 +39,8 @@
 @property (strong, nonatomic) StoredSearch * currCustomSearch;
 
 - (id)initWithAssistedSearch:(StoredSearch *)assistedSearch countrySearch:(NSPredicate *)countriesPredicate sectionSearch:(NSPredicate *)sectionsPredicate filterSearch:(NSPredicate *)filtersPredicate;
+
+// If not null, then user is viewing subvarieties.
+@property (strong, nonatomic) GPCatalog * currMajorVariety;
 
 @end

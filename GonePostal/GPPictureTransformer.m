@@ -52,7 +52,7 @@ static NSString * USING_GPCATALOG = @"GP Catalog Picture";
     if ([value isMemberOfClass:[GPCatalog class]]) {
         GPCatalog * entry = value;
         
-        if (entry.default_picture)
+        if (entry.default_picture && ![entry.default_picture isEqualToString:@"empty"])
             filepath = entry.default_picture;
         else {
             mustInheritFromMajorVariety = YES;
@@ -64,7 +64,7 @@ static NSString * USING_GPCATALOG = @"GP Catalog Picture";
     else if ([value isMemberOfClass:[Stamp class]]) {
         Stamp * stamp = value;
         
-        if (stamp.default_picture)
+        if (stamp.default_picture && ![stamp.default_picture isEqualToString:@"empty"])
             filepath = stamp.default_picture;
         else {
             mustInheritFromCatalog = YES;
@@ -72,7 +72,8 @@ static NSString * USING_GPCATALOG = @"GP Catalog Picture";
             if (stamp.gpCatalog) {
                 filepath = stamp.gpCatalog.default_picture;
                 
-                if (!filepath && stamp.gpCatalog.majorVariety)
+                if (   (!filepath || [filepath isEqualToString:@"empty"])
+                    && stamp.gpCatalog.majorVariety)
                     filepath = stamp.gpCatalog.majorVariety.default_picture;
             }
         }

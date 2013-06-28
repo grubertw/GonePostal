@@ -31,9 +31,94 @@
 
 @property (strong, nonatomic) GPDocument * doc;
 
+@property (strong, nonatomic) NSPredicate * subBasePredicate;
+@property (strong, nonatomic) NSPredicate * subvarietiesSearch;
 @end
 
 @implementation GPCatalogChooserPage
+
+- (id)initWithAssistedSearch:(StoredSearch *)assistedSearch countrySearch:(NSPredicate *)countriesPredicate sectionSearch:(NSPredicate *)sectionsPredicate filterSearch:(NSPredicate *)filtersPredicate {
+    
+    self = [super initWithNibName:@"GPCatalogChooserPage" bundle:nil];
+    if (self) {
+        NSDocumentController * docController = [NSDocumentController sharedDocumentController];
+        _doc = [docController currentDocument];
+        _managedObjectContext = self.doc.managedObjectContext;
+        
+        _assistedSearch = assistedSearch;
+        _countriesPredicate = countriesPredicate;
+        _sectionsPredicate = sectionsPredicate;
+        _filtersPredicate = filtersPredicate;
+        
+        // Rebuild the query so as NOT to contain looks-like.
+        NSMutableArray * predicateArray = [NSMutableArray arrayWithCapacity:0];
+        [predicateArray addObject:[NSPredicate predicateWithFormat:BASE_GP_CATALOG_QUERY]];
+        if (countriesPredicate) [predicateArray addObject:countriesPredicate];
+        if (sectionsPredicate) [predicateArray addObject:sectionsPredicate];
+        if (filtersPredicate) [predicateArray addObject:filtersPredicate];
+        self.assistedSearch.predicate = [NSCompoundPredicate andPredicateWithSubpredicates:predicateArray];
+        
+        // Create the sort descripors
+        NSSortDescriptor *gpCountrySort = [[NSSortDescriptor alloc] initWithKey:@"country.country_sort_id" ascending:YES];
+        NSSortDescriptor *groupSort = [[NSSortDescriptor alloc] initWithKey:@"catalogGroup.group_number" ascending:YES];
+        NSSortDescriptor *catalogNumberSort = [[NSSortDescriptor alloc] initWithKey:@"gp_catalog_number" ascending:YES];
+        _gpCatalogSortDescriptors = @[gpCountrySort, groupSort, catalogNumberSort];
+        
+        NSSortDescriptor *customSearchSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+        _customSearchSortDescriptors = @[customSearchSort];
+        
+        // Initialize the assisted search panels.
+        _countrySearchController = [[GPCountrySearch alloc] initWithPredicate:countriesPredicate forStamp:NO];
+        _sectionSearchController = [[GPSectionSearch alloc] initWithPredicate:sectionsPredicate forStamp:NO];
+        _filterSearchController = [[GPFilterSearch alloc] initWithPredicate:filtersPredicate];
+        _subvarietySearchController = [[GPSubvarietySearch alloc] initWithPredicate:nil forStamp:NO];
+        
+        // Initialize the datalog detail popover.
+        _catalogDetail = [[GPCatalogDetail alloc] initWithManagedObjectContext:self.managedObjectContext];
+        _catalogDetailPopover = [[NSPopover alloc] init];
+        _catalogDetailPopover.contentViewController = self.catalogDetail;
+        _catalogDetailPopover.appearance = NSPopoverAppearanceMinimal;
+        _catalogDetailPopover.behavior = NSPopoverBehaviorTransient;
+        
+    }
+    
+    return self;
+}
+
+- (void)loadView {
+    [super loadView];
+    
+    // Place the AssistedSearch views into panels which will be launched as sheets.
+    self.countrySearchController.panel = [[NSPanel alloc] initWithContentRect:self.countrySearchController.view.bounds styleMask:NSTexturedBackgroundWindowMask backing:NSBackingStoreBuffered defer:YES];
+    [self.countrySearchController.panel setContentView:self.countrySearchController.view];
+    
+    self.sectionSearchController.panel = [[NSPanel alloc] initWithContentRect:self.sectionSearchController.view.bounds styleMask:NSTexturedBackgroundWindowMask backing:NSBackingStoreBuffered defer:YES];
+    [self.sectionSearchController.panel setContentView:self.sectionSearchController.view];
+    
+    self.filterSearchController.panel = [[NSPanel alloc] initWithContentRect:self.filterSearchController.view.bounds styleMask:NSTexturedBackgroundWindowMask backing:NSBackingStoreBuffered defer:YES];
+    [self.filterSearchController.panel setContentView:self.filterSearchController.view];
+    
+    self.subvarietySearchController.panel = [[NSPanel alloc] initWithContentRect:self.subvarietySearchController.view.bounds styleMask:NSTexturedBackgroundWindowMask backing:NSBackingStoreBuffered defer:YES];
+    [self.subvarietySearchController.panel setContentView:self.subvarietySearchController.view];
+    
+    // Set the active filter search.
+    [self.changeFiltersButton setTitle:self.filterSearchController.filtersSelected];
+    
+    self.currSearch = self.assistedSearch.predicate;
+    [self queryGPCatalog];
+}
+
+- (void)setSelectedLooksLike:(LooksLike *)selectedLooksLike {
+    _selectedLooksLike = selectedLooksLike;
+
+    // Rebuild the current search to include the looks-like filter.
+    [self updateCurrentSearch];
+}
+
+- (void)queryGPCatalog {
+    [self.gpCatalogController setFetchPredicate:self.currSearch];
+    [self.gpCatalogController fetch:self];
+}
 
 // Update the current search based on the three saved compound predicates.
 - (void)updateCurrentSearch {
@@ -80,83 +165,30 @@
     [self queryGPCatalog];
 }
 
-- (id)initWithAssistedSearch:(StoredSearch *)assistedSearch countrySearch:(NSPredicate *)countriesPredicate sectionSearch:(NSPredicate *)sectionsPredicate filterSearch:(NSPredicate *)filtersPredicate {
+- (void)updateSubvarietiesSearch {
+    NSMutableArray * predicateArray = [NSMutableArray arrayWithCapacity:0];
+    [predicateArray addObject:self.subBasePredicate];
     
-    self = [super initWithNibName:@"GPCatalogChooserPage" bundle:nil];
-    if (self) {
-        NSDocumentController * docController = [NSDocumentController sharedDocumentController];
-        _doc = [docController currentDocument];
-        _managedObjectContext = self.doc.managedObjectContext;
-        
-        _assistedSearch = assistedSearch;
-        _countriesPredicate = countriesPredicate;
-        _sectionsPredicate = sectionsPredicate;
-        _filtersPredicate = filtersPredicate;
-        
-        // Rebuild the query so as NOT to contain looks-like.
-        NSMutableArray * predicateArray = [NSMutableArray arrayWithCapacity:0];
-        [predicateArray addObject:[NSPredicate predicateWithFormat:BASE_GP_CATALOG_QUERY]];
-        if (countriesPredicate) [predicateArray addObject:countriesPredicate];
-        if (sectionsPredicate) [predicateArray addObject:sectionsPredicate];
-        if (filtersPredicate) [predicateArray addObject:filtersPredicate];
-        self.assistedSearch.predicate = [NSCompoundPredicate andPredicateWithSubpredicates:predicateArray];
-        
-        // Create the sort descripors
-        NSSortDescriptor *gpCountrySort = [[NSSortDescriptor alloc] initWithKey:@"country.country_sort_id" ascending:YES];
-        NSSortDescriptor *groupSort = [[NSSortDescriptor alloc] initWithKey:@"catalogGroup.group_number" ascending:YES];
-        NSSortDescriptor *catalogNumberSort = [[NSSortDescriptor alloc] initWithKey:@"gp_catalog_number" ascending:YES];
-        _gpCatalogSortDescriptors = @[gpCountrySort, groupSort, catalogNumberSort];
-        
-        NSSortDescriptor *customSearchSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
-        _customSearchSortDescriptors = @[customSearchSort];
-        
-        // Initialize the assisted search panels.
-        _countrySearchController = [[GPCountrySearch alloc] initWithPredicate:countriesPredicate forStamp:NO];
-        _sectionSearchController = [[GPSectionSearch alloc] initWithPredicate:sectionsPredicate forStamp:NO];
-        _filterSearchController = [[GPFilterSearch alloc] initWithPredicate:filtersPredicate];
-        
-        // Initialize the datalog detail popover.
-        _catalogDetail = [[GPCatalogDetail alloc] initWithManagedObjectContext:self.managedObjectContext];
-        _catalogDetailPopover = [[NSPopover alloc] init];
-        _catalogDetailPopover.contentViewController = self.catalogDetail;
-        _catalogDetailPopover.appearance = NSPopoverAppearanceMinimal;
-        _catalogDetailPopover.behavior = NSPopoverBehaviorTransient;
-        
+    if (self.filterSearchController.predicate != nil) {
+        [predicateArray addObject:self.filterSearchController.predicate];
     }
     
-    return self;
-}
-
-- (void)loadView {
-    [super loadView];
+    if (self.subvarietySearchController.predicate != nil) {
+        [predicateArray addObject:self.subvarietySearchController.predicate];
+    }
     
-    // Place the AssistedSearch views into panels which will be launched as sheets.
-    self.countrySearchController.panel = [[NSPanel alloc] initWithContentRect:self.countrySearchController.view.bounds styleMask:NSTexturedBackgroundWindowMask backing:NSBackingStoreBuffered defer:YES];
-    [self.countrySearchController.panel setContentView:self.countrySearchController.view];
+    // If there is only one element in the array,
+    // a compound predicate isn't needed.
+    if (predicateArray.count == 1) {
+        self.subvarietiesSearch = [predicateArray objectAtIndex:0];
+    }
+    else {
+        // AND together predicates into a compound predicate.
+        self.subvarietiesSearch = [NSCompoundPredicate andPredicateWithSubpredicates:predicateArray];
+    }
     
-    self.sectionSearchController.panel = [[NSPanel alloc] initWithContentRect:self.sectionSearchController.view.bounds styleMask:NSTexturedBackgroundWindowMask backing:NSBackingStoreBuffered defer:YES];
-    [self.sectionSearchController.panel setContentView:self.sectionSearchController.view];
-    
-    self.filterSearchController.panel = [[NSPanel alloc] initWithContentRect:self.filterSearchController.view.bounds styleMask:NSTexturedBackgroundWindowMask backing:NSBackingStoreBuffered defer:YES];
-    [self.filterSearchController.panel setContentView:self.filterSearchController.view];
-    
-    // Set the active filter search.
-    [self.changeFiltersButton setTitle:self.filterSearchController.filtersSelected];
-    
-    self.currSearch = self.assistedSearch.predicate;
+    self.currSearch = self.subvarietiesSearch;
     [self queryGPCatalog];
-}
-
-- (void)setSelectedLooksLike:(LooksLike *)selectedLooksLike {
-    _selectedLooksLike = selectedLooksLike;
-
-    // Rebuild the current search to include the looks-like filter.
-    [self updateCurrentSearch];
-}
-
-- (void)queryGPCatalog {
-    [self.gpCatalogController setFetchPredicate:self.currSearch];
-    [self.gpCatalogController fetch:self];
 }
 
 - (void)controlTextDidChange:(NSNotification *)aNotification {
@@ -219,16 +251,54 @@
     [app beginSheet:self.filterSearchController.panel modalForWindow:self.view.window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
 }
 
+- (IBAction)openSubvarietySearchPanel:(id)sender {
+    NSApplication * app = [NSApplication sharedApplication];
+    
+    [app beginSheet:self.subvarietySearchController.panel modalForWindow:self.view.window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
+}
+
+- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+    if (self.currMajorVariety)
+        [self updateSubvarietiesSearch];
+    else
+        [self updateCurrentSearch];
+}
+
+- (IBAction)viewSubvarieties:(id)sender {
+    NSInteger row = [self.gpCatalogTable rowForView:sender];
+    GPCatalog * theMajorVariety = self.gpCatalogController.arrangedObjects[row];
+    
+    if (theMajorVariety != nil && (theMajorVariety.subvarieties.count > 0)) {
+        self.subBasePredicate = [NSPredicate predicateWithFormat:@"majorVariety.gp_catalog_number like %@", theMajorVariety.gp_catalog_number];
+        
+        [self updateSubvarietiesSearch];
+        
+        // Set the selection to the first subvariety.
+        [self.gpCatalogController setSelectionIndex:0];
+        
+        self.currMajorVariety = theMajorVariety;
+    }
+}
+
+- (IBAction)closeSubvarieties:(id)sender {
+    // Restore the current search.
+    self.currSearch = self.assistedSearch.predicate;
+    [self queryGPCatalog];
+    
+    [self.gpCatalogController setSelectedObjects:@[self.currMajorVariety]];
+    NSUInteger indexOfMajorVariety = self.gpCatalogController.selectionIndex;
+    
+    // Make sure the selection is visable.
+    [self.gpCatalogTable scrollRowToVisible:indexOfMajorVariety];
+    self.currMajorVariety = nil;
+}
+
 - (IBAction)showCatalogDetail:(NSButton *)sender {
     NSInteger selectedRow = [self.gpCatalogTable rowForView:sender];
     GPCatalog * gpCatalog = self.gpCatalogController.arrangedObjects[selectedRow];
     [self.catalogDetail setGpCatalog:gpCatalog];
     
     [self.catalogDetailPopover showRelativeToRect:sender.bounds ofView:sender preferredEdge:selectedRow];
-}
-
-- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
-    [self updateCurrentSearch];
 }
 
 - (IBAction)editCustomSearch:(id)sender {

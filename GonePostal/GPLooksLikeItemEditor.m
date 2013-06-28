@@ -9,10 +9,11 @@
 #import "GPLooksLikeItemEditor.h"
 #import "GPDocument.h"
 #import "LooksLike.h"
+#import "GPCatalogPictureSelector.h"
 
 @interface GPLooksLikeItemEditor ()
 
-@property (strong, nonatomic) GPDocument * gpDocument;
+@property (strong, nonatomic) GPDocument * doc;
 
 @end
 
@@ -23,9 +24,8 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         NSDocumentController * docController = [NSDocumentController sharedDocumentController];
-        GPDocument * doc = [docController currentDocument];
-        [self setGpDocument:doc];
-        self.managedObjectContext = doc.managedObjectContext;
+        _doc = [docController currentDocument];
+        self.managedObjectContext = _doc.managedObjectContext;
     }
     return self;
 }
@@ -35,9 +35,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         NSDocumentController * docController = [NSDocumentController sharedDocumentController];
-        GPDocument * doc = [docController currentDocument];
-        [self setGpDocument:doc];
-        self.managedObjectContext = doc.managedObjectContext;
+        _doc = [docController currentDocument];
+        self.managedObjectContext = _doc.managedObjectContext;
         
         // Create the sort descripors
         NSSortDescriptor *gpCountrySort = [[NSSortDescriptor alloc] initWithKey:@"country.country_sort_id" ascending:YES];
@@ -60,11 +59,30 @@
     
     NSString * llName = [NSString stringWithFormat:@"looksLike %@", ll.name];
     
-    NSString * fileName = [self.gpDocument addPictureToWrapperUsingGPID:llName forAttribute:@"picture"];
+    NSString * fileName = [self.doc addPictureToWrapperUsingGPID:llName forAttribute:@"LooksLike.picture"];
     if (fileName == nil) return;
     
     ll.picture = fileName;
 }
+
+- (IBAction)addPictureFromCatalog:(id)sender {
+    LooksLike * ll = self.looksLikeController.content;
+        
+        [self.doc loadAssistedSearch:ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
+        
+        GPCatalogPictureSelector * controller = [[GPCatalogPictureSelector alloc] initWithAssistedSearch:self.doc.assistedSearch countrySearch:self.doc.countriesPredicate sectionSearch:self.doc.sectionsPredicate filterSearch:self.doc.filtersPredicate targetAttributeName:@"LooksLike.picture"];
+        [controller setTargetLooksLike:ll];
+        
+        [self.doc addWindowController:controller];
+        [controller.window makeKeyAndOrderFront:sender];
+    
+}
+
+- (IBAction)removePicture:(id)sender {
+    LooksLike * ll = self.looksLikeController.content;
+    ll.picture = @"empty";
+}
+
 
 - (IBAction)removeCatalogEntries:(id)sender {
     NSArray * selectedGPCatalogEntries = self.gpCatalogsController.selectedObjects;

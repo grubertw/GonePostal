@@ -100,12 +100,12 @@
     <entity name="GPCatalog" representedClassName="GPCatalog">
         <attribute name="album_height" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="album_width" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="alternate_picture_1" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="alternate_picture_2" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="alternate_picture_3" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="alternate_picture_4" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="alternate_picture_5" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="alternate_picture_6" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="alternate_picture_1" optional="YES" attributeType="String" defaultValueString="empty" syncable="YES"/>
+        <attribute name="alternate_picture_2" optional="YES" attributeType="String" defaultValueString="empty" syncable="YES"/>
+        <attribute name="alternate_picture_3" optional="YES" attributeType="String" defaultValueString="empty" syncable="YES"/>
+        <attribute name="alternate_picture_4" optional="YES" attributeType="String" defaultValueString="empty" syncable="YES"/>
+        <attribute name="alternate_picture_5" optional="YES" attributeType="String" defaultValueString="empty" syncable="YES"/>
+        <attribute name="alternate_picture_6" optional="YES" attributeType="String" defaultValueString="empty" syncable="YES"/>
         <attribute name="always_display" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <attribute name="background_information" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
@@ -221,7 +221,7 @@
         <relationship name="wantTarget" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GPCollection" inverseName="wantLists" inverseEntity="GPCollection" syncable="YES"/>
     </entity>
     <entity name="GPPicture" representedClassName="GPPicture" syncable="YES">
-        <attribute name="filename" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="filename" optional="YES" attributeType="String" defaultValueString="empty" syncable="YES"/>
         <attribute name="is_default" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="gpCatalogEntries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GPCatalog" inverseName="extraPictures" inverseEntity="GPCatalog" syncable="YES"/>
@@ -384,12 +384,12 @@
     </entity>
     <entity name="Stamp" representedClassName="Stamp" syncable="YES">
         <attribute name="address_type" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="alternate_picture_1" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="alternate_picture_2" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="alternate_picture_3" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="alternate_picture_4" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="alternate_picture_5" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="alternate_picture_6" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="alternate_picture_1" optional="YES" attributeType="String" defaultValueString="empty" syncable="YES"/>
+        <attribute name="alternate_picture_2" optional="YES" attributeType="String" defaultValueString="empty" syncable="YES"/>
+        <attribute name="alternate_picture_3" optional="YES" attributeType="String" defaultValueString="empty" syncable="YES"/>
+        <attribute name="alternate_picture_4" optional="YES" attributeType="String" defaultValueString="empty" syncable="YES"/>
+        <attribute name="alternate_picture_5" optional="YES" attributeType="String" defaultValueString="empty" syncable="YES"/>
+        <attribute name="alternate_picture_6" optional="YES" attributeType="String" defaultValueString="empty" syncable="YES"/>
         <attribute name="cancelation_date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="cancelation_type" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="census_id" optional="YES" attributeType="String" syncable="YES"/>
