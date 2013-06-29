@@ -34,7 +34,7 @@
 @property (strong, nonatomic) GPCatalog * targetGPCatalog;
 @property (strong, nonatomic) LooksLike * targetLooksLike;
 
-- (id)initWithAssistedSearch:(StoredSearch *)assistedSearch countrySearch:(NSPredicate *)countriesPredicate sectionSearch:(NSPredicate *)sectionsPredicate filterSearch:(NSPredicate *)filtersPredicate targetAttributeName:(NSString *)attributeName;
+- (id)initWithAssistedSearch:(StoredSearch *)assistedSearch countrySearch:(NSPredicate *)countriesPredicate sectionSearch:(NSPredicate *)sectionsPredicate filterSearch:(NSPredicate *)filtersPredicate targetAttributeName:(NSString *)attributeName selectingPicture:(BOOL)selectingPicture;
 
 // If not null, then user is viewing subvarieties.
 @property (strong, nonatomic) GPCatalog * currMajorVariety;

@@ -215,7 +215,7 @@
         NSSortDescriptor *cancelationSort = [[NSSortDescriptor alloc] initWithKey:@"gp_cancelation_number" ascending:YES];
         self.cancelationsSortDescriptors = @[cancelationSort];
         
-        NSSortDescriptor *looksLikeSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+        NSSortDescriptor *looksLikeSort = [[NSSortDescriptor alloc] initWithKey:@"gp_lookslike_number" ascending:YES];
         self.looksLikeSortDescriptors = @[looksLikeSort];
         
         NSSortDescriptor *topicsSort = [[NSSortDescriptor alloc] initWithKey:@"topic_name" ascending:YES];
@@ -505,6 +505,29 @@
 
 - (IBAction)addToLooksLike:(id)sender {
     NSApplication * app = [NSApplication sharedApplication];
+    
+    NSMutableArray * predicateArray = [NSMutableArray arrayWithCapacity:0];
+    
+    if (self.countrySearchController.predicate != nil) {
+        [predicateArray addObject:self.countrySearchController.predicate];
+    }
+    
+    if (self.sectionSearchController.predicate != nil) {
+        [predicateArray addObject:self.sectionSearchController.predicate];
+    }
+    
+    NSPredicate * llPredicate;
+    
+    if ([predicateArray count] == 1) {
+        llPredicate = predicateArray[0];
+    }
+    else {
+        llPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:predicateArray];
+    }
+    
+    [self.looksLikeController setFilterPredicate:llPredicate];
+    [self.looksLikeController fetch:sender];
+    
     [app beginSheet:self.addToLooksLikePanel modalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
 }
 
@@ -719,7 +742,7 @@
         [self.document loadAssistedSearch:ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
         GPDocument * doc = [self document];
         
-        GPCatalogPictureSelector * controller = [[GPCatalogPictureSelector alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate filterSearch:doc.filtersPredicate targetAttributeName:@"GPCatalog.default_picture"];
+        GPCatalogPictureSelector * controller = [[GPCatalogPictureSelector alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate filterSearch:doc.filtersPredicate targetAttributeName:@"GPCatalog.default_picture" selectingPicture:YES];
         [controller setTargetGPCatalog:entry];
         
         [doc addWindowController:controller];
@@ -756,7 +779,7 @@
         [self.document loadAssistedSearch:ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
         GPDocument * doc = [self document];
         
-        GPCatalogPictureSelector * controller = [[GPCatalogPictureSelector alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate filterSearch:doc.filtersPredicate targetAttributeName:@"GPCatalog.alternate_picture_1"];
+        GPCatalogPictureSelector * controller = [[GPCatalogPictureSelector alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate filterSearch:doc.filtersPredicate targetAttributeName:@"GPCatalog.alternate_picture_1" selectingPicture:YES];
         [controller setTargetGPCatalog:entry];
         
         [doc addWindowController:controller];
@@ -793,7 +816,7 @@
         [self.document loadAssistedSearch:ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
         GPDocument * doc = [self document];
         
-        GPCatalogPictureSelector * controller = [[GPCatalogPictureSelector alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate filterSearch:doc.filtersPredicate targetAttributeName:@"GPCatalog.alternate_picture_2"];
+        GPCatalogPictureSelector * controller = [[GPCatalogPictureSelector alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate filterSearch:doc.filtersPredicate targetAttributeName:@"GPCatalog.alternate_picture_2" selectingPicture:YES];
         [controller setTargetGPCatalog:entry];
         
         [doc addWindowController:controller];
@@ -831,7 +854,7 @@
         [self.document loadAssistedSearch:ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
         GPDocument * doc = [self document];
         
-        GPCatalogPictureSelector * controller = [[GPCatalogPictureSelector alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate filterSearch:doc.filtersPredicate targetAttributeName:@"GPCatalog.alternate_picture_3"];
+        GPCatalogPictureSelector * controller = [[GPCatalogPictureSelector alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate filterSearch:doc.filtersPredicate targetAttributeName:@"GPCatalog.alternate_picture_3" selectingPicture:YES];
         [controller setTargetGPCatalog:entry];
         
         [doc addWindowController:controller];
@@ -868,7 +891,7 @@
         [self.document loadAssistedSearch:ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
         GPDocument * doc = [self document];
         
-        GPCatalogPictureSelector * controller = [[GPCatalogPictureSelector alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate filterSearch:doc.filtersPredicate targetAttributeName:@"GPCatalog.alternate_picture_4"];
+        GPCatalogPictureSelector * controller = [[GPCatalogPictureSelector alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate filterSearch:doc.filtersPredicate targetAttributeName:@"GPCatalog.alternate_picture_4" selectingPicture:YES];
         [controller setTargetGPCatalog:entry];
         
         [doc addWindowController:controller];
@@ -905,7 +928,7 @@
         [self.document loadAssistedSearch:ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
         GPDocument * doc = [self document];
         
-        GPCatalogPictureSelector * controller = [[GPCatalogPictureSelector alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate filterSearch:doc.filtersPredicate targetAttributeName:@"GPCatalog.alternate_picture_5"];
+        GPCatalogPictureSelector * controller = [[GPCatalogPictureSelector alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate filterSearch:doc.filtersPredicate targetAttributeName:@"GPCatalog.alternate_picture_5" selectingPicture:YES];
         [controller setTargetGPCatalog:entry];
         
         [doc addWindowController:controller];
@@ -942,7 +965,7 @@
         [self.document loadAssistedSearch:ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
         GPDocument * doc = [self document];
         
-        GPCatalogPictureSelector * controller = [[GPCatalogPictureSelector alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate filterSearch:doc.filtersPredicate targetAttributeName:@"GPCatalog.alternate_picture_6"];
+        GPCatalogPictureSelector * controller = [[GPCatalogPictureSelector alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate filterSearch:doc.filtersPredicate targetAttributeName:@"GPCatalog.alternate_picture_6" selectingPicture:YES];
         [controller setTargetGPCatalog:entry];
         
         [doc addWindowController:controller];

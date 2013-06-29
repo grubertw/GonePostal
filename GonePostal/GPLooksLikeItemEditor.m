@@ -68,13 +68,13 @@
 - (IBAction)addPictureFromCatalog:(id)sender {
     LooksLike * ll = self.looksLikeController.content;
         
-        [self.doc loadAssistedSearch:ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
-        
-        GPCatalogPictureSelector * controller = [[GPCatalogPictureSelector alloc] initWithAssistedSearch:self.doc.assistedSearch countrySearch:self.doc.countriesPredicate sectionSearch:self.doc.sectionsPredicate filterSearch:self.doc.filtersPredicate targetAttributeName:@"LooksLike.picture"];
-        [controller setTargetLooksLike:ll];
-        
-        [self.doc addWindowController:controller];
-        [controller.window makeKeyAndOrderFront:sender];
+    [self.doc loadAssistedSearch:ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
+    
+    GPCatalogPictureSelector * controller = [[GPCatalogPictureSelector alloc] initWithAssistedSearch:self.doc.assistedSearch countrySearch:self.doc.countriesPredicate sectionSearch:self.doc.sectionsPredicate filterSearch:self.doc.filtersPredicate targetAttributeName:@"LooksLike.picture" selectingPicture:YES];
+    [controller setTargetLooksLike:ll];
+    
+    [self.doc addWindowController:controller];
+    [controller.window makeKeyAndOrderFront:sender];
     
 }
 
@@ -83,6 +83,17 @@
     ll.picture = @"empty";
 }
 
+- (IBAction)addCatalogEntries:(id)sender {
+    LooksLike * ll = self.looksLikeController.content;
+    
+    [self.doc loadAssistedSearch:ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
+    
+    GPCatalogPictureSelector * controller = [[GPCatalogPictureSelector alloc] initWithAssistedSearch:self.doc.assistedSearch countrySearch:self.doc.countriesPredicate sectionSearch:self.doc.sectionsPredicate filterSearch:self.doc.filtersPredicate targetAttributeName:@"LooksLike.picture" selectingPicture:NO];
+    [controller setTargetLooksLike:ll];
+    
+    [self.doc addWindowController:controller];
+    [controller.window makeKeyAndOrderFront:sender];
+}
 
 - (IBAction)removeCatalogEntries:(id)sender {
     NSArray * selectedGPCatalogEntries = self.gpCatalogsController.selectedObjects;

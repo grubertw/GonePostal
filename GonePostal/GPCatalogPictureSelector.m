@@ -9,8 +9,13 @@
 #import "GPCatalogPictureSelector.h"
 #import "GPDocument.h"
 
+static NSString * CHOOSE_PICTURE_FROM_CATALOG = @"Copy Picture from Catalog Entry";
+static NSString * CHOOSE_GPID_FROM_CATALOG = @"Insert a Catalog Entry";
+
 @interface GPCatalogPictureSelector ()
 @property (strong, nonatomic) GPDocument * doc;
+
+@property (weak, nonatomic) IBOutlet NSBox * gpCatalogBox;
 
 @property (weak, nonatomic) IBOutlet NSTableView * gpCatalogTable;
 @property (weak, nonatomic) IBOutlet NSButton * filtersActive;
@@ -22,11 +27,13 @@
 
 // Name of the attribute in which the picture is being set into the target.
 @property (strong, nonatomic) NSString * attributeString;
+
+@property (nonatomic) BOOL selectingPicture;
 @end
 
 @implementation GPCatalogPictureSelector
 
-- (id)initWithAssistedSearch:(StoredSearch *)assistedSearch countrySearch:(NSPredicate *)countriesPredicate sectionSearch:(NSPredicate *)sectionsPredicate filterSearch:(NSPredicate *)filtersPredicate targetAttributeName:(NSString *)attributeName {
+- (id)initWithAssistedSearch:(StoredSearch *)assistedSearch countrySearch:(NSPredicate *)countriesPredicate sectionSearch:(NSPredicate *)sectionsPredicate filterSearch:(NSPredicate *)filtersPredicate targetAttributeName:(NSString *)attributeName selectingPicture:(BOOL)selectingPicture {
     
     self = [super initWithWindowNibName:@"GPCatalogPictureSelector"];
     if (self) {
@@ -36,6 +43,7 @@
         _filtersPredicate = filtersPredicate;
         
         _attributeString = attributeName;
+        _selectingPicture = selectingPicture;
         
         NSDocumentController * docController = [NSDocumentController sharedDocumentController];
         _doc = [docController currentDocument];
@@ -76,6 +84,13 @@
     
     // Show the active filter search.
     [self.filtersActive setTitle:self.filterSearchController.filtersSelected];
+    
+    if (self.selectingPicture) {
+        [self.gpCatalogBox setTitle:CHOOSE_PICTURE_FROM_CATALOG];
+    }
+    else {
+        [self.gpCatalogBox setTitle:CHOOSE_GPID_FROM_CATALOG];
+    }
     
     [self queryGPCatalog];
 }
@@ -226,38 +241,45 @@
     if (!selectedEntries) return;
     GPCatalog * selectedEntry = selectedEntries[0];
     
-    // Create the copy-from URL.
-    NSURL * copyFromURL = [[[self document] fileURL] URLByAppendingPathComponent:selectedEntry.default_picture];
-    
-    // Hash a new filename for the picture's target destination.
-    NSString * targetPicFN;
-    
-    if (self.targetGPCatalog) {
-        // Hash a new filename for the picture's target destination.
-        targetPicFN = [self.doc hashFileNameForGPID:self.targetGPCatalog.gp_catalog_number andAttributeName:self.attributeString];
-
-        self.targetGPCatalog.default_picture = targetPicFN;
-    }
-    else if (self.targetLooksLike) {
-        // Hash a new filename for the picture's target destination.
-        targetPicFN = [self.doc hashFileNameForGPID:self.targetLooksLike.gp_lookslike_number andAttributeName:self.attributeString];
+    if (self.selectingPicture) {
+        // Create the copy-from URL.
+        NSURL * copyFromURL = [[[self document] fileURL] URLByAppendingPathComponent:selectedEntry.default_picture];
         
-        self.targetLooksLike.picture = targetPicFN;
+        // Hash a new filename for the picture's target destination.
+        NSString * targetPicFN;
+        
+        if (self.targetGPCatalog) {
+            // Hash a new filename for the picture's target destination.
+            targetPicFN = [self.doc hashFileNameForGPID:self.targetGPCatalog.gp_catalog_number andAttributeName:self.attributeString];
+
+            self.targetGPCatalog.default_picture = targetPicFN;
+        }
+        else if (self.targetLooksLike) {
+            // Hash a new filename for the picture's target destination.
+            targetPicFN = [self.doc hashFileNameForGPID:self.targetLooksLike.gp_lookslike_number andAttributeName:self.attributeString];
+            
+            self.targetLooksLike.picture = targetPicFN;
+        }
+        
+        if (!targetPicFN) return;
+        
+        // Create the copy-to URL.
+        NSURL * copyToURL = [[[self document] fileURL] URLByAppendingPathComponent:targetPicFN];
+        
+        NSFileManager * fileManager = [NSFileManager defaultManager];
+        
+        // Copy the file.
+        NSError * error;
+        BOOL writeRC = [fileManager copyItemAtURL:copyFromURL toURL:copyToURL error:&error];
+        if (!writeRC) {
+            NSLog(@"Error copying image file: %@, %@", error, error.userInfo);
+            return;
+        }
     }
-    
-    if (!targetPicFN) return;
-    
-    // Create the copy-to URL.
-    NSURL * copyToURL = [[[self document] fileURL] URLByAppendingPathComponent:targetPicFN];
-    
-    NSFileManager * fileManager = [NSFileManager defaultManager];
-    
-    // Copy the file.
-    NSError * error;
-    BOOL writeRC = [fileManager copyItemAtURL:copyFromURL toURL:copyToURL error:&error];
-    if (!writeRC) {
-        NSLog(@"Error copying image file: %@, %@", error, error.userInfo);
-        return;
+    else {
+        if (self.targetLooksLike) {
+            [self.targetLooksLike addTheseGPCatalogEntries:[NSSet setWithArray:selectedEntries]];
+        }
     }
     
     [self.window performClose:sender];
