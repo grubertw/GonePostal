@@ -38,6 +38,8 @@
 #import "GPImportController.h"
 #import "GPSupportedSubvarietyTypes.h"
 #import "GPSubvarietyType.h"
+#import "GPAttachmentController.h"
+#import "GPSupportedSubjects.h"
 
 #import "GPFilenameTransformer.h"
 #import "GPAlternateCatalogNumberTransformer.h"
@@ -358,6 +360,14 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
     
 }
 
+- (IBAction)openLibrary:(id)sender {
+    GPAttachmentController * controller = [[GPAttachmentController alloc] initWithWindowNibName:@"GPAttachmentController"];
+    [controller setManagedObjectContext:self.managedObjectContext];
+    
+    [self addWindowController:controller];
+    [controller.window makeKeyAndOrderFront:sender];
+}
+
 - (IBAction)viewStamps:(id)sender {
     // Get the row of the viewStamp button clicked
     NSInteger row = [self.gpCollectionTable rowForView:sender];
@@ -562,6 +572,14 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
     [controller.window makeKeyAndOrderFront:sender];
 }
 
+- (void)editSupportedSubjects:(id)sender {
+    GPSupportedSubjects * controller = [[GPSupportedSubjects alloc] initWithWindowNibName:@"GPSupportedSubjects"];
+    [controller setManagedObjectContext:self.managedObjectContext];
+    
+    [self addWindowController:controller];
+    [controller.window makeKeyAndOrderFront:sender];
+}
+
 /*
  Sets the on-disk location.  NSPersistentDocument's implementation is bypassed using the FileWrapperSupport category.
  configurePersistentStoreCoordinatorForURL is overridden to point NSPersistantDocument into the wrapper.
@@ -675,6 +693,9 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
 }
 
 - (NSString *)hashFileNameForGPID:(NSString *)gpid andAttributeName:(NSString *)attributeName {
+    if (!gpid || [gpid length] == 0) gpid = @"default";
+    if (!attributeName) attributeName = @"empty";
+    
     // Create the string to feed into the hasher
     NSString * stringToHash = [NSString stringWithFormat:@"%@%@%@", gpid, attributeName, FILENAME_HASH_SALT];
     
@@ -696,48 +717,56 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
     return hashedString;
 }
 
-- (NSString *)addPictureToWrapperUsingGPID:(NSString *)gpid forAttribute:(NSString *)attributeName {
+//
+// Adds a file into the wrapper with a hashed file name.
+//
+- (NSString *)addFileToWrapperUsingGPID:(NSString *)gpid forAttribute:(NSString *)attributeName fileType:(GPImportFileType)type {
     NSString * fileName = nil;
     
     // Get the absoluate URL of the picture from the user.
-    NSOpenPanel * picChooser = [NSOpenPanel openPanel];
-    [picChooser setCanChooseFiles:YES];
-    [picChooser setCanChooseDirectories:NO];
-    [picChooser setAllowsMultipleSelection:NO];
+    NSOpenPanel * chooser = [NSOpenPanel openPanel];
+    [chooser setCanChooseFiles:YES];
+    [chooser setCanChooseDirectories:NO];
+    [chooser setAllowsMultipleSelection:NO];
     
-    NSArray * allowedPicTypes = @[@"jpg", @"png"];
-    [picChooser setAllowedFileTypes:allowedPicTypes];
+    NSArray * allowedFileTypes;
+    if (type == GPImportFileTypePicture)
+        allowedFileTypes = @[@"jpg", @"png"];
+    else if (type == GPImportFileTypePDF)
+        allowedFileTypes = @[@"pdf"];
     
-    NSInteger rc = [picChooser runModal];
+    [chooser setAllowedFileTypes:allowedFileTypes];
+    
+    NSInteger rc = [chooser runModal];
     if (rc != NSFileHandlingPanelOKButton)
         return fileName;
     
-    // Get the picture URL from the dialog.
-    NSURL * picURL = [[picChooser URLs] objectAtIndex:0];
+    // Get the URL from the dialog.
+    NSURL * fileURL = [[chooser URLs] objectAtIndex:0];
     
-    // Wrap the image file
+    // Create a file wrapper for the import.
     NSError * error;
-    NSFileWrapper *imageFile = [[NSFileWrapper alloc] initWithURL:picURL options:NSFileWrapperReadingImmediate error:&error];
-    if (imageFile == nil) {
-        NSLog(@"Error opening image file: %@, %@", error, error.userInfo);
+    NSFileWrapper *fileWrapper = [[NSFileWrapper alloc] initWithURL:fileURL options:NSFileWrapperReadingImmediate error:&error];
+    if (fileWrapper == nil) {
+        NSLog(@"Error opening file: %@, %@", error, error.userInfo);
         return fileName;
     }
     
     fileName = [self hashFileNameForGPID:gpid andAttributeName:attributeName];
-    [imageFile setPreferredFilename:fileName];
+    [fileWrapper setPreferredFilename:fileName];
     
-    NSURL * newPicURL = [[self fileURL] URLByAppendingPathComponent:fileName];
+    NSURL * newURL = [[self fileURL] URLByAppendingPathComponent:fileName];
     
-    // Move the image file into the GPWrapper
-    BOOL writeRC = [imageFile writeToURL:newPicURL options:NSFileWrapperWritingWithNameUpdating originalContentsURL:picURL error:&error];
+    // Move the file into the GPWrapper
+    BOOL writeRC = [fileWrapper writeToURL:newURL options:NSFileWrapperWritingWithNameUpdating originalContentsURL:fileURL error:&error];
     if (!writeRC) {
-        NSLog(@"Error moving image file into wrapper: %@, %@", error, error.userInfo);
+        NSLog(@"Error moving file into wrapper: %@, %@", error, error.userInfo);
         return fileName;
     }
     
-    // Add the picture to the GPWrapper
-    NSFileWrapper *fileWrapper = [[NSFileWrapper alloc] initWithPath:[[self fileURL] path]];
-    [fileWrapper addFileWrapper:imageFile];
+    // Add the file to the GPWrapper
+    NSFileWrapper *gpWrapper = [[NSFileWrapper alloc] initWithPath:[[self fileURL] path]];
+    [gpWrapper addFileWrapper:fileWrapper];
     
     return fileName;
 }

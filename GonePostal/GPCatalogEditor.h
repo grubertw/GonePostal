@@ -40,6 +40,8 @@
 @property (strong, nonatomic) NSArray * identificationPicturesSortDescriptors;
 @property (strong, nonatomic) NSArray * subvarietyTypesSortDescriptors;
 @property (strong, nonatomic) NSArray * customSearchSortDescriptors;
+@property (strong, nonatomic) NSArray * attachmentsSortDescriptors;
+@property (strong, nonatomic) NSArray * subjectsSortDescriptors;
 
 @property (strong, nonatomic) StoredSearch * assistedSearch;
 @property (strong, nonatomic) NSPredicate * countriesPredicate;

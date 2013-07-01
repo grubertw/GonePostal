@@ -47,7 +47,7 @@
     NSInteger selectedRow = [self.perfinsTable rowForView:sender];
     
     Perfin * perfin = self.perfinsController.arrangedObjects[selectedRow];
-    NSString * fileName = [self.document addPictureToWrapperUsingGPID:perfin.gp_perfin_number forAttribute:@"picture"];
+    NSString * fileName = [self.document addFileToWrapperUsingGPID:perfin.gp_perfin_number forAttribute:@"Perfin.picture" fileType:GPImportFileTypePicture];
     if (fileName == nil) return;
     
     perfin.picture = fileName;

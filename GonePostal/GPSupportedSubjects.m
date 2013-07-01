@@ -1,27 +1,25 @@
 //
-//  GPSupportedLocalPrecancels.m
+//  GPSupportedSubjects.m
 //  GonePostal
 //
-//  Created by Travis Gruber on 3/25/13.
+//  Created by Travis Gruber on 6/30/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
-#import "GPSupportedLocalPrecancels.h"
-#import "GPDocument.h"
-#import "LocalPrecancel.h"
+#import "GPSupportedSubjects.h"
 
-@interface GPSupportedLocalPrecancels ()
+@interface GPSupportedSubjects ()
 @property (weak, nonatomic) IBOutlet NSArrayController * modelController;
 @end
 
-@implementation GPSupportedLocalPrecancels
+@implementation GPSupportedSubjects
 
 - (id)initWithWindow:(NSWindow *)window
 {
     self = [super initWithWindow:window];
     if (self) {
         // Create the sort descripors
-        NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"gp_precancel_number" ascending:YES];
+        NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
         _sortDescriptors = @[sort];
     }
     
@@ -29,23 +27,15 @@
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
-    return @"Supported Local Precancels";
+    return @"Supported Subjects";
 }
 
-- (IBAction)addPicture:(id)sender {
-    for (LocalPrecancel * lc in self.modelController.selectedObjects) {
-        NSString * fileName = [self.document addFileToWrapperUsingGPID:lc.gp_precancel_number forAttribute:@"LocalPrecancel.picture" fileType:GPImportFileTypePicture];
-        if (fileName == nil) return;
-        lc.picture = fileName;
-    }
-}
-
-- (IBAction)addPrecancel:(id)sender {
+- (IBAction)addSubject:(id)sender {
     [self.modelController insert:self];
     [self.managedObjectContext save:nil];
 }
 
-- (IBAction)deletePrecancel:(id)sender {
+- (IBAction)deleteSubject:(id)sender {
     [self.modelController remove:self];
     
     NSError * error;
@@ -54,7 +44,7 @@
         
         if (   [[error domain] isEqualToString:NSCocoaErrorDomain]
             && [error code] == NSValidationRelationshipDeniedDeleteError) {
-            errSheet = [NSAlert alertWithMessageText:@"Delete Error" defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:@"Item is currently in use within a stamp collection."];
+            errSheet = [NSAlert alertWithMessageText:@"Delete Error" defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:@"Item is currently in use within the library."];
         }
         else {
             errSheet = [NSAlert alertWithError:error];

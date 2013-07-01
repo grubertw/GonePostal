@@ -34,6 +34,7 @@
 #import "GPAddBureauPrecancel.h"
 #import "GPCustomSearch.h"
 #import "GPCatalogPictureSelector.h"
+#import "GPPDFViewController.h"
 
 // Private members.
 @interface GPCatalogEditor ()
@@ -91,6 +92,7 @@
 @property (weak, nonatomic) IBOutlet NSArrayController * topicsInGPCatalogController;
 @property (weak, nonatomic) IBOutlet NSArrayController * identificationPicturesController;
 @property (weak, nonatomic) IBOutlet NSArrayController * customSearchController;
+@property (weak, nonatomic) IBOutlet NSArrayController * attachmentController;
 
 @property (strong, nonatomic) NSArray * gpCatalogEntries;
 
@@ -230,6 +232,12 @@
         NSSortDescriptor *customSearchSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
         _customSearchSortDescriptors = @[customSearchSort];
         
+        NSSortDescriptor *attachmentSort = [[NSSortDescriptor alloc] initWithKey:@"gp_attachment_number" ascending:YES];
+        _attachmentsSortDescriptors = @[attachmentSort];
+        
+        NSSortDescriptor *subjectSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+        _subjectsSortDescriptors = @[subjectSort];
+        
         // Initialize the assisted search panels.
         _countrySearchController = [[GPCountrySearch alloc] initWithPredicate:countriesPredicate forStamp:NO];
         _sectionSearchController = [[GPSectionSearch alloc] initWithPredicate:sectionsPredicate forStamp:NO];
@@ -261,6 +269,10 @@
     newOrigin = NSMakePoint(0, NSMaxY([[self.platesScroller documentView] frame]) -
                                     [[self.platesScroller contentView] bounds].size.height);
     [[self.platesScroller documentView] scrollPoint:newOrigin];
+    
+    newOrigin = NSMakePoint(0, NSMaxY([[self.gpPicturesScroller documentView] frame]) -
+                            [[self.gpPicturesScroller contentView] bounds].size.height);
+    [[self.gpPicturesScroller documentView] scrollPoint:newOrigin];
     
     // Create a panel used to help the user select a set.
     self.addToSetPanel = [[NSPanel alloc] initWithContentRect:self.addToSetSelector.bounds styleMask:NSTexturedBackgroundWindowMask backing:NSBackingStoreBuffered defer:YES];
@@ -727,7 +739,7 @@
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
         
-        NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"GPCatalog.default_picture"];
+        NSString * fileName = [self.document addFileToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"GPCatalog.default_picture" fileType:GPImportFileTypePicture];
         if (fileName == nil) return;
         
         entry.default_picture = fileName;
@@ -764,7 +776,7 @@
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
         
-        NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"GPCatalog.alternate_picture_1"];
+        NSString * fileName = [self.document addFileToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"GPCatalog.alternate_picture_1" fileType:GPImportFileTypePicture];
         if (fileName == nil) return;
         
         entry.alternate_picture_1 = fileName;
@@ -801,7 +813,7 @@
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
         
-        NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"GPCatalog.alternate_picture_2"];
+        NSString * fileName = [self.document addFileToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"GPCatalog.alternate_picture_2" fileType:GPImportFileTypePicture];
         if (fileName == nil) return;
         
         entry.alternate_picture_2 = fileName;
@@ -839,7 +851,7 @@
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
         
-        NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"GPCatalog.alternate_picture_3"];
+        NSString * fileName = [self.document addFileToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"GPCatalog.alternate_picture_3" fileType:GPImportFileTypePicture];
         if (fileName == nil) return;
         
         entry.alternate_picture_3 = fileName;
@@ -876,7 +888,7 @@
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
         
-        NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"GPCatalog.alternate_picture_4"];
+        NSString * fileName = [self.document addFileToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"GPCatalog.alternate_picture_4" fileType:GPImportFileTypePicture];
         if (fileName == nil) return;
         
         entry.alternate_picture_4 = fileName;
@@ -913,7 +925,7 @@
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
         
-        NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"GPCatalog.alternate_picture_5"];
+        NSString * fileName = [self.document addFileToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"GPCatalog.alternate_picture_5" fileType:GPImportFileTypePicture];
         if (fileName == nil) return;
         
         entry.alternate_picture_5 = fileName;
@@ -950,7 +962,7 @@
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
         
-        NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"GPCatalog.alternate_picture_6"];
+        NSString * fileName = [self.document addFileToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"GPCatalog.alternate_picture_6" fileType:GPImportFileTypePicture];
         if (fileName == nil) return;
         
         entry.alternate_picture_6 = fileName;
@@ -988,7 +1000,7 @@
     
     NSString * numIdentPics = [NSString stringWithFormat:@"extraPicture %ld", [entry.extraPictures count]];
     
-    NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:numIdentPics];
+    NSString * fileName = [self.document addFileToWrapperUsingGPID:entry.gp_catalog_number forAttribute:numIdentPics fileType:GPImportFileTypePicture];
     if (fileName == nil) return;
     
     GPPicture * identPic = [NSEntityDescription insertNewObjectForEntityForName:@"GPPicture" inManagedObjectContext:self.managedObjectContext];
@@ -1163,7 +1175,7 @@
     NSInteger row = [self.bureauPrecancelsTable rowForView:sender];
     BureauPrecancel * bc = self.precancelsController.arrangedObjects[row];
     
-    NSString * fileName = [self.document addPictureToWrapperUsingGPID:bc.gp_precancel_number forAttribute:@"picture"];
+    NSString * fileName = [self.document addFileToWrapperUsingGPID:bc.gp_precancel_number forAttribute:@"Precencel.picture"fileType:GPImportFileTypePicture];
     if (fileName == nil) return;
     
     [bc setPicture:fileName];
@@ -1210,7 +1222,7 @@
     if (selectedCancels) {
         Cancelations * cancel = selectedCancels[0];
         
-        NSString * fileName = [self.document addPictureToWrapperUsingGPID:cancel.gp_cancelation_number forAttribute:@"picture"];
+        NSString * fileName = [self.document addFileToWrapperUsingGPID:cancel.gp_cancelation_number forAttribute:@"Cancelation.picture" fileType:GPImportFileTypePicture];
         if (fileName == nil) return;
         
         [cancel setPicture:fileName];
@@ -1248,6 +1260,33 @@
         [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
         [self.managedObjectContext undo];
     }
+}
+
+- (IBAction)addAttachment:(id)sender {
+    [self.attachmentController insert:sender];
+    [self.managedObjectContext save:nil];
+}
+
+- (IBAction)removeAttachment:(id)sender {
+    [self.attachmentController remove:sender];
+    [self.managedObjectContext save:nil];
+}
+
+- (IBAction)viewAttachment:(id)sender {
+    if (!self.attachmentController.selectedObjects) return;
+    Attachment * atthmnt = self.attachmentController.selectedObjects[0];
+    
+    GPPDFViewController * controller = [[GPPDFViewController alloc] initWithAttachment:atthmnt];
+    [[self document] addWindowController:controller];
+    [controller.window makeKeyAndOrderFront:sender];
+}
+
+- (IBAction)importPDF:(id)sender {
+    if (!self.attachmentController.selectedObjects) return;
+    Attachment * atthmnt = self.attachmentController.selectedObjects[0];
+    
+    GPDocument * doc = [self document];
+    atthmnt.filename = [doc addFileToWrapperUsingGPID:atthmnt.gp_attachment_number forAttribute:@"GPCatalog.attachment" fileType:GPImportFileTypePDF];
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification {

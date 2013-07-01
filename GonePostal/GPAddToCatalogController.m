@@ -150,7 +150,7 @@
     // Store the filename into the model.
     GPCatalog * entry = self.gpCatalogEntryController.content;
     
-    NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"default_picture"];
+    NSString * fileName = [self.document addFileToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"default_picture" fileType:GPImportFileTypePicture];
     if (fileName == nil) return;
     
     // Store the filename into the model.
@@ -161,7 +161,7 @@
     // Store the filename into the model.
     GPCatalog * entry = self.gpCatalogEntryController.content;
     
-    NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"alternate_picture_1"];
+    NSString * fileName = [self.document addFileToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"alternate_picture_1" fileType:GPImportFileTypePicture];
     if (fileName == nil) return;
     
     // Store the filename into the model.
@@ -172,7 +172,7 @@
     // Store the filename into the model.
     GPCatalog * entry = self.gpCatalogEntryController.content;
     
-    NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"alternate_picture_2"];
+    NSString * fileName = [self.document addFileToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"alternate_picture_2" fileType:GPImportFileTypePicture];
     if (fileName == nil) return;
     
     // Store the filename into the model.
@@ -183,7 +183,7 @@
     // Store the filename into the model.
     GPCatalog * entry = self.gpCatalogEntryController.content;
     
-    NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"alternate_picture_3"];
+    NSString * fileName = [self.document addFileToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"alternate_picture_3" fileType:GPImportFileTypePicture];
     if (fileName == nil) return;
     
     // Store the filename into the model.
@@ -194,7 +194,7 @@
     // Store the filename into the model.
     GPCatalog * entry = self.gpCatalogEntryController.content;
     
-    NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"alternate_picture_4"];
+    NSString * fileName = [self.document addFileToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"alternate_picture_4" fileType:GPImportFileTypePicture];
     if (fileName == nil) return;
     
     // Store the filename into the model.
@@ -205,7 +205,7 @@
     // Store the filename into the model.
     GPCatalog * entry = self.gpCatalogEntryController.content;
     
-    NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"alternate_picture_5"];
+    NSString * fileName = [self.document addFileToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"alternate_picture_5" fileType:GPImportFileTypePicture];
     if (fileName == nil) return;
     
     // Store the filename into the model.
@@ -216,7 +216,7 @@
     // Store the filename into the model.
     GPCatalog * entry = self.gpCatalogEntryController.content;
     
-    NSString * fileName = [self.document addPictureToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"alternate_picture_6"];
+    NSString * fileName = [self.document addFileToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"alternate_picture_6" fileType:GPImportFileTypePicture];
     if (fileName == nil) return;
     
     // Store the filename into the model.

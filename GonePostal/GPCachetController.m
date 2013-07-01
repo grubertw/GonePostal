@@ -53,7 +53,7 @@
 - (IBAction)addDefaultPicture:(id)sender {
     Cachet * cachet = self.representedObject;
     
-    NSString * fileName = [self.gpDocument addPictureToWrapperUsingGPID:cachet.gp_cachet_number forAttribute:@"cachet_picture"];
+    NSString * fileName = [self.gpDocument addFileToWrapperUsingGPID:cachet.gp_cachet_number forAttribute:@"cachet_picture"fileType:GPImportFileTypePicture];
     if (fileName == nil) return;
     
     // Save the filename to the model.
@@ -63,7 +63,7 @@
 - (IBAction)addAlternatePicture1:(id)sender {
     Cachet * cachet = self.representedObject;
     
-    NSString * fileName = [self.gpDocument addPictureToWrapperUsingGPID:cachet.gp_cachet_number forAttribute:@"alternate_picture_1"];
+    NSString * fileName = [self.gpDocument addFileToWrapperUsingGPID:cachet.gp_cachet_number forAttribute:@"Cachet.alternate_picture_1" fileType:GPImportFileTypePicture];
     if (fileName == nil) return;
     
     // Save the filename to the model.
@@ -73,7 +73,7 @@
 - (IBAction)addAlternatePicture2:(id)sender {
     Cachet * cachet = self.representedObject;
     
-    NSString * fileName = [self.gpDocument addPictureToWrapperUsingGPID:cachet.gp_cachet_number forAttribute:@"alternate_picture_2"];
+    NSString * fileName = [self.gpDocument addFileToWrapperUsingGPID:cachet.gp_cachet_number forAttribute:@"Cahcet.alternate_picture_2" fileType:GPImportFileTypePicture];
     if (fileName == nil) return;
     
     // Save the filename to the model.
@@ -83,7 +83,7 @@
 - (IBAction)addAlternatePicture3:(id)sender {
     Cachet * cachet = self.representedObject;
     
-    NSString * fileName = [self.gpDocument addPictureToWrapperUsingGPID:cachet.gp_cachet_number forAttribute:@"alternate_picture_3"];
+    NSString * fileName = [self.gpDocument addFileToWrapperUsingGPID:cachet.gp_cachet_number forAttribute:@"Cahcet.alternate_picture_3" fileType:GPImportFileTypePicture];
     if (fileName == nil) return;
     
     // Save the filename to the model.
@@ -93,7 +93,7 @@
 - (IBAction)addAlternatePicture4:(id)sender {
     Cachet * cachet = self.representedObject;
     
-    NSString * fileName = [self.gpDocument addPictureToWrapperUsingGPID:cachet.gp_cachet_number forAttribute:@"alternate_picture_4"];
+    NSString * fileName = [self.gpDocument addFileToWrapperUsingGPID:cachet.gp_cachet_number forAttribute:@"Cachet.alternate_picture_4" fileType:GPImportFileTypePicture];
     if (fileName == nil) return;
     
     // Save the filename to the model.
@@ -103,7 +103,7 @@
 - (IBAction)addAlternatePicture5:(id)sender {
     Cachet * cachet = self.representedObject;
     
-    NSString * fileName = [self.gpDocument addPictureToWrapperUsingGPID:cachet.gp_cachet_number forAttribute:@"alternate_picture_5"];
+    NSString * fileName = [self.gpDocument addFileToWrapperUsingGPID:cachet.gp_cachet_number forAttribute:@"Cachet.alternate_picture_5" fileType:GPImportFileTypePicture];
     if (fileName == nil) return;
     
     // Save the filename to the model.
@@ -113,7 +113,7 @@
 - (IBAction)addAlternatePicture6:(id)sender {
     Cachet * cachet = self.representedObject;
     
-    NSString * fileName = [self.gpDocument addPictureToWrapperUsingGPID:cachet.gp_cachet_number forAttribute:@"alternate_picture_6"];
+    NSString * fileName = [self.gpDocument addFileToWrapperUsingGPID:cachet.gp_cachet_number forAttribute:@"Cachet.alternate_picture_6" fileType:GPImportFileTypePicture];
     if (fileName == nil) return;
     
     // Save the filename to the model.

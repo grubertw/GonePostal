@@ -59,7 +59,7 @@
     
     NSString * llName = [NSString stringWithFormat:@"looksLike %@", ll.name];
     
-    NSString * fileName = [self.doc addPictureToWrapperUsingGPID:llName forAttribute:@"LooksLike.picture"];
+    NSString * fileName = [self.doc addFileToWrapperUsingGPID:llName forAttribute:@"LooksLike.picture" fileType:GPImportFileTypePicture];
     if (fileName == nil) return;
     
     ll.picture = fileName;

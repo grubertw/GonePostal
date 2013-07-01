@@ -55,7 +55,7 @@
 }
 
 - (IBAction)addPictureToPrecancel:(NSButton *)sender {
-    NSString * fileName = [self.document addPictureToWrapperUsingGPID:self.currPrecancel.gp_precancel_number forAttribute:@"picture"];
+    NSString * fileName = [self.document addFileToWrapperUsingGPID:self.currPrecancel.gp_precancel_number forAttribute:@"BureauPrecenacel.picture" fileType:GPImportFileTypePicture];
     if (fileName == nil) return;
     
     [self.currPrecancel setPicture:fileName];

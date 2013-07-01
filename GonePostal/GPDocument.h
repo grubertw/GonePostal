@@ -27,6 +27,12 @@ extern const NSInteger GP_COLLECTION_TYPE_ITEMS_SOLD;
 extern NSString * BASE_GP_CATALOG_QUERY;
 extern NSString * BASE_GP_CATALOG_QUERY_WITH_SUBVARIETIES;
 
+// Used when importing files into the GPWrapper.
+typedef enum acceptedImportFileTypes {
+    GPImportFileTypePicture,
+    GPImportFileTypePDF
+} GPImportFileType;
+
 //
 // Primay class of GonePostal
 //
@@ -62,7 +68,7 @@ extern NSString * BASE_GP_CATALOG_QUERY_WITH_SUBVARIETIES;
  *
  * Returns NIL if there is an error.
  */
-- (NSString *)addPictureToWrapperUsingGPID:(NSString *)gpid forAttribute:(NSString *)attributeName;
+- (NSString *)addFileToWrapperUsingGPID:(NSString *)gpid forAttribute:(NSString *)attributeName fileType:(GPImportFileType)type;
 
 /**
  * Creates a crypographic hash of the filename for a GPID.
