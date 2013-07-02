@@ -9,8 +9,9 @@
 #import "GPCatalog+Duplicate.h"
 #import "AlternateCatalog.h"
 #import "AlternateCatalogName.h"
+#import "NumberOfStampsInPlate.h"
 #import "PlateUsage.h"
-#import "PlateNumber.h"
+#import "PlateNumber+Duplicate.h"
 #import "PlatePosition.h"
 
 @implementation GPCatalog (Duplicate)
@@ -104,6 +105,15 @@
 }
 
 - (void)copyPlateInfoIntoTarget:(GPCatalog *)target {
+    for (NumberOfStampsInPlate *nosip in self.numberOfStampsInPlate) {
+        NumberOfStampsInPlate *nosipCopy = [NSEntityDescription insertNewObjectForEntityForName:@"NumberOfStampsInPlate" inManagedObjectContext:self.managedObjectContext];
+        
+        nosipCopy.numberOfStamps = nosip.numberOfStamps;
+        nosipCopy.stampFormat = nosip.stampFormat;
+        
+        [target addNumberOfStampsInPlateObject:nosipCopy];
+    }
+    
     for (PlateUsage *pu in self.plateUsage) {
         PlateUsage *puCopy = [NSEntityDescription insertNewObjectForEntityForName:@"PlateUsage" inManagedObjectContext:self.managedObjectContext];
         
@@ -116,23 +126,7 @@
     }
     
     for (PlateNumber *pn in self.plateNumbers) {
-        PlateNumber *pnCopy = [NSEntityDescription insertNewObjectForEntityForName:@"PlateNumber" inManagedObjectContext:self.managedObjectContext];
-        
-        pnCopy.combination_unknown = pn.combination_unknown;
-        pnCopy.imprint_1 = pn.imprint_1;
-        pnCopy.imprint_2 = pn.imprint_2;
-        pnCopy.marking = pn.marking;
-        pnCopy.max_percentage = pn.max_percentage;
-        pnCopy.number_of_stamps = pn.number_of_stamps;
-        pnCopy.plate1 = pn.plate1;
-        pnCopy.plate2 = pn.plate2;
-        pnCopy.plate3 = pn.plate3;
-        pnCopy.plate4 = pn.plate4;
-        pnCopy.plate5 = pn.plate5;
-        pnCopy.plate6 = pn.plate6;
-        pnCopy.plate7 = pn.plate7;
-        pnCopy.plate8 = pn.plate8;
-        pnCopy.very_rare = pn.very_rare;
+        PlateNumber *pnCopy = [pn duplicate];
         
         [target addPlateNumbersObject:pnCopy];
     }

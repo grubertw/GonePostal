@@ -25,11 +25,13 @@
 @property (strong, nonatomic) NSArray * gpCatalogEntriesSortDescriptors;
 @property (strong, nonatomic) NSArray * countriesSortDescriptors;
 @property (strong, nonatomic) NSArray * formatsSortDescriptors;
+@property (strong, nonatomic) NSArray * stampFormatsSortDescriptors;
 @property (strong, nonatomic) NSArray * altCatalogsSortDescriptors;
 @property (strong, nonatomic) NSArray * altCatalogNamesSortDescriptors;
 @property (strong, nonatomic) NSArray * altCatalogSectionsSortDescriptors;
 @property (strong, nonatomic) NSArray * gpGroupsSortDescriptors;
 @property (strong, nonatomic) NSArray * gpCatalogSetsSortDescriptors;
+@property (strong, nonatomic) NSArray * numberOfStampsInPlateSortDescriptors;
 @property (strong, nonatomic) NSArray * plateUsageSortDescriptors;
 @property (strong, nonatomic) NSArray * plateNumberSortDescriptors;
 @property (strong, nonatomic) NSArray * cachetSortDescriptors;

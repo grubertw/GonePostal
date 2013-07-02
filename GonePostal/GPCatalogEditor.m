@@ -14,7 +14,7 @@
 #import "GPCatalogSet.h"
 #import "GPSetController.h"
 #import "PlateUsage.h"
-#import "PlateNumber.h"
+#import "PlateNumber+Duplicate.h"
 #import "GPPlateUsageController.h"
 #import "Cachet.h"
 #import "LooksLike.h"
@@ -35,6 +35,7 @@
 #import "GPCustomSearch.h"
 #import "GPCatalogPictureSelector.h"
 #import "GPPDFViewController.h"
+#import "NumberOfStampsInPlate.h"
 
 // Private members.
 @interface GPCatalogEditor ()
@@ -82,6 +83,7 @@
 @property (weak, nonatomic) IBOutlet NSArrayController * altCatalogSectionsController;
 @property (weak, nonatomic) IBOutlet NSArrayController * gpGroupsController;
 @property (weak, nonatomic) IBOutlet NSArrayController * gpCatalogSetsController;
+@property (weak, nonatomic) IBOutlet NSArrayController * numberOfStampsInPlateController;
 @property (weak, nonatomic) IBOutlet NSArrayController * plateUsageController;
 @property (weak, nonatomic) IBOutlet NSArrayController * plateNumberCombinationsController;
 @property (weak, nonatomic) IBOutlet NSArrayController * cachetController;
@@ -174,6 +176,9 @@
         NSSortDescriptor *formatSort = [[NSSortDescriptor alloc] initWithKey:@"formatName" ascending:YES];
         self.formatsSortDescriptors = @[formatSort];
         
+        NSSortDescriptor *stampFormatSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+        _stampFormatsSortDescriptors = @[stampFormatSort];
+        
         NSSortDescriptor *altCatalogNameSort = [[NSSortDescriptor alloc] initWithKey:@"alternate_catalog_name" ascending:YES];
         self.altCatalogNamesSortDescriptors = @[altCatalogNameSort];
         
@@ -188,6 +193,9 @@
         
         NSSortDescriptor *gpSetSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
         self.gpCatalogSetsSortDescriptors = @[gpSetSort];
+        
+        NSSortDescriptor *numberOfStampsInPlateSort = [[NSSortDescriptor alloc] initWithKey:@"numberOfStamps" ascending:YES];
+        _numberOfStampsInPlateSortDescriptors = @[numberOfStampsInPlateSort];
         
         NSSortDescriptor *plateUsageSort = [[NSSortDescriptor alloc] initWithKey:@"plate_number" ascending:YES];
         self.plateUsageSortDescriptors = @[plateUsageSort];
@@ -1043,12 +1051,27 @@
     [examplesController.window makeKeyAndOrderFront:sender];
 }
 
-- (IBAction)addPlateUsage:(id)sender {
-    PlateUsage * pu = [NSEntityDescription insertNewObjectForEntityForName:@"PlateUsage" inManagedObjectContext:self.managedObjectContext];
+- (IBAction)addNumberOfStampsInPlate:(id)sender {
+    [self.numberOfStampsInPlateController insert:sender];
+}
+
+- (IBAction)removeNumberOfStampsInPlate:(id)sender {
+    [self.numberOfStampsInPlateController remove:sender];
     
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
+}
+
+- (IBAction)addPlateUsage:(id)sender {
     NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
     if (entries == nil) return;
     GPCatalog * entry = [entries objectAtIndex:0];
+    
+    PlateUsage * pu = [NSEntityDescription insertNewObjectForEntityForName:@"PlateUsage" inManagedObjectContext:self.managedObjectContext];
     
     // Increment the plate_number based on number of plate usages present.
     NSUInteger nextPlateNumber = entry.plateUsage.count + 1;
@@ -1122,6 +1145,56 @@
     GPCatalog * entry = [entries objectAtIndex:0];
     
     [self.currMajorVariety copyPlateInfoIntoTarget:entry];
+}
+
+- (IBAction)explodePlates:(id)sender {
+    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
+    if (entries == nil) return;
+    GPCatalog * entry = [entries objectAtIndex:0];
+    
+    // Gather plates where one field as acting as the template.
+    NSMutableSet * plate1s = [NSMutableSet setWithCapacity:0];
+    NSMutableSet * plate2s = [NSMutableSet setWithCapacity:0];
+    
+    for (PlateNumber *pn in entry.plateNumbers) {
+        if ([pn.number_of_stamps isEqualToNumber:@(0)]) {
+            if (pn.plate1 && !pn.plate2) {
+                [plate1s addObject:pn];
+            }
+            else if (!pn.plate1 && pn.plate2) {
+                [plate2s addObject:pn];
+            }
+        }
+    }
+    
+    for (PlateNumber *plate1 in plate1s) {
+        for (PlateNumber *plate2 in plate2s) {
+            PlateNumber *pnCopy = [plate1 duplicate];
+            pnCopy.plate2 = plate2.plate2;
+            
+            [entry addPlateNumbersObject:pnCopy];
+        }
+    }
+}
+
+- (IBAction)explodeNumber:(id)sender {
+    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
+    if (entries == nil) return;
+    GPCatalog * entry = [entries objectAtIndex:0];
+    
+    for (PlateNumber *pn in entry.plateNumbers) {
+        if ([pn.number_of_stamps isEqualToNumber:@(0)]) {
+            // Blow out the number of stamps for this plate number.
+            for (NumberOfStampsInPlate *numStampsCombo in entry.numberOfStampsInPlate) {
+                PlateNumber *pnCopy = [pn duplicate];
+                pnCopy.number_of_stamps = numStampsCombo.numberOfStamps;
+                
+                [self.plateNumberCombinationsController addObject:pnCopy];
+            }
+            
+            [self.plateNumberCombinationsController removeObject:pn];
+        }
+    }
 }
 
 - (IBAction)addCachet:(id)sender {
