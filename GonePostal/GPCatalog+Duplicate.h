@@ -14,4 +14,6 @@
 // NOTE: This method does NOT save the context.
 - (GPCatalog *)duplicateFromThis;
 
+- (void)copyPlateInfoIntoTarget:(GPCatalog *)target;
+
 @end

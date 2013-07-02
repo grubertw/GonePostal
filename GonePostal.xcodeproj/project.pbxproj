@@ -448,7 +448,7 @@
 		1F55AD86171A70A30094C076 /* GPStampDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPStampDetail.h; sourceTree = "<group>"; };
 		1F55AD87171A70A30094C076 /* GPStampDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPStampDetail.m; sourceTree = "<group>"; };
 		1F55AD88171A70A30094C076 /* GPStampDetail.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GPStampDetail.xib; sourceTree = "<group>"; };
-		1F5D05C9177A70900007D781 /* GPDocument 12.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GPDocument 12.xcdatamodel"; sourceTree = "<group>"; };
+		1F5D05C9177A70900007D781 /* GPDocument 12.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "GPDocument 12.xcdatamodel"; sourceTree = "<group>"; };
 		1F5D05CA177A71910007D781 /* LooksLike.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LooksLike.h; sourceTree = "<group>"; };
 		1F5D05CB177A71910007D781 /* LooksLike.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LooksLike.m; sourceTree = "<group>"; };
 		1F5D05CD177A71920007D781 /* GPCatalogSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPCatalogSet.h; sourceTree = "<group>"; };
@@ -458,7 +458,7 @@
 		1F5D05D3177CE5480007D781 /* GPCatalogPictureSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPCatalogPictureSelector.h; sourceTree = "<group>"; };
 		1F5D05D4177CE5480007D781 /* GPCatalogPictureSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPCatalogPictureSelector.m; sourceTree = "<group>"; };
 		1F5D05D5177CE5480007D781 /* GPCatalogPictureSelector.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GPCatalogPictureSelector.xib; sourceTree = "<group>"; };
-		1F5D05D8177FA26F0007D781 /* GPDocument 13.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GPDocument 13.xcdatamodel"; sourceTree = "<group>"; };
+		1F5D05D8177FA26F0007D781 /* GPDocument 13.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "GPDocument 13.xcdatamodel"; sourceTree = "<group>"; };
 		1F5D05D9177FA4CE0007D781 /* Subject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Subject.h; sourceTree = "<group>"; };
 		1F5D05DA177FA4CE0007D781 /* Subject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Subject.m; sourceTree = "<group>"; };
 		1F5D05DC177FA4F80007D781 /* Country.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Country.h; sourceTree = "<group>"; };
@@ -640,6 +640,10 @@
 			isa = PBXGroup;
 			children = (
 				1F2E549D170759FB00F177A0 /* GPDocument.xcdatamodeld */,
+				1F0EC6C316D9467B00427B4C /* GPCatalog+Create.h */,
+				1F0EC6C416D9467B00427B4C /* GPCatalog+Create.m */,
+				1F0EC6C516D9467B00427B4C /* GPCatalog+Duplicate.h */,
+				1F0EC6C616D9467B00427B4C /* GPCatalog+Duplicate.m */,
 				1F5D05EF177FFC040007D781 /* Attachment.h */,
 				1F5D05F0177FFC040007D781 /* Attachment.m */,
 				1F5D05E2177FA5190007D781 /* GPSalesGroup.h */,
@@ -702,10 +706,6 @@
 				1F0EC6B416D9467B00427B4C /* Centering.m */,
 				1F0EC6B716D9467B00427B4C /* Dealer.h */,
 				1F0EC6B816D9467B00427B4C /* Dealer.m */,
-				1F0EC6C316D9467B00427B4C /* GPCatalog+Create.h */,
-				1F0EC6C416D9467B00427B4C /* GPCatalog+Create.m */,
-				1F0EC6C516D9467B00427B4C /* GPCatalog+Duplicate.h */,
-				1F0EC6C616D9467B00427B4C /* GPCatalog+Duplicate.m */,
 				1F0EC6CF16D9467B00427B4C /* Grade.h */,
 				1F0EC6D016D9467B00427B4C /* Grade.m */,
 				1F0EC6D116D9467B00427B4C /* GumCondition.h */,
@@ -1344,7 +1344,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "#rsync -av /Users/travis/xcodeProjects/GonePostal gb_server:/pool/travis/xcodeProjects";
+			shellScript = "rsync -av /Users/travis/xcodeProjects/GonePostal gb_server:/pool/travis/xcodeProjects";
 		};
 /* End PBXShellScriptBuildPhase section */
 

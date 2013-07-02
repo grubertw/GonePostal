@@ -1116,6 +1116,14 @@
     }
 }
 
+- (IBAction)copyPlateInformation:(id)sender {
+    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
+    if (entries == nil) return;
+    GPCatalog * entry = [entries objectAtIndex:0];
+    
+    [self.currMajorVariety copyPlateInfoIntoTarget:entry];
+}
+
 - (IBAction)addCachet:(id)sender {
     Cachet * cachet = [NSEntityDescription insertNewObjectForEntityForName:@"Cachet" inManagedObjectContext:self.managedObjectContext];
     
