@@ -95,8 +95,8 @@
         
         // Duplicate the GPCatalog entry inserted from the model controller.
         for (NSInteger i=0; i<count; i++) {
-            [self.addedGPIDs addObject:entry];
             GPCatalog * dup = [entry duplicateFromThis];
+            [self.addedGPIDs addObject:dup];
             [self.theMajorVariety addSubvarietiesObject:dup];
         }
     }
@@ -104,20 +104,10 @@
     // Track the added GPIDs for display purposes.
     [self.addedGPIDs addObject:entry];
     [self.addedGPIDsController setContent:self.addedGPIDs];
-    
-    // Save the managed object context
-    NSError * error;
-    if (![self.managedObjectContext save:&error]) {
-        NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
-        [self.managedObjectContext undo];
-        return;
-    }
+    [self.theMajorVariety addSubvarietiesObject:entry];
     
     // Prepare for the next entry.
     GPCatalog * nextEntry = [entry duplicateFromThis];
-    [self.theMajorVariety addSubvarietiesObject:nextEntry];
-    
     [self.gpCatalogEntryController setContent:nextEntry];
 }
 
@@ -140,22 +130,22 @@
         for (NSInteger i=0; i<count; i++) {
             GPCatalog * dup = [entry duplicateFromThis];
             [self.theMajorVariety addSubvarietiesObject:dup];
+            [self.addedGPIDs addObject:dup];
         }
     }
     
-    // Save the managed object context and close the window.
+    [self.theMajorVariety addSubvarietiesObject:entry];
+    [self.addedGPIDs addObject:entry];
+    
+    [self.catalogEditor loadSubvarieties:self.theMajorVariety];
+    
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
         [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
         [self.managedObjectContext undo];
+        return;
     }
-    
-    // Reload the catalog editor's content
-    if (self.catalogEditor.currMajorVariety)
-        [self.catalogEditor querySubvarieties];
-    else
-        [self.catalogEditor queryGPCatalog];
     
     [self.window performClose:self];
 }

@@ -45,6 +45,8 @@
 @property (strong, nonatomic) NSArray * attachmentsSortDescriptors;
 @property (strong, nonatomic) NSArray * subjectsSortDescriptors;
 
+@property (weak, nonatomic) IBOutlet NSArrayController * gpCatalogEntriesController;
+
 @property (strong, nonatomic) StoredSearch * assistedSearch;
 @property (strong, nonatomic) NSPredicate * countriesPredicate;
 @property (strong, nonatomic) NSPredicate * sectionsPredicate;
@@ -63,7 +65,6 @@
 // If not null, then user is viewing subvarieties.
 @property (strong, nonatomic) GPCatalog * currMajorVariety;
 
-- (void)queryGPCatalog;
-- (void)querySubvarieties;
+- (void)loadSubvarieties:(GPCatalog *)majorVariety;
 
 @end

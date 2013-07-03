@@ -37,7 +37,6 @@
 
 - (IBAction)addAltCatalogName:(id)sender {
     [self.modelController insert:self];
-    [self.managedObjectContext save:nil];
 }
 
 - (IBAction)deleteAltCatalogName:(id)sender {

@@ -86,22 +86,14 @@
         
         // Duplicate the GPCatalog entry inserted from the model controller.
         for (NSInteger i=0; i<count; i++) {
-            [self.addedGPIDs addObject:entry];
-            [entry duplicateFromThis];
+            GPCatalog * dup = [entry duplicateFromThis];
+            [self.addedGPIDs addObject:dup];
         }
     }
     
     // Track the added GPIDs for display purposes.
     [self.addedGPIDs addObject:entry];
     [self.addedGPIDsController setContent:self.addedGPIDs];
-    
-    NSError * error;
-    if (![self.managedObjectContext save:&error]) {
-        NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
-        [self.managedObjectContext undo];
-        return;
-    }
 
     // Prepare for the next entry.
     GPCatalog * nextEntry = [entry duplicateFromThis];
@@ -125,19 +117,21 @@
         
         // Duplicate the GPCatalog entry inserted from the model controller.
         for (NSInteger i=0; i<count; i++) {
-            [entry duplicateFromThis];
+            GPCatalog * dup = [entry duplicateFromThis];
+            [self.addedGPIDs addObject:dup];
         }
     }
+    
+    [self.addedGPIDs addObject:entry];
+    [self.catalogEditor.gpCatalogEntriesController addObjects:self.addedGPIDs];
     
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
         [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
         [self.managedObjectContext undo];
+        return;
     }
-    
-    // Reload the catalog editor's content
-    [self.catalogEditor queryGPCatalog];
     
     [self.window performClose:self];
 }
