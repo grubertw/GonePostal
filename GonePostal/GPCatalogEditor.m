@@ -416,6 +416,13 @@
         [self.gpCatalogEntriesController insertObject:dup atArrangedObjectIndex:[self.gpCatalogEntriesController.arrangedObjects indexOfObject:entry]+1];
     }
     
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
 }
 
 - (IBAction)removeSelectedGPCatalogEntries:(id)sender {
@@ -434,6 +441,14 @@
         }
         
         [self.gpCatalogEntriesController removeObject:entry];
+    }
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
     }
 }
 
@@ -700,6 +715,14 @@
 
 - (IBAction)addAlternateCatalog:(id)sender {
     [self.altCatalogsController add:self];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
 }
 
 - (IBAction)addDefaultPicture:(id)sender {
@@ -1001,10 +1024,26 @@
 
 - (IBAction)addNumberOfStampsInPlate:(id)sender {
     [self.numberOfStampsInPlateController insert:sender];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
 }
 
 - (IBAction)removeNumberOfStampsInPlate:(id)sender {
     [self.numberOfStampsInPlateController remove:sender];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
 }
 
 - (IBAction)addPlateUsage:(id)sender {
@@ -1022,6 +1061,14 @@
     [entry addPlateUsageObject:pu];
     
     [self tableViewSelectionDidChange:nil];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
 }
 
 - (IBAction)removePlateUsage:(id)sender {
@@ -1035,12 +1082,28 @@
     [entry removePlateUsage:[NSSet setWithArray:selectedPlateUsages]];
   
     [self tableViewSelectionDidChange:nil];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
 }
 
 - (IBAction)addPlateNumberCombination:(id)sender {
     PlateNumber * pn = [NSEntityDescription insertNewObjectForEntityForName:@"PlateNumber" inManagedObjectContext:self.managedObjectContext];
    
     [self.plateNumberCombinationsController insertObject:pn atArrangedObjectIndex:[self.plateNumberCombinationsController.arrangedObjects count]];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
 }
 
 - (IBAction)removePlateNumberCombination:(id)sender {
@@ -1051,6 +1114,14 @@
     GPCatalog * entry = [entries objectAtIndex:0];
     
     [entry removePlateNumbers:[NSSet setWithArray:selectedPlateNumbers]];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
 }
 
 - (IBAction)copyPlateInformation:(id)sender {
@@ -1059,6 +1130,14 @@
     GPCatalog * entry = [entries objectAtIndex:0];
     
     [self.currMajorVariety copyPlateInfoIntoTarget:entry];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
 }
 
 - (IBAction)explodePlates:(id)sender {
@@ -1089,6 +1168,14 @@
             [entry addPlateNumbersObject:pnCopy];
         }
     }
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
 }
 
 - (IBAction)explodeNumber:(id)sender {
@@ -1109,6 +1196,14 @@
             [self.plateNumberCombinationsController removeObject:pn];
         }
     }
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
 }
 
 - (IBAction)addCachet:(id)sender {
@@ -1121,6 +1216,14 @@
     [entry addCachetsObject:cachet];
     
     cachet.gp_cachet_number = entry.gp_catalog_number;
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
 }
 
 - (IBAction)removeCachet:(id)sender {
@@ -1132,6 +1235,14 @@
     GPCatalog * entry = [entries objectAtIndex:0];
     
     [entry removeCachets:[NSSet setWithArray:selectedCachets]];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
 }
 
 - (IBAction)addPrecancel:(id)sender {
@@ -1143,6 +1254,14 @@
     [self.document addWindowController:controller];
     
     [controller.window makeKeyAndOrderFront:sender];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
 }
 
 - (IBAction)addPictureToPrecancel:(NSButton *)sender {
@@ -1165,6 +1284,14 @@
     [self.cancelationsController insertObject:cancelation atArrangedObjectIndex:[self.cancelationsController.arrangedObjects count]];
     
     cancelation.gp_cancelation_number = entry.gp_catalog_number;
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
 }
 
 - (IBAction)removeCancelation:(id)sender {
@@ -1175,6 +1302,14 @@
     GPCatalog * entry = [entries objectAtIndex:0];
     
     [entry removeCancelations:[NSSet setWithArray:selectedCancelations]];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
 }
 
 - (IBAction)addPictureToCancelation:(id)sender {
@@ -1195,6 +1330,14 @@
     GPCatalog * entry = [entries objectAtIndex:0];
     
     [entry addTopicsObject:self.selectedTopic];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
 }
 
 - (IBAction)removeTopic:(id)sender {
@@ -1206,14 +1349,38 @@
     GPCatalog * entry = [entries objectAtIndex:0];
     
     [entry removeTopics:[NSSet setWithArray:topics]];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
 }
 
 - (IBAction)addAttachment:(id)sender {
     [self.attachmentController insert:sender];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
 }
 
 - (IBAction)removeAttachment:(id)sender {
     [self.attachmentController remove:sender];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
 }
 
 - (IBAction)viewAttachment:(id)sender {
