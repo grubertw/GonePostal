@@ -49,11 +49,8 @@ static NSString * CHOOSE_GPID_FROM_CATALOG = @"Insert a Catalog Entry";
         _doc = [docController currentDocument];
         _managedObjectContext = _doc.managedObjectContext;
         
-        NSSortDescriptor *gpCountrySort = [[NSSortDescriptor alloc] initWithKey:@"country.country_sort_id" ascending:YES];
-        NSSortDescriptor *groupSort = [[NSSortDescriptor alloc] initWithKey:@"catalogGroup.group_number" ascending:YES];
-        NSSortDescriptor *subTypeSort = [[NSSortDescriptor alloc] initWithKey:@"subvarietyType.sortID" ascending:YES];
         NSSortDescriptor *catalogNumberSort = [[NSSortDescriptor alloc] initWithKey:@"gp_catalog_number" ascending:YES];
-        _gpCatalogSortDescriptors = @[gpCountrySort, groupSort, subTypeSort, catalogNumberSort];
+        _gpCatalogSortDescriptors = @[catalogNumberSort];
         
         // Initialize the assisted search panels.
         _countrySearchController = [[GPCountrySearch alloc] initWithPredicate:countriesPredicate forStamp:NO];

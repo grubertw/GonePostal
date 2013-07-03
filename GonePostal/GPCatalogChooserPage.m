@@ -59,10 +59,8 @@
         self.assistedSearch.predicate = [NSCompoundPredicate andPredicateWithSubpredicates:predicateArray];
         
         // Create the sort descripors
-        NSSortDescriptor *gpCountrySort = [[NSSortDescriptor alloc] initWithKey:@"country.country_sort_id" ascending:YES];
-        NSSortDescriptor *groupSort = [[NSSortDescriptor alloc] initWithKey:@"catalogGroup.group_number" ascending:YES];
         NSSortDescriptor *catalogNumberSort = [[NSSortDescriptor alloc] initWithKey:@"gp_catalog_number" ascending:YES];
-        _gpCatalogSortDescriptors = @[gpCountrySort, groupSort, catalogNumberSort];
+        _gpCatalogSortDescriptors = @[catalogNumberSort];
         
         NSSortDescriptor *customSearchSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
         _customSearchSortDescriptors = @[customSearchSort];

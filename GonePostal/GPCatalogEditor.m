@@ -157,11 +157,8 @@
         _managedObjectContext = doc.managedObjectContext;
         
         // Create the sort descripors
-        NSSortDescriptor *gpCountrySort = [[NSSortDescriptor alloc] initWithKey:@"country.country_sort_id" ascending:YES];
-        NSSortDescriptor *groupSort = [[NSSortDescriptor alloc] initWithKey:@"catalogGroup.group_number" ascending:YES];
-        NSSortDescriptor *subTypeSort = [[NSSortDescriptor alloc] initWithKey:@"subvarietyType.sortID" ascending:YES];
         NSSortDescriptor *catalogNumberSort = [[NSSortDescriptor alloc] initWithKey:@"gp_catalog_number" ascending:YES];
-        self.gpCatalogEntriesSortDescriptors = @[gpCountrySort, groupSort, subTypeSort, catalogNumberSort];
+        self.gpCatalogEntriesSortDescriptors = @[catalogNumberSort];
         
         NSSortDescriptor *countrySort = [[NSSortDescriptor alloc] initWithKey:@"country_sort_id" ascending:YES];
         self.countriesSortDescriptors = @[countrySort];
