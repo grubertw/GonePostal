@@ -40,6 +40,7 @@
 #import "GPSubvarietyType.h"
 #import "GPAttachmentController.h"
 #import "GPSupportedSubjects.h"
+#import "GPStampDefaults.h"
 
 #import "GPFilenameTransformer.h"
 #import "GPAlternateCatalogNumberTransformer.h"
@@ -386,6 +387,13 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
     [gpCatalogDefaultsWindow setManagedObjectContext:self.managedObjectContext];
     
     [gpCatalogDefaultsWindow.window makeKeyAndOrderFront:self];
+}
+
+- (void)openStampDefaults:(id)sender {
+    GPStampDefaults * controller = [[GPStampDefaults alloc] initWithWindowNibName:@"GPStampDefaults"];
+    [self addWindowController:controller];
+    
+    [controller.window makeKeyAndOrderFront:sender];
 }
 
 - (void)editSupportedCountries:(id)sender {

@@ -95,6 +95,13 @@
     [self.addedGPIDs addObject:entry];
     [self.addedGPIDsController setContent:self.addedGPIDs];
 
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext rollback];
+    }
+    
     // Prepare for the next entry.
     GPCatalog * nextEntry = [entry duplicateFromThis];
     [self.gpCatalogEntryController setContent:nextEntry];
@@ -129,7 +136,7 @@
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
         [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
-        [self.managedObjectContext undo];
+        [self.managedObjectContext rollback];
         return;
     }
     

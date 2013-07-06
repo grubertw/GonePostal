@@ -7,6 +7,7 @@
 //
 
 #import "Stamp+CreateComposite.h"
+#import "Stamp+Duplicate.h"
 #import "GPCatalog.h"
 #import "Country.h"
 #import "GPCatalogGroup.h"
@@ -38,64 +39,6 @@ const NSInteger COMPOSITE_TYPE_INTEGRAL                     = 3;
     [composite addChildrenObject:self];
     
     return composite;
-}
-
-- (Stamp *)duplicate {
-    Stamp * dup = [NSEntityDescription insertNewObjectForEntityForName:@"Stamp" inManagedObjectContext:self.managedObjectContext];
-    
-    dup.manual_value = self.manual_value;
-    dup.purchase_amount = self.purchase_amount;
-    dup.address_type = self.address_type;
-    dup.alternate_picture_1 = self.alternate_picture_1;
-    dup.alternate_picture_2 = self.alternate_picture_2;
-    dup.alternate_picture_3 = self.alternate_picture_3;
-    dup.alternate_picture_4 = self.alternate_picture_4;
-    dup.alternate_picture_5 = self.alternate_picture_5;
-    dup.alternate_picture_6 = self.alternate_picture_6;
-    dup.cancelation_type = self.cancelation_type;
-    dup.census_id = self.census_id;
-    dup.certificates = self.certificates;
-    dup.default_picture = self.default_picture;
-    dup.faults = self.faults;
-    dup.gp_stamp_number = self.gp_stamp_number;
-    dup.history = self.history;
-    dup.inprint_1 = self.inprint_1;
-    dup.inprint_2 = self.inprint_2;
-    dup.notes = self.notes;
-    dup.plate_1 = self.plate_1;
-    dup.plate_2 = self.plate_2;
-    dup.plate_3 = self.plate_3;
-    dup.plate_4 = self.plate_4;
-    dup.plate_5 = self.plate_5;
-    dup.plate_6 = self.plate_6;
-    dup.plate_7 = self.plate_7;
-    dup.plate_8 = self.plate_8;
-    dup.plate_location = self.plate_location;
-    dup.plate_position = self.plate_position;
-    dup.source = self.source;
-    dup.mint_used = self.mint_used;
-    dup.cancelation_date = self.cancelation_date;
-    dup.purchase_date = self.purchase_date;
-    
-    dup.bureauPrecancel = self.bureauPrecancel;
-    dup.cachet = self.cachet;
-    dup.cancelQuality = self.cancelQuality;
-    dup.centering = self.centering;
-    dup.dealer = self.dealer;
-    dup.format = self.format;
-    dup.gpCatalog = self.gpCatalog;
-    dup.grade = self.grade;
-    dup.gumCondition = self.gumCondition;
-    dup.hinged = self.hinged;
-    dup.localPrecancel = self.localPrecancel;
-    dup.location = self.location;
-    dup.lot = self.lot;
-    dup.mount = self.mount;
-    dup.perfin = self.perfin;
-    dup.soundness = self.soundness;
-    dup.valuation = self.valuation;
-    
-    return dup;
 }
 
 // Create a composite list of stamps containing the passed-in arbitrary

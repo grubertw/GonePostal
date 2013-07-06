@@ -2,7 +2,7 @@
 //  Stamp.h
 //  GonePostal
 //
-//  Created by Travis Gruber on 6/1/13.
+//  Created by Travis Gruber on 7/6/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
@@ -24,6 +24,8 @@
 @property (nonatomic, retain) NSString * cancelation_type;
 @property (nonatomic, retain) NSString * census_id;
 @property (nonatomic, retain) NSString * certificates;
+@property (nonatomic, retain) NSString * composite_description;
+@property (nonatomic, retain) NSString * composite_name;
 @property (nonatomic, retain) NSString * default_picture;
 @property (nonatomic, retain) NSString * faults;
 @property (nonatomic, retain) NSString * gp_stamp_number;
@@ -49,8 +51,7 @@
 @property (nonatomic, retain) NSNumber * purchase_amount;
 @property (nonatomic, retain) NSDate * purchase_date;
 @property (nonatomic, retain) NSString * source;
-@property (nonatomic, retain) NSString * composite_name;
-@property (nonatomic, retain) NSString * composite_description;
+@property (nonatomic, retain) NSNumber * is_default;
 @property (nonatomic, retain) BureauPrecancel *bureauPrecancel;
 @property (nonatomic, retain) Cachet *cachet;
 @property (nonatomic, retain) CancelQuality *cancelQuality;

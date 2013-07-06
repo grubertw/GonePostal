@@ -18,8 +18,7 @@
 @property (strong, nonatomic) NSManagedObjectContext * managedObjectContext;
 @property (strong, nonatomic) NSArray * sortDescriptors;
 
-@property (strong, nonatomic) NSPanel * panel;
 @property (strong, nonatomic) NSDrawer * drawer;
 
-- (id)initAsSheet:(BOOL)isSheet modifyingStamp:(Stamp *)stamp;
+- (id)initAsDrawer:(BOOL)isDrawer modifyingStamp:(Stamp *)stamp;
 @end

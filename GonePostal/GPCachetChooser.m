@@ -11,7 +11,7 @@
 #import "Cachet.h"
 
 @interface GPCachetChooser ()
-@property (nonatomic) BOOL isSheet;
+@property (nonatomic) BOOL isDrawer;
 
 @property (weak, nonatomic) IBOutlet NSArrayController * cachetController;
 
@@ -22,11 +22,11 @@
 
 @implementation GPCachetChooser
 
-- (id)initAsSheet:(BOOL)isSheet modifyingStamp:(Stamp *)stamp
+- (id)initAsDrawer:(BOOL)isDrawer modifyingStamp:(Stamp *)stamp
 {
     self = [super initWithNibName:@"GPCachetChooser" bundle:nil];
     if (self) {
-        _isSheet = isSheet;
+        _isDrawer = isDrawer;
         
         // Initialize the sort descriptors
         NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"gp_cachet_number" ascending:YES];
@@ -56,14 +56,11 @@
         self.stamp.cachet = self.cachetController.selectedObjects[0];
     }
     
-    if (self.isSheet) {
-        // End the sheet.
-        NSApplication * app = [NSApplication sharedApplication];
-        [app endSheet:self.view.window];
-        [self.view.window close];
+    if (self.isDrawer) {
+        [self.drawer close];
     }
     else {
-        [self.drawer close];
+        [self.view removeFromSuperview];
     }
 }
 

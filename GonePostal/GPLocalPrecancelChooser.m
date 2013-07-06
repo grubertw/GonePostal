@@ -11,18 +11,18 @@
 #import "LocalPrecancel.h"
 
 @interface GPLocalPrecancelChooser ()
-@property (nonatomic) BOOL isSheet;
+@property (nonatomic) BOOL isDrawer;
 
 @property (strong, nonatomic) IBOutlet NSArrayController *localPrecancelController;
 @end
 
 @implementation GPLocalPrecancelChooser
 
-- (id)initAsSheet:(BOOL)isSheet modifyingStamp:(Stamp *)stamp
+- (id)initAsDrawer:(BOOL)isDrawer modifyingStamp:(Stamp *)stamp
 {
     self = [super initWithNibName:@"GPLocalPrecancelChooser" bundle:nil];
     if (self) {
-        _isSheet = isSheet;
+        _isDrawer = isDrawer;
         
         // Initialize the sort descriptors
         NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"gp_precancel_number" ascending:YES];
@@ -43,14 +43,11 @@
         self.stamp.localPrecancel = self.localPrecancelController.selectedObjects[0];
     }
     
-    if (self.isSheet) {
-        // End the sheet.
-        NSApplication * app = [NSApplication sharedApplication];
-        [app endSheet:self.view.window];
-        [self.view.window close];
+    if (self.isDrawer) {
+        [self.drawer close];
     }
     else {
-        [self.drawer close];
+        [self.view removeFromSuperview];
     }
 }
 

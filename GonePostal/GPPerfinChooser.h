@@ -16,9 +16,8 @@
 @property (strong, nonatomic) NSArray * sortDescriptors;
 @property (strong, nonatomic) NSArray * catalogSortDescriptors;
 
-@property (strong, nonatomic) NSPanel * panel;
 @property (strong, nonatomic) NSDrawer * drawer;
 
-- (id)initAsSheet:(BOOL)isSheet modifyingStamp:(Stamp *)stamp;
+- (id)initAsDrawer:(BOOL)isDrawer modifyingStamp:(Stamp *)stamp;
 
 @end

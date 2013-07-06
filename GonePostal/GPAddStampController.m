@@ -9,7 +9,6 @@
 #import "GPAddStampController.h"
 #import "GPDocument.h"
 #import "GPCatalog.h"
-#import "Stamp+CreateComposite.h"
 
 @interface GPAddStampController ()
 @property (nonatomic) NSUInteger operatingMode;
@@ -22,8 +21,6 @@
 
 @property (strong, nonatomic) NSArray * pages;
 @property (assign) id initialSelectedPage;
-
-@property (nonatomic) BOOL donePressed;
 @end
 
 static const NSUInteger LOCATOR_PAGE = 1;
@@ -41,7 +38,6 @@ static NSString * NEW_STAMP_PAGE_TITLE = @"Specify Stamp Specifics";
     if (self) {
         _myCollection = myCollection;
         _operatingMode = mode;
-        _donePressed = NO;
         
         NSDocumentController * docController = [NSDocumentController sharedDocumentController];
         GPDocument * doc = [docController currentDocument];
@@ -60,7 +56,8 @@ static NSString * NEW_STAMP_PAGE_TITLE = @"Specify Stamp Specifics";
             
             _gpCatalogPage = [[GPCatalogChooserPage alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:nil sectionSearch:nil filterSearch:nil];
             
-            _gpNewStampPage = [[GPNewStampPage alloc] initWithNibName:@"GPNewStampPage" bundle:nil];
+            _gpNewStampPage = [[GPNewStampPage alloc] initWithCollection:myCollection];
+            [_gpNewStampPage setComposite:self.composite];
             
             _pages = @[@(LOCATOR_PAGE),@(GP_CATALOG_PAGE),@(NEW_STAMP_PAGE)];
         }
@@ -70,7 +67,8 @@ static NSString * NEW_STAMP_PAGE_TITLE = @"Specify Stamp Specifics";
             
             _gpCatalogPage = [[GPCatalogChooserPage alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate filterSearch:doc.filtersPredicate];
             
-            _gpNewStampPage = [[GPNewStampPage alloc] initWithNibName:@"GPNewStampPage" bundle:nil];
+            _gpNewStampPage = [[GPNewStampPage alloc] initWithCollection:myCollection];
+            [_gpNewStampPage setComposite:self.composite];
             
             _pages = @[@(GP_CATALOG_PAGE), @(NEW_STAMP_PAGE)];
             _initialSelectedPage = @(GP_CATALOG_PAGE);
@@ -97,7 +95,6 @@ static NSString * NEW_STAMP_PAGE_TITLE = @"Specify Stamp Specifics";
     
     [self.backButton setHidden:YES];
     [self.forwardButton setHidden:NO];
-    [self.doneButton setHidden:YES];
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
@@ -172,7 +169,6 @@ static NSString * NEW_STAMP_PAGE_TITLE = @"Specify Stamp Specifics";
             [self.backButton setHidden:NO];
         
         [self.forwardButton setHidden:NO];
-        [self.doneButton setHidden:YES];
     }
     else if ([selectedPage isEqualToNumber:@(NEW_STAMP_PAGE)]) {
         [self.gpNewStampPage setSelectedGPCatalog:self.selectedGPCatalog];
@@ -181,7 +177,6 @@ static NSString * NEW_STAMP_PAGE_TITLE = @"Specify Stamp Specifics";
         
         [self.forwardButton setHidden:YES];
         [self.backButton setHidden:NO];
-        [self.doneButton setHidden:NO];
     }
 }
 
@@ -193,47 +188,33 @@ static NSString * NEW_STAMP_PAGE_TITLE = @"Specify Stamp Specifics";
     [self.pageController navigateBack:sender];
 }
 
-- (void)windowWillClose:(NSNotification *)notification {
-    if (!self.donePressed) {
-        // Rollback all changed to the managed object context
-        // that have not been explicitly saved.
-        [self.managedObjectContext rollback];
-        [self.managedObjectContext save:nil];
+- (IBAction)quickAdd:(id)sender {
+    Stamp * stamp = [NSEntityDescription insertNewObjectForEntityForName:@"Stamp" inManagedObjectContext:self.managedObjectContext];
+    stamp.gpCatalog = self.gpCatalogPage.selectedGPCatalog;
+    stamp.gp_stamp_number = self.gpCatalogPage.selectedGPCatalog.gp_catalog_number;
+    
+    if (self.composite == nil) {
+        // Add the new stamp to the collection.
+        [self.myCollection addStampsObject:stamp];
     }
     else {
-        // Get the quantity input for creating a multi-quantity composite.
-        NSInteger compositeQuantity = [self.gpNewStampPage.compositeQuantityInput integerValue];
-        
-        if (compositeQuantity > 1) {
-            if (self.composite != nil) return;
-            
-            // Create a multi-quantity composite and add it to the collection
-            // as one item.
-            Stamp * composite = [self.gpNewStampPage.stamp createCompositeFromThisContainingAmount:compositeQuantity];
-            [self.myCollection addStampsObject:composite];
-        }
-        else {
-            if (self.composite == nil) {
-                // Add the new stamp to the collection.
-                [self.myCollection addStampsObject:self.gpNewStampPage.stamp];
-            }
-            else {
-                [self.composite addChildrenObject:self.gpNewStampPage.stamp];
-            }
-        }
-        
-        NSError * error;
-        if (![self.managedObjectContext save:&error]) {
-            NSAlert * errSheet = [NSAlert alertWithError:error];
-            [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
-            [self.managedObjectContext rollback];
-        }
+        [self.composite addChildrenObject:stamp];
+    }
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext rollback];
     }
 }
 
 - (IBAction)done:(id)sender {
-    self.donePressed = YES;
     [self.window close];
+}
+
+- (void)windowWillClose:(NSNotification *)notification {
+    [self.managedObjectContext deleteObject:self.gpNewStampPage.stamp];
 }
 
 @end

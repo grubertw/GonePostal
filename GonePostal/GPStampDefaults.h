@@ -1,21 +1,18 @@
 //
-//  GPNewStampPage.h
+//  GPStampDefaults.h
 //  GonePostal
 //
-//  Created by Travis Gruber on 3/7/13.
+//  Created by Travis Gruber on 7/6/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
-#import "GPCatalog.h"
-#import "GPCollection.h"
+#import "Stamp.h"
 
-@interface GPNewStampPage : NSViewController <NSPageControllerDelegate>
+@interface GPStampDefaults : NSWindowController
 
-@property (strong, nonatomic) GPCatalog * selectedGPCatalog;
 @property (strong, nonatomic) NSManagedObjectContext * managedObjectContext;
 @property (strong, nonatomic) Stamp * stamp;
-@property (strong, nonatomic) Stamp * composite;
 
 @property (strong, nonatomic) NSArray * formatSortDescriptors;
 @property (strong, nonatomic) NSArray * centeringSortDescriptors;
@@ -28,9 +25,5 @@
 @property (strong, nonatomic) NSArray * lotSortDescriptors;
 @property (strong, nonatomic) NSArray * locationSortDescriptors;
 @property (strong, nonatomic) NSArray * mountSortDescriptors;
-
-@property (weak, nonatomic) IBOutlet NSTextField * compositeQuantityInput;
-
-- (id)initWithCollection:(GPCollection *)myCollection;
 
 @end

@@ -22,7 +22,6 @@
 @property (strong, nonatomic) NSArray * plateUsageSortDescriptors;
 @property (strong, nonatomic) NSArray * plateCombinationsSortDescriptors;
 
-@property (strong, nonatomic) NSPanel * panel;
 @property (strong, nonatomic) NSDrawer * drawer;
 
 // Formats selected plate info into this control, which
@@ -36,8 +35,9 @@
  * pass in allocated pointers which the panel fills in
  * when done is pressed.
  */
-- (id)initAsSheet:(BOOL)isSheet modifyingStamp:(Stamp *)stamp;
+- (id)initAsDrawer:(BOOL)isDrawer modifyingStamp:(Stamp *)stamp;
 
+- (void)clearManualPlateEntry;
 - (void)formatPlateInfo;
 
 @end

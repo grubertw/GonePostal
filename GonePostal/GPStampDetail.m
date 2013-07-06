@@ -108,11 +108,11 @@
         _sellListsFilter = [NSPredicate predicateWithFormat:@"type == %ld", GP_COLLECTION_TYPE_SELL_LIST];
         
         // Intialize the chooser drawers.
-        _plateNumberChooser = [[GPPlateNumberChooser alloc] initAsSheet:NO modifyingStamp:self.stamp];
-        _cachetChooser = [[GPCachetChooser alloc] initAsSheet:NO modifyingStamp:self.stamp];
-        _bureauPrecancelChooser = [[GPBureauPrecancelChooser alloc] initAsSheet:NO modifyingStamp:self.stamp];
-        _localPrecancelChooser = [[GPLocalPrecancelChooser alloc] initAsSheet:NO modifyingStamp:self.stamp];
-        _perfinChooser = [[GPPerfinChooser alloc] initAsSheet:NO modifyingStamp:self.stamp];
+        _plateNumberChooser = [[GPPlateNumberChooser alloc] initAsDrawer:YES modifyingStamp:self.stamp];
+        _cachetChooser = [[GPCachetChooser alloc] initAsDrawer:YES modifyingStamp:self.stamp];
+        _bureauPrecancelChooser = [[GPBureauPrecancelChooser alloc] initAsDrawer:YES modifyingStamp:self.stamp];
+        _localPrecancelChooser = [[GPLocalPrecancelChooser alloc] initAsDrawer:YES modifyingStamp:self.stamp];
+        _perfinChooser = [[GPPerfinChooser alloc] initAsDrawer:YES modifyingStamp:self.stamp];
         
         NSDocumentController * docController = [NSDocumentController sharedDocumentController];
         _doc = [docController currentDocument];
@@ -252,6 +252,7 @@
 }
 
 - (IBAction)choosePlateInfo:(id)sender {
+    [self.plateNumberChooser clearManualPlateEntry];
     [self.plateNumberChooser.drawer open:sender];
 }
 

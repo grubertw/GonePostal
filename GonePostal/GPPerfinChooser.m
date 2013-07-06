@@ -11,7 +11,7 @@
 #import "Perfin.h"
 
 @interface GPPerfinChooser ()
-@property (nonatomic) BOOL isSheet;
+@property (nonatomic) BOOL isDrawer;
 
 @property (strong, nonatomic) IBOutlet NSArrayController *perfinController;
 @property (strong, nonatomic) IBOutlet NSArrayController *perfinCatalogController;
@@ -23,11 +23,11 @@
 
 @implementation GPPerfinChooser
 
-- (id)initAsSheet:(BOOL)isSheet modifyingStamp:(Stamp *)stamp
+- (id)initAsDrawer:(BOOL)isDrawer modifyingStamp:(Stamp *)stamp
 {
     self = [super initWithNibName:@"GPPerfinChooser" bundle:nil];
     if (self) {
-        _isSheet = isSheet;
+        _isDrawer = isDrawer;
         
         // Initialize the sort descriptors
         NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"gp_perfin_number" ascending:YES];
@@ -60,14 +60,11 @@
         self.stamp.perfin = self.perfinController.selectedObjects[0];
     }
     
-    if (self.isSheet) {
-        // End the sheet.
-        NSApplication * app = [NSApplication sharedApplication];
-        [app endSheet:self.view.window];
-        [self.view.window close];
+    if (self.isDrawer) {
+        [self.drawer close];
     }
     else {
-        [self.drawer close];
+        [self.view removeFromSuperview];
     }
 }
 

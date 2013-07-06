@@ -12,22 +12,35 @@
 #import "PlateUsage.h"
 
 @interface GPPlateNumberChooser ()
-@property (nonatomic) BOOL isSheet;
+@property (nonatomic) BOOL isDrawer;
 
 @property (strong, nonatomic) IBOutlet NSCollectionView * plateUsageCollection;
 @property (weak, nonatomic) IBOutlet NSTableView *plateCombinationsTable;
 
 @property (strong, nonatomic) IBOutlet NSArrayController *plateUsageController;
 @property (strong, nonatomic) IBOutlet NSArrayController *plateCombinationsController;
+
+@property (weak, nonatomic) IBOutlet NSTextField * plate1;
+@property (weak, nonatomic) IBOutlet NSTextField * plate2;
+@property (weak, nonatomic) IBOutlet NSTextField * plate3;
+@property (weak, nonatomic) IBOutlet NSTextField * plate4;
+@property (weak, nonatomic) IBOutlet NSTextField * plate5;
+@property (weak, nonatomic) IBOutlet NSTextField * plate6;
+@property (weak, nonatomic) IBOutlet NSTextField * plate7;
+@property (weak, nonatomic) IBOutlet NSTextField * plate8;
+@property (weak, nonatomic) IBOutlet NSTextField * imprint1;
+@property (weak, nonatomic) IBOutlet NSTextField * imprint2;
+@property (weak, nonatomic) IBOutlet NSTextField * position;
+
 @end
 
 @implementation GPPlateNumberChooser
 
-- (id)initAsSheet:(BOOL)isSheet modifyingStamp:(Stamp *)stamp
+- (id)initAsDrawer:(BOOL)isDrawer modifyingStamp:(Stamp *)stamp
 {
     self = [super initWithNibName:@"GPPlateNumberChooser" bundle:nil];
     if (self) {
-        _isSheet = isSheet;
+        _isDrawer = isDrawer;
         
         NSSortDescriptor *plateUsageSort = [[NSSortDescriptor alloc] initWithKey:@"plate_number" ascending:YES];
         _plateUsageSortDescriptors = @[plateUsageSort];
@@ -62,6 +75,20 @@
     }
 }
 
+- (void)clearManualPlateEntry {
+    [self.plate1 setStringValue:@""];
+    [self.plate2 setStringValue:@""];
+    [self.plate3 setStringValue:@""];
+    [self.plate4 setStringValue:@""];
+    [self.plate5 setStringValue:@""];
+    [self.plate6 setStringValue:@""];
+    [self.plate7 setStringValue:@""];
+    [self.plate8 setStringValue:@""];
+    [self.imprint1 setStringValue:@""];
+    [self.imprint2 setStringValue:@""];
+    [self.position setStringValue:@""];
+}
+
 - (IBAction)closeChooser:(id)sender {
     // Set the selected plate position from the plate usage chooser.
     if ([self.gpCatalog.plateUsage count] > 0) {
@@ -69,7 +96,9 @@
         self.selectedPlatePosition = item.selectedPlatePosition.name;
     }
     
-    if ([self.plateCombinationsController.selectedObjects count] > 0) {
+    NSArray * selection = self.plateCombinationsController.selectedObjects;
+    
+    if (selection && [selection count] > 0) {
         PlateNumber * selectedPlateCombo = self.plateCombinationsController.selectedObjects[0];
         self.stamp.plate_1 = selectedPlateCombo.plate1;
         self.stamp.plate_2 = selectedPlateCombo.plate2;
@@ -81,84 +110,70 @@
         self.stamp.plate_8 = selectedPlateCombo.plate8;
         self.stamp.inprint_1 = selectedPlateCombo.imprint_1;
         self.stamp.inprint_2 = selectedPlateCombo.imprint_2;
-        
         self.stamp.plate_position = self.selectedPlatePosition;
+    }
+    else {
+        self.stamp.plate_1 = [self.plate1 stringValue];
+        self.stamp.plate_2 = [self.plate2 stringValue];
+        self.stamp.plate_3 = [self.plate3 stringValue];
+        self.stamp.plate_4 = [self.plate4 stringValue];
+        self.stamp.plate_5 = [self.plate5 stringValue];
+        self.stamp.plate_6 = [self.plate6 stringValue];
+        self.stamp.plate_7 = [self.plate7 stringValue];
+        self.stamp.plate_8 = [self.plate8 stringValue];
+        self.stamp.inprint_1 = [self.imprint1 stringValue];
+        self.stamp.inprint_2 = [self.imprint2 stringValue];
+        self.stamp.plate_position = [self.position stringValue];
     }
     
     // Format the selected plate info into the control set by the parent.
     [self formatPlateInfo];
     
-    if (self.isSheet) {
-        // End the sheet.
-        NSApplication * app = [NSApplication sharedApplication];
-        [app endSheet:self.view.window];
-        [self.view.window close];
+    if (self.isDrawer) {
+        [self.drawer close];
     }
     else {
-        [self.drawer close];
+        [self.view removeFromSuperview];
     }
 }
 
 - (void)formatPlateInfo {
-    NSString * plateInfo = @"Printed using:\nplate #";
+    NSString * plateInfo = @"Printed using the following Plate(s)\n";
  
-    BOOL goodToGo = NO;
-    if (self.stamp.plate_1) goodToGo = YES;
-    
-    NSArray * sortedPlateUsage = [self.stamp.gpCatalog.plateUsage sortedArrayUsingDescriptors:self.plateUsageSortDescriptors];
-    
-    for (PlateUsage * pu in sortedPlateUsage) {
-        if ([pu.plate_number isEqualToNumber:@(1)]) {
-            if (!self.stamp.plate_1) break;
-            plateInfo = [plateInfo stringByAppendingFormat:@"%@\n", self.stamp.plate_1];
-            if (!self.stamp.plate_2) goodToGo = NO;
-        }
-        else if ([pu.plate_number isEqualToNumber:@(2)]) {
-            if (!self.stamp.plate_2) break;
-            plateInfo = [plateInfo stringByAppendingFormat:@"%@\n", self.stamp.plate_2];
-            if (!self.stamp.plate_3) goodToGo = NO;
-        }
-        else if ([pu.plate_number isEqualToNumber:@(3)]) {
-            if (!self.stamp.plate_3) break;
-            plateInfo = [plateInfo stringByAppendingFormat:@"%@\n", self.stamp.plate_3];
-            if (!self.stamp.plate_4) goodToGo = NO;
-        }
-        else if ([pu.plate_number isEqualToNumber:@(4)]) {
-            if (!self.stamp.plate_4) break;
-            plateInfo = [plateInfo stringByAppendingFormat:@"%@\n", self.stamp.plate_4];
-            if (!self.stamp.plate_5) goodToGo = NO;
-        }
-        else if ([pu.plate_number isEqualToNumber:@(5)]) {
-            if (!self.stamp.plate_5) break;
-            plateInfo = [plateInfo stringByAppendingFormat:@"%@\n", self.stamp.plate_5];
-            if (!self.stamp.plate_6) goodToGo = NO;
-        }
-        else if ([pu.plate_number isEqualToNumber:@(6)]) {
-            if (!self.stamp.plate_6) break;
-            plateInfo = [plateInfo stringByAppendingFormat:@"%@\n", self.stamp.plate_6];
-            if (!self.stamp.plate_7) goodToGo = NO;
-        }
-        else if ([pu.plate_number isEqualToNumber:@(7)]) {
-            if (!self.stamp.plate_7) break;
-            plateInfo = [plateInfo stringByAppendingFormat:@"%@\n", self.stamp.plate_7];
-            if (!self.stamp.plate_8) goodToGo = NO;
-        }
-        else if ([pu.plate_number isEqualToNumber:@(8)]) {
-            if (!self.stamp.plate_8) break;
-            plateInfo = [plateInfo stringByAppendingFormat:@"%@\n", self.stamp.plate_8];
-            goodToGo = NO;
-        }
-        
-        if (goodToGo) {
-            plateInfo = [plateInfo stringByAppendingString:@"  and #"];
-        }
+    if (self.stamp.plate_1 && [self.stamp.plate_1 length] > 0) {
+        plateInfo = [plateInfo stringByAppendingFormat:@"\t%@\n", self.stamp.plate_1];
+    }
+    if (self.stamp.plate_2 && [self.stamp.plate_2 length] > 0) {
+        plateInfo = [plateInfo stringByAppendingFormat:@"\t%@\n", self.stamp.plate_2];
+    }
+    if (self.stamp.plate_3 && [self.stamp.plate_3 length] > 0) {
+        plateInfo = [plateInfo stringByAppendingFormat:@"\t%@\n", self.stamp.plate_3];
+    }
+    if (self.stamp.plate_4 && [self.stamp.plate_4 length] > 0) {
+        plateInfo = [plateInfo stringByAppendingFormat:@"\t%@\n", self.stamp.plate_4];
+    }
+    if (self.stamp.plate_5 && [self.stamp.plate_5 length] > 0) {
+        plateInfo = [plateInfo stringByAppendingFormat:@"\t%@\n", self.stamp.plate_5];
+    }
+    if (self.stamp.plate_6 && [self.stamp.plate_6 length] > 0) {
+        plateInfo = [plateInfo stringByAppendingFormat:@"\t%@\n", self.stamp.plate_6];
+    }
+    if (self.stamp.plate_7 && [self.stamp.plate_7 length] > 0) {
+        plateInfo = [plateInfo stringByAppendingFormat:@"\t%@\n", self.stamp.plate_7];
+    }
+    if (self.stamp.plate_8 && [self.stamp.plate_8 length] > 0) {
+        plateInfo = [plateInfo stringByAppendingFormat:@"\t%@\n", self.stamp.plate_8];
     }
     
-    if (self.stamp.inprint_1) {
-        plateInfo = [plateInfo stringByAppendingFormat:@"with Imprint #%@", self.stamp.inprint_1];
+    if (self.stamp.inprint_1 && [self.stamp.inprint_1 length] > 0) {
+        plateInfo = [plateInfo stringByAppendingString:@"and Imprint(s):\n"];
     }
-    if (self.stamp.inprint_2) {
-        plateInfo = [plateInfo stringByAppendingFormat:@" and Imprint #%@", self.stamp.inprint_2];
+    
+    if (self.stamp.inprint_1 && [self.stamp.inprint_1 length] > 0) {
+        plateInfo = [plateInfo stringByAppendingFormat:@"\t#%@", self.stamp.inprint_1];
+    }
+    if (self.stamp.inprint_2 && [self.stamp.inprint_2 length] > 0) {
+        plateInfo = [plateInfo stringByAppendingFormat:@"\t#%@", self.stamp.inprint_2];
     }
     
     plateInfo = [plateInfo stringByAppendingFormat:@"At position %@", self.stamp.plate_position];
