@@ -138,7 +138,7 @@
 															<int key="NSvFlags">256</int>
 															<string key="NSFrameSize">{401, 425}</string>
 															<reference key="NSSuperview" ref="517821189"/>
-															<reference key="NSNextKeyView" ref="266089152"/>
+															<reference key="NSNextKeyView" ref="917527295"/>
 															<string key="NSReuseIdentifierKey">_NS:13</string>
 															<bool key="NSEnabled">YES</bool>
 															<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -277,28 +277,29 @@
 																		<string key="NSKeyEquivalent"/>
 																		<int key="NSPeriodicDelay">400</int>
 																		<int key="NSPeriodicInterval">75</int>
-																		<nil key="NSMenuItem"/>
+																		<object class="NSMenuItem" key="NSMenuItem" id="634663875">
+																			<reference key="NSMenu" ref="554837619"/>
+																			<string key="NSTitle">Pop Up</string>
+																			<string key="NSKeyEquiv"/>
+																			<int key="NSKeyEquivModMask">1048576</int>
+																			<int key="NSMnemonicLoc">2147483647</int>
+																			<int key="NSState">1</int>
+																			<object class="NSCustomResource" key="NSOnImage" id="613921290">
+																				<string key="NSClassName">NSImage</string>
+																				<string key="NSResourceName">NSMenuCheckmark</string>
+																			</object>
+																			<object class="NSCustomResource" key="NSMixedImage" id="570481898">
+																				<string key="NSClassName">NSImage</string>
+																				<string key="NSResourceName">NSMenuMixedState</string>
+																			</object>
+																			<string key="NSAction">_popUpItemAction:</string>
+																			<reference key="NSTarget" ref="776885192"/>
+																		</object>
 																		<bool key="NSMenuItemRespectAlignment">YES</bool>
 																		<object class="NSMenu" key="NSMenu" id="554837619">
 																			<string key="NSTitle">OtherViews</string>
 																			<array class="NSMutableArray" key="NSMenuItems">
-																				<object class="NSMenuItem" id="634663875">
-																					<reference key="NSMenu" ref="554837619"/>
-																					<string key="NSTitle">Pop Up</string>
-																					<string key="NSKeyEquiv"/>
-																					<int key="NSKeyEquivModMask">1048576</int>
-																					<int key="NSMnemonicLoc">2147483647</int>
-																					<object class="NSCustomResource" key="NSOnImage" id="613921290">
-																						<string key="NSClassName">NSImage</string>
-																						<string key="NSResourceName">NSMenuCheckmark</string>
-																					</object>
-																					<object class="NSCustomResource" key="NSMixedImage" id="570481898">
-																						<string key="NSClassName">NSImage</string>
-																						<string key="NSResourceName">NSMenuMixedState</string>
-																					</object>
-																					<string key="NSAction">_popUpItemAction:</string>
-																					<reference key="NSTarget" ref="776885192"/>
-																				</object>
+																				<reference ref="634663875"/>
 																			</array>
 																			<reference key="NSMenuFont" ref="26"/>
 																		</object>
@@ -389,7 +390,7 @@
 											</array>
 											<string key="NSFrame">{{0, 42}, {403, 443}}</string>
 											<reference key="NSSuperview" ref="271343910"/>
-											<reference key="NSNextKeyView" ref="917527295"/>
+											<reference key="NSNextKeyView" ref="517821189"/>
 											<string key="NSReuseIdentifierKey">_NS:9</string>
 											<int key="NSsFlags">133682</int>
 											<reference key="NSVScroller" ref="561749328"/>
@@ -571,31 +572,8 @@
 															<object class="NSDatePickerCell" key="NSCell" id="1017327350">
 																<int key="NSCellFlags">71303168</int>
 																<int key="NSCellFlags2">0</int>
-																<object class="NSCalendarDate" key="NSContents">
-																	<double key="NS.time">-595929600</double>
-																	<object class="NSTimeZone" key="NS.timezone">
-																		<string key="NS.name">US/Pacific</string>
-																		<object class="NSMutableData" key="NS.data">
-																			<bytes key="NS.bytes">VFppZgAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAC5AAAABAAAABCepkign7sVkKCGKqChmveQ
-y4kaoNIj9HDSYSYQ1v50INiArZDa/tGg28CQENzes6DdqayQ3r6VoN+JjpDgnneg4WlwkOJ+WaDjSVKQ
-5F47oOUpNJDmR1gg5xJREOgnOiDo8jMQ6gccIOrSFRDr5v4g7LH3EO3G4CDukdkQ76/8oPBxuxDxj96g
-8n/BkPNvwKD0X6OQ9U+ioPY/hZD3L4Sg+CiiEPkPZqD6CIQQ+viDIPvoZhD82GUg/chIEP64RyD/qCoQ
-AJgpIAGIDBACeAsgA3EokARhJ6AFUQqQBkEJoAcw7JAHjUOgCRDOkAmtvyAK8LCQC+CvoAzZzRANwJGg
-DrmvEA+priAQmZEQEYmQIBJ5cxATaXIgFFlVEBVJVCAWOTcQFyk2IBgiU5AZCRggGgI1kBryNKAb4heQ
-HNIWoB3B+ZAesfigH6HbkCB2KyAhgb2QIlYNICNq2hAkNe8gJUq8ECYV0SAnKp4QJ/7toCkKgBAp3s+g
-KupiECu+saAs036QLZ6ToC6zYJAvfnWgMJNCkDFnkiAycySQM0d0IDRTBpA1J1YgNjLokDcHOCA4HAUQ
-OOcaIDn75xA6xvwgO9vJEDywGKA9u6sQPo/6oD+bjRBAb9ygQYSpkEJPvqBDZIuQRC+goEVEbZBF89Mg
-Ry2KEEfTtSBJDWwQSbOXIErtThBLnLOgTNZqkE18laBOtkyQT1x3oFCWLpBRPFmgUnYQkFMcO6BUVfKQ
-VPwdoFY11JBW5TogWB7xEFjFHCBZ/tMQWqT+IFvetRBchOAgXb6XEF5kwiBfnnkQYE3eoGGHlZBiLcCg
-Y2d3kGQNoqBlR1mQZe2EoGcnO5BnzWagaQcdkGmtSKBq5v+Qa5ZlIGzQHBBtdkcgbq/+EG9WKSBwj+AQ
-cTYLIHJvwhBzFe0gdE+kEHT/CaB2OMCQdt7roHgYopB4vs2gefiEkHqer6B72GaQfH6RoH24SJB+XnOg
-f5gqkAABAAECAwEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
-AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
-AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
-AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</bytes>
-																		</object>
-																	</object>
-																	<string key="NS.format">%Y-%m-%d %H:%M:%S %z</string>
+																<object class="NSDate" key="NSContents">
+																	<double key="NS.time">-6342912422</double>
 																</object>
 																<reference key="NSSupport" ref="834575857"/>
 																<string key="NSCellIdentifier">_NS:9</string>
@@ -3750,7 +3728,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 				<string key="270.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="272.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="275.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="275.ibExternalFetchPredicateFormat">gpCatalogEntry==nil</string>
+				<string key="275.ibExternalFetchPredicateFormat">gpCatalogEntry == nil</string>
 				<string key="277.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="286.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<array class="NSMutableArray" key="299.IBNSViewMetadataConstraints">

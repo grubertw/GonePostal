@@ -28,6 +28,8 @@
 @property (strong, nonatomic) GPDocument * doc;
 @property (strong, nonatomic) GPCollection * collection;
 
+@property (strong, nonatomic) IBOutlet NSObjectController * stampController;
+
 @property (weak, nonatomic) IBOutlet NSBox * cachetBox;
 @property (weak, nonatomic) IBOutlet NSBox * platesBox;
 @property (weak, nonatomic) IBOutlet NSBox * bureauPrecancelBox;
@@ -107,24 +109,23 @@
         NSDocumentController * docController = [NSDocumentController sharedDocumentController];
         _doc = [docController currentDocument];
         _managedObjectContext = _doc.managedObjectContext;
-        
-        // Create the stamps from the defaults.
-        if (self.stamp == nil) {
-            self.stamp = [Stamp CreateFromDefaultsUsingManagedObjectContext:self.managedObjectContext];
-        }
             
         // Intialize the chooser views.
-        _plateNumberChooser = [[GPPlateNumberChooser alloc] initAsDrawer:NO modifyingStamp:self.stamp];
-        _cachetChooser = [[GPCachetChooser alloc] initAsDrawer:NO modifyingStamp:self.stamp];
-        _bureauPrecancelChooser = [[GPBureauPrecancelChooser alloc] initAsDrawer:NO modifyingStamp:self.stamp];
-        _localPrecancelChooser = [[GPLocalPrecancelChooser alloc] initAsDrawer:NO modifyingStamp:self.stamp];
-        _perfinChooser = [[GPPerfinChooser alloc] initAsDrawer:NO modifyingStamp:self.stamp];
+        _plateNumberChooser = [[GPPlateNumberChooser alloc] initAsDrawer:NO modifyingStamp:nil];
+        _cachetChooser = [[GPCachetChooser alloc] initAsDrawer:NO modifyingStamp:nil];
+        _bureauPrecancelChooser = [[GPBureauPrecancelChooser alloc] initAsDrawer:NO modifyingStamp:nil];
+        _localPrecancelChooser = [[GPLocalPrecancelChooser alloc] initAsDrawer:NO modifyingStamp:nil];
+        _perfinChooser = [[GPPerfinChooser alloc] initAsDrawer:NO modifyingStamp:nil];
     }
     return self;
 }
 
 - (void)loadView {
     [super loadView];
+    
+    // Create the initial stamp from the defaults.
+    Stamp * stamp = [Stamp CreateFromDefaultsUsingManagedObjectContext:self.managedObjectContext];
+    [self.stampController setContent:stamp];
     
     // Initialize the scroller
     [self.scroller setDocumentView:self.scrollContent];
@@ -146,9 +147,8 @@
     [self.plateNumberChooser formatPlateInfo];
     
     // Register this object as a key-value observer of the stamp
-    // (used to show and hide boxes, based on the format)
-    [self.stamp addObserver:self forKeyPath:@"format" options:NSKeyValueObservingOptionNew context:nil];
-    [self.stamp addObserver:self forKeyPath:@"mint_used" options:NSKeyValueObservingOptionNew context:nil];
+    // (used to show and hide boxes)
+    [self addStampObservers];
     
     self.cachetFrame = [self.cachetBox frame];
     self.platesFrame = [self.platesBox frame];
@@ -168,12 +168,21 @@
     [self.cachetChooser setSelectedGPCatalog:gpCatalog];
     [self.bureauPrecancelChooser setSelectedGPCatalog:gpCatalog];
     
-    [self.stamp setGpCatalog:gpCatalog];
+    Stamp * stamp = [self.stampController content];
+    [stamp setGpCatalog:gpCatalog];
     
     // Copy the GPID from the catalog into the stamp.
-    [self.stamp setGp_stamp_number:gpCatalog.gp_catalog_number];
-    
-    [self showHideBoxesForStamp:self.stamp];
+    [stamp setGp_stamp_number:gpCatalog.gp_catalog_number];
+}
+
+- (void)addStampObservers {
+    [self.stampController.content addObserver:self forKeyPath:@"format" options:NSKeyValueObservingOptionNew context:nil];
+    [self.stampController.content addObserver:self forKeyPath:@"mint_used" options:NSKeyValueObservingOptionNew context:nil];
+}
+
+- (void)removeStampObservers {
+    [self.stampController.content removeObserver:self forKeyPath:@"format"];
+    [self.stampController.content removeObserver:self forKeyPath:@"mint_used"];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -181,12 +190,13 @@
                         change:(NSDictionary *)change
                        context:(void *)context {
     if ([object isMemberOfClass:[Stamp class]]) {
-        Stamp * stamp = (Stamp *)object;
-        [self showHideBoxesForStamp:stamp];
+        [self updateDynamicStampBoxes];
     }
 }
 
-- (void)showHideBoxesForStamp:(Stamp *)stamp {
+- (void)updateDynamicStampBoxes {
+    Stamp * stamp = [self.stampController content];
+    
     CGFloat top = self.cachetFrame.origin.y + self.cachetFrame.size.height;
     CGFloat currY = top;
     
@@ -277,6 +287,7 @@
 - (IBAction)addPlate:(id)sender {
     if ([self.plateNumberChooser.view isDescendantOf:self.stampPeriferalsBox]) return;
     [self.plateNumberChooser clearManualPlateEntry];
+    [self.plateNumberChooser setStamp:self.stampController.content];
     
     [self.stampPeriferalsBox addSubview:self.plateNumberChooser.view];
     [self.plateNumberChooser.view setFrameOrigin:NSMakePoint(7, 5)];
@@ -284,6 +295,7 @@
 
 - (IBAction)chooseBureauPrecancel:(id)sender {
     if ([self.bureauPrecancelChooser.view isDescendantOf:self.stampPeriferalsBox]) return;
+    [self.bureauPrecancelChooser setStamp:self.stampController.content];
     
     [self.stampPeriferalsBox addSubview:self.bureauPrecancelChooser.view];
     [self.bureauPrecancelChooser.view setFrameOrigin:NSMakePoint(7, 5)];
@@ -291,6 +303,7 @@
 
 - (IBAction)chooseCachet:(id)sender {
     if ([self.cachetChooser.view isDescendantOf:self.stampPeriferalsBox]) return;
+    [self.cachetChooser setStamp:self.stampController.content];
     
     [self.stampPeriferalsBox addSubview:self.cachetChooser.view];
     [self.cachetChooser.view setFrameOrigin:NSMakePoint(7, 5)];
@@ -298,6 +311,7 @@
 
 - (IBAction)chooseLocalPrecancel:(id)sender {
     if ([self.localPrecancelChooser.view isDescendantOf:self.stampPeriferalsBox]) return;
+    [self.localPrecancelChooser setStamp:self.stampController.content];
     
     [self.stampPeriferalsBox addSubview:self.localPrecancelChooser.view];
     [self.localPrecancelChooser.view setFrameOrigin:NSMakePoint(7, 5)];
@@ -305,86 +319,111 @@
 
 - (IBAction)choosePerfin:(id)sender {
     if ([self.perfinChooser.view isDescendantOf:self.stampPeriferalsBox]) return;
+    [self.perfinChooser setStamp:self.stampController.content];
     
     [self.stampPeriferalsBox addSubview:self.perfinChooser.view];
     [self.perfinChooser.view setFrameOrigin:NSMakePoint(7, 5)];
 }
 
 - (IBAction)addDefaultPicture:(id)sender {
-    NSString * fileName = [self.doc addFileToWrapperUsingGPID:self.stamp.gpCatalog.gp_catalog_number forAttribute:@"stamp.default_picture" fileType:GPImportFileTypePicture];
+    Stamp * stamp = [self.stampController content];
+    NSString * fileName = [self.doc addFileToWrapperUsingGPID:stamp.gpCatalog.gp_catalog_number forAttribute:@"stamp.default_picture" fileType:GPImportFileTypePicture];
     if (fileName == nil) return;
     
     // Store the filename into the model.
-    self.stamp.default_picture = fileName;
+    stamp.default_picture = fileName;
 }
 
 - (IBAction)addAlternatePicture1:(id)sender {
-    NSString * fileName = [self.doc addFileToWrapperUsingGPID:self.stamp.gpCatalog.gp_catalog_number forAttribute:@"stamp.alternate_picture_1" fileType:GPImportFileTypePicture];
+    Stamp * stamp = [self.stampController content];
+    NSString * fileName = [self.doc addFileToWrapperUsingGPID:stamp.gpCatalog.gp_catalog_number forAttribute:@"stamp.alternate_picture_1" fileType:GPImportFileTypePicture];
     if (fileName == nil) return;
     
     // Store the filename into the model.
-    self.stamp.alternate_picture_1 = fileName;
+    stamp.alternate_picture_1 = fileName;
 }
 
 - (IBAction)addAlternatePicture2:(id)sender {
-    NSString * fileName = [self.doc addFileToWrapperUsingGPID:self.stamp.gpCatalog.gp_catalog_number forAttribute:@"stamp.alternate_picture_2" fileType:GPImportFileTypePicture];
+    Stamp * stamp = [self.stampController content];
+    NSString * fileName = [self.doc addFileToWrapperUsingGPID:stamp.gpCatalog.gp_catalog_number forAttribute:@"stamp.alternate_picture_2" fileType:GPImportFileTypePicture];
     if (fileName == nil) return;
     
     // Store the filename into the model.
-    self.stamp.alternate_picture_2 = fileName;
+    stamp.alternate_picture_2 = fileName;
 }
 
 - (IBAction)addAlternatePicture3:(id)sender {
-    NSString * fileName = [self.doc addFileToWrapperUsingGPID:self.stamp.gpCatalog.gp_catalog_number forAttribute:@"stamp.alternate_picture_3" fileType:GPImportFileTypePicture];
+    Stamp * stamp = [self.stampController content];
+    NSString * fileName = [self.doc addFileToWrapperUsingGPID:stamp.gpCatalog.gp_catalog_number forAttribute:@"stamp.alternate_picture_3" fileType:GPImportFileTypePicture];
     if (fileName == nil) return;
     
     // Store the filename into the model.
-    self.stamp.alternate_picture_3 = fileName;
+    stamp.alternate_picture_3 = fileName;
 }
 
 - (IBAction)addAlternatePicture4:(id)sender {
-    NSString * fileName = [self.doc addFileToWrapperUsingGPID:self.stamp.gpCatalog.gp_catalog_number forAttribute:@"stamp.alternate_picture_4" fileType:GPImportFileTypePicture];
+    Stamp * stamp = [self.stampController content];
+    NSString * fileName = [self.doc addFileToWrapperUsingGPID:stamp.gpCatalog.gp_catalog_number forAttribute:@"stamp.alternate_picture_4" fileType:GPImportFileTypePicture];
     if (fileName == nil) return;
     
     // Store the filename into the model.
-    self.stamp.alternate_picture_4 = fileName;
+    stamp.alternate_picture_4 = fileName;
 }
 
 - (IBAction)addAlternatePicture5:(id)sender {
-    NSString * fileName = [self.doc addFileToWrapperUsingGPID:self.stamp.gpCatalog.gp_catalog_number forAttribute:@"stamp.alternate_picture_5" fileType:GPImportFileTypePicture];
+    Stamp * stamp = [self.stampController content];
+    NSString * fileName = [self.doc addFileToWrapperUsingGPID:stamp.gpCatalog.gp_catalog_number forAttribute:@"stamp.alternate_picture_5" fileType:GPImportFileTypePicture];
     if (fileName == nil) return;
     
     // Store the filename into the model.
-    self.stamp.alternate_picture_5 = fileName;
+    stamp.alternate_picture_5 = fileName;
 }
 
 - (IBAction)addAlternatePicture6:(id)sender {
-    NSString * fileName = [self.doc addFileToWrapperUsingGPID:self.stamp.gpCatalog.gp_catalog_number forAttribute:@"stamp.alternate_picture_6" fileType:GPImportFileTypePicture];
+    Stamp * stamp = [self.stampController content];
+    NSString * fileName = [self.doc addFileToWrapperUsingGPID:stamp.gpCatalog.gp_catalog_number forAttribute:@"stamp.alternate_picture_6" fileType:GPImportFileTypePicture];
     if (fileName == nil) return;
     
     // Store the filename into the model.
-    self.stamp.alternate_picture_6 = fileName;
+    stamp.alternate_picture_6 = fileName;
 }
 
-- (IBAction)addStamp:(id)sender {
+- (IBAction)addAnotherStamp:(id)sender {
+    [self addCurrentStamp];
+    
+    // Remove the observers from the stamp going into the collection.
+    [self removeStampObservers];
+    
+    // Duplicate the stamp for the next possible entry.
+    Stamp * stamp = [self.stampController content];
+    Stamp * newStamp = [stamp duplicate];
+    [self.stampController setContent:newStamp];
+    
+    // Add the observers to the new stamp.
+    [self addStampObservers];
+}
+
+// Adds the stamp currently loaded into the page into the collection.
+- (void)addCurrentStamp {
     // Get the quantity input for creating a multi-quantity composite.
     NSInteger compositeQuantity = [self.compositeQuantityInput integerValue];
+    Stamp * stamp = [self.stampController content];
     
     if (compositeQuantity > 1) {
         if (self.composite != nil) return;
         
         // Create a multi-quantity composite and add it to the collection
         // as one item.
-        Stamp * composite = [self.stamp createCompositeFromThisContainingAmount:compositeQuantity];
+        Stamp * composite = [stamp createCompositeFromThisContainingAmount:compositeQuantity];
         [self.collection addStampsObject:composite];
     }
     else {
         if (self.composite == nil) {
             // Add the new stamp to the collection.
-            [self.collection addStampsObject:self.stamp];
+            [self.collection addStampsObject:stamp];
         }
         else {
-            [self.composite addChildrenObject:self.stamp];
+            [self.composite addChildrenObject:stamp];
         }
     }
     
@@ -394,9 +433,10 @@
         [errSheet beginSheetModalForWindow:self.view.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
         [self.managedObjectContext rollback];
     }
-    
-    // Duplicate the stamp for the next possible entry.
-    self.stamp = [self.stamp duplicate];
+}
+
+- (void)cleanup {
+    [self removeStampObservers];
 }
 
 @end

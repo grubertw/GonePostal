@@ -9,6 +9,7 @@
 #import "GPAddStampController.h"
 #import "GPDocument.h"
 #import "GPCatalog.h"
+#import "Stamp+Create.h"
 
 @interface GPAddStampController ()
 @property (nonatomic) NSUInteger operatingMode;
@@ -21,6 +22,8 @@
 
 @property (strong, nonatomic) NSArray * pages;
 @property (assign) id initialSelectedPage;
+
+@property (nonatomic) BOOL savePressed;
 @end
 
 static const NSUInteger LOCATOR_PAGE = 1;
@@ -43,6 +46,7 @@ static NSString * NEW_STAMP_PAGE_TITLE = @"Specify Stamp Specifics";
         GPDocument * doc = [docController currentDocument];
         
         _managedObjectContext = self.myCollection.managedObjectContext;
+        _savePressed = NO;
         
         if (mode == 1) {
             // Instantiate and initilize all three wizard pages.
@@ -54,7 +58,7 @@ static NSString * NEW_STAMP_PAGE_TITLE = @"Specify Stamp Specifics";
             [doc loadAssistedSearch:ASSISTED_GP_CATALOG_BROWSER_SEARCH_ID];
             doc.assistedSearch.predicate = nil;
             
-            _gpCatalogPage = [[GPCatalogChooserPage alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:nil sectionSearch:nil filterSearch:nil];
+            _gpCatalogPage = [[GPCatalogChooserPage alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:nil sectionSearch:nil filterSearch:nil parentController:self];
             
             _gpNewStampPage = [[GPNewStampPage alloc] initWithCollection:myCollection];
             [_gpNewStampPage setComposite:self.composite];
@@ -65,7 +69,7 @@ static NSString * NEW_STAMP_PAGE_TITLE = @"Specify Stamp Specifics";
             // Instantiate the catalog chooser page and new stamp page.
             [doc loadAssistedSearch:ASSISTED_GP_CATALOG_BROWSER_SEARCH_ID];
             
-            _gpCatalogPage = [[GPCatalogChooserPage alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate filterSearch:doc.filtersPredicate];
+            _gpCatalogPage = [[GPCatalogChooserPage alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate filterSearch:doc.filtersPredicate parentController:self];
             
             _gpNewStampPage = [[GPNewStampPage alloc] initWithCollection:myCollection];
             [_gpNewStampPage setComposite:self.composite];
@@ -95,6 +99,11 @@ static NSString * NEW_STAMP_PAGE_TITLE = @"Specify Stamp Specifics";
     
     [self.backButton setHidden:YES];
     [self.forwardButton setHidden:NO];
+}
+
+- (void)setSelectedGPCatalog:(GPCatalog *)selectedGPCatalog {
+    _selectedGPCatalog = selectedGPCatalog;
+    [self.gpNewStampPage setSelectedGPCatalog:selectedGPCatalog];
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
@@ -143,8 +152,6 @@ static NSString * NEW_STAMP_PAGE_TITLE = @"Specify Stamp Specifics";
     if (self.gpLocatorPage) {
         self.selectedLooksLike = self.gpLocatorPage.looksLikeController.selectedObjects[0];
     }
-    
-    self.selectedGPCatalog = self.gpCatalogPage.selectedGPCatalog;
 }
 
 - (void)pageControllerDidEndLiveTransition:(NSPageController *)pageController {
@@ -171,12 +178,12 @@ static NSString * NEW_STAMP_PAGE_TITLE = @"Specify Stamp Specifics";
         [self.forwardButton setHidden:NO];
     }
     else if ([selectedPage isEqualToNumber:@(NEW_STAMP_PAGE)]) {
-        [self.gpNewStampPage setSelectedGPCatalog:self.selectedGPCatalog];
-        
         [self.pageDescription setStringValue:NEW_STAMP_PAGE_TITLE];
         
         [self.forwardButton setHidden:YES];
         [self.backButton setHidden:NO];
+        
+        [self.gpNewStampPage updateDynamicStampBoxes];
     }
 }
 
@@ -189,7 +196,7 @@ static NSString * NEW_STAMP_PAGE_TITLE = @"Specify Stamp Specifics";
 }
 
 - (IBAction)quickAdd:(id)sender {
-    Stamp * stamp = [NSEntityDescription insertNewObjectForEntityForName:@"Stamp" inManagedObjectContext:self.managedObjectContext];
+    Stamp * stamp = [Stamp CreateFromDefaultsUsingManagedObjectContext:self.managedObjectContext];
     stamp.gpCatalog = self.gpCatalogPage.selectedGPCatalog;
     stamp.gp_stamp_number = self.gpCatalogPage.selectedGPCatalog.gp_catalog_number;
     
@@ -210,11 +217,24 @@ static NSString * NEW_STAMP_PAGE_TITLE = @"Specify Stamp Specifics";
 }
 
 - (IBAction)done:(id)sender {
-    [self.window close];
+    [self.gpNewStampPage addCurrentStamp];
+    
+    self.savePressed = YES;
+    [self.window performClose:sender];
+}
+
+- (IBAction)cancel:(id)sender {
+    [self.window performClose:sender];
 }
 
 - (void)windowWillClose:(NSNotification *)notification {
-    [self.managedObjectContext deleteObject:self.gpNewStampPage.stamp];
+    if (!self.savePressed) {
+        // Rollback all changed to the managed object context
+        // that have not been explicitly saved.
+        [self.managedObjectContext rollback];
+    }
+    
+    [self.gpNewStampPage cleanup];
 }
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "GPCatalogChooserPage.h"
+#import "GPAddStampController.h"
 #import "GPDocument.h"
 #import "GPCountrySearch.h"
 #import "GPSectionSearch.h"
@@ -18,6 +19,8 @@
 #import "AlternateCatalogName.h"
 
 @interface GPCatalogChooserPage ()
+@property (strong, nonatomic) GPAddStampController * parentController;
+
 @property (weak, nonatomic) IBOutlet NSButton * changeFiltersButton;
 @property (weak, nonatomic) IBOutlet NSTableView * gpCatalogTable;
 
@@ -37,7 +40,7 @@
 
 @implementation GPCatalogChooserPage
 
-- (id)initWithAssistedSearch:(StoredSearch *)assistedSearch countrySearch:(NSPredicate *)countriesPredicate sectionSearch:(NSPredicate *)sectionsPredicate filterSearch:(NSPredicate *)filtersPredicate {
+- (id)initWithAssistedSearch:(StoredSearch *)assistedSearch countrySearch:(NSPredicate *)countriesPredicate sectionSearch:(NSPredicate *)sectionsPredicate filterSearch:(NSPredicate *)filtersPredicate parentController:(id)parentController{
     
     self = [super initWithNibName:@"GPCatalogChooserPage" bundle:nil];
     if (self) {
@@ -49,6 +52,8 @@
         _countriesPredicate = countriesPredicate;
         _sectionsPredicate = sectionsPredicate;
         _filtersPredicate = filtersPredicate;
+        
+        _parentController = parentController;
         
         // Rebuild the query so as NOT to contain looks-like.
         NSMutableArray * predicateArray = [NSMutableArray arrayWithCapacity:0];
@@ -315,6 +320,7 @@
 - (void)tableViewSelectionDidChange:(NSNotification *)notification {
     NSInteger selectedRow = self.gpCatalogTable.selectedRow;
     self.selectedGPCatalog = self.gpCatalogController.arrangedObjects[selectedRow];
+    [self.parentController setSelectedGPCatalog:self.selectedGPCatalog];
 }
 
 @end

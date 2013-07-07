@@ -14,7 +14,6 @@
 
 @property (strong, nonatomic) GPCatalog * selectedGPCatalog;
 @property (strong, nonatomic) NSManagedObjectContext * managedObjectContext;
-@property (strong, nonatomic) Stamp * stamp;
 @property (strong, nonatomic) Stamp * composite;
 
 @property (strong, nonatomic) NSArray * formatSortDescriptors;
@@ -32,5 +31,10 @@
 @property (weak, nonatomic) IBOutlet NSTextField * compositeQuantityInput;
 
 - (id)initWithCollection:(GPCollection *)myCollection;
+
+// Adds the stamp currently loaded into the page into the collection.
+- (void)addCurrentStamp;
+- (void)updateDynamicStampBoxes;
+- (void)cleanup;
 
 @end

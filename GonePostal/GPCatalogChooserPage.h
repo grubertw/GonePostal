@@ -38,7 +38,7 @@
 @property (strong, nonatomic) NSPredicate * currSearch;
 @property (strong, nonatomic) StoredSearch * currCustomSearch;
 
-- (id)initWithAssistedSearch:(StoredSearch *)assistedSearch countrySearch:(NSPredicate *)countriesPredicate sectionSearch:(NSPredicate *)sectionsPredicate filterSearch:(NSPredicate *)filtersPredicate;
+- (id)initWithAssistedSearch:(StoredSearch *)assistedSearch countrySearch:(NSPredicate *)countriesPredicate sectionSearch:(NSPredicate *)sectionsPredicate filterSearch:(NSPredicate *)filtersPredicate parentController:(id)parentController;
 
 // If not null, then user is viewing subvarieties.
 @property (strong, nonatomic) GPCatalog * currMajorVariety;

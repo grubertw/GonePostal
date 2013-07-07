@@ -25,6 +25,7 @@
 			<string>NSMenu</string>
 			<string>NSMenuItem</string>
 			<string>NSNumberFormatter</string>
+			<string>NSObjectController</string>
 			<string>NSPopUpButton</string>
 			<string>NSPopUpButtonCell</string>
 			<string>NSScrollView</string>
@@ -61,13 +62,12 @@
 							<object class="NSView" id="748407072">
 								<reference key="NSNextResponder" ref="998700170"/>
 								<int key="NSvFlags">274</int>
-								<string key="NSFrame">{{1, 1}, {458, 581}}</string>
+								<string key="NSFrame">{{1, 1}, {458, 598}}</string>
 								<reference key="NSSuperview" ref="998700170"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:11</string>
 							</object>
 						</array>
-						<string key="NSFrame">{{500, 5}, {460, 600}}</string>
+						<string key="NSFrame">{{500, 7}, {460, 600}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSNextKeyView" ref="748407072"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -75,7 +75,7 @@
 						<object class="NSTextFieldCell" key="NSTitleCell">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">0</int>
-							<string key="NSContents">Stamp Periferal Selection</string>
+							<string key="NSContents"/>
 							<object class="NSFont" key="NSSupport" id="687121055">
 								<string key="NSName">LucidaGrande-Bold</string>
 								<double key="NSSize">13</double>
@@ -98,13 +98,13 @@
 						<reference key="NSContentView" ref="748407072"/>
 						<int key="NSBorderType">1</int>
 						<int key="NSBoxType">0</int>
-						<int key="NSTitlePosition">2</int>
+						<int key="NSTitlePosition">0</int>
 						<bool key="NSTransparent">NO</bool>
 					</object>
 					<object class="NSButton" id="399797222">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{205, 7}, {111, 35}}</string>
+						<string key="NSFrame">{{186, 7}, {130, 35}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSNextKeyView" ref="998700170"/>
 						<string key="NSReuseIdentifierKey">_NS:22</string>
@@ -112,7 +112,7 @@
 						<object class="NSButtonCell" key="NSCell" id="44353409">
 							<int key="NSCellFlags">-2080374784</int>
 							<int key="NSCellFlags2">134217728</int>
-							<string key="NSContents">Add</string>
+							<string key="NSContents">Add &amp; Continue</string>
 							<object class="NSFont" key="NSSupport" id="573482628">
 								<string key="NSName">LucidaGrande</string>
 								<double key="NSSize">13</double>
@@ -1169,7 +1169,7 @@
 									<object class="NSTextField" id="695462625">
 										<reference key="NSNextResponder" ref="223777926"/>
 										<int key="NSvFlags">268</int>
-										<string key="NSFrame">{{102, 114}, {160, 17}}</string>
+										<string key="NSFrame">{{100, 114}, {160, 17}}</string>
 										<reference key="NSSuperview" ref="223777926"/>
 										<reference key="NSNextKeyView" ref="346678225"/>
 										<string key="NSReuseIdentifierKey">_NS:1535</string>
@@ -1527,31 +1527,8 @@
 										<object class="NSDatePickerCell" key="NSCell" id="44281943">
 											<int key="NSCellFlags">71303168</int>
 											<int key="NSCellFlags2">0</int>
-											<object class="NSCalendarDate" key="NSContents">
-												<double key="NS.time">-595929600</double>
-												<object class="NSTimeZone" key="NS.timezone">
-													<string key="NS.name">US/Pacific</string>
-													<object class="NSMutableData" key="NS.data">
-														<bytes key="NS.bytes">VFppZgAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAC5AAAABAAAABCepkign7sVkKCGKqChmveQ
-y4kaoNIj9HDSYSYQ1v50INiArZDa/tGg28CQENzes6DdqayQ3r6VoN+JjpDgnneg4WlwkOJ+WaDjSVKQ
-5F47oOUpNJDmR1gg5xJREOgnOiDo8jMQ6gccIOrSFRDr5v4g7LH3EO3G4CDukdkQ76/8oPBxuxDxj96g
-8n/BkPNvwKD0X6OQ9U+ioPY/hZD3L4Sg+CiiEPkPZqD6CIQQ+viDIPvoZhD82GUg/chIEP64RyD/qCoQ
-AJgpIAGIDBACeAsgA3EokARhJ6AFUQqQBkEJoAcw7JAHjUOgCRDOkAmtvyAK8LCQC+CvoAzZzRANwJGg
-DrmvEA+priAQmZEQEYmQIBJ5cxATaXIgFFlVEBVJVCAWOTcQFyk2IBgiU5AZCRggGgI1kBryNKAb4heQ
-HNIWoB3B+ZAesfigH6HbkCB2KyAhgb2QIlYNICNq2hAkNe8gJUq8ECYV0SAnKp4QJ/7toCkKgBAp3s+g
-KupiECu+saAs036QLZ6ToC6zYJAvfnWgMJNCkDFnkiAycySQM0d0IDRTBpA1J1YgNjLokDcHOCA4HAUQ
-OOcaIDn75xA6xvwgO9vJEDywGKA9u6sQPo/6oD+bjRBAb9ygQYSpkEJPvqBDZIuQRC+goEVEbZBF89Mg
-Ry2KEEfTtSBJDWwQSbOXIErtThBLnLOgTNZqkE18laBOtkyQT1x3oFCWLpBRPFmgUnYQkFMcO6BUVfKQ
-VPwdoFY11JBW5TogWB7xEFjFHCBZ/tMQWqT+IFvetRBchOAgXb6XEF5kwiBfnnkQYE3eoGGHlZBiLcCg
-Y2d3kGQNoqBlR1mQZe2EoGcnO5BnzWagaQcdkGmtSKBq5v+Qa5ZlIGzQHBBtdkcgbq/+EG9WKSBwj+AQ
-cTYLIHJvwhBzFe0gdE+kEHT/CaB2OMCQdt7roHgYopB4vs2gefiEkHqer6B72GaQfH6RoH24SJB+XnOg
-f5gqkAABAAECAwEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
-AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
-AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
-AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</bytes>
-													</object>
-												</object>
-												<string key="NS.format">%Y-%m-%d %H:%M:%S %z</string>
+											<object class="NSDate" key="NSContents" id="424997884">
+												<double key="NS.time">-6342912422</double>
 											</object>
 											<reference key="NSSupport" ref="573482628"/>
 											<string key="NSCellIdentifier">_NS:9</string>
@@ -1802,6 +1779,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 												<dictionary class="NSMutableDictionary" key="NS.attributes">
 													<boolean value="YES" key="allowsFloats"/>
 													<integer value="1040" key="formatterBehavior"/>
+													<boolean value="YES" key="lenient"/>
 													<object class="NSLocale" key="locale" id="481204809">
 														<string key="NS.identifier"/>
 													</object>
@@ -1862,32 +1840,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 										<object class="NSDatePickerCell" key="NSCell" id="382380817">
 											<int key="NSCellFlags">71303168</int>
 											<int key="NSCellFlags2">0</int>
-											<object class="NSCalendarDate" key="NSContents">
-												<double key="NS.time">-595929600</double>
-												<object class="NSTimeZone" key="NS.timezone">
-													<string key="NS.name">US/Pacific</string>
-													<object class="NSMutableData" key="NS.data">
-														<bytes key="NS.bytes">VFppZgAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAC5AAAABAAAABCepkign7sVkKCGKqChmveQ
-y4kaoNIj9HDSYSYQ1v50INiArZDa/tGg28CQENzes6DdqayQ3r6VoN+JjpDgnneg4WlwkOJ+WaDjSVKQ
-5F47oOUpNJDmR1gg5xJREOgnOiDo8jMQ6gccIOrSFRDr5v4g7LH3EO3G4CDukdkQ76/8oPBxuxDxj96g
-8n/BkPNvwKD0X6OQ9U+ioPY/hZD3L4Sg+CiiEPkPZqD6CIQQ+viDIPvoZhD82GUg/chIEP64RyD/qCoQ
-AJgpIAGIDBACeAsgA3EokARhJ6AFUQqQBkEJoAcw7JAHjUOgCRDOkAmtvyAK8LCQC+CvoAzZzRANwJGg
-DrmvEA+priAQmZEQEYmQIBJ5cxATaXIgFFlVEBVJVCAWOTcQFyk2IBgiU5AZCRggGgI1kBryNKAb4heQ
-HNIWoB3B+ZAesfigH6HbkCB2KyAhgb2QIlYNICNq2hAkNe8gJUq8ECYV0SAnKp4QJ/7toCkKgBAp3s+g
-KupiECu+saAs036QLZ6ToC6zYJAvfnWgMJNCkDFnkiAycySQM0d0IDRTBpA1J1YgNjLokDcHOCA4HAUQ
-OOcaIDn75xA6xvwgO9vJEDywGKA9u6sQPo/6oD+bjRBAb9ygQYSpkEJPvqBDZIuQRC+goEVEbZBF89Mg
-Ry2KEEfTtSBJDWwQSbOXIErtThBLnLOgTNZqkE18laBOtkyQT1x3oFCWLpBRPFmgUnYQkFMcO6BUVfKQ
-VPwdoFY11JBW5TogWB7xEFjFHCBZ/tMQWqT+IFvetRBchOAgXb6XEF5kwiBfnnkQYE3eoGGHlZBiLcCg
-Y2d3kGQNoqBlR1mQZe2EoGcnO5BnzWagaQcdkGmtSKBq5v+Qa5ZlIGzQHBBtdkcgbq/+EG9WKSBwj+AQ
-cTYLIHJvwhBzFe0gdE+kEHT/CaB2OMCQdt7roHgYopB4vs2gefiEkHqer6B72GaQfH6RoH24SJB+XnOg
-f5gqkAABAAECAwEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
-AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
-AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
-AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</bytes>
-													</object>
-												</object>
-												<string key="NS.format">%Y-%m-%d %H:%M:%S %z</string>
-											</object>
+											<reference key="NSContents" ref="424997884"/>
 											<reference key="NSSupport" ref="573482628"/>
 											<string key="NSCellIdentifier">_NS:9</string>
 											<reference key="NSControlView" ref="181675017"/>
@@ -2316,7 +2269,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 										<int key="NSvFlags">268</int>
 										<string key="NSFrame">{{9, 7}, {433, 350}}</string>
 										<reference key="NSSuperview" ref="258386840"/>
-										<reference key="NSNextKeyView"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<string key="NSAntiCompressionPriority">{250, 750}</string>
 										<bool key="NSEnabled">YES</bool>
@@ -2812,6 +2764,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 												<dictionary class="NSMutableDictionary" key="NS.attributes">
 													<boolean value="YES" key="allowsFloats"/>
 													<integer value="1040" key="formatterBehavior"/>
+													<boolean value="YES" key="lenient"/>
 													<reference key="locale" ref="481204809"/>
 													<string key="negativeInfinitySymbol">-∞</string>
 													<string key="nilSymbol"/>
@@ -3651,6 +3604,13 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<string key="NSClassName">NSView</string>
 			</object>
+			<object class="NSObjectController" id="573389674">
+				<bool key="NSEditable">YES</bool>
+				<object class="_NSManagedProxy" key="_NSManagedProxy">
+					<string key="NSEntityName">Stamp</string>
+				</object>
+				<bool key="_NSIsUsingManagedProxy">YES</bool>
+			</object>
 			<object class="NSArrayController" id="558158724">
 				<object class="_NSManagedProxy" key="_NSManagedProxy">
 					<string key="NSEntityName">StampFormat</string>
@@ -3933,14 +3893,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 					<int key="connectionID">1483</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">addStamp:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="399797222"/>
-					</object>
-					<int key="connectionID">4564</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">cachetBox</string>
 						<reference key="source" ref="1001"/>
@@ -4021,64 +3973,80 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 					<int key="connectionID">4646</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">addAnotherStamp:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="399797222"/>
+					</object>
+					<int key="connectionID">4798</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">stampController</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
+					</object>
+					<int key="connectionID">4806</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: self.stamp.mint_used</string>
+						<string key="label">value: selection.mint_used</string>
 						<reference key="source" ref="878316987"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="878316987"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: self.stamp.mint_used</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">value: selection.mint_used</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">self.stamp.mint_used</string>
+							<string key="NSKeyPath">selection.mint_used</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">4676</int>
+					<int key="connectionID">4680</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: self.stamp.faults</string>
+						<string key="label">value: selection.faults</string>
 						<reference key="source" ref="1042654735"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="1042654735"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: self.stamp.faults</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">value: selection.faults</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">self.stamp.faults</string>
+							<string key="NSKeyPath">selection.faults</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1394</int>
+					<int key="connectionID">4692</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: self.stamp.plate_location</string>
+						<string key="label">value: selection.plate_location</string>
 						<reference key="source" ref="624775311"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="624775311"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: self.stamp.plate_location</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">value: selection.plate_location</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">self.stamp.plate_location</string>
+							<string key="NSKeyPath">selection.plate_location</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1404</int>
+					<int key="connectionID">4722</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">valuePath: self.stamp.perfin.picture</string>
+						<string key="label">valuePath: selection.perfin.picture</string>
 						<reference key="source" ref="549048737"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="549048737"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">valuePath: self.stamp.perfin.picture</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">valuePath: selection.perfin.picture</string>
 							<string key="NSBinding">valuePath</string>
-							<string key="NSKeyPath">self.stamp.perfin.picture</string>
+							<string key="NSKeyPath">selection.perfin.picture</string>
 							<object class="NSDictionary" key="NSOptions">
 								<string key="NS.key.0">NSValueTransformerName</string>
 								<string key="NS.object.0">GPFilenameTransformer</string>
@@ -4086,51 +4054,51 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1515</int>
+					<int key="connectionID">4761</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: self.stamp.perfin.gp_perfin_number</string>
+						<string key="label">value: selection.perfin.name</string>
 						<reference key="source" ref="399417582"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="399417582"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: self.stamp.perfin.gp_perfin_number</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">value: selection.perfin.name</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">self.stamp.perfin.gp_perfin_number</string>
+							<string key="NSKeyPath">selection.perfin.name</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">2635</int>
+					<int key="connectionID">4758</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: self.stamp.manual_value</string>
+						<string key="label">value: selection.manual_value</string>
 						<reference key="source" ref="695061055"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="695061055"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: self.stamp.manual_value</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">value: selection.manual_value</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">self.stamp.manual_value</string>
+							<string key="NSKeyPath">selection.manual_value</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1443</int>
+					<int key="connectionID">4682</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">valuePath: self.stamp.default_picture</string>
+						<string key="label">valuePath: selection.default_picture</string>
 						<reference key="source" ref="1070023601"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="1070023601"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">valuePath: self.stamp.default_picture</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">valuePath: selection.default_picture</string>
 							<string key="NSBinding">valuePath</string>
-							<string key="NSKeyPath">self.stamp.default_picture</string>
+							<string key="NSKeyPath">selection.default_picture</string>
 							<object class="NSDictionary" key="NSOptions">
 								<string key="NS.key.0">NSValueTransformerName</string>
 								<string key="NS.object.0">GPFilenameTransformer</string>
@@ -4138,19 +4106,19 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">2611</int>
+					<int key="connectionID">4783</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">valuePath: self.stamp.alternate_picture_1</string>
+						<string key="label">valuePath: selection.alternate_picture_1</string>
 						<reference key="source" ref="742978289"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="742978289"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">valuePath: self.stamp.alternate_picture_1</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">valuePath: selection.alternate_picture_1</string>
 							<string key="NSBinding">valuePath</string>
-							<string key="NSKeyPath">self.stamp.alternate_picture_1</string>
+							<string key="NSKeyPath">selection.alternate_picture_1</string>
 							<object class="NSDictionary" key="NSOptions">
 								<string key="NS.key.0">NSValueTransformerName</string>
 								<string key="NS.object.0">GPFilenameTransformer</string>
@@ -4158,19 +4126,19 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">2612</int>
+					<int key="connectionID">4785</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">valuePath: self.stamp.alternate_picture_4</string>
+						<string key="label">valuePath: selection.alternate_picture_4</string>
 						<reference key="source" ref="921021304"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="921021304"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">valuePath: self.stamp.alternate_picture_4</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">valuePath: selection.alternate_picture_4</string>
 							<string key="NSBinding">valuePath</string>
-							<string key="NSKeyPath">self.stamp.alternate_picture_4</string>
+							<string key="NSKeyPath">selection.alternate_picture_4</string>
 							<object class="NSDictionary" key="NSOptions">
 								<string key="NS.key.0">NSValueTransformerName</string>
 								<string key="NS.object.0">GPFilenameTransformer</string>
@@ -4178,19 +4146,19 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">2613</int>
+					<int key="connectionID">4791</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">valuePath: self.stamp.alternate_picture_2</string>
+						<string key="label">valuePath: selection.alternate_picture_2</string>
 						<reference key="source" ref="808180702"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="808180702"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">valuePath: self.stamp.alternate_picture_2</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">valuePath: selection.alternate_picture_2</string>
 							<string key="NSBinding">valuePath</string>
-							<string key="NSKeyPath">self.stamp.alternate_picture_2</string>
+							<string key="NSKeyPath">selection.alternate_picture_2</string>
 							<object class="NSDictionary" key="NSOptions">
 								<string key="NS.key.0">NSValueTransformerName</string>
 								<string key="NS.object.0">GPFilenameTransformer</string>
@@ -4198,19 +4166,19 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">2614</int>
+					<int key="connectionID">4787</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">valuePath: self.stamp.alternate_picture_5</string>
+						<string key="label">valuePath: selection.alternate_picture_5</string>
 						<reference key="source" ref="598693804"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="598693804"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">valuePath: self.stamp.alternate_picture_5</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">valuePath: selection.alternate_picture_5</string>
 							<string key="NSBinding">valuePath</string>
-							<string key="NSKeyPath">self.stamp.alternate_picture_5</string>
+							<string key="NSKeyPath">selection.alternate_picture_5</string>
 							<object class="NSDictionary" key="NSOptions">
 								<string key="NS.key.0">NSValueTransformerName</string>
 								<string key="NS.object.0">GPFilenameTransformer</string>
@@ -4218,19 +4186,19 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">2615</int>
+					<int key="connectionID">4793</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">valuePath: self.stamp.alternate_picture_3</string>
+						<string key="label">valuePath: selection.alternate_picture_3</string>
 						<reference key="source" ref="277066803"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="277066803"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">valuePath: self.stamp.alternate_picture_3</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">valuePath: selection.alternate_picture_3</string>
 							<string key="NSBinding">valuePath</string>
-							<string key="NSKeyPath">self.stamp.alternate_picture_3</string>
+							<string key="NSKeyPath">selection.alternate_picture_3</string>
 							<object class="NSDictionary" key="NSOptions">
 								<string key="NS.key.0">NSValueTransformerName</string>
 								<string key="NS.object.0">GPFilenameTransformer</string>
@@ -4238,19 +4206,19 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">2616</int>
+					<int key="connectionID">4789</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">valuePath: self.stamp.alternate_picture_6</string>
+						<string key="label">valuePath: selection.alternate_picture_6</string>
 						<reference key="source" ref="438338561"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="438338561"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">valuePath: self.stamp.alternate_picture_6</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">valuePath: selection.alternate_picture_6</string>
 							<string key="NSBinding">valuePath</string>
-							<string key="NSKeyPath">self.stamp.alternate_picture_6</string>
+							<string key="NSKeyPath">selection.alternate_picture_6</string>
 							<object class="NSDictionary" key="NSOptions">
 								<string key="NS.key.0">NSValueTransformerName</string>
 								<string key="NS.object.0">GPFilenameTransformer</string>
@@ -4258,23 +4226,23 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">2617</int>
+					<int key="connectionID">4795</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: self.stamp.notes</string>
+						<string key="label">value: selection.notes</string>
 						<reference key="source" ref="980598510"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="980598510"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: self.stamp.notes</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">value: selection.notes</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">self.stamp.notes</string>
+							<string key="NSKeyPath">selection.notes</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1470</int>
+					<int key="connectionID">4797</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -4310,19 +4278,19 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">contentSet: self.stamp.gpCatalog.formatType.allowedStampFormats</string>
+						<string key="label">contentSet: selection.gpCatalog.formatType.allowedStampFormats</string>
 						<reference key="source" ref="558158724"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="558158724"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">contentSet: self.stamp.gpCatalog.formatType.allowedStampFormats</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">contentSet: selection.gpCatalog.formatType.allowedStampFormats</string>
 							<string key="NSBinding">contentSet</string>
-							<string key="NSKeyPath">self.stamp.gpCatalog.formatType.allowedStampFormats</string>
+							<string key="NSKeyPath">selection.gpCatalog.formatType.allowedStampFormats</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">3396</int>
+					<int key="connectionID">4805</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -4518,35 +4486,35 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: self.stamp.purchase_amount</string>
+						<string key="label">value: selection.purchase_amount</string>
 						<reference key="source" ref="831390287"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="831390287"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: self.stamp.purchase_amount</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">value: selection.purchase_amount</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">self.stamp.purchase_amount</string>
+							<string key="NSKeyPath">selection.purchase_amount</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1413</int>
+					<int key="connectionID">4771</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: self.stamp.purchase_date</string>
+						<string key="label">value: selection.purchase_date</string>
 						<reference key="source" ref="181675017"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="181675017"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: self.stamp.purchase_date</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">value: selection.purchase_date</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">self.stamp.purchase_date</string>
+							<string key="NSKeyPath">selection.purchase_date</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1416</int>
+					<int key="connectionID">4773</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -4711,20 +4679,20 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">selectedObject: self.stamp.format</string>
+						<string key="label">selectedObject: selection.format</string>
 						<reference key="source" ref="636811412"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="636811412"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">selectedObject: self.stamp.format</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">selectedObject: selection.format</string>
 							<string key="NSBinding">selectedObject</string>
-							<string key="NSKeyPath">self.stamp.format</string>
+							<string key="NSKeyPath">selection.format</string>
 							<reference key="NSPreviousConnector" ref="611728922"/>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1377</int>
+					<int key="connectionID">4679</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -4761,20 +4729,20 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">selectedObject: self.stamp.centering</string>
+						<string key="label">selectedObject: selection.centering</string>
 						<reference key="source" ref="921768914"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="921768914"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">selectedObject: self.stamp.centering</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">selectedObject: selection.centering</string>
 							<string key="NSBinding">selectedObject</string>
-							<string key="NSKeyPath">self.stamp.centering</string>
+							<string key="NSKeyPath">selection.centering</string>
 							<reference key="NSPreviousConnector" ref="558282"/>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1381</int>
+					<int key="connectionID">4683</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -4811,20 +4779,20 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">selectedObject: self.stamp.soundness</string>
+						<string key="label">selectedObject: selection.soundness</string>
 						<reference key="source" ref="922869776"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="922869776"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">selectedObject: self.stamp.soundness</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">selectedObject: selection.soundness</string>
 							<string key="NSBinding">selectedObject</string>
-							<string key="NSKeyPath">self.stamp.soundness</string>
+							<string key="NSKeyPath">selection.soundness</string>
 							<reference key="NSPreviousConnector" ref="867839586"/>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1383</int>
+					<int key="connectionID">4684</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -4861,20 +4829,20 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">selectedObject: self.stamp.grade</string>
+						<string key="label">selectedObject: selection.grade</string>
 						<reference key="source" ref="520890470"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="520890470"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">selectedObject: self.stamp.grade</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">selectedObject: selection.grade</string>
 							<string key="NSBinding">selectedObject</string>
-							<string key="NSKeyPath">self.stamp.grade</string>
+							<string key="NSKeyPath">selection.grade</string>
 							<reference key="NSPreviousConnector" ref="1034085109"/>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1385</int>
+					<int key="connectionID">4686</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -4911,20 +4879,20 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">selectedObject: self.stamp.gumCondition</string>
+						<string key="label">selectedObject: selection.gumCondition</string>
 						<reference key="source" ref="809837789"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="809837789"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">selectedObject: self.stamp.gumCondition</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">selectedObject: selection.gumCondition</string>
 							<string key="NSBinding">selectedObject</string>
-							<string key="NSKeyPath">self.stamp.gumCondition</string>
+							<string key="NSKeyPath">selection.gumCondition</string>
 							<reference key="NSPreviousConnector" ref="902107654"/>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1389</int>
+					<int key="connectionID">4688</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -4961,20 +4929,20 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">selectedObject: self.stamp.hinged</string>
+						<string key="label">selectedObject: selection.hinged</string>
 						<reference key="source" ref="92427831"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="92427831"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">selectedObject: self.stamp.hinged</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">selectedObject: selection.hinged</string>
 							<string key="NSBinding">selectedObject</string>
-							<string key="NSKeyPath">self.stamp.hinged</string>
+							<string key="NSKeyPath">selection.hinged</string>
 							<reference key="NSPreviousConnector" ref="989928148"/>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1391</int>
+					<int key="connectionID">4690</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -5011,20 +4979,20 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">selectedObject: self.stamp.dealer</string>
+						<string key="label">selectedObject: selection.dealer</string>
 						<reference key="source" ref="670679860"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="670679860"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">selectedObject: self.stamp.dealer</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">selectedObject: selection.dealer</string>
 							<string key="NSBinding">selectedObject</string>
-							<string key="NSKeyPath">self.stamp.dealer</string>
+							<string key="NSKeyPath">selection.dealer</string>
 							<reference key="NSPreviousConnector" ref="1016347002"/>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1422</int>
+					<int key="connectionID">4775</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -5061,20 +5029,20 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">selectedObject: self.stamp.lot</string>
+						<string key="label">selectedObject: selection.lot</string>
 						<reference key="source" ref="913173311"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="913173311"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">selectedObject: self.stamp.lot</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">selectedObject: selection.lot</string>
 							<string key="NSBinding">selectedObject</string>
-							<string key="NSKeyPath">self.stamp.lot</string>
+							<string key="NSKeyPath">selection.lot</string>
 							<reference key="NSPreviousConnector" ref="120669664"/>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1428</int>
+					<int key="connectionID">4777</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -5111,20 +5079,20 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">selectedObject: self.stamp.location</string>
+						<string key="label">selectedObject: selection.location</string>
 						<reference key="source" ref="457122380"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="457122380"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">selectedObject: self.stamp.location</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">selectedObject: selection.location</string>
 							<string key="NSBinding">selectedObject</string>
-							<string key="NSKeyPath">self.stamp.location</string>
+							<string key="NSKeyPath">selection.location</string>
 							<reference key="NSPreviousConnector" ref="550409633"/>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1434</int>
+					<int key="connectionID">4779</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -5161,248 +5129,228 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">selectedObject: self.stamp.mount</string>
+						<string key="label">selectedObject: selection.mount</string>
 						<reference key="source" ref="837055455"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="837055455"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">selectedObject: self.stamp.mount</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">selectedObject: selection.mount</string>
 							<string key="NSBinding">selectedObject</string>
-							<string key="NSKeyPath">self.stamp.mount</string>
+							<string key="NSKeyPath">selection.mount</string>
 							<reference key="NSPreviousConnector" ref="107226743"/>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1440</int>
+					<int key="connectionID">4781</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: self.stamp.bureauPrecancel.gp_precancel_number</string>
+						<string key="label">value: selection.bureauPrecancel.gp_precancel_number</string>
 						<reference key="source" ref="203076943"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="203076943"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: self.stamp.bureauPrecancel.gp_precancel_number</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">value: selection.bureauPrecancel.gp_precancel_number</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">self.stamp.bureauPrecancel.gp_precancel_number</string>
+							<string key="NSKeyPath">selection.bureauPrecancel.gp_precancel_number</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">3058</int>
+					<int key="connectionID">4725</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: self.stamp.bureauPrecancel.city</string>
+						<string key="label">value: selection.bureauPrecancel.city</string>
 						<reference key="source" ref="819334662"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="819334662"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: self.stamp.bureauPrecancel.city</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">value: selection.bureauPrecancel.city</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">self.stamp.bureauPrecancel.city</string>
+							<string key="NSKeyPath">selection.bureauPrecancel.city</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">3061</int>
+					<int key="connectionID">4728</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: self.stamp.bureauPrecancel.state</string>
+						<string key="label">value: selection.bureauPrecancel.state</string>
 						<reference key="source" ref="132009441"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="132009441"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: self.stamp.bureauPrecancel.state</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">value: selection.bureauPrecancel.state</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">self.stamp.bureauPrecancel.state</string>
+							<string key="NSKeyPath">selection.bureauPrecancel.state</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">3064</int>
+					<int key="connectionID">4731</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: self.stamp.localPrecancel.gp_precancel_number</string>
+						<string key="label">value: selection.localPrecancel.gp_precancel_number</string>
 						<reference key="source" ref="142815192"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="142815192"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: self.stamp.localPrecancel.gp_precancel_number</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">value: selection.localPrecancel.gp_precancel_number</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">self.stamp.localPrecancel.gp_precancel_number</string>
+							<string key="NSKeyPath">selection.localPrecancel.gp_precancel_number</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">3073</int>
+					<int key="connectionID">4740</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: self.stamp.localPrecancel.city</string>
+						<string key="label">value: selection.localPrecancel.city</string>
 						<reference key="source" ref="551357656"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="551357656"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: self.stamp.localPrecancel.city</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">value: selection.localPrecancel.city</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">self.stamp.localPrecancel.city</string>
+							<string key="NSKeyPath">selection.localPrecancel.city</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">3076</int>
+					<int key="connectionID">4743</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: self.stamp.localPrecancel.state</string>
+						<string key="label">value: selection.localPrecancel.state</string>
 						<reference key="source" ref="820238068"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="820238068"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: self.stamp.localPrecancel.state</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">value: selection.localPrecancel.state</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">self.stamp.localPrecancel.state</string>
+							<string key="NSKeyPath">selection.localPrecancel.state</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">3079</int>
+					<int key="connectionID">4746</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: self.stamp.bureauPrecancel.cancel_style</string>
+						<string key="label">value: selection.bureauPrecancel.cancel_style</string>
 						<reference key="source" ref="616578556"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="616578556"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: self.stamp.bureauPrecancel.cancel_style</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">value: selection.bureauPrecancel.cancel_style</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">self.stamp.bureauPrecancel.cancel_style</string>
+							<string key="NSKeyPath">selection.bureauPrecancel.cancel_style</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">3067</int>
+					<int key="connectionID">4734</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">hidden: self.stamp.format.displayBureauPrecancelInfo</string>
-						<reference key="source" ref="157744955"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="157744955"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">hidden: self.stamp.format.displayBureauPrecancelInfo</string>
-							<string key="NSBinding">hidden</string>
-							<string key="NSKeyPath">self.stamp.format.displayBureauPrecancelInfo</string>
-							<object class="NSDictionary" key="NSOptions">
-								<string key="NS.key.0">NSValueTransformerName</string>
-								<string key="NS.object.0">NSNegateBoolean</string>
-							</object>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">3308</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: self.stamp.bureauPrecancel.pss_type</string>
+						<string key="label">value: selection.bureauPrecancel.pss_type</string>
 						<reference key="source" ref="277139994"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="277139994"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: self.stamp.bureauPrecancel.pss_type</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">value: selection.bureauPrecancel.pss_type</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">self.stamp.bureauPrecancel.pss_type</string>
+							<string key="NSKeyPath">selection.bureauPrecancel.pss_type</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">3070</int>
+					<int key="connectionID">4737</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: self.stamp.localPrecancel.cancel_style</string>
+						<string key="label">value: selection.localPrecancel.cancel_style</string>
 						<reference key="source" ref="382615085"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="382615085"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: self.stamp.localPrecancel.cancel_style</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">value: selection.localPrecancel.cancel_style</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">self.stamp.localPrecancel.cancel_style</string>
+							<string key="NSKeyPath">selection.localPrecancel.cancel_style</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">3082</int>
+					<int key="connectionID">4749</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: self.stamp.localPrecancel.pss_type</string>
+						<string key="label">value: selection.localPrecancel.pss_type</string>
 						<reference key="source" ref="241786354"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="241786354"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: self.stamp.localPrecancel.pss_type</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">value: selection.localPrecancel.pss_type</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">self.stamp.localPrecancel.pss_type</string>
+							<string key="NSKeyPath">selection.localPrecancel.pss_type</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">3085</int>
+					<int key="connectionID">4752</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: self.stamp.cancelation_type</string>
+						<string key="label">value: selection.cancelation_type</string>
 						<reference key="source" ref="809243490"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="809243490"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: self.stamp.cancelation_type</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">value: selection.cancelation_type</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">self.stamp.cancelation_type</string>
+							<string key="NSKeyPath">selection.cancelation_type</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">3721</int>
+					<int key="connectionID">4763</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: self.stamp.address_type</string>
+						<string key="label">value: selection.address_type</string>
 						<reference key="source" ref="246178782"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="246178782"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: self.stamp.address_type</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">value: selection.address_type</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">self.stamp.address_type</string>
+							<string key="NSKeyPath">selection.address_type</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">3735</int>
+					<int key="connectionID">4767</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: self.stamp.cancelation_date</string>
+						<string key="label">value: selection.cancelation_date</string>
 						<reference key="source" ref="253127359"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="253127359"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: self.stamp.cancelation_date</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">value: selection.cancelation_date</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">self.stamp.cancelation_date</string>
+							<string key="NSKeyPath">selection.cancelation_date</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">3756</int>
+					<int key="connectionID">4765</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -5439,144 +5387,164 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">selectedObject: self.stamp.cancelQuality</string>
+						<string key="label">selectedObject: selection.cancelQuality</string>
 						<reference key="source" ref="914272052"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="914272052"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">selectedObject: self.stamp.cancelQuality</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">selectedObject: selection.cancelQuality</string>
 							<string key="NSBinding">selectedObject</string>
-							<string key="NSKeyPath">self.stamp.cancelQuality</string>
+							<string key="NSKeyPath">selection.cancelQuality</string>
 							<reference key="NSPreviousConnector" ref="901882861"/>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">3781</int>
+					<int key="connectionID">4769</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: self.stamp.cachet.cachet_description</string>
+						<string key="label">value: selection.cachet.cachet_description</string>
 						<reference key="source" ref="804114765"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="804114765"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: self.stamp.cachet.cachet_description</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">value: selection.cachet.cachet_description</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">self.stamp.cachet.cachet_description</string>
+							<string key="NSKeyPath">selection.cachet.cachet_description</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">3890</int>
+					<int key="connectionID">4717</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: self.stamp.cachet.color</string>
+						<string key="label">value: selection.cachet.color</string>
 						<reference key="source" ref="254061855"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="254061855"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: self.stamp.cachet.color</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">value: selection.cachet.color</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">self.stamp.cachet.color</string>
+							<string key="NSKeyPath">selection.cachet.color</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">3899</int>
+					<int key="connectionID">4714</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: self.stamp.cachet.gp_cachet_number</string>
+						<string key="label">value: selection.cachet.gp_cachet_number</string>
 						<reference key="source" ref="695462625"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="695462625"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: self.stamp.cachet.gp_cachet_number</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">value: selection.cachet.gp_cachet_number</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">self.stamp.cachet.gp_cachet_number</string>
+							<string key="NSKeyPath">selection.cachet.gp_cachet_number</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">3904</int>
+					<int key="connectionID">4697</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: self.stamp.cachet.cachetCatalog.cachet_catalog_name</string>
+						<string key="label">value: selection.cachet.cachetCatalog.cachet_catalog_name</string>
 						<reference key="source" ref="995169035"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="995169035"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: self.stamp.cachet.cachetCatalog.cachet_catalog_name</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">value: selection.cachet.cachetCatalog.cachet_catalog_name</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">self.stamp.cachet.cachetCatalog.cachet_catalog_name</string>
+							<string key="NSKeyPath">selection.cachet.cachetCatalog.cachet_catalog_name</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">3886</int>
+					<int key="connectionID">4710</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: self.stamp.cachet.cachet_type</string>
+						<string key="label">value: selection.cachet.cachet_type</string>
 						<reference key="source" ref="815138210"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="815138210"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: self.stamp.cachet.cachet_type</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">value: selection.cachet.cachet_type</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">self.stamp.cachet.cachet_type</string>
+							<string key="NSKeyPath">selection.cachet.cachet_type</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">3900</int>
+					<int key="connectionID">4707</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: self.stamp.cachet.cachetMakerName.cachet_maker_name</string>
+						<string key="label">value: selection.cachet.cachetMakerName.cachet_maker_name</string>
 						<reference key="source" ref="322607301"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="322607301"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: self.stamp.cachet.cachetMakerName.cachet_maker_name</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">value: selection.cachet.cachetMakerName.cachet_maker_name</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">self.stamp.cachet.cachetMakerName.cachet_maker_name</string>
+							<string key="NSKeyPath">selection.cachet.cachetMakerName.cachet_maker_name</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">3903</int>
+					<int key="connectionID">4705</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: self.stamp.cachet.design_description</string>
+						<string key="label">hidden: selection.cachet.first_cachet</string>
+						<reference key="source" ref="346678225"/>
+						<reference key="destination" ref="573389674"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="346678225"/>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">hidden: selection.cachet.first_cachet</string>
+							<string key="NSBinding">hidden</string>
+							<string key="NSKeyPath">selection.cachet.first_cachet</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">NSNegateBoolean</string>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">4701</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: selection.cachet.design_description</string>
 						<reference key="source" ref="778529236"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="778529236"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: self.stamp.cachet.design_description</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">value: selection.cachet.design_description</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">self.stamp.cachet.design_description</string>
+							<string key="NSKeyPath">selection.cachet.design_description</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">3891</int>
+					<int key="connectionID">4720</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">valuePath: self.stamp.localPrecancel.picture</string>
+						<string key="label">valuePath: selection.localPrecancel.picture</string>
 						<reference key="source" ref="1354150"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="1354150"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">valuePath: self.stamp.localPrecancel.picture</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">valuePath: selection.localPrecancel.picture</string>
 							<string key="NSBinding">valuePath</string>
-							<string key="NSKeyPath">self.stamp.localPrecancel.picture</string>
+							<string key="NSKeyPath">selection.localPrecancel.picture</string>
 							<object class="NSDictionary" key="NSOptions">
 								<string key="NS.key.0">NSValueTransformerName</string>
 								<string key="NS.object.0">GPFilenameTransformer</string>
@@ -5584,19 +5552,19 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">4645</int>
+					<int key="connectionID">4755</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">valuePath: self.stamp.bureauPrecancel.picture</string>
+						<string key="label">valuePath: selection.bureauPrecancel.picture</string>
 						<reference key="source" ref="807469283"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="807469283"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">valuePath: self.stamp.bureauPrecancel.picture</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">valuePath: selection.bureauPrecancel.picture</string>
 							<string key="NSBinding">valuePath</string>
-							<string key="NSKeyPath">self.stamp.bureauPrecancel.picture</string>
+							<string key="NSKeyPath">selection.bureauPrecancel.picture</string>
 							<object class="NSDictionary" key="NSOptions">
 								<string key="NS.key.0">NSValueTransformerName</string>
 								<string key="NS.object.0">GPFilenameTransformer</string>
@@ -5604,19 +5572,19 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">4641</int>
+					<int key="connectionID">4801</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">valuePath: self.stamp.cachet.cachet_picture</string>
+						<string key="label">valuePath: selection.cachet.cachet_picture</string>
 						<reference key="source" ref="34496092"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="573389674"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="34496092"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">valuePath: self.stamp.cachet.cachet_picture</string>
+							<reference key="NSDestination" ref="573389674"/>
+							<string key="NSLabel">valuePath: selection.cachet.cachet_picture</string>
 							<string key="NSBinding">valuePath</string>
-							<string key="NSKeyPath">self.stamp.cachet.cachet_picture</string>
+							<string key="NSKeyPath">selection.cachet.cachet_picture</string>
 							<object class="NSDictionary" key="NSOptions">
 								<string key="NS.key.0">NSValueTransformerName</string>
 								<string key="NS.object.0">GPFilenameTransformer</string>
@@ -5624,7 +5592,23 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">4637</int>
+					<int key="connectionID">4694</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">managedObjectContext: self.managedObjectContext</string>
+						<reference key="source" ref="573389674"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="573389674"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">managedObjectContext: self.managedObjectContext</string>
+							<string key="NSBinding">managedObjectContext</string>
+							<string key="NSKeyPath">self.managedObjectContext</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">4678</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -5657,21 +5641,21 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 						<int key="objectID">1</int>
 						<reference key="object" ref="1005"/>
 						<array class="NSMutableArray" key="children">
-							<object class="IBNSLayoutConstraint" id="85719299">
+							<object class="IBNSLayoutConstraint" id="359101525">
 								<reference key="firstItem" ref="399797222"/>
-								<int key="firstAttribute">4</int>
+								<int key="firstAttribute">5</int>
 								<int key="relation">0</int>
-								<reference key="secondItem" ref="998700170"/>
-								<int key="secondAttribute">4</int>
+								<reference key="secondItem" ref="1005"/>
+								<int key="secondAttribute">5</int>
 								<float key="multiplier">1</float>
 								<object class="IBLayoutConstant" key="constant">
-									<double key="value">0.0</double>
+									<double key="value">186</double>
 								</object>
 								<float key="priority">1000</float>
 								<reference key="containingView" ref="1005"/>
-								<int key="scoringType">6</int>
-								<float key="scoringTypeFloat">24</float>
-								<int key="contentType">2</int>
+								<int key="scoringType">3</int>
+								<float key="scoringTypeFloat">9</float>
+								<int key="contentType">3</int>
 							</object>
 							<object class="IBNSLayoutConstraint" id="390296196">
 								<reference key="firstItem" ref="1005"/>
@@ -5689,15 +5673,15 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 								<float key="scoringTypeFloat">9</float>
 								<int key="contentType">3</int>
 							</object>
-							<object class="IBNSLayoutConstraint" id="830702778">
-								<reference key="firstItem" ref="399797222"/>
-								<int key="firstAttribute">5</int>
+							<object class="IBNSLayoutConstraint" id="928482644">
+								<reference key="firstItem" ref="1005"/>
+								<int key="firstAttribute">4</int>
 								<int key="relation">0</int>
-								<reference key="secondItem" ref="1005"/>
-								<int key="secondAttribute">5</int>
+								<reference key="secondItem" ref="998700170"/>
+								<int key="secondAttribute">4</int>
 								<float key="multiplier">1</float>
 								<object class="IBLayoutConstant" key="constant">
-									<double key="value">205</double>
+									<double key="value">11</double>
 								</object>
 								<float key="priority">1000</float>
 								<reference key="containingView" ref="1005"/>
@@ -5753,21 +5737,21 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 								<float key="scoringTypeFloat">24</float>
 								<int key="contentType">2</int>
 							</object>
-							<object class="IBNSLayoutConstraint" id="599960961">
-								<reference key="firstItem" ref="1005"/>
-								<int key="firstAttribute">6</int>
+							<object class="IBNSLayoutConstraint" id="955840006">
+								<reference key="firstItem" ref="627094678"/>
+								<int key="firstAttribute">9</int>
 								<int key="relation">0</int>
-								<reference key="secondItem" ref="627094678"/>
-								<int key="secondAttribute">6</int>
+								<reference key="secondItem" ref="399797222"/>
+								<int key="secondAttribute">9</int>
 								<float key="multiplier">1</float>
 								<object class="IBLayoutConstant" key="constant">
-									<double key="value">468</double>
+									<double key="value">0.0</double>
 								</object>
 								<float key="priority">1000</float>
 								<reference key="containingView" ref="1005"/>
-								<int key="scoringType">3</int>
-								<float key="scoringTypeFloat">9</float>
-								<int key="contentType">3</int>
+								<int key="scoringType">6</int>
+								<float key="scoringTypeFloat">24</float>
+								<int key="contentType">2</int>
 							</object>
 							<object class="IBNSLayoutConstraint" id="861865456">
 								<reference key="firstItem" ref="1005"/>
@@ -11639,21 +11623,21 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 								<float key="scoringTypeFloat">24</float>
 								<int key="contentType">2</int>
 							</object>
-							<object class="IBNSLayoutConstraint" id="549383192">
+							<object class="IBNSLayoutConstraint" id="383055754">
 								<reference key="firstItem" ref="695462625"/>
 								<int key="firstAttribute">5</int>
 								<int key="relation">0</int>
-								<reference key="secondItem" ref="1068745739"/>
+								<reference key="secondItem" ref="322607301"/>
 								<int key="secondAttribute">5</int>
 								<float key="multiplier">1</float>
 								<object class="IBLayoutConstant" key="constant">
-									<double key="value">103</double>
+									<double key="value">0.0</double>
 								</object>
 								<float key="priority">1000</float>
 								<reference key="containingView" ref="1068745739"/>
-								<int key="scoringType">3</int>
-								<float key="scoringTypeFloat">9</float>
-								<int key="contentType">3</int>
+								<int key="scoringType">6</int>
+								<float key="scoringTypeFloat">24</float>
+								<int key="contentType">2</int>
 							</object>
 							<object class="IBNSLayoutConstraint" id="426115036">
 								<reference key="firstItem" ref="695462625"/>
@@ -11778,12 +11762,12 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 							<reference ref="152805050"/>
 							<reference ref="788285839"/>
 							<reference ref="778529236"/>
-							<reference ref="695462625"/>
 							<reference ref="346678225"/>
 							<reference ref="909784898"/>
 							<reference ref="920125382"/>
 							<reference ref="429783432"/>
 							<reference ref="34496092"/>
+							<reference ref="695462625"/>
 						</array>
 						<reference key="parent" ref="412228035"/>
 					</object>
@@ -12415,11 +12399,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 					<object class="IBObjectRecord">
 						<int key="objectID">3984</int>
 						<reference key="object" ref="1001391482"/>
-						<reference key="parent" ref="1068745739"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">3985</int>
-						<reference key="object" ref="549383192"/>
 						<reference key="parent" ref="1068745739"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -15288,7 +15267,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 						<reference key="object" ref="399797222"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="44353409"/>
-							<object class="IBNSLayoutConstraint" id="1057397398">
+							<object class="IBNSLayoutConstraint" id="888730220">
 								<reference key="firstItem" ref="399797222"/>
 								<int key="firstAttribute">7</int>
 								<int key="relation">0</int>
@@ -15296,7 +15275,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 								<int key="secondAttribute">0</int>
 								<float key="multiplier">1</float>
 								<object class="IBLayoutConstant" key="constant">
-									<double key="value">111</double>
+									<double key="value">130</double>
 								</object>
 								<float key="priority">1000</float>
 								<reference key="containingView" ref="399797222"/>
@@ -15329,18 +15308,8 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 						<reference key="parent" ref="399797222"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">4545</int>
-						<reference key="object" ref="830702778"/>
-						<reference key="parent" ref="1005"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">4548</int>
 						<reference key="object" ref="869604619"/>
-						<reference key="parent" ref="399797222"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">4549</int>
-						<reference key="object" ref="1057397398"/>
 						<reference key="parent" ref="399797222"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -15549,16 +15518,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 						<reference key="parent" ref="1005"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">4656</int>
-						<reference key="object" ref="85719299"/>
-						<reference key="parent" ref="1005"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">4663</int>
-						<reference key="object" ref="599960961"/>
-						<reference key="parent" ref="1005"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">4665</int>
 						<reference key="object" ref="1002251204"/>
 						<reference key="parent" ref="1005"/>
@@ -15566,6 +15525,37 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 					<object class="IBObjectRecord">
 						<int key="objectID">4674</int>
 						<reference key="object" ref="873795683"/>
+						<reference key="parent" ref="1005"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">4677</int>
+						<reference key="object" ref="573389674"/>
+						<reference key="parent" ref="0"/>
+						<string key="objectName">StampController</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">4695</int>
+						<reference key="object" ref="383055754"/>
+						<reference key="parent" ref="1068745739"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">4807</int>
+						<reference key="object" ref="888730220"/>
+						<reference key="parent" ref="399797222"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">4808</int>
+						<reference key="object" ref="928482644"/>
+						<reference key="parent" ref="1005"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">4809</int>
+						<reference key="object" ref="955840006"/>
+						<reference key="parent" ref="1005"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">4810</int>
+						<reference key="object" ref="359101525"/>
 						<reference key="parent" ref="1005"/>
 					</object>
 				</array>
@@ -15578,13 +15568,13 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 					<reference ref="132717640"/>
 					<reference ref="937997363"/>
 					<reference ref="861865456"/>
-					<reference ref="599960961"/>
+					<reference ref="955840006"/>
 					<reference ref="642667708"/>
 					<reference ref="1002251204"/>
 					<reference ref="873795683"/>
-					<reference ref="830702778"/>
+					<reference ref="928482644"/>
 					<reference ref="390296196"/>
-					<reference ref="85719299"/>
+					<reference ref="359101525"/>
 				</array>
 				<string key="1.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<array key="1023.IBNSViewMetadataConstraints">
@@ -16085,7 +16075,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 					<reference ref="204900424"/>
 					<reference ref="638803050"/>
 					<reference ref="426115036"/>
-					<reference ref="549383192"/>
+					<reference ref="383055754"/>
 					<reference ref="56083262"/>
 					<reference ref="440355783"/>
 					<reference ref="238998810"/>
@@ -16250,7 +16240,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 				<string key="3979.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="3981.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="3984.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="3985.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="3986.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="3987.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="3988.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -16518,14 +16507,12 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 				<string key="4537.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<array class="NSMutableArray" key="4540.IBNSViewMetadataConstraints">
 					<reference ref="869604619"/>
-					<reference ref="1057397398"/>
+					<reference ref="888730220"/>
 				</array>
 				<boolean value="NO" key="4540.IBNSViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
 				<string key="4540.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="4541.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="4545.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="4548.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="4549.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="4554.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="NO" key="4557.IBNSViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
 				<string key="4557.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -16569,10 +16556,14 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 				<string key="4632.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="4633.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="4655.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="4656.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="4663.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="4665.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="4674.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="4677.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="4695.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="4807.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="4808.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="4809.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="4810.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<array key="486.IBNSViewMetadataConstraints">
 					<reference ref="165256841"/>
 					<reference ref="801091841"/>
@@ -16632,7 +16623,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 				<string key="689.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="694.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="698.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<integer value="1041" key="700.IBNumberFormatterBehaviorMetadataKey"/>
+				<integer value="1040" key="700.IBNumberFormatterBehaviorMetadataKey"/>
 				<boolean value="YES" key="700.IBNumberFormatterLocalizesFormatMetadataKey"/>
 				<string key="700.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<array class="NSMutableArray" key="73.IBNSViewMetadataConstraints">
@@ -16861,7 +16852,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 				<string key="954.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="955.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="956.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<integer value="1041" key="976.IBNumberFormatterBehaviorMetadataKey"/>
+				<integer value="1040" key="976.IBNumberFormatterBehaviorMetadataKey"/>
 				<boolean value="YES" key="976.IBNumberFormatterLocalizesFormatMetadataKey"/>
 				<string key="976.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<array key="977.IBNSViewMetadataConstraints">
@@ -16878,7 +16869,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">4676</int>
+			<int key="maxID">4810</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
