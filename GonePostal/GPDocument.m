@@ -41,6 +41,7 @@
 #import "GPAttachmentController.h"
 #import "GPSupportedSubjects.h"
 #import "GPStampDefaults.h"
+#import "GPDatabaseStats.h"
 
 #import "GPFilenameTransformer.h"
 #import "GPAlternateCatalogNumberTransformer.h"
@@ -90,8 +91,6 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
 @property (weak, nonatomic) IBOutlet NSWindow * mainWindow;
 @property (weak, nonatomic) IBOutlet NSTableView * gpCollectionTable;
 @property (weak, nonatomic) IBOutlet NSArrayController * gpCollectionController;
-
-@property (weak, nonatomic) IBOutlet NSTextField * numCatalogEntriesDisplay;
 @end
 
 @implementation GPDocument
@@ -231,17 +230,6 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
 - (void)windowControllerDidLoadNib:(NSWindowController *)aController
 {
     [super windowControllerDidLoadNib:aController];
-    
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"GPCatalog" inManagedObjectContext:self.managedObjectContext];
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    [fetchRequest setEntity:entity];
-    
-    NSError *error = nil;
-    NSArray *results = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if (results) {
-        [self.numCatalogEntriesDisplay setIntegerValue:[results count]];
-    }
 }
 
 + (BOOL)autosavesInPlace
@@ -365,6 +353,12 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
     GPAttachmentController * controller = [[GPAttachmentController alloc] initWithWindowNibName:@"GPAttachmentController"];
     [controller setManagedObjectContext:self.managedObjectContext];
     
+    [self addWindowController:controller];
+    [controller.window makeKeyAndOrderFront:sender];
+}
+
+- (IBAction)showCatalogStats:(id)sender {
+    GPDatabaseStats *controller = [[GPDatabaseStats alloc] initWithWindowNibName:@"GPDatabaseStats"];
     [self addWindowController:controller];
     [controller.window makeKeyAndOrderFront:sender];
 }

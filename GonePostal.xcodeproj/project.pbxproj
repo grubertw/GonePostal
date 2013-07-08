@@ -90,6 +90,8 @@
 		1F0EC78D16D95C9300427B4C /* GPSetPopoverController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0EC78B16D95C9300427B4C /* GPSetPopoverController.xib */; };
 		1F0EC79716DA7AA600427B4C /* GPTopicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EC79516DA7AA600427B4C /* GPTopicsController.m */; };
 		1F0EC79816DA7AA600427B4C /* GPTopicsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0EC79616DA7AA600427B4C /* GPTopicsController.xib */; };
+		1F1B69B5178A324B0018B930 /* GPDatabaseStats.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F1B69B3178A324B0018B930 /* GPDatabaseStats.m */; };
+		1F1B69B6178A324B0018B930 /* GPDatabaseStats.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F1B69B4178A324B0018B930 /* GPDatabaseStats.xib */; };
 		1F2E544E1700F56800F177A0 /* GPSupportedCancelQuality.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E544C1700F56800F177A0 /* GPSupportedCancelQuality.m */; };
 		1F2E544F1700F56800F177A0 /* GPSupportedCancelQuality.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F2E544D1700F56800F177A0 /* GPSupportedCancelQuality.xib */; };
 		1F2E54531700F5EC00F177A0 /* GPSupportedCentering.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E54511700F5EC00F177A0 /* GPSupportedCentering.m */; };
@@ -381,6 +383,9 @@
 		1F0EC79416DA7AA600427B4C /* GPTopicsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPTopicsController.h; sourceTree = "<group>"; };
 		1F0EC79516DA7AA600427B4C /* GPTopicsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPTopicsController.m; sourceTree = "<group>"; };
 		1F0EC79616DA7AA600427B4C /* GPTopicsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GPTopicsController.xib; sourceTree = "<group>"; };
+		1F1B69B2178A324A0018B930 /* GPDatabaseStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPDatabaseStats.h; sourceTree = "<group>"; };
+		1F1B69B3178A324B0018B930 /* GPDatabaseStats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPDatabaseStats.m; sourceTree = "<group>"; };
+		1F1B69B4178A324B0018B930 /* GPDatabaseStats.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GPDatabaseStats.xib; sourceTree = "<group>"; };
 		1F2E544B1700F56800F177A0 /* GPSupportedCancelQuality.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPSupportedCancelQuality.h; sourceTree = "<group>"; };
 		1F2E544C1700F56800F177A0 /* GPSupportedCancelQuality.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPSupportedCancelQuality.m; sourceTree = "<group>"; };
 		1F2E544D1700F56800F177A0 /* GPSupportedCancelQuality.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GPSupportedCancelQuality.xib; sourceTree = "<group>"; };
@@ -900,10 +905,13 @@
 				1F0EC72016D946E500427B4C /* AppDelegate.m */,
 				1F0EC72116D946E500427B4C /* NSPersistentDocument+FileWrapperSupport.h */,
 				1F0EC72216D946E500427B4C /* NSPersistentDocument+FileWrapperSupport.m */,
+				1F49309016D93A9B0094672A /* MainMenu.xib */,
+				1F49308D16D93A9B0094672A /* GPDocument.xib */,
 				1F49308A16D93A9B0094672A /* GPDocument.h */,
 				1F49308B16D93A9B0094672A /* GPDocument.m */,
-				1F49308D16D93A9B0094672A /* GPDocument.xib */,
-				1F49309016D93A9B0094672A /* MainMenu.xib */,
+				1F1B69B4178A324B0018B930 /* GPDatabaseStats.xib */,
+				1F1B69B2178A324A0018B930 /* GPDatabaseStats.h */,
+				1F1B69B3178A324B0018B930 /* GPDatabaseStats.m */,
 				1FC06C1216E41A7100DA8DFB /* Preferences */,
 				1F55AD7B1711FE640094C076 /* ImportExport */,
 				1FC06C1716E500BA00DA8DFB /* Search */,
@@ -1331,6 +1339,7 @@
 				1F5D09AB178151690007D781 /* ZoomOut.png in Resources */,
 				1F5D09B0178157510007D781 /* GPSupportedSubjects.xib in Resources */,
 				1F9D14151788892800B225EC /* GPStampDefaults.xib in Resources */,
+				1F1B69B6178A324B0018B930 /* GPDatabaseStats.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1514,6 +1523,7 @@
 				1F9D14101788865500B225EC /* Stamp+Duplicate.m in Sources */,
 				1F9D14141788892800B225EC /* GPStampDefaults.m in Sources */,
 				1F9D14181788949100B225EC /* Stamp.m in Sources */,
+				1F1B69B5178A324B0018B930 /* GPDatabaseStats.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
