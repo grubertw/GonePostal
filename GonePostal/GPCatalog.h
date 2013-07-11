@@ -2,7 +2,7 @@
 //  GPCatalog.h
 //  GonePostal
 //
-//  Created by Travis Gruber on 7/2/13.
+//  Created by Travis Gruber on 7/10/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
@@ -36,6 +36,7 @@
 @property (nonatomic, retain) NSString * design_measurement;
 @property (nonatomic, retain) NSString * designers;
 @property (nonatomic, retain) NSString * engravers;
+@property (nonatomic, retain) NSString * envelope_size;
 @property (nonatomic, retain) NSString * gp_catalog_number;
 @property (nonatomic, retain) NSString * gp_description;
 @property (nonatomic, retain) NSString * gum;
@@ -47,6 +48,7 @@
 @property (nonatomic, retain) NSNumber * is_default;
 @property (nonatomic, retain) NSString * issue_location;
 @property (nonatomic, retain) NSString * issue_name;
+@property (nonatomic, retain) NSString * knife;
 @property (nonatomic, retain) NSString * long_description;
 @property (nonatomic, retain) NSNumber * multiple_transfer;
 @property (nonatomic, retain) NSNumber * number_of_panes;
@@ -99,6 +101,7 @@
 @property (nonatomic, retain) Format *formatType;
 @property (nonatomic, retain) LooksLike *looksLike;
 @property (nonatomic, retain) GPCatalog *majorVariety;
+@property (nonatomic, retain) NSSet *numberOfStampsInPlate;
 @property (nonatomic, retain) NSSet *plateNumbers;
 @property (nonatomic, retain) NSSet *plateUsage;
 @property (nonatomic, retain) GPSalesGroup *salesGroup;
@@ -106,7 +109,6 @@
 @property (nonatomic, retain) NSSet *subvarieties;
 @property (nonatomic, retain) GPSubvarietyType *subvarietyType;
 @property (nonatomic, retain) NSSet *topics;
-@property (nonatomic, retain) NSSet *numberOfStampsInPlate;
 @end
 
 @interface GPCatalog (CoreDataGeneratedAccessors)
@@ -151,6 +153,11 @@
 - (void)addExtraPictures:(NSSet *)values;
 - (void)removeExtraPictures:(NSSet *)values;
 
+- (void)addNumberOfStampsInPlateObject:(NumberOfStampsInPlate *)value;
+- (void)removeNumberOfStampsInPlateObject:(NumberOfStampsInPlate *)value;
+- (void)addNumberOfStampsInPlate:(NSSet *)values;
+- (void)removeNumberOfStampsInPlate:(NSSet *)values;
+
 - (void)addPlateNumbersObject:(PlateNumber *)value;
 - (void)removePlateNumbersObject:(PlateNumber *)value;
 - (void)addPlateNumbers:(NSSet *)values;
@@ -175,10 +182,5 @@
 - (void)removeTopicsObject:(Topic *)value;
 - (void)addTopics:(NSSet *)values;
 - (void)removeTopics:(NSSet *)values;
-
-- (void)addNumberOfStampsInPlateObject:(NumberOfStampsInPlate *)value;
-- (void)removeNumberOfStampsInPlateObject:(NumberOfStampsInPlate *)value;
-- (void)addNumberOfStampsInPlate:(NSSet *)values;
-- (void)removeNumberOfStampsInPlate:(NSSet *)values;
 
 @end

@@ -85,21 +85,15 @@
     duplicate.formatType = self.formatType;
     duplicate.subvarietyType = self.subvarietyType;
 
-    // Also duplicate the first (default) alternate catalog row
-    AlternateCatalog * defaultAltCatalog;
+    // Duplicate the alternate catalogs.
     for (AlternateCatalog * ac in self.alternateCatalogs) {
-        if ([ac.alternateCatalogName.alternate_catalog_name isEqualToString:self.defaultCatalogName.alternate_catalog_name]) {
-            defaultAltCatalog = ac;
-        }
-        break;
+        AlternateCatalog * altCatalog = [NSEntityDescription insertNewObjectForEntityForName:@"AlternateCatalog" inManagedObjectContext:self.managedObjectContext];
+        altCatalog.alternateCatalogName = ac.alternateCatalogName;
+        altCatalog.alternateCatalogGroup = ac.alternateCatalogGroup;
+        altCatalog.alternate_catalog_number = ac.alternate_catalog_number;
+        // Add to new entry.
+        [duplicate addAlternateCatalogsObject:altCatalog];
     }
-    
-    AlternateCatalog * altCatalog = [NSEntityDescription insertNewObjectForEntityForName:@"AlternateCatalog" inManagedObjectContext:self.managedObjectContext];
-    altCatalog.alternateCatalogName = defaultAltCatalog.alternateCatalogName;
-    altCatalog.alternateCatalogGroup = defaultAltCatalog.alternateCatalogGroup;
-    altCatalog.alternate_catalog_number = defaultAltCatalog.alternate_catalog_number;
-    // Add to new entry.
-    [duplicate addAlternateCatalogsObject:altCatalog];
     
     return duplicate;
 }

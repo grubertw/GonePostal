@@ -2,7 +2,7 @@
 //  GPCatalog.m
 //  GonePostal
 //
-//  Created by Travis Gruber on 7/2/13.
+//  Created by Travis Gruber on 7/10/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
@@ -54,6 +54,7 @@
 @dynamic design_measurement;
 @dynamic designers;
 @dynamic engravers;
+@dynamic envelope_size;
 @dynamic gp_catalog_number;
 @dynamic gp_description;
 @dynamic gum;
@@ -65,6 +66,7 @@
 @dynamic is_default;
 @dynamic issue_location;
 @dynamic issue_name;
+@dynamic knife;
 @dynamic long_description;
 @dynamic multiple_transfer;
 @dynamic number_of_panes;
@@ -117,6 +119,7 @@
 @dynamic formatType;
 @dynamic looksLike;
 @dynamic majorVariety;
+@dynamic numberOfStampsInPlate;
 @dynamic plateNumbers;
 @dynamic plateUsage;
 @dynamic salesGroup;
@@ -124,6 +127,5 @@
 @dynamic subvarieties;
 @dynamic subvarietyType;
 @dynamic topics;
-@dynamic numberOfStampsInPlate;
 
 @end
