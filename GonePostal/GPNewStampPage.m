@@ -23,12 +23,15 @@
 #import "Perfin.h"
 #import "PlateUsage.h"
 #import "StampFormat.h"
+#import "GPCatalog.h"
+#import "Format.h"
 
 @interface GPNewStampPage ()
 @property (strong, nonatomic) GPDocument * doc;
 @property (strong, nonatomic) GPCollection * collection;
 
 @property (strong, nonatomic) IBOutlet NSObjectController * stampController;
+@property (strong, nonatomic) IBOutlet NSArrayController * formatController;
 
 @property (weak, nonatomic) IBOutlet NSBox * cachetBox;
 @property (weak, nonatomic) IBOutlet NSBox * platesBox;
@@ -159,6 +162,10 @@
     self.historyAndStorageFrame = [self.historyAndStorageBox frame];
     self.picturesFrame = [self.picturesBox frame];
     self.notesFrame = [self.notesBox frame];
+    
+    NSFetchRequest *stampFormatsFetch = [NSFetchRequest fetchRequestWithEntityName:@"StampFormat"];
+    NSArray *stampFormats = [self.managedObjectContext executeFetchRequest:stampFormatsFetch error:nil];
+    [self.formatController setContent:stampFormats];
 }
 
 - (void)setSelectedGPCatalog:(GPCatalog *)gpCatalog {
@@ -173,6 +180,8 @@
     
     // Copy the GPID from the catalog into the stamp.
     [stamp setGp_stamp_number:gpCatalog.gp_catalog_number];
+    
+    [self.formatController setContent:gpCatalog.formatType.allowedStampFormats];
 }
 
 - (void)addStampObservers {
@@ -200,7 +209,7 @@
     CGFloat top = self.cachetFrame.origin.y + self.cachetFrame.size.height;
     CGFloat currY = top;
     
-    if (stamp.format && stamp.format.displayCachetInfo) {
+    if ([stamp.format.displayCachetInfo isEqualToNumber:@(YES)]) {
         [self.cachetBox setFrame:self.cachetFrame];
         currY -= self.cachetFrame.size.height;
     }
@@ -208,7 +217,7 @@
         [self.cachetBox setFrame:NSMakeRect(0, 0, 0, 0)];
     }
     
-    if (stamp.format.displayPlateInfo) {
+    if ([stamp.format.displayPlateInfo isEqualToNumber:@(YES)]) {
         currY -= self.platesFrame.size.height;
         [self.platesBox setFrame:NSMakeRect(self.platesFrame.origin.x,
                                             currY,
@@ -219,7 +228,7 @@
         [self.platesBox setFrame:NSMakeRect(0, 0, 0, 0)];
     }
     
-    if (stamp.format && stamp.format.displayBureauPrecancelInfo) {
+    if ([stamp.format.displayBureauPrecancelInfo isEqualToNumber:@(YES)]) {
         currY -= self.bureauPrecancelFrame.size.height;
         [self.bureauPrecancelBox setFrame:NSMakeRect(self.bureauPrecancelFrame.origin.x,
                                             currY,
@@ -230,7 +239,7 @@
         [self.bureauPrecancelBox setFrame:NSMakeRect(0, 0, 0, 0)];
     }
     
-    if (stamp.format && stamp.format.displayLocalPrecancelInfo) {
+    if ([stamp.format.displayLocalPrecancelInfo isEqualToNumber:@(YES)]) {
         currY -= self.localPrecancelFrame.size.height;
         [self.localPrecancelBox setFrame:NSMakeRect(self.localPrecancelFrame.origin.x,
                                             currY,
@@ -241,7 +250,7 @@
         [self.localPrecancelBox setFrame:NSMakeRect(0, 0, 0, 0)];
     }
     
-    if (stamp.format && stamp.format.displayPerfinInfo) {
+    if ([stamp.format.displayPerfinInfo isEqualToNumber:@(YES)]) {
         currY -= self.perfinFrame.size.height;
         [self.perfinBox setFrame:NSMakeRect(self.perfinFrame.origin.x,
                                             currY,
@@ -386,6 +395,10 @@
     
     // Store the filename into the model.
     stamp.alternate_picture_6 = fileName;
+}
+
+- (Stamp *)getCurrentStamp {
+    return [self.stampController content];
 }
 
 - (IBAction)addAnotherStamp:(id)sender {

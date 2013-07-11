@@ -16,8 +16,11 @@
 
 @property (weak, nonatomic) IBOutlet NSPageController * pageController;
 @property (weak, nonatomic) IBOutlet NSTextField * pageDescription;
-@property (weak, nonatomic) IBOutlet NSButton * forwardButton;
-@property (weak, nonatomic) IBOutlet NSButton * backButton;
+
+@property (weak, nonatomic) IBOutlet NSButton * quickAddButton;
+@property (weak, nonatomic) IBOutlet NSButton * locatorButton;
+@property (weak, nonatomic) IBOutlet NSButton * catalogButton;
+@property (weak, nonatomic) IBOutlet NSButton * stampDetailsButton;
 @property (weak, nonatomic) IBOutlet NSButton * doneButton;
 
 @property (strong, nonatomic) NSArray * pages;
@@ -92,13 +95,16 @@ static NSString * NEW_STAMP_PAGE_TITLE = @"Specify Stamp Specifics";
     
     if (self.operatingMode == 1) {
         [self.pageDescription setStringValue:LOCATOR_PAGE_TITLE];
+        [self.quickAddButton setHidden:YES];
+        [self.stampDetailsButton setHidden:YES];
+        [self.doneButton setHidden:YES];
     }
     else if (self.operatingMode == 2) {
         [self.pageDescription setStringValue:GP_CATALOG_PAGE_TITLE];
+        [self.catalogButton setHidden:YES];
     }
     
-    [self.backButton setHidden:YES];
-    [self.forwardButton setHidden:NO];
+    [self.locatorButton setHidden:YES];
 }
 
 - (void)setSelectedGPCatalog:(GPCatalog *)selectedGPCatalog {
@@ -152,6 +158,18 @@ static NSString * NEW_STAMP_PAGE_TITLE = @"Specify Stamp Specifics";
     if (self.gpLocatorPage) {
         self.selectedLooksLike = self.gpLocatorPage.looksLikeController.selectedObjects[0];
     }
+    
+    // If the user is going back to the catalog, override the current stamp
+    // with the defaults.
+    if ([self.initialSelectedPage isEqualToNumber:@(LOCATOR_PAGE)]) {
+        // If this is a transition from the GPLocator, load the catalog chooser
+        // with the selectedLooksLike
+        [self.gpCatalogPage setSelectedLooksLike:self.selectedLooksLike];
+    }
+    else if ([self.initialSelectedPage isEqualToNumber:@(NEW_STAMP_PAGE)]) {
+        Stamp * stamp = [self.gpNewStampPage getCurrentStamp];
+        [stamp setToDefaults];
+    }
 }
 
 - (void)pageControllerDidEndLiveTransition:(NSPageController *)pageController {
@@ -159,40 +177,53 @@ static NSString * NEW_STAMP_PAGE_TITLE = @"Specify Stamp Specifics";
     id selectedPage = [pageController.arrangedObjects objectAtIndex:pageController.selectedIndex];
     
     if ([selectedPage isEqualToNumber:@(LOCATOR_PAGE)]) {
-        [self.backButton setHidden:YES];
+        [self.locatorButton setHidden:YES];
+        [self.quickAddButton setHidden:YES];
+        [self.stampDetailsButton setHidden:YES];
+        [self.doneButton setHidden:YES];
+        [self.catalogButton setHidden:NO];
     }
     else if ([selectedPage isEqualToNumber:@(GP_CATALOG_PAGE)]) {
-        if (self.gpLocatorPage) {
-            // If this is a transition from the GPLocator, load the catalog chooser
-            // with the selectedLooksLike
-            [self.gpCatalogPage setSelectedLooksLike:self.selectedLooksLike];
-        }
-        
         [self.pageDescription setStringValue:GP_CATALOG_PAGE_TITLE];
         
-        if (self.operatingMode == 2)
-            [self.backButton setHidden:YES];
-        else
-            [self.backButton setHidden:NO];
+        if (self.operatingMode == 1) {
+            [self.locatorButton setHidden:NO];
+        }
         
-        [self.forwardButton setHidden:NO];
+        [self.catalogButton setHidden:YES];
+        [self.quickAddButton setHidden:NO];
+        [self.stampDetailsButton setHidden:NO];
+        [self.doneButton setHidden:NO];
     }
     else if ([selectedPage isEqualToNumber:@(NEW_STAMP_PAGE)]) {
         [self.pageDescription setStringValue:NEW_STAMP_PAGE_TITLE];
         
-        [self.forwardButton setHidden:YES];
-        [self.backButton setHidden:NO];
+        [self.locatorButton setHidden:YES];
+        [self.catalogButton setHidden:NO];
+        [self.quickAddButton setHidden:YES];
+        [self.stampDetailsButton setHidden:YES];
         
         [self.gpNewStampPage updateDynamicStampBoxes];
     }
 }
 
-- (IBAction)nextPage:(id)sender {
-    [self.pageController navigateForward:sender];
+- (IBAction)gotoLocator:(id)sender {
+    [self.pageController navigateBack:sender];
 }
 
-- (IBAction)prevPage:(id)sender {
-    [self.pageController navigateBack:sender];
+- (IBAction)gotoCatalog:(id)sender {
+    id currPage = [self.pageController.arrangedObjects objectAtIndex:self.pageController.selectedIndex];
+    
+    if ([currPage isEqualToNumber:@(LOCATOR_PAGE)]) {
+        [self.pageController navigateForward:sender];
+    }
+    else if ([currPage isEqualToNumber:@(NEW_STAMP_PAGE)]) {
+        [self.pageController navigateBack:sender];
+    }
+}
+
+- (IBAction)gotoStampDetails:(id)sender {
+    [self.pageController navigateForward:sender];
 }
 
 - (IBAction)quickAdd:(id)sender {

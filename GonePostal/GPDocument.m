@@ -805,4 +805,24 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
     }
 }
 
+- (IBAction)deleteStampsAndCollections:(id)sender {
+    NSFetchRequest * stampFetch = [NSFetchRequest fetchRequestWithEntityName:@"Stamp"];
+    NSArray * stamps = [self.managedObjectContext executeFetchRequest:stampFetch error:nil];
+    
+    if (stamps) {
+        for (Stamp * stamp in stamps) {
+            [self.managedObjectContext deleteObject:stamp];
+        }
+    }
+    
+    NSFetchRequest * collectionsFetch = [NSFetchRequest fetchRequestWithEntityName:@"GPCollection"];
+    NSArray * collections = [self.managedObjectContext executeFetchRequest:collectionsFetch error:nil];
+    
+    if (collections) {
+        for (GPCollection * collection in collections) {
+            [self.managedObjectContext deleteObject:collection];
+        }
+    }
+}
+
 @end

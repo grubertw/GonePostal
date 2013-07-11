@@ -12,4 +12,6 @@
 
 + (Stamp *)CreateFromDefaultsUsingManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
 
+- (void)setToDefaults;
+
 @end

@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "GPCatalog.h"
 #import "GPCollection.h"
+#import "Stamp.h"
 
 @interface GPNewStampPage : NSViewController <NSPageControllerDelegate>
 
@@ -31,6 +32,8 @@
 @property (weak, nonatomic) IBOutlet NSTextField * compositeQuantityInput;
 
 - (id)initWithCollection:(GPCollection *)myCollection;
+
+- (Stamp *)getCurrentStamp;
 
 // Adds the stamp currently loaded into the page into the collection.
 - (void)addCurrentStamp;
