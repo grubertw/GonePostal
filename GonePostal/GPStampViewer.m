@@ -190,25 +190,34 @@
     [self.stampsController rearrangeObjects];
 }
 
+- (void)removeObserversFromContainer {
+    if (self.currStampsContainer && [self.currStampsContainer isMemberOfClass:[GPCollection class]]) {
+        [self.currStampsContainer removeObserver:self forKeyPath:@"stamps"];
+    }
+    else if (self.currStampsContainer && [self.currStampsContainer isMemberOfClass:[Stamp class]]) {
+        [self.currStampsContainer removeObserver:self forKeyPath:@"children"];
+    }
+}
+
 - (void)changeStampContent:(id)content {
-    id oldContent = self.currStampsContainer;
-    
-    if (oldContent && [oldContent isMemberOfClass:[GPCollection class]]) {
-        [oldContent removeObserver:self forKeyPath:@"stamps"];
-    }
-    else if (oldContent && [oldContent isMemberOfClass:[Stamp class]]) {
-        [oldContent removeObserver:self forKeyPath:@"children"];
-    }
+    [self removeObserversFromContainer];
     
     if ([content isMemberOfClass:[GPCollection class]]) {
         GPCollection * collection = (GPCollection *)content;
-        [collection addObserver:self forKeyPath:@"stamps" options:NSKeyValueObservingOptionNew context:nil];
+        [collection addObserver:self
+                     forKeyPath:@"stamps"
+                        options:(NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld)
+                        context:nil];
         
         [self.stampsController setContent:collection.stamps];
     }
     else if ([content isMemberOfClass:[Stamp class]]) {
         Stamp * composite = (Stamp *)content;
-        [composite addObserver:self forKeyPath:@"children" options:NSKeyValueObservingOptionNew context:nil];
+        [composite addObserver:self
+                    forKeyPath:@"children"
+                       options:(NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld)
+                       context:nil];
+        
         [self.stampsController setContent:composite.children];
     }
     
@@ -218,13 +227,30 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if ([object isMemberOfClass:[GPCollection class]]) {
-        GPCollection * collection = (GPCollection *)object;
-        [self.stampsController setContent:collection.stamps];
+        [self.stampsController setContent:((GPCollection *)object).stamps];
     }
     else if ([object isMemberOfClass:[Stamp class]]) {
-        Stamp * composite = (Stamp *)object;
-        [self.stampsController setContent:composite.children];
+        [self.stampsController setContent:((Stamp *)object).children];
     }
+    
+//    if (   ![object isMemberOfClass:[GPCollection class]]
+//        && ![object isMemberOfClass:[Stamp class]]) return;
+//    
+//    NSNumber * changeType = change[NSKeyValueChangeKindKey];
+//    if ([changeType isEqualToNumber:@(NSKeyValueChangeInsertion)]) {
+//        NSArray *insertedStamps = change[NSKeyValueChangeNewKey];
+//        
+//        for (Stamp * stamp in insertedStamps) {
+//            [self.stampsController addObject:stamp];
+//        }
+//    }
+//    else if ([changeType isEqualToNumber:@(NSKeyValueChangeRemoval)]) {
+//        NSArray *removedStamps = change[NSKeyValueChangeOldKey];
+//        
+//        for (Stamp * stamp in removedStamps) {
+//            [self.stampsController removeObject:stamp];
+//        }
+//    }
 }
 
 - (void)controlTextDidChange:(NSNotification *)aNotification {
@@ -278,7 +304,7 @@
     if ([stamp.children count] > 0) {
         self.selectedComposite = stamp;
         
-        [self changeStampContent:stamp];
+        [self.stampsController setContent:stamp.children];
         [self.stampsTable setBackgroundColor:self.CHILDREN_COLOR];
         
         self.inStampCollection = NO;
@@ -292,8 +318,7 @@
 }
 
 - (IBAction)openAddFromGPCatalog:(id)sender {
-    GPAddStampController * addStampController = [[GPAddStampController alloc] initWithCollection:self.myCollection operatingMode:2];
-    [addStampController setComposite:self.selectedComposite];
+    GPAddStampController * addStampController = [[GPAddStampController alloc] initWithCollection:self.currStampsContainer operatingMode:2];
     
     GPDocument * doc = self.document;
     [doc addWindowController:addStampController];
@@ -370,7 +395,7 @@
 }
 
 - (IBAction)openLocator:(id)sender {
-    GPAddStampController * addStampController = [[GPAddStampController alloc] initWithCollection:self.myCollection operatingMode:1];
+    GPAddStampController * addStampController = [[GPAddStampController alloc] initWithCollection:self.currStampsContainer operatingMode:1];
     
     [self.document addWindowController:addStampController];
     [addStampController.window makeKeyAndOrderFront:self];
@@ -755,6 +780,10 @@
 
 - (IBAction)done:(id)sender {
     [self.window performClose:sender];
+}
+
+- (void)windowWillClose:(NSNotification *)notification {
+    [self removeObserversFromContainer];
 }
 
 @end

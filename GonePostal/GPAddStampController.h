@@ -15,9 +15,6 @@
 
 @interface GPAddStampController : NSWindowController <NSPageControllerDelegate>
 
-@property (strong, nonatomic) GPCollection * myCollection;
-@property (strong, nonatomic) Stamp * composite;
-
 @property (strong, nonatomic) NSManagedObjectContext * managedObjectContext;
 
 @property (strong, nonatomic) GPLocatorPage * gpLocatorPage;
@@ -33,6 +30,6 @@
  * - mode 1 = with the LooksLike locator
  * - mode 2 = without the LooksLike locator (skips directly to GPCatalog chooser)
  */
-- (id)initWithCollection:(GPCollection *)myCollection operatingMode:(NSUInteger)mode;
+- (id)initWithCollection:(id)stampCollection operatingMode:(NSUInteger)mode;
 
 @end

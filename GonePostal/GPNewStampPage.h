@@ -15,7 +15,6 @@
 
 @property (strong, nonatomic) GPCatalog * selectedGPCatalog;
 @property (strong, nonatomic) NSManagedObjectContext * managedObjectContext;
-@property (strong, nonatomic) Stamp * composite;
 
 @property (strong, nonatomic) NSArray * formatSortDescriptors;
 @property (strong, nonatomic) NSArray * centeringSortDescriptors;
@@ -31,7 +30,7 @@
 
 @property (weak, nonatomic) IBOutlet NSTextField * compositeQuantityInput;
 
-- (id)initWithCollection:(GPCollection *)myCollection;
+- (id)initWithCollection:(id)stampCollection;
 
 - (Stamp *)getCurrentStamp;
 

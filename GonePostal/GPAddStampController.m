@@ -14,6 +14,8 @@
 @interface GPAddStampController ()
 @property (nonatomic) NSUInteger operatingMode;
 
+@property (strong, nonatomic) id stampCollection;
+
 @property (weak, nonatomic) IBOutlet NSPageController * pageController;
 @property (weak, nonatomic) IBOutlet NSTextField * pageDescription;
 
@@ -39,16 +41,16 @@ static NSString * NEW_STAMP_PAGE_TITLE = @"Specify Stamp Specifics";
 
 @implementation GPAddStampController
 
-- (id)initWithCollection:(GPCollection *)myCollection operatingMode:(NSUInteger)mode {
+- (id)initWithCollection:(id)stampCollection operatingMode:(NSUInteger)mode {
     self = [super initWithWindowNibName:@"GPAddStampController"];
     if (self) {
-        _myCollection = myCollection;
+        _stampCollection = stampCollection;
         _operatingMode = mode;
         
         NSDocumentController * docController = [NSDocumentController sharedDocumentController];
         GPDocument * doc = [docController currentDocument];
         
-        _managedObjectContext = self.myCollection.managedObjectContext;
+        _managedObjectContext = doc.managedObjectContext;
         _savePressed = NO;
         
         if (mode == 1) {
@@ -63,8 +65,7 @@ static NSString * NEW_STAMP_PAGE_TITLE = @"Specify Stamp Specifics";
             
             _gpCatalogPage = [[GPCatalogChooserPage alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:nil sectionSearch:nil filterSearch:nil parentController:self];
             
-            _gpNewStampPage = [[GPNewStampPage alloc] initWithCollection:myCollection];
-            [_gpNewStampPage setComposite:self.composite];
+            _gpNewStampPage = [[GPNewStampPage alloc] initWithCollection:self.stampCollection];
             
             _pages = @[@(LOCATOR_PAGE),@(GP_CATALOG_PAGE),@(NEW_STAMP_PAGE)];
         }
@@ -74,8 +75,7 @@ static NSString * NEW_STAMP_PAGE_TITLE = @"Specify Stamp Specifics";
             
             _gpCatalogPage = [[GPCatalogChooserPage alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate filterSearch:doc.filtersPredicate parentController:self];
             
-            _gpNewStampPage = [[GPNewStampPage alloc] initWithCollection:myCollection];
-            [_gpNewStampPage setComposite:self.composite];
+            _gpNewStampPage = [[GPNewStampPage alloc] initWithCollection:self.stampCollection];
             
             _pages = @[@(GP_CATALOG_PAGE), @(NEW_STAMP_PAGE)];
             _initialSelectedPage = @(GP_CATALOG_PAGE);
@@ -113,7 +113,7 @@ static NSString * NEW_STAMP_PAGE_TITLE = @"Specify Stamp Specifics";
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
-    return self.myCollection.name;
+    return @"Add a Stamp to Your Collection";
 }
 
 - (NSString *)pageController:(NSPageController *)pageController identifierForObject:(id)object {
@@ -231,12 +231,13 @@ static NSString * NEW_STAMP_PAGE_TITLE = @"Specify Stamp Specifics";
     stamp.gpCatalog = self.gpCatalogPage.selectedGPCatalog;
     stamp.gp_stamp_number = self.gpCatalogPage.selectedGPCatalog.gp_catalog_number;
     
-    if (self.composite == nil) {
-        // Add the new stamp to the collection.
-        [self.myCollection addStampsObject:stamp];
+    if ([self.stampCollection isMemberOfClass:[GPCollection class]]) {
+        GPCollection * gpCollection = self.stampCollection;
+        [gpCollection addStampsObject:stamp];
     }
-    else {
-        [self.composite addChildrenObject:stamp];
+    else if ([self.stampCollection isMemberOfClass:[Stamp class]]) {
+        Stamp * parentCollection = self.stampCollection;
+        [parentCollection addChildrenObject:stamp];
     }
     
     NSError * error;

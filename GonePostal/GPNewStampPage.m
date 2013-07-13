@@ -28,10 +28,9 @@
 
 @interface GPNewStampPage ()
 @property (strong, nonatomic) GPDocument * doc;
-@property (strong, nonatomic) GPCollection * collection;
 
+@property (strong, nonatomic) id stampCollection;
 @property (strong, nonatomic) IBOutlet NSObjectController * stampController;
-@property (strong, nonatomic) IBOutlet NSArrayController * formatController;
 
 @property (weak, nonatomic) IBOutlet NSBox * cachetBox;
 @property (weak, nonatomic) IBOutlet NSBox * platesBox;
@@ -70,10 +69,10 @@
 @implementation GPNewStampPage
 
 
-- (id)initWithCollection:(GPCollection *)myCollection {
+- (id)initWithCollection:(id)stampCollection {
     self = [super initWithNibName:@"GPNewStampPage" bundle:nil];
     if (self) {
-        _collection = myCollection;
+        _stampCollection = stampCollection;
         
         // Initialize the sort descriptors
         NSSortDescriptor *formatSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
@@ -162,10 +161,6 @@
     self.historyAndStorageFrame = [self.historyAndStorageBox frame];
     self.picturesFrame = [self.picturesBox frame];
     self.notesFrame = [self.notesBox frame];
-    
-    NSFetchRequest *stampFormatsFetch = [NSFetchRequest fetchRequestWithEntityName:@"StampFormat"];
-    NSArray *stampFormats = [self.managedObjectContext executeFetchRequest:stampFormatsFetch error:nil];
-    [self.formatController setContent:stampFormats];
 }
 
 - (void)setSelectedGPCatalog:(GPCatalog *)gpCatalog {
@@ -180,8 +175,6 @@
     
     // Copy the GPID from the catalog into the stamp.
     [stamp setGp_stamp_number:gpCatalog.gp_catalog_number];
-    
-    [self.formatController setContent:gpCatalog.formatType.allowedStampFormats];
 }
 
 - (void)addStampObservers {
@@ -423,21 +416,18 @@
     Stamp * stamp = [self.stampController content];
     
     if (compositeQuantity > 1) {
-        if (self.composite != nil) return;
-        
         // Create a multi-quantity composite and add it to the collection
         // as one item.
-        Stamp * composite = [stamp createCompositeFromThisContainingAmount:compositeQuantity];
-        [self.collection addStampsObject:composite];
+        stamp = [stamp createCompositeFromThisContainingAmount:compositeQuantity];
     }
-    else {
-        if (self.composite == nil) {
-            // Add the new stamp to the collection.
-            [self.collection addStampsObject:stamp];
-        }
-        else {
-            [self.composite addChildrenObject:stamp];
-        }
+ 
+    if ([self.stampCollection isMemberOfClass:[GPCollection class]]) {
+        GPCollection * gpCollection = self.stampCollection;
+        [gpCollection addStampsObject:stamp];
+    }
+    else if ([self.stampCollection isMemberOfClass:[Stamp class]]) {
+        Stamp * parentCollection = self.stampCollection;
+        [parentCollection addChildrenObject:stamp];
     }
     
     NSError * error;

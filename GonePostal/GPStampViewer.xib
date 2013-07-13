@@ -795,7 +795,7 @@
 											<string key="NSFrame">{{808, 8}, {156, 19}}</string>
 											<reference key="NSSuperview" ref="699536380"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="106085447"/>
+											<reference key="NSNextKeyView" ref="56631310"/>
 											<string key="NSReuseIdentifierKey">_NS:9</string>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSButtonCell" key="NSCell" id="860953273">
@@ -1151,6 +1151,7 @@
 							<string key="NSFrame">{{475, -1}, {73, 32}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="463148853">
@@ -1175,7 +1176,7 @@
 							<string key="NSFrame">{{119, 78}, {392, 19}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="333927144"/>
+							<reference key="NSNextKeyView" ref="106085447"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<int key="NSTag">1</int>
 							<bool key="NSEnabled">YES</bool>
@@ -1232,7 +1233,7 @@
 							<string key="NSFrame">{{43, 79}, {73, 19}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="56631310"/>
+							<reference key="NSNextKeyView" ref="333927144"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSPopUpButtonCell" key="NSCell" id="733296404">
@@ -1715,6 +1716,7 @@
 							<string key="NSFrame">{{204, 3}, {70, 32}}</string>
 							<reference key="NSSuperview" ref="132411814"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="75238040">
@@ -1754,6 +1756,7 @@
 						<string key="NSFrame">{{153, 1}, {70, 32}}</string>
 						<reference key="NSSuperview" ref="222009708"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="456849224">
@@ -1991,6 +1994,7 @@
 						<string key="NSFrame">{{156, 13}, {70, 32}}</string>
 						<reference key="NSSuperview" ref="368624650"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="104873975">
@@ -2100,7 +2104,6 @@
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSArrayController" id="400294281">
-				<bool key="NSEditable">YES</bool>
 				<object class="_NSManagedProxy" key="_NSManagedProxy">
 					<string key="NSEntityName">Stamp</string>
 				</object>
@@ -2109,7 +2112,6 @@
 				<bool key="NSPreservesSelection">YES</bool>
 				<bool key="NSSelectsInsertedObjects">YES</bool>
 				<bool key="NSFilterRestrictsInsertion">YES</bool>
-				<bool key="NSClearsFilterPredicateOnInsertion">YES</bool>
 				<bool key="NSAutomaticallyRearrangesObjects">YES</bool>
 			</object>
 			<object class="NSArrayController" id="824877877">
@@ -10833,7 +10835,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">2446</int>
+			<int key="maxID">2450</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -10848,6 +10850,165 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">GPStampViewer</string>
 					<string key="superclassName">NSWindowController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="acquired:">id</string>
+						<string key="addToSelectedSellList:">id</string>
+						<string key="addToSellList:">id</string>
+						<string key="addWantSellList:">id</string>
+						<string key="breakDownComposite:">id</string>
+						<string key="cancelAddToSellList:">id</string>
+						<string key="cancelComposite:">id</string>
+						<string key="cancelViewWantSellList:">id</string>
+						<string key="closeChildren:">id</string>
+						<string key="createComposite:">id</string>
+						<string key="deleteStamp:">id</string>
+						<string key="done:">id</string>
+						<string key="editComposite:">id</string>
+						<string key="editCustomSearch:">id</string>
+						<string key="executeCustomSearch:">id</string>
+						<string key="manageSellLists:">id</string>
+						<string key="manageWantLists:">id</string>
+						<string key="openAddCompositeEditor:">id</string>
+						<string key="openAddFromGPCatalog:">id</string>
+						<string key="openAddSetChooser:">id</string>
+						<string key="openCountriesSearchPanel:">id</string>
+						<string key="openFormatsSearchPanel:">id</string>
+						<string key="openLocationsSearchPanel:">id</string>
+						<string key="openLocator:">id</string>
+						<string key="openSectionsSearchPanel:">id</string>
+						<string key="removeWantSellList:">id</string>
+						<string key="returnToCollection:">id</string>
+						<string key="showStampDetail:">NSButton</string>
+						<string key="sold:">id</string>
+						<string key="viewSold:">id</string>
+						<string key="viewWantSellList:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="acquired:">
+							<string key="name">acquired:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="addToSelectedSellList:">
+							<string key="name">addToSelectedSellList:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="addToSellList:">
+							<string key="name">addToSellList:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="addWantSellList:">
+							<string key="name">addWantSellList:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="breakDownComposite:">
+							<string key="name">breakDownComposite:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="cancelAddToSellList:">
+							<string key="name">cancelAddToSellList:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="cancelComposite:">
+							<string key="name">cancelComposite:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="cancelViewWantSellList:">
+							<string key="name">cancelViewWantSellList:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="closeChildren:">
+							<string key="name">closeChildren:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="createComposite:">
+							<string key="name">createComposite:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="deleteStamp:">
+							<string key="name">deleteStamp:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="done:">
+							<string key="name">done:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="editComposite:">
+							<string key="name">editComposite:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="editCustomSearch:">
+							<string key="name">editCustomSearch:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="executeCustomSearch:">
+							<string key="name">executeCustomSearch:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="manageSellLists:">
+							<string key="name">manageSellLists:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="manageWantLists:">
+							<string key="name">manageWantLists:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="openAddCompositeEditor:">
+							<string key="name">openAddCompositeEditor:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="openAddFromGPCatalog:">
+							<string key="name">openAddFromGPCatalog:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="openAddSetChooser:">
+							<string key="name">openAddSetChooser:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="openCountriesSearchPanel:">
+							<string key="name">openCountriesSearchPanel:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="openFormatsSearchPanel:">
+							<string key="name">openFormatsSearchPanel:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="openLocationsSearchPanel:">
+							<string key="name">openLocationsSearchPanel:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="openLocator:">
+							<string key="name">openLocator:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="openSectionsSearchPanel:">
+							<string key="name">openSectionsSearchPanel:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="removeWantSellList:">
+							<string key="name">removeWantSellList:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="returnToCollection:">
+							<string key="name">returnToCollection:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="showStampDetail:">
+							<string key="name">showStampDetail:</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBActionInfo" key="sold:">
+							<string key="name">sold:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="viewSold:">
+							<string key="name">viewSold:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="viewWantSellList:">
+							<string key="name">viewWantSellList:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="chooseSellListController">NSArrayController</string>
 						<string key="chooseSellListView">NSView</string>
