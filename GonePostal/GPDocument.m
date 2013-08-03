@@ -340,7 +340,7 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
     NSInteger MARKING_INCREMENT = 1000000;
     
     NSInteger currID = BASE_ID;
-    NSString * lastProcessedMarking = @"";
+    NSString * lastProcessedMarking;
     GPCatalog * lastProcessedGPCatalog;
     
     for (PlateNumber * pn in sortedPlateCombos) {
@@ -349,7 +349,10 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
         
         lastProcessedGPCatalog = pn.gpCatalogEntry;
         
-        if (![pn.marking isEqualToString:lastProcessedMarking]) 
+        if (   (!lastProcessedMarking && pn.marking)
+            || (lastProcessedMarking && !pn.marking)
+            || (   (lastProcessedMarking && pn.marking)
+                && ![pn.marking isEqualToString:lastProcessedMarking]) )
             currID += MARKING_INCREMENT;
         
         lastProcessedMarking = pn.marking;
