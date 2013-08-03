@@ -336,30 +336,36 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
      [NSSortDescriptor sortDescriptorWithKey:@"plate2" ascending:YES],
      [NSSortDescriptor sortDescriptorWithKey:@"number_of_stamps" ascending:YES]]];
     
-    NSInteger BASE_ID = 10000100;
-    NSInteger MARKING_INCREMENT = 1000000;
+    NSInteger BASE_MARKING = 10;
+    NSInteger BASE_ID = 100;
     
+    NSInteger currMarkingID = BASE_MARKING;
     NSInteger currID = BASE_ID;
+    
     NSString * lastProcessedMarking;
     GPCatalog * lastProcessedGPCatalog;
     
     for (PlateNumber * pn in sortedPlateCombos) {
-        if (![pn.gpCatalogEntry isEqualTo:lastProcessedGPCatalog])
+        if (![pn.gpCatalogEntry isEqualTo:lastProcessedGPCatalog]) {
+            currMarkingID = BASE_MARKING;
             currID = BASE_ID;
+        }
         
         lastProcessedGPCatalog = pn.gpCatalogEntry;
         
         if (   (!lastProcessedMarking && pn.marking)
             || (lastProcessedMarking && !pn.marking)
             || (   (lastProcessedMarking && pn.marking)
-                && ![pn.marking isEqualToString:lastProcessedMarking]) )
-            currID += MARKING_INCREMENT;
+                && ![pn.marking isEqualToString:lastProcessedMarking]) ) {
+            currMarkingID++;
+            currID = BASE_ID;
+        }
         
         lastProcessedMarking = pn.marking;
         
         pn.gp_plate_combination_number =
-            [NSString stringWithFormat:@"%@-PLT-%ld",
-             pn.gpCatalogEntry.gp_catalog_number, currID];
+            [NSString stringWithFormat:@"%@-PLT-%ld%06ld",
+             pn.gpCatalogEntry.gp_catalog_number, currMarkingID, currID];
         currID += GPID_INCREMENT;
     }
 }
