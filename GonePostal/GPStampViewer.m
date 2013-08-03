@@ -476,7 +476,7 @@
     [self.manageWantSellLabel setStringValue:@"Manage want lists."];
     [self.wantSellListsController setContent:self.myCollection.wantLists];
     
-    [self.manageWantSellPanel makeKeyAndOrderFront:sender];
+    [NSApp beginSheet:self.manageWantSellPanel modalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
 }
 
 - (IBAction)manageSellLists:(id)sender {
@@ -485,12 +485,11 @@
     [self.manageWantSellLabel setStringValue:@"Manage sell lists"];
     [self.wantSellListsController setContent:self.myCollection.sellLists];
     
-    [self.manageWantSellPanel makeKeyAndOrderFront:sender];
+    [NSApp beginSheet:self.manageWantSellPanel modalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
 }
 
 - (IBAction)addToSellList:(id)sender {
-    NSApplication * app = [NSApplication sharedApplication];
-    [app beginSheet:self.chooseSellListPanel modalForWindow:self.window modalDelegate:self didEndSelector:nil contextInfo:nil];
+    [NSApp beginSheet:self.chooseSellListPanel modalForWindow:self.window modalDelegate:self didEndSelector:nil contextInfo:nil];
 }
 
 - (IBAction)addToSelectedSellList:(id)sender {
@@ -507,15 +506,13 @@
     }
     
     // End the sheet.
-    NSApplication * app = [NSApplication sharedApplication];
-    [app endSheet:self.chooseSellListPanel];
+    [NSApp endSheet:self.chooseSellListPanel];
     [self.chooseSellListPanel close];
 }
 
 - (IBAction)cancelAddToSellList:(id)sender {
     // End the sheet.
-    NSApplication * app = [NSApplication sharedApplication];
-    [app endSheet:self.chooseSellListPanel];
+    [NSApp endSheet:self.chooseSellListPanel];
     [self.chooseSellListPanel close];
 }
 
@@ -629,6 +626,7 @@
         [self.wantListTitle setTextColor:[NSColor colorWithDeviceRed:0.9 green:0 blue:0 alpha:1]];
     }
     
+    [NSApp endSheet:self.manageWantSellPanel];
     [self.manageWantSellPanel orderOut:sender];
     self.inStampCollection = NO;
     
@@ -637,6 +635,7 @@
 }
 
 - (IBAction)cancelViewWantSellList:(id)sender {
+    [NSApp endSheet:self.manageWantSellPanel];
     [self.manageWantSellPanel orderOut:sender];
 }
 
