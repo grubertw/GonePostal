@@ -349,6 +349,7 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
         if (![pn.gpCatalogEntry isEqualTo:lastProcessedGPCatalog]) {
             currMarkingID = BASE_MARKING;
             currID = BASE_ID;
+            lastProcessedMarking = nil;
         }
         
         lastProcessedGPCatalog = pn.gpCatalogEntry;
