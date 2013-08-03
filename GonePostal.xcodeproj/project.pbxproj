@@ -39,7 +39,6 @@
 		1F0EC71016D9467B00427B4C /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EC6D816D9467B00427B4C /* Location.m */; };
 		1F0EC71216D9467B00427B4C /* Lot.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EC6DC16D9467B00427B4C /* Lot.m */; };
 		1F0EC71516D9467B00427B4C /* PictureType.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EC6E216D9467B00427B4C /* PictureType.m */; };
-		1F0EC71816D9467B00427B4C /* PlatePosition.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EC6E816D9467B00427B4C /* PlatePosition.m */; };
 		1F0EC71916D9467B00427B4C /* PlateUsage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EC6EA16D9467B00427B4C /* PlateUsage.m */; };
 		1F0EC71A16D9467B00427B4C /* Soundness.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EC6EC16D9467B00427B4C /* Soundness.m */; };
 		1F0EC71D16D9467B00427B4C /* Topic.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EC6F216D9467B00427B4C /* Topic.m */; };
@@ -89,6 +88,13 @@
 		1F0EC78D16D95C9300427B4C /* GPSetPopoverController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0EC78B16D95C9300427B4C /* GPSetPopoverController.xib */; };
 		1F0EC79716DA7AA600427B4C /* GPTopicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EC79516DA7AA600427B4C /* GPTopicsController.m */; };
 		1F0EC79816DA7AA600427B4C /* GPTopicsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0EC79616DA7AA600427B4C /* GPTopicsController.xib */; };
+		1F107A0517A43FC800D76B06 /* PlatePosition.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F107A0417A43FC800D76B06 /* PlatePosition.m */; };
+		1F107A0817A43FC900D76B06 /* PlateNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F107A0717A43FC900D76B06 /* PlateNumber.m */; };
+		1F107A0C17A440BE00D76B06 /* GPPlateCombinationsEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F107A0A17A440BE00D76B06 /* GPPlateCombinationsEditor.m */; };
+		1F107A0D17A440BE00D76B06 /* GPPlateCombinationsEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F107A0B17A440BE00D76B06 /* GPPlateCombinationsEditor.xib */; };
+		1F107A1117A4411200D76B06 /* GPAddPlateCombination.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F107A0F17A4411200D76B06 /* GPAddPlateCombination.m */; };
+		1F107A1217A4411200D76B06 /* GPAddPlateCombination.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F107A1017A4411200D76B06 /* GPAddPlateCombination.xib */; };
+		1F107A1517A472F800D76B06 /* GPPlateNumberMasterDisplayTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F107A1417A472F800D76B06 /* GPPlateNumberMasterDisplayTransformer.m */; };
 		1F1B69B5178A324B0018B930 /* GPDatabaseStats.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F1B69B3178A324B0018B930 /* GPDatabaseStats.m */; };
 		1F1B69B6178A324B0018B930 /* GPDatabaseStats.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F1B69B4178A324B0018B930 /* GPDatabaseStats.xib */; };
 		1F2E544E1700F56800F177A0 /* GPSupportedCancelQuality.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E544C1700F56800F177A0 /* GPSupportedCancelQuality.m */; };
@@ -185,7 +191,6 @@
 		1FD287B61752C50400B718EF /* GPManualValueSummer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD287B51752C50400B718EF /* GPManualValueSummer.m */; };
 		1FD287BA1752C79800B718EF /* BureauPrecancel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD287B91752C79800B718EF /* BureauPrecancel.m */; };
 		1FD287BD1752CDB600B718EF /* GPSetCounter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD287BC1752CDB600B718EF /* GPSetCounter.m */; };
-		1FD287C017532E2D00B718EF /* PlateNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD287BF17532E2D00B718EF /* PlateNumber.m */; };
 		1FD287C3175458AE00B718EF /* GPSellListLocator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD287C2175458AE00B718EF /* GPSellListLocator.m */; };
 		1FD76865171E62F400AD6C5F /* GPCatalogDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD76863171E62F400AD6C5F /* GPCatalogDetail.m */; };
 		1FD76866171E62F400AD6C5F /* GPCatalogDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FD76864171E62F400AD6C5F /* GPCatalogDetail.xib */; };
@@ -301,8 +306,6 @@
 		1F0EC6DC16D9467B00427B4C /* Lot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Lot.m; sourceTree = "<group>"; };
 		1F0EC6E116D9467B00427B4C /* PictureType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PictureType.h; sourceTree = "<group>"; };
 		1F0EC6E216D9467B00427B4C /* PictureType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PictureType.m; sourceTree = "<group>"; };
-		1F0EC6E716D9467B00427B4C /* PlatePosition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlatePosition.h; sourceTree = "<group>"; };
-		1F0EC6E816D9467B00427B4C /* PlatePosition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlatePosition.m; sourceTree = "<group>"; };
 		1F0EC6E916D9467B00427B4C /* PlateUsage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlateUsage.h; sourceTree = "<group>"; };
 		1F0EC6EA16D9467B00427B4C /* PlateUsage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlateUsage.m; sourceTree = "<group>"; };
 		1F0EC6EB16D9467B00427B4C /* Soundness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Soundness.h; sourceTree = "<group>"; };
@@ -381,6 +384,19 @@
 		1F0EC79416DA7AA600427B4C /* GPTopicsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPTopicsController.h; sourceTree = "<group>"; };
 		1F0EC79516DA7AA600427B4C /* GPTopicsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPTopicsController.m; sourceTree = "<group>"; };
 		1F0EC79616DA7AA600427B4C /* GPTopicsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GPTopicsController.xib; sourceTree = "<group>"; };
+		1F107A0217A43AD500D76B06 /* GPDocument 17.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GPDocument 17.xcdatamodel"; sourceTree = "<group>"; };
+		1F107A0317A43FC800D76B06 /* PlatePosition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlatePosition.h; sourceTree = "<group>"; };
+		1F107A0417A43FC800D76B06 /* PlatePosition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlatePosition.m; sourceTree = "<group>"; };
+		1F107A0617A43FC900D76B06 /* PlateNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlateNumber.h; sourceTree = "<group>"; };
+		1F107A0717A43FC900D76B06 /* PlateNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlateNumber.m; sourceTree = "<group>"; };
+		1F107A0917A440BE00D76B06 /* GPPlateCombinationsEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPPlateCombinationsEditor.h; sourceTree = "<group>"; };
+		1F107A0A17A440BE00D76B06 /* GPPlateCombinationsEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPPlateCombinationsEditor.m; sourceTree = "<group>"; };
+		1F107A0B17A440BE00D76B06 /* GPPlateCombinationsEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GPPlateCombinationsEditor.xib; sourceTree = "<group>"; };
+		1F107A0E17A4411200D76B06 /* GPAddPlateCombination.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPAddPlateCombination.h; sourceTree = "<group>"; };
+		1F107A0F17A4411200D76B06 /* GPAddPlateCombination.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPAddPlateCombination.m; sourceTree = "<group>"; };
+		1F107A1017A4411200D76B06 /* GPAddPlateCombination.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GPAddPlateCombination.xib; sourceTree = "<group>"; };
+		1F107A1317A472F800D76B06 /* GPPlateNumberMasterDisplayTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPPlateNumberMasterDisplayTransformer.h; sourceTree = "<group>"; };
+		1F107A1417A472F800D76B06 /* GPPlateNumberMasterDisplayTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPPlateNumberMasterDisplayTransformer.m; sourceTree = "<group>"; };
 		1F1B69B2178A324A0018B930 /* GPDatabaseStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPDatabaseStats.h; sourceTree = "<group>"; };
 		1F1B69B3178A324B0018B930 /* GPDatabaseStats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPDatabaseStats.m; sourceTree = "<group>"; };
 		1F1B69B4178A324B0018B930 /* GPDatabaseStats.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GPDatabaseStats.xib; sourceTree = "<group>"; };
@@ -542,8 +558,6 @@
 		1FD287B91752C79800B718EF /* BureauPrecancel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BureauPrecancel.m; sourceTree = "<group>"; };
 		1FD287BB1752CDB600B718EF /* GPSetCounter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPSetCounter.h; sourceTree = "<group>"; };
 		1FD287BC1752CDB600B718EF /* GPSetCounter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPSetCounter.m; sourceTree = "<group>"; };
-		1FD287BE17532E2D00B718EF /* PlateNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlateNumber.h; sourceTree = "<group>"; };
-		1FD287BF17532E2D00B718EF /* PlateNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlateNumber.m; sourceTree = "<group>"; };
 		1FD287C1175458AE00B718EF /* GPSellListLocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPSellListLocator.h; sourceTree = "<group>"; };
 		1FD287C2175458AE00B718EF /* GPSellListLocator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPSellListLocator.m; sourceTree = "<group>"; };
 		1FD287C4175799F400B718EF /* GPDocument 10.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "GPDocument 10.xcdatamodel"; sourceTree = "<group>"; };
@@ -662,6 +676,10 @@
 			isa = PBXGroup;
 			children = (
 				1F2E549D170759FB00F177A0 /* GPDocument.xcdatamodeld */,
+				1F107A0617A43FC900D76B06 /* PlateNumber.h */,
+				1F107A0717A43FC900D76B06 /* PlateNumber.m */,
+				1F107A0317A43FC800D76B06 /* PlatePosition.h */,
+				1F107A0417A43FC800D76B06 /* PlatePosition.m */,
 				1F7B9145178E65CE00F209BC /* GPCatalog.h */,
 				1F7B9146178E65CE00F209BC /* GPCatalog.m */,
 				1F9D14161788949100B225EC /* Stamp.h */,
@@ -688,8 +706,6 @@
 				1F5D05CB177A71910007D781 /* LooksLike.m */,
 				1FDDDC9C175C5C7A00830C80 /* GPCatalogGroup.h */,
 				1FDDDC9D175C5C7A00830C80 /* GPCatalogGroup.m */,
-				1FD287BE17532E2D00B718EF /* PlateNumber.h */,
-				1FD287BF17532E2D00B718EF /* PlateNumber.m */,
 				1F038AC017836AB500B00A0A /* PlateNumber+Duplicate.h */,
 				1F038AC117836AB500B00A0A /* PlateNumber+Duplicate.m */,
 				1FD287B81752C79800B718EF /* BureauPrecancel.h */,
@@ -754,8 +770,6 @@
 				1F2E549B1707563600F177A0 /* PerfinCatalogName.m */,
 				1F0EC6E116D9467B00427B4C /* PictureType.h */,
 				1F0EC6E216D9467B00427B4C /* PictureType.m */,
-				1F0EC6E716D9467B00427B4C /* PlatePosition.h */,
-				1F0EC6E816D9467B00427B4C /* PlatePosition.m */,
 				1F0EC6E916D9467B00427B4C /* PlateUsage.h */,
 				1F0EC6EA16D9467B00427B4C /* PlateUsage.m */,
 				1F0EC6EB16D9467B00427B4C /* Soundness.h */,
@@ -790,6 +804,10 @@
 				1F0EC73216D947AE00427B4C /* GPLooksLikePopoverController.m */,
 				1F0EC73516D947AE00427B4C /* GPPlateUsageController.h */,
 				1F0EC73616D947AE00427B4C /* GPPlateUsageController.m */,
+				1F107A0917A440BE00D76B06 /* GPPlateCombinationsEditor.h */,
+				1F107A0A17A440BE00D76B06 /* GPPlateCombinationsEditor.m */,
+				1F107A0E17A4411200D76B06 /* GPAddPlateCombination.h */,
+				1F107A0F17A4411200D76B06 /* GPAddPlateCombination.m */,
 				1F0EC73716D947AE00427B4C /* GPSetController.h */,
 				1F0EC73816D947AE00427B4C /* GPSetController.m */,
 				1F0EC78916D95C9300427B4C /* GPSetPopoverController.h */,
@@ -815,6 +833,8 @@
 				1F0EC75D16D9481000427B4C /* GPLooksLikeItemEditor.xib */,
 				1F0EC75E16D9481000427B4C /* GPLooksLikePopoverController.xib */,
 				1F0EC76016D9481000427B4C /* GPPlateUsage.xib */,
+				1F107A0B17A440BE00D76B06 /* GPPlateCombinationsEditor.xib */,
+				1F107A1017A4411200D76B06 /* GPAddPlateCombination.xib */,
 				1F0EC76116D9481000427B4C /* GPSetController.xib */,
 				1F0EC78B16D95C9300427B4C /* GPSetPopoverController.xib */,
 				1FD76873172349A300AD6C5F /* GPStampExamples.xib */,
@@ -853,6 +873,8 @@
 				1FDDDC8B175B9D4600830C80 /* GPStampDescriptionTransformer.m */,
 				1F5D05D0177B7DF90007D781 /* GPPictureTransformer.h */,
 				1F5D05D1177B7DF90007D781 /* GPPictureTransformer.m */,
+				1F107A1317A472F800D76B06 /* GPPlateNumberMasterDisplayTransformer.h */,
+				1F107A1417A472F800D76B06 /* GPPlateNumberMasterDisplayTransformer.m */,
 			);
 			name = Transformers;
 			sourceTree = "<group>";
@@ -1341,6 +1363,8 @@
 				1F5D09B0178157510007D781 /* GPSupportedSubjects.xib in Resources */,
 				1F9D14151788892800B225EC /* GPStampDefaults.xib in Resources */,
 				1F1B69B6178A324B0018B930 /* GPDatabaseStats.xib in Resources */,
+				1F107A0D17A440BE00D76B06 /* GPPlateCombinationsEditor.xib in Resources */,
+				1F107A1217A4411200D76B06 /* GPAddPlateCombination.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1405,7 +1429,6 @@
 				1F0EC71016D9467B00427B4C /* Location.m in Sources */,
 				1F0EC71216D9467B00427B4C /* Lot.m in Sources */,
 				1F0EC71516D9467B00427B4C /* PictureType.m in Sources */,
-				1F0EC71816D9467B00427B4C /* PlatePosition.m in Sources */,
 				1F0EC71916D9467B00427B4C /* PlateUsage.m in Sources */,
 				1F0EC71A16D9467B00427B4C /* Soundness.m in Sources */,
 				1F0EC71D16D9467B00427B4C /* Topic.m in Sources */,
@@ -1497,7 +1520,6 @@
 				1FD287B61752C50400B718EF /* GPManualValueSummer.m in Sources */,
 				1FD287BA1752C79800B718EF /* BureauPrecancel.m in Sources */,
 				1FD287BD1752CDB600B718EF /* GPSetCounter.m in Sources */,
-				1FD287C017532E2D00B718EF /* PlateNumber.m in Sources */,
 				1FD287C3175458AE00B718EF /* GPSellListLocator.m in Sources */,
 				1FDDDC7F1758503A00830C80 /* Stamp+CreateComposite.m in Sources */,
 				1FDDDC821759AF4B00830C80 /* GPCompositeTypeTransformer.m in Sources */,
@@ -1525,6 +1547,11 @@
 				1F9D14181788949100B225EC /* Stamp.m in Sources */,
 				1F1B69B5178A324B0018B930 /* GPDatabaseStats.m in Sources */,
 				1F7B9147178E65CE00F209BC /* GPCatalog.m in Sources */,
+				1F107A0517A43FC800D76B06 /* PlatePosition.m in Sources */,
+				1F107A0817A43FC900D76B06 /* PlateNumber.m in Sources */,
+				1F107A0C17A440BE00D76B06 /* GPPlateCombinationsEditor.m in Sources */,
+				1F107A1117A4411200D76B06 /* GPAddPlateCombination.m in Sources */,
+				1F107A1517A472F800D76B06 /* GPPlateNumberMasterDisplayTransformer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1739,6 +1766,7 @@
 		1F2E549D170759FB00F177A0 /* GPDocument.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				1F107A0217A43AD500D76B06 /* GPDocument 17.xcdatamodel */,
 				1FECAC6F178D11F7002A1451 /* GPDocument 16.xcdatamodel */,
 				1F9D140D1788772100B225EC /* GPDocument 15.xcdatamodel */,
 				1F038AB6178359F300B00A0A /* GPDocument 14.xcdatamodel */,
@@ -1756,7 +1784,7 @@
 				1F2E549E170759FB00F177A0 /* GPDocument 2.xcdatamodel */,
 				1F2E549F170759FB00F177A0 /* GPDocument.xcdatamodel */,
 			);
-			currentVersion = 1FECAC6F178D11F7002A1451 /* GPDocument 16.xcdatamodel */;
+			currentVersion = 1F107A0217A43AD500D76B06 /* GPDocument 17.xcdatamodel */;
 			path = GPDocument.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

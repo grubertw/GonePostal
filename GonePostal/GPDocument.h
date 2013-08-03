@@ -24,6 +24,8 @@ extern const NSInteger GP_COLLECTION_TYPE_WANT_LIST;
 extern const NSInteger GP_COLLECTION_TYPE_SELL_LIST;
 extern const NSInteger GP_COLLECTION_TYPE_ITEMS_SOLD;
 
+extern const NSInteger GPID_INCREMENT;
+
 extern NSString * BASE_GP_CATALOG_QUERY;
 extern NSString * BASE_GP_CATALOG_QUERY_WITH_SUBVARIETIES;
 
@@ -37,6 +39,17 @@ typedef enum acceptedImportFileTypes {
 // Primay class of GonePostal
 //
 @interface GPDocument : NSPersistentDocument <NSTableViewDelegate>
+
+/** Get a starting GPID.
+ * Convert the last segment into a number that will be used in
+ * subsquent calls as an increment.
+ */
++ (NSInteger)parseStartingID:(NSString *)gpid;
+
+/** Get the static part of the GPID from the GPID.
+ * (the segments that will NOT increment)
+ */
++ (NSString *)parseStaticID:(NSString *)gpid;
 
 @property (strong, nonatomic) NSArray * gpCollectionSortDescriptors;
 

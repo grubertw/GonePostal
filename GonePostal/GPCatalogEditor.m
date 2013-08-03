@@ -14,7 +14,7 @@
 #import "GPCatalogSet.h"
 #import "GPSetController.h"
 #import "PlateUsage.h"
-#import "PlateNumber+Duplicate.h"
+#import "PlateNumber.h"
 #import "GPPlateUsageController.h"
 #import "Cachet.h"
 #import "LooksLike.h"
@@ -36,6 +36,7 @@
 #import "GPCatalogPictureSelector.h"
 #import "GPPDFViewController.h"
 #import "NumberOfStampsInPlate.h"
+#import "GPPlateCombinationsEditor.h"
 
 // Private members.
 @interface GPCatalogEditor ()
@@ -70,9 +71,6 @@
 @property (weak, nonatomic) IBOutlet NSPopover * looksLikePopover;
 @property (weak, nonatomic) IBOutlet GPLooksLikePopoverController * looksLikePopoverController;
 
-@property (weak, nonatomic) IBOutlet NSTableView * plateNumberCombinationsTable;
-@property (weak, nonatomic) IBOutlet NSTableColumn * plateNumberComboUnknownColumn;
-
 @property (weak, nonatomic) IBOutlet NSTableView * bureauPrecancelsTable;
 
 @property (weak, nonatomic) IBOutlet NSArrayController * countriesController;
@@ -84,7 +82,6 @@
 @property (weak, nonatomic) IBOutlet NSArrayController * gpCatalogSetsController;
 @property (weak, nonatomic) IBOutlet NSArrayController * numberOfStampsInPlateController;
 @property (weak, nonatomic) IBOutlet NSArrayController * plateUsageController;
-@property (weak, nonatomic) IBOutlet NSArrayController * plateNumberCombinationsController;
 @property (weak, nonatomic) IBOutlet NSArrayController * cachetController;
 @property (weak, nonatomic) IBOutlet NSArrayController * looksLikeController;
 @property (weak, nonatomic) IBOutlet NSArrayController * precancelsController;
@@ -201,10 +198,8 @@
 //            return (NSComparisonResult)NSOrderedSame;
 //        };
         
-        NSSortDescriptor *plateNumber1Sort = [[NSSortDescriptor alloc] initWithKey:@"plate1" ascending:YES];
-        NSSortDescriptor *plateNumber2Sort = [[NSSortDescriptor alloc] initWithKey:@"plate2" ascending:YES];
-        NSSortDescriptor *numberOfStampsSort = [[NSSortDescriptor alloc] initWithKey:@"number_of_stamps" ascending:YES];
-        self.plateNumberSortDescriptors = @[plateNumber1Sort, plateNumber2Sort, numberOfStampsSort];
+        NSSortDescriptor *plateNumberSort = [[NSSortDescriptor alloc] initWithKey:@"gp_plate_combination_number" ascending:YES];
+        self.plateNumberSortDescriptors = @[plateNumberSort];
         
         NSSortDescriptor *cachetSort = [[NSSortDescriptor alloc] initWithKey:@"gp_cachet_number" ascending:YES];
         self.cachetSortDescriptors = @[cachetSort];
@@ -1060,8 +1055,6 @@
     
     [entry addPlateUsageObject:pu];
     
-    [self tableViewSelectionDidChange:nil];
-    
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
@@ -1080,40 +1073,6 @@
     GPCatalog * entry = [entries objectAtIndex:0];
     
     [entry removePlateUsage:[NSSet setWithArray:selectedPlateUsages]];
-  
-    [self tableViewSelectionDidChange:nil];
-    
-    NSError * error;
-    if (![self.managedObjectContext save:&error]) {
-        NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
-        [self.managedObjectContext undo];
-        return;
-    }
-}
-
-- (IBAction)addPlateNumberCombination:(id)sender {
-    PlateNumber * pn = [NSEntityDescription insertNewObjectForEntityForName:@"PlateNumber" inManagedObjectContext:self.managedObjectContext];
-   
-    [self.plateNumberCombinationsController insertObject:pn atArrangedObjectIndex:[self.plateNumberCombinationsController.arrangedObjects count]];
-    
-    NSError * error;
-    if (![self.managedObjectContext save:&error]) {
-        NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
-        [self.managedObjectContext undo];
-        return;
-    }
-}
-
-- (IBAction)removePlateNumberCombination:(id)sender {
-    NSArray * selectedPlateNumbers = self.plateNumberCombinationsController.selectedObjects;
-    
-    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
-    if (entries == nil) return;
-    GPCatalog * entry = [entries objectAtIndex:0];
-    
-    [entry removePlateNumbers:[NSSet setWithArray:selectedPlateNumbers]];
     
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
@@ -1140,70 +1099,15 @@
     }
 }
 
-- (IBAction)explodePlates:(id)sender {
+- (IBAction)openPlateCombinationsEditor:(id)sender {
     NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
-    if (entries == nil) return;
+    if (entries == nil || [entries count] == 0) return;
     GPCatalog * entry = [entries objectAtIndex:0];
     
-    // Gather plates where one field as acting as the template.
-    NSMutableSet * plate1s = [NSMutableSet setWithCapacity:0];
-    NSMutableSet * plate2s = [NSMutableSet setWithCapacity:0];
+    GPPlateCombinationsEditor * controller = [[GPPlateCombinationsEditor alloc] initWithGPCatalog:entry];
+    [[self document] addWindowController:controller];
     
-    for (PlateNumber *pn in entry.plateNumbers) {
-        if ([pn.number_of_stamps isEqualToNumber:@(0)]) {
-            if (pn.plate1 && !pn.plate2) {
-                [plate1s addObject:pn];
-            }
-            else if (!pn.plate1 && pn.plate2) {
-                [plate2s addObject:pn];
-            }
-        }
-    }
-    
-    for (PlateNumber *plate1 in plate1s) {
-        for (PlateNumber *plate2 in plate2s) {
-            PlateNumber *pnCopy = [plate1 duplicate];
-            pnCopy.plate2 = plate2.plate2;
-            
-            [entry addPlateNumbersObject:pnCopy];
-        }
-    }
-    
-    NSError * error;
-    if (![self.managedObjectContext save:&error]) {
-        NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
-        [self.managedObjectContext undo];
-        return;
-    }
-}
-
-- (IBAction)explodeNumber:(id)sender {
-    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
-    if (entries == nil) return;
-    GPCatalog * entry = [entries objectAtIndex:0];
-    
-    for (PlateNumber *pn in entry.plateNumbers) {
-        if ([pn.number_of_stamps isEqualToNumber:@(0)]) {
-            // Blow out the number of stamps for this plate number.
-            for (NumberOfStampsInPlate *numStampsCombo in entry.numberOfStampsInPlate) {
-                PlateNumber *pnCopy = [pn duplicate];
-                pnCopy.number_of_stamps = numStampsCombo.numberOfStamps;
-                
-                [self.plateNumberCombinationsController addObject:pnCopy];
-            }
-            
-            [self.plateNumberCombinationsController removeObject:pn];
-        }
-    }
-    
-    NSError * error;
-    if (![self.managedObjectContext save:&error]) {
-        NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
-        [self.managedObjectContext undo];
-        return;
-    }
+    [controller.window makeKeyAndOrderFront:sender];
 }
 
 - (IBAction)addCachet:(id)sender {
@@ -1398,34 +1302,6 @@
     
     GPDocument * doc = [self document];
     atthmnt.filename = [doc addFileToWrapperUsingGPID:atthmnt.gp_attachment_number forAttribute:@"GPCatalog.attachment" fileType:GPImportFileTypePDF];
-}
-
-- (void)tableViewSelectionDidChange:(NSNotification *)aNotification {
-    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
-    if (entries == nil || [entries count] == 0) return;
-    GPCatalog * entry = entries[0];
-    
-    NSUInteger numPlates = [entry.plateUsage count];
-    
-    // Iterate through the table columns in the plate combos table.
-    // Hide columnes for plate usages that do not exist.
-    NSArray * columns = [self.plateNumberCombinationsTable tableColumns];
-    for (NSUInteger i=0; i < 8; i++) {
-        NSTableColumn * column = columns[i];
-        if (i < numPlates) {
-            [column setHidden:NO];
-        }
-        else {
-            [column setHidden:YES];
-        }
-    }
-    
-    if (numPlates > 1) {
-        [self.plateNumberComboUnknownColumn setHidden:NO];
-    }
-    else {
-        [self.plateNumberComboUnknownColumn setHidden:YES];
-    }
 }
 
 @end

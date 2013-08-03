@@ -42,6 +42,7 @@
 #import "GPSupportedSubjects.h"
 #import "GPStampDefaults.h"
 #import "GPDatabaseStats.h"
+#import "PlateNumber.h"
 
 #import "GPFilenameTransformer.h"
 #import "GPAlternateCatalogNumberTransformer.h"
@@ -56,6 +57,7 @@
 #import "GPStampHasChildrenOrDetailTransformer.h"
 #import "GPStampDescriptionTransformer.h"
 #import "GPPictureTransformer.h"
+#import "GPPlateNumberMasterDisplayTransformer.h"
 
 #import "CommonCrypto/CommonDigest.h"
 #import "ExceptionHandling/NSExceptionHandler.h"
@@ -74,6 +76,8 @@ const NSInteger GP_COLLECTION_TYPE_NORMAL                   = 1;
 const NSInteger GP_COLLECTION_TYPE_WANT_LIST                = 2;
 const NSInteger GP_COLLECTION_TYPE_SELL_LIST                = 3;
 const NSInteger GP_COLLECTION_TYPE_ITEMS_SOLD               = 4;
+
+const NSInteger GPID_INCREMENT          = 100;
 
 NSString * BASE_GP_CATALOG_QUERY = @"is_default==0 and composite_placeholder==0 and majorVariety==nil";
 NSString * BASE_GP_CATALOG_QUERY_WITH_SUBVARIETIES = @"is_default==0 and composite_placeholder==0";
@@ -94,6 +98,35 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
 @end
 
 @implementation GPDocument
+
+/** Get a starting GPID.  
+ * Convert the last segment into a number that will be used in 
+ * subsquent calls as an increment.
+ */
++ (NSInteger)parseStartingID:(NSString *)gpid {
+    NSArray * gpidSegments = [gpid componentsSeparatedByString:@"-"];
+    
+    NSString * lastGPIDSegment = [gpidSegments lastObject];
+    NSInteger startingID = [lastGPIDSegment integerValue];
+    
+    return startingID;
+}
+
+// Get the static part of the GPID from the GPID.
++ (NSString *)parseStaticID:(NSString *)gpid {
+    NSArray * gpidSegments = [gpid componentsSeparatedByString:@"-"];
+    
+    if ([gpidSegments count] < 2) return nil;
+    
+    NSMutableString * staticID = [[NSMutableString alloc] initWithCapacity:0];
+    
+    NSUInteger numSegmentsToInclude = [gpidSegments count] - 1;
+    for (NSUInteger i=0; i<numSegmentsToInclude; i++) {
+        [staticID appendFormat:@"%@-", gpidSegments[i]];
+    }
+    
+    return staticID;
+}
 
 // Parses through the stored search predicate, breaking it down into
 // it's component pieces.  Further parsing of the subbredicate is done
@@ -194,6 +227,9 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
         id plate8Exists = [[GPPlateUsageExistsChecker alloc] initWithPlateNumberCheck:[NSNumber numberWithUnsignedInt:8]];
         [NSValueTransformer setValueTransformer:plate8Exists forName:@"Plate8ExistsChecker"];
         
+        id plateNumberMasterDisplay = [[GPPlateNumberMasterDisplayTransformer alloc] init];
+        [NSValueTransformer setValueTransformer:plateNumberMasterDisplay forName:@"GPPlateNumberMasterDisplayTransformer"];
+        
         id manualValueTransformer = [[GPManualValueSummer alloc] init];
         [NSValueTransformer setValueTransformer:manualValueTransformer forName:@"GPManualValueSummer"];
         
@@ -282,6 +318,46 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
         }
         
         self.assistedSearch.identifier = [NSNumber numberWithInt:searchID];
+    }
+}
+
+- (IBAction)assignPlateNumberGPIDs:(id)sender {
+    NSFetchRequest * pnFetch = [NSFetchRequest fetchRequestWithEntityName:@"PlateNumber"];
+    [pnFetch setPredicate:[NSPredicate predicateWithFormat:@"gp_plate_combination_number==nil"]];
+    
+    NSArray * plateCombos = [self.managedObjectContext executeFetchRequest:pnFetch error:nil];
+    if (!plateCombos) return;
+    
+    NSArray * sortedPlateCombos =
+    [plateCombos sortedArrayUsingDescriptors:@[
+     [NSSortDescriptor sortDescriptorWithKey:@"gpCatalogEntry.gp_catalog_number" ascending:YES],
+     [NSSortDescriptor sortDescriptorWithKey:@"marking" ascending:YES],
+     [NSSortDescriptor sortDescriptorWithKey:@"plate1" ascending:YES],
+     [NSSortDescriptor sortDescriptorWithKey:@"plate2" ascending:YES],
+     [NSSortDescriptor sortDescriptorWithKey:@"number_of_stamps" ascending:YES]]];
+    
+    NSInteger BASE_ID = 10000100;
+    NSInteger MARKING_INCREMENT = 1000000;
+    
+    NSInteger currID = BASE_ID;
+    NSString * lastProcessedMarking = @"";
+    GPCatalog * lastProcessedGPCatalog;
+    
+    for (PlateNumber * pn in sortedPlateCombos) {
+        if (![pn.gpCatalogEntry isEqualTo:lastProcessedGPCatalog])
+            currID = BASE_ID;
+        
+        lastProcessedGPCatalog = pn.gpCatalogEntry;
+        
+        if (![pn.marking isEqualToString:lastProcessedMarking]) 
+            currID += MARKING_INCREMENT;
+        
+        lastProcessedMarking = pn.marking;
+        
+        pn.gp_plate_combination_number =
+            [NSString stringWithFormat:@"%@-PLT-%ld",
+             pn.gpCatalogEntry.gp_catalog_number, currID];
+        currID += GPID_INCREMENT;
     }
 }
 
