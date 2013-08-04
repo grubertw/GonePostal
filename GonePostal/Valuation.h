@@ -1,26 +1,31 @@
 //
 //  Valuation.h
-//  GonePostalX
+//  GonePostal
 //
-//  Created by Travis Gruber on 2/15/13.
+//  Created by Travis Gruber on 8/4/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Stamp;
+@class BureauPrecancel, Cachet, CancelQuality, Centering, GPCatalog, Grade, GumCondition, Hinged, PlateNumber, Soundness, StampFormat;
 
 @interface Valuation : NSManagedObject
 
-@property (nonatomic, retain) NSSet *stamps;
-@end
-
-@interface Valuation (CoreDataGeneratedAccessors)
-
-- (void)addStampsObject:(Stamp *)value;
-- (void)removeStampsObject:(Stamp *)value;
-- (void)addStamps:(NSSet *)values;
-- (void)removeStamps:(NSSet *)values;
+@property (nonatomic, retain) NSNumber * price;
+@property (nonatomic, retain) NSString * catagory;
+@property (nonatomic, retain) NSString * catagoryDescription;
+@property (nonatomic, retain) GPCatalog *gpCatalog;
+@property (nonatomic, retain) StampFormat *stampFormat;
+@property (nonatomic, retain) BureauPrecancel *bureauPrecancel;
+@property (nonatomic, retain) Cachet *cachet;
+@property (nonatomic, retain) PlateNumber *plateNumberCombo;
+@property (nonatomic, retain) CancelQuality *cancelQuality;
+@property (nonatomic, retain) Centering *centering;
+@property (nonatomic, retain) Grade *grade;
+@property (nonatomic, retain) GumCondition *gumCondition;
+@property (nonatomic, retain) Hinged *hinged;
+@property (nonatomic, retain) Soundness *soundness;
 
 @end

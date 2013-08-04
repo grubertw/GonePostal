@@ -2,7 +2,7 @@
 //  Stamp.h
 //  GonePostal
 //
-//  Created by Travis Gruber on 7/6/13.
+//  Created by Travis Gruber on 8/4/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
@@ -33,6 +33,7 @@
 @property (nonatomic, retain) NSString * inprint_1;
 @property (nonatomic, retain) NSString * inprint_2;
 @property (nonatomic, retain) NSNumber * inventory_number;
+@property (nonatomic, retain) NSNumber * is_default;
 @property (nonatomic, retain) NSNumber * last_sale_price;
 @property (nonatomic, retain) NSNumber * manual_value;
 @property (nonatomic, retain) NSNumber * mint_used;
@@ -51,7 +52,7 @@
 @property (nonatomic, retain) NSNumber * purchase_amount;
 @property (nonatomic, retain) NSDate * purchase_date;
 @property (nonatomic, retain) NSString * source;
-@property (nonatomic, retain) NSNumber * is_default;
+@property (nonatomic, retain) NSNumber * number_of_stamps;
 @property (nonatomic, retain) BureauPrecancel *bureauPrecancel;
 @property (nonatomic, retain) Cachet *cachet;
 @property (nonatomic, retain) CancelQuality *cancelQuality;

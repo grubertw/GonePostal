@@ -2,14 +2,14 @@
 //  GPCatalog.h
 //  GonePostal
 //
-//  Created by Travis Gruber on 7/10/13.
+//  Created by Travis Gruber on 8/4/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class AlternateCatalog, AlternateCatalogName, Attachment, BureauPrecancel, Cachet, Cancelations, Country, Format, GPCatalog, GPCatalogGroup, GPCatalogSet, GPPicture, GPSalesGroup, GPSubvarietyType, LooksLike, NumberOfStampsInPlate, PlateNumber, PlateUsage, Stamp, Topic;
+@class AlternateCatalog, AlternateCatalogName, Attachment, BureauPrecancel, Cachet, Cancelations, Country, Format, GPCatalog, GPCatalogGroup, GPCatalogSet, GPPicture, GPSalesGroup, GPSubvarietyType, LooksLike, NumberOfStampsInPlate, PlateNumber, PlateUsage, Stamp, Topic, Valuation;
 
 @interface GPCatalog : NSManagedObject
 
@@ -109,6 +109,7 @@
 @property (nonatomic, retain) NSSet *subvarieties;
 @property (nonatomic, retain) GPSubvarietyType *subvarietyType;
 @property (nonatomic, retain) NSSet *topics;
+@property (nonatomic, retain) NSSet *values;
 @end
 
 @interface GPCatalog (CoreDataGeneratedAccessors)
@@ -182,5 +183,10 @@
 - (void)removeTopicsObject:(Topic *)value;
 - (void)addTopics:(NSSet *)values;
 - (void)removeTopics:(NSSet *)values;
+
+- (void)addValuesObject:(Valuation *)value;
+- (void)removeValuesObject:(Valuation *)value;
+- (void)addValues:(NSSet *)values;
+- (void)removeValues:(NSSet *)values;
 
 @end

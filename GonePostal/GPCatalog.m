@@ -2,7 +2,7 @@
 //  GPCatalog.m
 //  GonePostal
 //
-//  Created by Travis Gruber on 7/10/13.
+//  Created by Travis Gruber on 8/4/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
@@ -27,6 +27,7 @@
 #import "PlateUsage.h"
 #import "Stamp.h"
 #import "Topic.h"
+#import "Valuation.h"
 
 
 @implementation GPCatalog
@@ -127,5 +128,6 @@
 @dynamic subvarieties;
 @dynamic subvarietyType;
 @dynamic topics;
+@dynamic values;
 
 @end

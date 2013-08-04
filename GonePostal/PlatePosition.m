@@ -2,7 +2,7 @@
 //  PlatePosition.m
 //  GonePostal
 //
-//  Created by Travis Gruber on 7/27/13.
+//  Created by Travis Gruber on 8/4/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
@@ -14,7 +14,7 @@
 @implementation PlatePosition
 
 @dynamic name;
-@dynamic plateUsage;
 @dynamic disallowedInPlateCombinations;
+@dynamic plateUsage;
 
 @end

@@ -32,6 +32,7 @@
 @property (strong, nonatomic) id stampCollection;
 @property (strong, nonatomic) IBOutlet NSObjectController * stampController;
 
+@property (weak, nonatomic) IBOutlet NSBox * numberOfStampsBox;
 @property (weak, nonatomic) IBOutlet NSBox * cachetBox;
 @property (weak, nonatomic) IBOutlet NSBox * platesBox;
 @property (weak, nonatomic) IBOutlet NSBox * bureauPrecancelBox;
@@ -42,6 +43,7 @@
 @property (weak, nonatomic) IBOutlet NSBox * picturesBox;
 @property (weak, nonatomic) IBOutlet NSBox * notesBox;
 
+@property (nonatomic) NSRect numberOfStampsFrame;
 @property (nonatomic) NSRect cachetFrame;
 @property (nonatomic) NSRect platesFrame;
 @property (nonatomic) NSRect bureauPrecancelFrame;
@@ -152,6 +154,7 @@
     // (used to show and hide boxes)
     [self addStampObservers];
     
+    self.numberOfStampsFrame = [self.numberOfStampsBox frame];
     self.cachetFrame = [self.cachetBox frame];
     self.platesFrame = [self.platesBox frame];
     self.bureauPrecancelFrame = [self.bureauPrecancelBox frame];
@@ -199,12 +202,23 @@
 - (void)updateDynamicStampBoxes {
     Stamp * stamp = [self.stampController content];
     
-    CGFloat top = self.cachetFrame.origin.y + self.cachetFrame.size.height;
+    CGFloat top = self.numberOfStampsFrame.origin.y + self.numberOfStampsFrame.size.height;
     CGFloat currY = top;
     
+    if ([stamp.format.displayNumberOfStamps isEqualToNumber:@(YES)]) {
+        [self.numberOfStampsBox setFrame:self.numberOfStampsFrame];
+        currY -= self.numberOfStampsFrame.size.height;
+    }
+    else {
+        [self.numberOfStampsBox setFrame:NSMakeRect(0, 0, 0, 0)];
+    }
+    
     if ([stamp.format.displayCachetInfo isEqualToNumber:@(YES)]) {
-        [self.cachetBox setFrame:self.cachetFrame];
         currY -= self.cachetFrame.size.height;
+        [self.cachetBox setFrame:NSMakeRect(self.cachetFrame.origin.x,
+                                            currY,
+                                            self.cachetFrame.size.width,
+                                            self.cachetFrame.size.height)];
     }
     else {
         [self.cachetBox setFrame:NSMakeRect(0, 0, 0, 0)];
