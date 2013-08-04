@@ -473,21 +473,11 @@
     [app beginSheet:self.addToSetPanel modalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
 }
 
-- (IBAction)addSelectedEntriesToSet:(id)sender {
-    NSInteger tag = ((NSButton *)sender).tag;
- 
-    if (tag == 1) {
-        NSArray * selectedGPCatalogEntries = self.gpCatalogEntriesController.selectedObjects;
-        if (selectedGPCatalogEntries == nil) return;
-        
-        NSArray * setList = [self.gpCatalogSetsController arrangedObjects];
-        if (setList == nil) return;
-        
-        NSInteger selectedSetIndex = self.setSelectorCombo.indexOfSelectedItem;
-        if (selectedSetIndex == -1) return;
-        
-        GPCatalogSet * catalogSet = [setList objectAtIndex:selectedSetIndex];
-        [catalogSet addGpCatalogEntries:[NSSet setWithArray:selectedGPCatalogEntries]];        
+- (IBAction)addSelectedEntriesToSet:(id)sender {    
+    NSArray * selectedGPCatalogEntries = self.gpCatalogEntriesController.selectedObjects;
+
+    if (self.selectedSet && selectedGPCatalogEntries) {
+        [self.selectedSet addGpCatalogEntries:[NSSet setWithArray:selectedGPCatalogEntries]];
     }
     
     // End the sheet.

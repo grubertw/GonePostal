@@ -321,56 +321,6 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
     }
 }
 
-- (IBAction)assignPlateNumberGPIDs:(id)sender {
-    NSFetchRequest * pnFetch = [NSFetchRequest fetchRequestWithEntityName:@"PlateNumber"];
-    [pnFetch setPredicate:[NSPredicate predicateWithFormat:@"gp_plate_combination_number==nil"]];
-    
-    NSArray * plateCombos = [self.managedObjectContext executeFetchRequest:pnFetch error:nil];
-    if (!plateCombos) return;
-    
-    NSArray * sortedPlateCombos =
-    [plateCombos sortedArrayUsingDescriptors:@[
-     [NSSortDescriptor sortDescriptorWithKey:@"gpCatalogEntry.gp_catalog_number" ascending:YES],
-     [NSSortDescriptor sortDescriptorWithKey:@"marking" ascending:YES],
-     [NSSortDescriptor sortDescriptorWithKey:@"plate1" ascending:YES],
-     [NSSortDescriptor sortDescriptorWithKey:@"plate2" ascending:YES],
-     [NSSortDescriptor sortDescriptorWithKey:@"number_of_stamps" ascending:YES]]];
-    
-    NSInteger BASE_MARKING = 10;
-    NSInteger BASE_ID = 100;
-    
-    NSInteger currMarkingID = BASE_MARKING;
-    NSInteger currID = BASE_ID;
-    
-    NSString * lastProcessedMarking;
-    GPCatalog * lastProcessedGPCatalog;
-    
-    for (PlateNumber * pn in sortedPlateCombos) {
-        if (![pn.gpCatalogEntry isEqualTo:lastProcessedGPCatalog]) {
-            currMarkingID = BASE_MARKING;
-            currID = BASE_ID;
-            lastProcessedMarking = nil;
-        }
-        
-        lastProcessedGPCatalog = pn.gpCatalogEntry;
-        
-        if (   (!lastProcessedMarking && pn.marking)
-            || (lastProcessedMarking && !pn.marking)
-            || (   (lastProcessedMarking && pn.marking)
-                && ![pn.marking isEqualToString:lastProcessedMarking]) ) {
-            currMarkingID++;
-            currID = BASE_ID;
-        }
-        
-        lastProcessedMarking = pn.marking;
-        
-        pn.gp_plate_combination_number =
-            [NSString stringWithFormat:@"%@-PLT-%ld%06ld",
-             pn.gpCatalogEntry.gp_catalog_number, currMarkingID, currID];
-        currID += GPID_INCREMENT;
-    }
-}
-
 - (IBAction)addGPCollection:(id)sender {
     GPCollection * newCollection = [NSEntityDescription insertNewObjectForEntityForName:@"GPCollection" inManagedObjectContext:self.managedObjectContext];
     newCollection.name = @"New Collection";

@@ -9,6 +9,7 @@
 #import "GPSetChooser.h"
 #import "GPDocument.h"
 #import "GPCatalog.h"
+#import "Stamp+Create.h"
 #import "Stamp+CreateComposite.h"
 
 @interface GPSetChooser ()
@@ -136,7 +137,7 @@
     }
     
     for (GPCatalog * entry in entries) {
-        Stamp * stamp = [NSEntityDescription insertNewObjectForEntityForName:@"Stamp" inManagedObjectContext:self.managedObjectContext];
+        Stamp * stamp = [Stamp CreateFromDefaultsUsingManagedObjectContext:self.managedObjectContext];
         
         stamp.gp_stamp_number = entry.gp_catalog_number;
         stamp.gpCatalog = entry;

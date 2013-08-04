@@ -65,6 +65,9 @@
 // If not null, then user is viewing subvarieties.
 @property (strong, nonatomic) GPCatalog * currMajorVariety;
 
+// Used when adding GPCatalog entries to a GPCatalogSet.
+@property (strong, nonatomic) GPCatalogSet * selectedSet;
+
 - (void)loadSubvarieties:(GPCatalog *)majorVariety;
 
 @end
