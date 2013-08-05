@@ -271,10 +271,8 @@ static const NSUInteger EXPLODE_NUMBER          = 3;
     
     NSArray * entries = self.plateCombinationsController.selectedObjects;
     for (PlateNumber * entry in entries) {
-        PlateNumber * entry = [entries objectAtIndex:0];
         [entry removeDisallowedPlatePositions:setOfPlatePositionsToAllow];
     }
-    
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification {

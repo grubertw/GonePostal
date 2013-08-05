@@ -36,7 +36,7 @@
         _managedObjectContext = gpCatalogEntry.managedObjectContext;
         
         // Create the sort descripors
-        NSSortDescriptor *plateCombinationsSort = [[NSSortDescriptor alloc] initWithKey:@"gp_plate_combination_number" ascending:YES];
+        NSSortDescriptor *plateCombinationsSort = [[NSSortDescriptor alloc] initWithKey:@"gp_plate_combination_number" ascending:NO];
         _gpPlateCombinationsSortDescriptors = @[plateCombinationsSort];
         
         NSSortDescriptor *platePositionsSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
