@@ -386,6 +386,67 @@
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Cancelation Date"];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Purchase Date"];
     }
+    else if ([storedSearch.identifier isEqualToNumber:@(CUSTOM_PLATE_NUMBERS_SEARCH_ID)]) {
+        [expressions addObject:[NSExpression expressionForKeyPath:@"gp_plate_combination_number"]];
+        [expressions addObject:[NSExpression expressionForKeyPath:@"imprint_1"]];
+        [expressions addObject:[NSExpression expressionForKeyPath:@"imprint2"]];
+        [expressions addObject:[NSExpression expressionForKeyPath:@"marking"]];
+        [expressions addObject:[NSExpression expressionForKeyPath:@"plate1"]];
+        [expressions addObject:[NSExpression expressionForKeyPath:@"plate2"]];
+        [expressions addObject:[NSExpression expressionForKeyPath:@"plate3"]];
+        [expressions addObject:[NSExpression expressionForKeyPath:@"plate4"]];
+        [expressions addObject:[NSExpression expressionForKeyPath:@"plate5"]];
+        [expressions addObject:[NSExpression expressionForKeyPath:@"plate6"]];
+        [expressions addObject:[NSExpression expressionForKeyPath:@"plate7"]];
+        [expressions addObject:[NSExpression expressionForKeyPath:@"plate8"]];
+        [expressions addObject:[NSExpression expressionForKeyPath:@"gpCatalogEntry.gp_catalog_number"]];
+        predicateTemplate = [[NSPredicateEditorRowTemplate alloc] initWithLeftExpressions:expressions rightExpressionAttributeType:NSStringAttributeType modifier:NSDirectPredicateModifier operators:@[@(NSLikePredicateOperatorType), @(NSContainsPredicateOperatorType),@(NSMatchesPredicateOperatorType), @(NSBeginsWithPredicateOperatorType), @(NSEndsWithPredicateOperatorType)] options:0];
+        [availableTemplates addObject:predicateTemplate];
+        
+        count = 0;
+        lhsButton = predicateTemplate.templateViews[0];
+        menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Plate Number GPID"];
+        menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Imprint 1"];
+        menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Imprint 2"];
+        menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Marking"];
+        menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Plate 1"];
+        menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Plate 2"];
+        menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Plate 3"];
+        menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Plate 4"];
+        menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Plate 5"];
+        menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Plate 6"];
+        menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Plate 7"];
+        menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Plate 8"];
+        menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Catalog GPID"];
+        
+        
+        
+        expressions = [[NSMutableArray alloc] initWithCapacity:0];
+        [expressions addObject:[NSExpression expressionForKeyPath:@"max_percentage"]];
+        [expressions addObject:[NSExpression expressionForKeyPath:@"number_of_stamps"]];
+        predicateTemplate = [[NSPredicateEditorRowTemplate alloc] initWithLeftExpressions:expressions rightExpressionAttributeType:NSInteger32AttributeType modifier:NSDirectPredicateModifier operators:@[@(NSEqualToPredicateOperatorType), @(NSNotEqualToPredicateOperatorType), @(NSLessThanPredicateOperatorType), @(NSLessThanOrEqualToPredicateOperatorType), @(NSGreaterThanPredicateOperatorType), @(NSGreaterThanOrEqualToPredicateOperatorType)] options:0];
+        [availableTemplates addObject:predicateTemplate];
+        
+        count = 0;
+        lhsButton = predicateTemplate.templateViews[0];
+        menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Max Percentage"];
+        menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Number of Stamps"];
+        
+        
+        
+        expressions = [[NSMutableArray alloc] initWithCapacity:0];
+        [expressions addObject:[NSExpression expressionForKeyPath:@"combination_unknown"]];
+        [expressions addObject:[NSExpression expressionForKeyPath:@"unreported"]];
+        [expressions addObject:[NSExpression expressionForKeyPath:@"very_rare"]];
+        predicateTemplate = [[NSPredicateEditorRowTemplate alloc] initWithLeftExpressions:expressions rightExpressionAttributeType:NSBooleanAttributeType modifier:NSDirectPredicateModifier operators:@[@(NSEqualToPredicateOperatorType),@(NSNotEqualToPredicateOperatorType)] options:0];
+        [availableTemplates addObject:predicateTemplate];
+        
+        count = 0;
+        lhsButton = predicateTemplate.templateViews[0];
+        menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Combination Unknown"];
+        menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Unreported"];
+        menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Very Rare"];
+    }
     
     [self.predicateEditor setRowTemplates:availableTemplates];
     [self.predicateEditor setObjectValue:storedSearch.predicate];
@@ -400,6 +461,10 @@
     StoredSearch * customSearch = [NSEntityDescription insertNewObjectForEntityForName:@"StoredSearch" inManagedObjectContext:self.managedObjectContext];
     customSearch.identifier = self.searchID;
     customSearch.name = @"New Search";
+    
+    if ([self.searchID isEqualToNumber:@(CUSTOM_PLATE_NUMBERS_SEARCH_ID)]) {
+        customSearch.predicate = [NSPredicate predicateWithFormat:@"gpCatalogEntry.gp_catalog_number like %@", self.defaultGPCatalog.gp_catalog_number];
+    }
     
     NSError * error;
     if (![self.managedObjectContext save:&error]) {

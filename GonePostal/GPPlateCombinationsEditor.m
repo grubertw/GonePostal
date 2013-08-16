@@ -13,6 +13,7 @@
 #import "PlateNumber+Duplicate.h"
 #import "NumberOfStampsInPlate.h"
 #import "PlateUsage.h"
+#import "GPCustomSearch.h"
 
 static const NSUInteger DUPLICATE_PLATE_COMBO   = 1;
 static const NSUInteger EXPLODE_PLATE           = 2;
@@ -20,6 +21,8 @@ static const NSUInteger EXPLODE_NUMBER          = 3;
 
 @interface GPPlateCombinationsEditor ()
 @property (strong, nonatomic) IBOutlet NSArrayController *plateCombinationsController;
+@property (strong, nonatomic) NSMutableArray *plateCombinations;
+
 @property (strong, nonatomic) IBOutlet NSArrayController *disallowedPlatePositionsController;
 @property (strong, nonatomic) IBOutlet NSArrayController *allowedPlatePositionsController;
 @property (strong, nonatomic) NSMutableSet *allowedPlatePositions;
@@ -45,6 +48,12 @@ static const NSUInteger EXPLODE_NUMBER          = 3;
         NSSortDescriptor *platePositionsSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
         _platePositionsSortDescriptors = @[platePositionsSort];
         
+        NSSortDescriptor *customSearchSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+        _customSearchSortDescriptors = @[customSearchSort];
+        
+        _plateCombinations = [[NSMutableArray alloc] initWithCapacity:0];
+        [_plateCombinations setArray:[_gpCatalog.plateNumbers allObjects]];
+        
         _allowedPlatePositions = [[NSMutableSet alloc] initWithCapacity:0];
         _promptAction = 0;
     }
@@ -59,6 +68,25 @@ static const NSUInteger EXPLODE_NUMBER          = 3;
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
     return [NSString stringWithFormat:@"Plate Numbers for GPID %@", self.gpCatalog.gp_catalog_number];
+}
+
+- (IBAction)executeCustomSearch:(id)sender {
+    if (!self.currCustomSearch) return;
+    
+    NSFetchRequest * fetch = [NSFetchRequest fetchRequestWithEntityName:@"PlateNumber"];
+    [fetch setPredicate:self.currCustomSearch.predicate];
+    
+    NSArray * results = [self.managedObjectContext executeFetchRequest:fetch error:nil];
+    [self.plateCombinations setArray:results];
+    [self.plateCombinationsController rearrangeObjects];
+}
+
+- (IBAction)editCustomSearches:(id)sender {
+    GPCustomSearch * customSearchController = [[GPCustomSearch alloc] initWithStoredSearchIdentifier:@(CUSTOM_PLATE_NUMBERS_SEARCH_ID)];
+    [customSearchController setDefaultGPCatalog:self.gpCatalog];
+    
+    [self.document addWindowController:customSearchController];
+    [customSearchController.window makeKeyAndOrderFront:sender];
 }
 
 - (IBAction)addPlateCombination:(id)sender {
@@ -148,6 +176,12 @@ static const NSUInteger EXPLODE_NUMBER          = 3;
         [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
         [self.managedObjectContext undo];
     }
+}
+
+- (IBAction)cancelPrompt:(id)sender {
+    self.promptAction = 0;
+    [NSApp endSheet:self.createPanel];
+    [self.createPanel orderOut:sender];
 }
 
 - (void)duplatePlateCombination:(NSString *)initialGPID withStartingID:(NSInteger)startingID {

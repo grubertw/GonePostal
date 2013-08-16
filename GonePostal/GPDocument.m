@@ -71,6 +71,7 @@ const NSInteger CUSTOM_STAMP_SEARCH_ID                      = 5;
 const NSInteger ASSISTED_LOOKS_LIKE_BROWSER_SEARCH_ID       = 6;
 const NSInteger ASSISTED_SETS_BROWSER_SEARCH_ID             = 7;
 const NSInteger ASSISTED_LOOKS_LIKE_EDITOR_SEARCH_ID        = 8;
+const NSInteger CUSTOM_PLATE_NUMBERS_SEARCH_ID              = 9;
 
 const NSInteger GP_COLLECTION_TYPE_NORMAL                   = 1;
 const NSInteger GP_COLLECTION_TYPE_WANT_LIST                = 2;

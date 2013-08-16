@@ -7,8 +7,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
 #import "GPCatalog.h"
+#import "StoredSearch.h"
 
 @interface GPPlateCombinationsEditor : NSWindowController <NSTableViewDelegate>
 
@@ -16,8 +16,11 @@
 
 @property (strong, nonatomic) NSArray * gpPlateCombinationsSortDescriptors;
 @property (strong, nonatomic) NSArray * platePositionsSortDescriptors;
+@property (strong, nonatomic) NSArray * customSearchSortDescriptors;
 
 @property (strong, nonatomic) GPCatalog * gpCatalog;
+
+@property (strong, nonatomic) StoredSearch * currCustomSearch;
 
 - (id)initWithGPCatalog:(GPCatalog *)gpCatalogEntry;
 

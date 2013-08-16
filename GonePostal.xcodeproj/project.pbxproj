@@ -527,7 +527,7 @@
 		1FC06C2D16E653CD00DA8DFB /* GPLocationSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPLocationSearch.h; sourceTree = "<group>"; };
 		1FC06C2E16E653CD00DA8DFB /* GPLocationSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPLocationSearch.m; sourceTree = "<group>"; };
 		1FC06C2F16E653CD00DA8DFB /* GPLocationSearch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GPLocationSearch.xib; sourceTree = "<group>"; };
-		1FC7487517AEB53F00641CC8 /* GPDocument 18.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GPDocument 18.xcdatamodel"; sourceTree = "<group>"; };
+		1FC7487517AEB53F00641CC8 /* GPDocument 18.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "GPDocument 18.xcdatamodel"; sourceTree = "<group>"; };
 		1FC7487617AEB62C00641CC8 /* Stamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stamp.h; sourceTree = "<group>"; };
 		1FC7487717AEB62C00641CC8 /* Stamp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stamp.m; sourceTree = "<group>"; };
 		1FC7487C17AEBBC700641CC8 /* GumCondition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GumCondition.h; sourceTree = "<group>"; };
@@ -1405,7 +1405,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "rsync -av /Users/travis/xcodeProjects/GonePostal gb_server:/pool/travis/xcodeProjects";
+			shellScript = "#rsync -av /Users/travis/xcodeProjects/GonePostal gb_server:/pool/travis/xcodeProjects";
 		};
 /* End PBXShellScriptBuildPhase section */
 
