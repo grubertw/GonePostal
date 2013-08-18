@@ -14,6 +14,8 @@
 
 @property (strong, nonatomic) NSManagedObjectContext * managedObjectContext;
 
+@property (strong, nonatomic) IBOutlet NSArrayController *plateCombinationsController;
+
 @property (strong, nonatomic) NSArray * gpPlateCombinationsSortDescriptors;
 @property (strong, nonatomic) NSArray * platePositionsSortDescriptors;
 @property (strong, nonatomic) NSArray * customSearchSortDescriptors;

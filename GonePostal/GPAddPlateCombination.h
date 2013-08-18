@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "GPCatalog.h"
+#import "GPPlateCombinationsEditor.h"
 
 @interface GPAddPlateCombination : NSWindowController
 
@@ -17,7 +18,8 @@
 @property (strong, nonatomic) NSArray * platePositionsSortDescriptors;
 
 @property (strong, nonatomic) GPCatalog * gpCatalog;
+@property (strong, nonatomic) GPPlateCombinationsEditor * plateCombosEditor;
 
-- (id)initWithGPCatalog:(GPCatalog *)gpCatalogEntry;
+- (id)initWithGPCatalog:(GPCatalog *)gpCatalogEntry editor:(GPPlateCombinationsEditor *)editor;
 
 @end

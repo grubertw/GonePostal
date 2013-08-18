@@ -20,7 +20,6 @@ static const NSUInteger EXPLODE_PLATE           = 2;
 static const NSUInteger EXPLODE_NUMBER          = 3;
 
 @interface GPPlateCombinationsEditor ()
-@property (strong, nonatomic) IBOutlet NSArrayController *plateCombinationsController;
 @property (strong, nonatomic) NSMutableArray *plateCombinations;
 
 @property (strong, nonatomic) IBOutlet NSArrayController *disallowedPlatePositionsController;
@@ -90,7 +89,7 @@ static const NSUInteger EXPLODE_NUMBER          = 3;
 }
 
 - (IBAction)addPlateCombination:(id)sender {
-    GPAddPlateCombination * controller = [[GPAddPlateCombination alloc] initWithGPCatalog:self.gpCatalog];
+    GPAddPlateCombination * controller = [[GPAddPlateCombination alloc] initWithGPCatalog:self.gpCatalog editor:self];
     [self.document addWindowController:controller];
     
     [controller.window makeKeyAndOrderFront:sender];
@@ -193,6 +192,7 @@ static const NSUInteger EXPLODE_NUMBER          = 3;
         startingID += GPID_INCREMENT;
         
         [self.gpCatalog addPlateNumbersObject:pnCopy];
+        [self.plateCombinationsController addObject:pnCopy];
     }
 }
 
@@ -229,6 +229,7 @@ static const NSUInteger EXPLODE_NUMBER          = 3;
             startingID += GPID_INCREMENT;
             
             [self.gpCatalog addPlateNumbersObject:pnCopy];
+            [self.plateCombinationsController addObject:pnCopy];
         }
     }
 }
@@ -255,11 +256,13 @@ static const NSUInteger EXPLODE_NUMBER          = 3;
             startingID += GPID_INCREMENT;
 
             [self.gpCatalog addPlateNumbersObject:pnCopy];
+            [self.plateCombinationsController addObject:pnCopy];
         }
     }
     
     // Key plates are no longer needed after this operation.
-    [self.gpCatalog removePlateNumbers:[NSSet setWithArray:keyPlates]];
+    //[self.gpCatalog removePlateNumbers:[NSSet setWithArray:keyPlates]];
+    [self.plateCombinationsController removeObjects:[NSSet setWithArray:keyPlates]];
 }
 
 - (IBAction)addPicture:(id)sender {

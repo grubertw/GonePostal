@@ -29,10 +29,11 @@
 
 @implementation GPAddPlateCombination
 
-- (id)initWithGPCatalog:(GPCatalog *)gpCatalogEntry {
+- (id)initWithGPCatalog:(GPCatalog *)gpCatalogEntry editor:(GPPlateCombinationsEditor *)editor {
     self = [super initWithWindowNibName:@"GPAddPlateCombination"];
     if (self) {
         _gpCatalog = gpCatalogEntry;
+        _plateCombosEditor = editor;
         _managedObjectContext = gpCatalogEntry.managedObjectContext;
         
         // Create the sort descripors
@@ -141,10 +142,13 @@
             dup.gp_plate_combination_number = [NSString stringWithFormat:@"%@%08ld", staticID, startingID];
             
             [self.gpCatalog addPlateNumbersObject:dup];
+            [self.addedGPIDs addObject:dup];
         }
     }
     
     [self.gpCatalog addPlateNumbersObject:plateCombo];
+    [self.addedGPIDs addObject:plateCombo];
+    [self.plateCombosEditor.plateCombinationsController addObjects:self.addedGPIDs];
     
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
