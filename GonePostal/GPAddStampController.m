@@ -8,6 +8,7 @@
 
 #import "GPAddStampController.h"
 #import "GPDocument.h"
+#import "GPValuationCalculator.h"
 #import "GPCatalog.h"
 #import "Stamp+Create.h"
 
@@ -230,6 +231,9 @@ static NSString * NEW_STAMP_PAGE_TITLE = @"Specify Stamp Specifics";
     Stamp * stamp = [Stamp CreateFromDefaultsUsingManagedObjectContext:self.managedObjectContext];
     stamp.gpCatalog = self.gpCatalogPage.selectedGPCatalog;
     stamp.gp_stamp_number = self.gpCatalogPage.selectedGPCatalog.gp_catalog_number;
+    
+    // Derive the catalog_value of the stamp from the Valuation data.
+    [GPValuationCalculator deriveCatalogValueOfStamp:stamp];
     
     if ([self.stampCollection isMemberOfClass:[GPCollection class]]) {
         GPCollection * gpCollection = self.stampCollection;

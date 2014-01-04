@@ -15,6 +15,7 @@
 #import "GPBureauPrecancelChooser.h"
 #import "GPLocalPrecancelChooser.h"
 #import "GPPerfinChooser.h"
+#import "GPValuationCalculator.h"
 #import "PlateNumber.h"
 #import "Cachet.h"
 #import "BureauPrecancel.h"
@@ -38,6 +39,8 @@
 @property (weak, nonatomic) IBOutlet NSTabViewItem * sellListsTab;
 
 @property (weak, nonatomic) IBOutlet NSTextField *plateInfoField;
+
+@property (weak, nonatomic) IBOutlet NSTextField *valuationDescription;
 
 @property (strong, nonatomic) IBOutlet NSArrayController * saleHistoryController;
 @property (strong, nonatomic) IBOutlet NSArrayController * sellListsController;
@@ -334,6 +337,12 @@
 
 - (IBAction)removeFromSellList:(id)sender {
     [self.sellListsController remove:sender];
+}
+
+- (IBAction)recalculateCatalogValue:(id)sender {
+    NSString * valuationDesc = [GPValuationCalculator deriveCatalogValueOfStamp:self.stamp];
+    
+    [self.valuationDescription setStringValue:valuationDesc];
 }
 
 - (void)windowWillClose:(NSNotification *)notification {

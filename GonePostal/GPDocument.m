@@ -34,6 +34,7 @@
 #import "GPSupportedLocalPrecancels.h"
 #import "GPSupportedPerfins.h"
 #import "GPSupportedPerfinCatalogs.h"
+#import "GPSupportedPriceLists.h"
 #import "GPCatalog.h"
 #import "GPImportController.h"
 #import "GPSupportedSubvarietyTypes.h"
@@ -50,7 +51,7 @@
 #import "GPMultipleSelectionChecker.h"
 #import "GPPlateUsageExistsChecker.h"
 #import "GPSearchSelectionTransformer.h"
-#import "GPManualValueSummer.h"
+#import "GPValuationCalculator.h"
 #import "GPSetCounter.h"
 #import "GPSellListLocator.h"
 #import "GPCompositeTypeTransformer.h"
@@ -82,6 +83,18 @@ const NSInteger GPID_INCREMENT          = 100;
 
 NSString * BASE_GP_CATALOG_QUERY = @"is_default==0 and composite_placeholder==0 and majorVariety==nil";
 NSString * BASE_GP_CATALOG_QUERY_WITH_SUBVARIETIES = @"is_default==0 and composite_placeholder==0";
+
+// First level of valuation decision tree: a value for every stamp
+// format, per GPCatalog.
+const NSInteger VALUATION_LEVEL_FORMAT                  = 1;
+
+// Second level of decision tree: a value for every GPCatalog object
+// (ex: cachet, plate number).
+const NSInteger VALUATION_LEVEL_OBJECT_OVERRIDE         = 2;
+
+// Third level of decision tree: a value for every stamp condition type
+const NSInteger VALUATION_LEVEL_CONDITION_OVERRIDE      = 3;
+
 
 // Salt to use when generating filename hashes.
 NSString * FILENAME_HASH_SALT = @"p81VkYYb6d50wJ9aFmm0";
@@ -193,7 +206,10 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
     if (self) {
         // Initialize sort descriptors
         NSSortDescriptor *gpCollectionSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
-        self.gpCollectionSortDescriptors = @[gpCollectionSort];
+        _gpCollectionSortDescriptors = @[gpCollectionSort];
+        
+        NSSortDescriptor *priceListSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+        _priceListSortDescriptors = @[priceListSort];
         
         // Initialize value transformers.
         id pathTransformer = [[GPFilenameTransformer alloc] initWithDocument:self];
@@ -231,8 +247,8 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
         id plateNumberMasterDisplay = [[GPPlateNumberMasterDisplayTransformer alloc] init];
         [NSValueTransformer setValueTransformer:plateNumberMasterDisplay forName:@"GPPlateNumberMasterDisplayTransformer"];
         
-        id manualValueTransformer = [[GPManualValueSummer alloc] init];
-        [NSValueTransformer setValueTransformer:manualValueTransformer forName:@"GPManualValueSummer"];
+        id manualValueTransformer = [[GPValuationCalculator alloc] init];
+        [NSValueTransformer setValueTransformer:manualValueTransformer forName:@"GPValuationCalculator"];
         
         id setCounter = [[GPSetCounter alloc] init];
         [NSValueTransformer setValueTransformer:setCounter forName:@"GPSetCounter"];
@@ -400,10 +416,32 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
     [controller.window makeKeyAndOrderFront:sender];
 }
 
+- (IBAction)recalculateValueOfCollection:(id)sender {
+    NSArray * selection = self.gpCollectionController.selectedObjects;
+    if (!selection || [selection count] != 1) return;
+    
+    GPCollection * stampCollection = selection[0];
+    
+    float collectionValue = 0;
+    
+    for (Stamp * stamp in stampCollection.stamps) {
+        if (stamp.manual_value_overrides_catalog_value) {
+            collectionValue += [stamp.manual_value floatValue];
+        }
+        else {
+            [GPValuationCalculator deriveCatalogValueOfStamp:stamp];
+            collectionValue += [stamp.catalog_value floatValue];
+        }
+    }
+    
+    stampCollection.value = @(collectionValue);
+}
+
 - (IBAction)viewStamps:(id)sender {
-    // Get the row of the viewStamp button clicked
-    NSInteger row = [self.gpCollectionTable rowForView:sender];
-    GPCollection * stampCollection = self.gpCollectionController.arrangedObjects[row];
+    NSArray * selection = self.gpCollectionController.selectedObjects;
+    if (!selection || [selection count] != 1) return;
+    
+    GPCollection * stampCollection = selection[0];
     
     [self loadAssistedSearch:ASSISTED_STAMP_LIST_VIEWER_SEARCH_ID];
     GPStampViewer * stampViewer = [[GPStampViewer alloc] initWithCollection:stampCollection assistedSearch:self.assistedSearch countrySearch:self.countriesPredicate sectionSearch:self.sectionsPredicate formatSearch:self.formatsPredicate locationSearch:self.locationsPredicate];
@@ -619,6 +657,14 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
     [controller.window makeKeyAndOrderFront:sender];
 }
 
+- (void)editSupportedPriceLists:(id)sender {
+    GPSupportedPriceLists * controller = [[GPSupportedPriceLists alloc] initWithWindowNibName:@"GPSupportedPriceLists"];
+    [controller setManagedObjectContext:self.managedObjectContext];
+    
+    [self addWindowController:controller];
+    [controller.window makeKeyAndOrderFront:sender];
+}
+
 /*
  Sets the on-disk location.  NSPersistentDocument's implementation is bypassed using the FileWrapperSupport category.
  configurePersistentStoreCoordinatorForURL is overridden to point NSPersistantDocument into the wrapper.
@@ -810,12 +856,12 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
     return fileName;
 }
 
-- (BOOL)exceptionHandler:(NSExceptionHandler *)sender shouldHandleException:(NSException *)exception mask:(unsigned int)aMask {
+- (BOOL)exceptionHandler:(NSExceptionHandler *)sender shouldHandleException:(NSException *)exception mask:(NSUInteger)aMask {
     // Let the default exception handler do it's thing for now.
     return YES;
 }
 
-- (BOOL)exceptionHandler:(NSExceptionHandler *)sender shouldLogException:(NSException *)exception mask:(unsigned int)aMask {
+- (BOOL)exceptionHandler:(NSExceptionHandler *)sender shouldLogException:(NSException *)exception mask:(NSUInteger)aMask {
     [self printStackTrace:exception];
     return YES;
 }

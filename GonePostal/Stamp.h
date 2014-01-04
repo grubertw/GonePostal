@@ -2,14 +2,14 @@
 //  Stamp.h
 //  GonePostal
 //
-//  Created by Travis Gruber on 8/4/13.
+//  Created by Travis Gruber on 10/27/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class BureauPrecancel, Cachet, CancelQuality, Centering, Dealer, GPCatalog, GPCollection, GPPicture, Grade, GumCondition, Hinged, LocalPrecancel, Location, Lot, Mount, Perfin, SaleHistory, Soundness, Stamp, StampFormat, Valuation;
+@class BureauPrecancel, Cachet, CancelQuality, Centering, Dealer, GPCatalog, GPCollection, GPPicture, Grade, GumCondition, Hinged, LocalPrecancel, Location, Lot, Mount, Perfin, SaleHistory, Soundness, Stamp, StampFormat;
 
 @interface Stamp : NSManagedObject
 
@@ -22,6 +22,7 @@
 @property (nonatomic, retain) NSString * alternate_picture_6;
 @property (nonatomic, retain) NSDate * cancelation_date;
 @property (nonatomic, retain) NSString * cancelation_type;
+@property (nonatomic, retain) NSNumber * catalog_value;
 @property (nonatomic, retain) NSString * census_id;
 @property (nonatomic, retain) NSString * certificates;
 @property (nonatomic, retain) NSString * composite_description;
@@ -36,8 +37,10 @@
 @property (nonatomic, retain) NSNumber * is_default;
 @property (nonatomic, retain) NSNumber * last_sale_price;
 @property (nonatomic, retain) NSNumber * manual_value;
+@property (nonatomic, retain) NSNumber * manual_value_overrides_catalog_value;
 @property (nonatomic, retain) NSNumber * mint_used;
 @property (nonatomic, retain) NSString * notes;
+@property (nonatomic, retain) NSNumber * number_of_stamps;
 @property (nonatomic, retain) NSNumber * parentType;
 @property (nonatomic, retain) NSString * plate_1;
 @property (nonatomic, retain) NSString * plate_2;
@@ -52,7 +55,6 @@
 @property (nonatomic, retain) NSNumber * purchase_amount;
 @property (nonatomic, retain) NSDate * purchase_date;
 @property (nonatomic, retain) NSString * source;
-@property (nonatomic, retain) NSNumber * number_of_stamps;
 @property (nonatomic, retain) BureauPrecancel *bureauPrecancel;
 @property (nonatomic, retain) Cachet *cachet;
 @property (nonatomic, retain) CancelQuality *cancelQuality;
@@ -74,7 +76,7 @@
 @property (nonatomic, retain) Perfin *perfin;
 @property (nonatomic, retain) NSSet *saleHistory;
 @property (nonatomic, retain) Soundness *soundness;
-@property (nonatomic, retain) Valuation *valuation;
+@property (nonatomic, retain) GPCatalog *example;
 @end
 
 @interface Stamp (CoreDataGeneratedAccessors)

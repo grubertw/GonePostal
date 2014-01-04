@@ -37,10 +37,15 @@
 #import "GPPDFViewController.h"
 #import "NumberOfStampsInPlate.h"
 #import "GPPlateCombinationsEditor.h"
+#import "Valuation.h"
+#import "PriceList.h"
+#import "Format.h"
+#import "StampFormat.h"
 
 // Private members.
 @interface GPCatalogEditor ()
 @property (strong, nonatomic) IBOutlet NSTableView * gpCatalogTable;
+@property (strong, nonatomic) IBOutlet NSTabView * gpCatalogDetailTabs;
 
 @property (weak, nonatomic) IBOutlet NSScrollView * gpPicturesScroller;
 @property (weak, nonatomic) IBOutlet NSView * gpPicturesScrollContent;
@@ -72,6 +77,7 @@
 @property (weak, nonatomic) IBOutlet GPLooksLikePopoverController * looksLikePopoverController;
 
 @property (weak, nonatomic) IBOutlet NSTableView * bureauPrecancelsTable;
+@property (weak, nonatomic) IBOutlet NSTableView * valuationCatagoriesTable;
 
 @property (weak, nonatomic) IBOutlet NSArrayController * countriesController;
 @property (weak, nonatomic) IBOutlet NSArrayController * formatsController;
@@ -91,6 +97,8 @@
 @property (weak, nonatomic) IBOutlet NSArrayController * identificationPicturesController;
 @property (weak, nonatomic) IBOutlet NSArrayController * customSearchController;
 @property (weak, nonatomic) IBOutlet NSArrayController * attachmentController;
+@property (weak, nonatomic) IBOutlet NSArrayController * priceListController;
+@property (weak, nonatomic) IBOutlet NSArrayController * valuationPerFormatController;
 
 @property (strong, nonatomic) NSMutableArray * gpCatalogEntries;
 
@@ -230,6 +238,12 @@
         
         NSSortDescriptor *subjectSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
         _subjectsSortDescriptors = @[subjectSort];
+        
+        NSSortDescriptor *priceListSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+        _priceListSortDescriptors = @[priceListSort];
+        
+        NSSortDescriptor *valuationPerFormatSort = [[NSSortDescriptor alloc] initWithKey:@"stampFormat.name" ascending:YES];
+        _valuationPerFormatSortDescriptors = @[valuationPerFormatSort];
         
         // Initialize the assisted search panels.
         _countrySearchController = [[GPCountrySearch alloc] initWithPredicate:countriesPredicate forStamp:NO];
@@ -1292,6 +1306,169 @@
     
     GPDocument * doc = [self document];
     atthmnt.filename = [doc addFileToWrapperUsingGPID:atthmnt.gp_attachment_number forAttribute:@"GPCatalog.attachment" fileType:GPImportFileTypePDF];
+}
+
+// Adds/Removes level 1 valuation nodes from a GPCatalog entry,
+// based on it's format type.
+- (IBAction)reconstrainFormatValuationNodes:(id)sender {
+    NSArray * selectedGPCatalogEntries = self.gpCatalogEntriesController.selectedObjects;
+    if (!selectedGPCatalogEntries || [selectedGPCatalogEntries count] == 0) return;
+    
+    GPCatalog * selectedGPCatalog = selectedGPCatalogEntries[0];
+    
+    NSArray * selection = self.priceListController.selectedObjects;
+    if (!selection || [selection count] == 0) return;
+    
+    PriceList * selectedPriceList = selection[0];
+    
+    NSArray * existingNodes = [[self valuationPerFormatController] arrangedObjects];
+    
+    // If no nodes exist, create from scratch.
+    if ([existingNodes count] == 0) {
+        NSMutableArray * l1Valuations = [NSMutableArray arrayWithCapacity:0];
+        
+        // If the level 1 valuation entries do not exist, create them.
+        for (StampFormat * stampFormat in selectedGPCatalog.formatType.allowedStampFormats) {
+            Valuation * l1Valuation = [NSEntityDescription insertNewObjectForEntityForName:@"Valuation" inManagedObjectContext:self.managedObjectContext];
+            
+            l1Valuation.gpCatalog = selectedGPCatalog;
+            l1Valuation.stampFormat = stampFormat;
+            l1Valuation.priceList = selectedPriceList;
+            l1Valuation.decisionLevel = @(VALUATION_LEVEL_FORMAT);
+            
+            [l1Valuations addObject:l1Valuation];
+        }
+        
+        [self.valuationPerFormatController setContent:l1Valuations];
+    }
+    else {
+        NSMutableSet * nodes = [NSMutableSet setWithCapacity:0];
+        [nodes addObjectsFromArray:existingNodes];
+        
+        // Determine which nodes to remove.
+        for (Valuation * existingNode in existingNodes) {
+            bool needToRemove = YES;
+            
+            for (StampFormat * stampFormat in selectedGPCatalog.formatType.allowedStampFormats) {
+                if ([stampFormat isEqualTo:existingNode.stampFormat]) {
+                    needToRemove = NO;
+                    break;
+                }
+            }
+            
+            if (needToRemove) {
+                [nodes removeObject:existingNode];
+                [self.managedObjectContext deleteObject:existingNode];
+            }
+        }
+        
+        // Determine which nodes to add.
+        for (StampFormat * stampFormat in selectedGPCatalog.formatType.allowedStampFormats) {
+            bool needToAdd = YES;
+            
+            for (Valuation * existingNode in existingNodes) {
+                if ([stampFormat isEqualTo:existingNode.stampFormat]) {
+                    needToAdd = NO;
+                    break;
+                }
+            }
+            
+            if (needToAdd) {
+                Valuation * l1Valuation = [NSEntityDescription insertNewObjectForEntityForName:@"Valuation" inManagedObjectContext:self.managedObjectContext];
+                
+                l1Valuation.gpCatalog = selectedGPCatalog;
+                l1Valuation.stampFormat = stampFormat;
+                l1Valuation.priceList = selectedPriceList;
+                l1Valuation.decisionLevel = @(VALUATION_LEVEL_FORMAT);
+                
+                [nodes addObject:l1Valuation];
+            }
+        }
+        
+        [self.valuationPerFormatController setContent:[nodes allObjects]];
+    }
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
+}
+
+- (IBAction)removeAllValuationNodesForGPCatalog:(id)sender {
+    NSArray * selectedGPCatalogEntries = self.gpCatalogEntriesController.selectedObjects;
+    if (!selectedGPCatalogEntries || [selectedGPCatalogEntries count] == 0) return;
+    
+    GPCatalog * selectedGPCatalog = selectedGPCatalogEntries[0];
+    
+    NSFetchRequest * valuationFetch = [NSFetchRequest fetchRequestWithEntityName:@"Valuation"];
+    [valuationFetch setPredicate:[NSPredicate predicateWithFormat:@"gpCatalog.gp_catalog_number like %@", selectedGPCatalog.gp_catalog_number]];
+    
+    NSArray * valuationNodes = [self.managedObjectContext executeFetchRequest:valuationFetch error:nil];
+    if (valuationNodes && [valuationNodes count] > 0) {
+        for (Valuation * node in valuationNodes)
+            [self.managedObjectContext deleteObject:node];
+    }
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
+}
+
+- (void)tableViewSelectionDidChange:(NSNotification *)aNotification {
+    NSArray * selectedGPCatalogEntries = self.gpCatalogEntriesController.selectedObjects;
+    if (!selectedGPCatalogEntries || [selectedGPCatalogEntries count] == 0) return;
+    
+    GPCatalog * selectedGPCatalog = selectedGPCatalogEntries[0];
+    
+    if ([[[self.gpCatalogDetailTabs selectedTabViewItem] identifier] isEqualToString:@"11"]) {
+        NSArray * selection = self.priceListController.selectedObjects;
+        if (!selection || [selection count] == 0) return;
+        
+        // Get the selected valation catagory/price list
+        // (note: these are shared accross GPCatalog entries.
+        PriceList * selectedPriceList = selection[0];
+        
+        // Fetch the valuation level 1 entries for this GPCatalog and price list.
+        NSFetchRequest * valuationLevel1Fetch = [NSFetchRequest fetchRequestWithEntityName:@"Valuation"];
+        [valuationLevel1Fetch setPredicate:[NSPredicate predicateWithFormat:@"gpCatalog.gp_catalog_number like %@ and decisionLevel==%ld and priceList.name like %@", selectedGPCatalog.gp_catalog_number, VALUATION_LEVEL_FORMAT, selectedPriceList.name]];
+        
+        NSArray * formatValues = [self.managedObjectContext executeFetchRequest:valuationLevel1Fetch error:nil];
+        if (formatValues && [formatValues count] > 0) {
+            [self.valuationPerFormatController setContent:formatValues];
+        }
+        else {
+            NSMutableArray * l1Valuations = [NSMutableArray arrayWithCapacity:0];
+            
+            // If the level 1 valuation entries do not exist, create them.
+            for (StampFormat * stampFormat in selectedGPCatalog.formatType.allowedStampFormats) {
+                Valuation * l1Valuation = [NSEntityDescription insertNewObjectForEntityForName:@"Valuation" inManagedObjectContext:self.managedObjectContext];
+                
+                l1Valuation.gpCatalog = selectedGPCatalog;
+                l1Valuation.stampFormat = stampFormat;
+                l1Valuation.priceList = selectedPriceList;
+                l1Valuation.decisionLevel = @(VALUATION_LEVEL_FORMAT);
+                
+                [l1Valuations addObject:l1Valuation];
+            }
+            
+            [self.valuationPerFormatController setContent:l1Valuations];
+            
+            NSError * error;
+            if (![self.managedObjectContext save:&error]) {
+                NSAlert * errSheet = [NSAlert alertWithError:error];
+                [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+                [self.managedObjectContext undo];
+                return;
+            }
+        }
+    }
 }
 
 @end

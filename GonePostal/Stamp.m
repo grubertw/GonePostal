@@ -2,7 +2,7 @@
 //  Stamp.m
 //  GonePostal
 //
-//  Created by Travis Gruber on 8/4/13.
+//  Created by Travis Gruber on 10/27/13.
 //  Copyright (c) 2013 Travis Gruber. All rights reserved.
 //
 
@@ -27,7 +27,6 @@
 #import "Soundness.h"
 #import "Stamp.h"
 #import "StampFormat.h"
-#import "Valuation.h"
 
 
 @implementation Stamp
@@ -41,6 +40,7 @@
 @dynamic alternate_picture_6;
 @dynamic cancelation_date;
 @dynamic cancelation_type;
+@dynamic catalog_value;
 @dynamic census_id;
 @dynamic certificates;
 @dynamic composite_description;
@@ -55,8 +55,10 @@
 @dynamic is_default;
 @dynamic last_sale_price;
 @dynamic manual_value;
+@dynamic manual_value_overrides_catalog_value;
 @dynamic mint_used;
 @dynamic notes;
+@dynamic number_of_stamps;
 @dynamic parentType;
 @dynamic plate_1;
 @dynamic plate_2;
@@ -71,7 +73,6 @@
 @dynamic purchase_amount;
 @dynamic purchase_date;
 @dynamic source;
-@dynamic number_of_stamps;
 @dynamic bureauPrecancel;
 @dynamic cachet;
 @dynamic cancelQuality;
@@ -93,6 +94,6 @@
 @dynamic perfin;
 @dynamic saleHistory;
 @dynamic soundness;
-@dynamic valuation;
+@dynamic example;
 
 @end

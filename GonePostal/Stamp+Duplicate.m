@@ -14,6 +14,7 @@
     Stamp * dup = [NSEntityDescription insertNewObjectForEntityForName:@"Stamp" inManagedObjectContext:self.managedObjectContext];
     
     dup.address_type = self.address_type;
+    dup.catalog_value = self.catalog_value;
     dup.cancelation_date = self.cancelation_date;
     dup.cancelation_type = self.cancelation_type;
     dup.census_id = self.census_id;
@@ -26,6 +27,7 @@
     dup.inventory_number = self.inventory_number;
     dup.last_sale_price = self.last_sale_price;
     dup.manual_value = self.manual_value;
+    dup.manual_value_overrides_catalog_value = self.manual_value_overrides_catalog_value;
     dup.mint_used = self.mint_used;
     dup.notes = self.notes;
     dup.plate_1 = self.plate_1;

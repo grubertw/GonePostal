@@ -25,6 +25,7 @@
 #import "StampFormat.h"
 #import "GPCatalog.h"
 #import "Format.h"
+#import "GPValuationCalculator.h"
 
 @interface GPNewStampPage ()
 @property (strong, nonatomic) GPDocument * doc;
@@ -442,6 +443,16 @@
     else if ([self.stampCollection isMemberOfClass:[Stamp class]]) {
         Stamp * parentCollection = self.stampCollection;
         [parentCollection addChildrenObject:stamp];
+    }
+    
+    // If the manual value is set, set the override field.
+    float manualValue = [stamp.manual_value floatValue];
+    if (manualValue > 0) {
+        stamp.manual_value_overrides_catalog_value = @(YES);
+    }
+    else {
+        // Derive the catalog_value of the stamp from the Valuation data.
+        [GPValuationCalculator deriveCatalogValueOfStamp:stamp];
     }
     
     NSError * error;

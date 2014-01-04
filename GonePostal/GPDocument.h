@@ -30,6 +30,17 @@ extern const NSInteger GPID_INCREMENT;
 extern NSString * BASE_GP_CATALOG_QUERY;
 extern NSString * BASE_GP_CATALOG_QUERY_WITH_SUBVARIETIES;
 
+// First level of valuation decision tree: a value for every stamp
+// format, per GPCatalog.
+extern const NSInteger VALUATION_LEVEL_FORMAT;
+
+// Second level of decision tree: a value for every GPCatalog object
+// (ex: cachet, plate number).
+extern const NSInteger VALUATION_LEVEL_OBJECT_OVERRIDE;
+
+// Third level of decision tree: a value for every stamp condition type
+extern const NSInteger VALUATION_LEVEL_CONDITION_OVERRIDE;
+
 // Used when importing files into the GPWrapper.
 typedef enum acceptedImportFileTypes {
     GPImportFileTypePicture,
@@ -53,6 +64,7 @@ typedef enum acceptedImportFileTypes {
 + (NSString *)parseStaticID:(NSString *)gpid;
 
 @property (strong, nonatomic) NSArray * gpCollectionSortDescriptors;
+@property (strong, nonatomic) NSArray * priceListSortDescriptors;
 
 /**
  * Load an assisted search from the StroredSearches database into

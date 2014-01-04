@@ -44,6 +44,8 @@
 @property (strong, nonatomic) NSArray * customSearchSortDescriptors;
 @property (strong, nonatomic) NSArray * attachmentsSortDescriptors;
 @property (strong, nonatomic) NSArray * subjectsSortDescriptors;
+@property (strong, nonatomic) NSArray * priceListSortDescriptors;
+@property (strong, nonatomic) NSArray * valuationPerFormatSortDescriptors;
 
 @property (weak, nonatomic) IBOutlet NSArrayController * gpCatalogEntriesController;
 
