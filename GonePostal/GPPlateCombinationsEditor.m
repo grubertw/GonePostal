@@ -261,8 +261,7 @@ static const NSUInteger EXPLODE_NUMBER          = 3;
     }
     
     // Key plates are no longer needed after this operation.
-    //[self.gpCatalog removePlateNumbers:[NSSet setWithArray:keyPlates]];
-    [self.plateCombinationsController removeObjects:[NSSet setWithArray:keyPlates]];
+    [self.plateCombinationsController removeObjects:keyPlates];
 }
 
 - (IBAction)addPicture:(id)sender {
