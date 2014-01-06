@@ -50,6 +50,9 @@ static const NSUInteger EXPLODE_NUMBER          = 3;
         NSSortDescriptor *customSearchSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
         _customSearchSortDescriptors = @[customSearchSort];
         
+        NSSortDescriptor *salesGroupSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+        _salesGroupSortDescriptors = @[salesGroupSort];
+        
         _plateCombinations = [[NSMutableArray alloc] initWithCapacity:0];
         [_plateCombinations setArray:[_gpCatalog.plateNumbers allObjects]];
         

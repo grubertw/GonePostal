@@ -35,6 +35,8 @@
 #import "GPSupportedPerfins.h"
 #import "GPSupportedPerfinCatalogs.h"
 #import "GPSupportedPriceLists.h"
+#import "GPSalesGroupEditor.h"
+
 #import "GPCatalog.h"
 #import "GPImportController.h"
 #import "GPSupportedSubvarietyTypes.h"
@@ -659,6 +661,14 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
 
 - (void)editSupportedPriceLists:(id)sender {
     GPSupportedPriceLists * controller = [[GPSupportedPriceLists alloc] initWithWindowNibName:@"GPSupportedPriceLists"];
+    [controller setManagedObjectContext:self.managedObjectContext];
+    
+    [self addWindowController:controller];
+    [controller.window makeKeyAndOrderFront:sender];
+}
+
+- (void)editSupportedSalesGroups:(id)sender {
+    GPSalesGroupEditor * controller = [[GPSalesGroupEditor alloc] initWithWindowNibName:@"GPSalesGroupEditor"];
     [controller setManagedObjectContext:self.managedObjectContext];
     
     [self addWindowController:controller];

@@ -2,14 +2,14 @@
 //  BureauPrecancel.h
 //  GonePostal
 //
-//  Created by Travis Gruber on 8/4/13.
-//  Copyright (c) 2013 Travis Gruber. All rights reserved.
+//  Created by Travis Gruber on 1/5/14.
+//  Copyright (c) 2014 Travis Gruber. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class GPCatalog, Stamp, Valuation;
+@class GPCatalog, GPSalesGroup, Stamp, Valuation;
 
 @interface BureauPrecancel : NSManagedObject
 
@@ -23,6 +23,7 @@
 @property (nonatomic, retain) GPCatalog *gpCatalogEntry;
 @property (nonatomic, retain) NSSet *stamps;
 @property (nonatomic, retain) NSSet *values;
+@property (nonatomic, retain) GPSalesGroup *salesGroup;
 @end
 
 @interface BureauPrecancel (CoreDataGeneratedAccessors)

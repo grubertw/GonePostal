@@ -12,6 +12,7 @@
 
 @property (strong, nonatomic) NSManagedObjectContext * managedObjectContext;
 @property (strong, nonatomic) NSArray * sortDescriptors;
+@property (strong, nonatomic) NSArray * salesGroupSortDescriptors;
 
 @property (weak, nonatomic) IBOutlet NSArrayController * modelController;
 

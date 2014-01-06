@@ -14,6 +14,7 @@
 
 @property (strong, nonatomic) NSArray * cachetCatalogNameSortDescriptors;
 @property (strong, nonatomic) NSArray * cachetMakerNameSortDescriptors;
+@property (strong, nonatomic) NSArray * salesGroupSortDescriptors;
 
 @property (weak, nonatomic) IBOutlet NSObjectController * cachetController;
 

@@ -21,6 +21,9 @@
         // Create the sort descripors
         NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"topic_name" ascending:YES];
         self.sortDescriptors = @[sort];
+        
+        NSSortDescriptor *salesGroupSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+        _salesGroupSortDescriptors = @[salesGroupSort];
     }
     
     return self;

@@ -1,21 +1,22 @@
 //
 //  Topic.h
-//  GonePostalX
+//  GonePostal
 //
-//  Created by Travis Gruber on 1/20/13.
-//  Copyright (c) 2013 Travis Gruber. All rights reserved.
+//  Created by Travis Gruber on 1/5/14.
+//  Copyright (c) 2014 Travis Gruber. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class GPCatalog;
+@class GPCatalog, GPSalesGroup;
 
 @interface Topic : NSManagedObject
 
 @property (nonatomic, retain) NSString * topic_description;
 @property (nonatomic, retain) NSString * topic_name;
 @property (nonatomic, retain) NSSet *gpCatalogEntries;
+@property (nonatomic, retain) GPSalesGroup *salesGroup;
 @end
 
 @interface Topic (CoreDataGeneratedAccessors)

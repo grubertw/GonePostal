@@ -2,14 +2,14 @@
 //  Cachet.h
 //  GonePostal
 //
-//  Created by Travis Gruber on 8/4/13.
-//  Copyright (c) 2013 Travis Gruber. All rights reserved.
+//  Created by Travis Gruber on 1/5/14.
+//  Copyright (c) 2014 Travis Gruber. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class CachetCatalogName, CachetMakerName, GPCatalog, Stamp, Valuation;
+@class CachetCatalogName, CachetMakerName, GPCatalog, GPSalesGroup, Stamp, Valuation;
 
 @interface Cachet : NSManagedObject
 
@@ -30,6 +30,7 @@
 @property (nonatomic, retain) CachetCatalogName *cachetCatalog;
 @property (nonatomic, retain) CachetMakerName *cachetMakerName;
 @property (nonatomic, retain) GPCatalog *gpCatalog;
+@property (nonatomic, retain) GPSalesGroup *salesGroup;
 @property (nonatomic, retain) NSSet *stamps;
 @property (nonatomic, retain) NSSet *values;
 @end

@@ -2,8 +2,8 @@
 //  Stamp.m
 //  GonePostal
 //
-//  Created by Travis Gruber on 10/27/13.
-//  Copyright (c) 2013 Travis Gruber. All rights reserved.
+//  Created by Travis Gruber on 1/5/14.
+//  Copyright (c) 2014 Travis Gruber. All rights reserved.
 //
 
 #import "Stamp.h"
@@ -58,7 +58,7 @@
 @dynamic manual_value_overrides_catalog_value;
 @dynamic mint_used;
 @dynamic notes;
-@dynamic number_of_stamps;
+@dynamic numStampsInBlock;
 @dynamic parentType;
 @dynamic plate_1;
 @dynamic plate_2;
@@ -73,6 +73,14 @@
 @dynamic purchase_amount;
 @dynamic purchase_date;
 @dynamic source;
+@dynamic numStampsInBlockVertical;
+@dynamic numStampsInBlockHorrizontal;
+@dynamic irregularBlock;
+@dynamic blockHasPlateNumber;
+@dynamic blockSelvageTop;
+@dynamic blockSelvageBottom;
+@dynamic blockSelvageLeft;
+@dynamic blockSelvageRight;
 @dynamic bureauPrecancel;
 @dynamic cachet;
 @dynamic cancelQuality;
@@ -80,6 +88,7 @@
 @dynamic children;
 @dynamic collections;
 @dynamic dealer;
+@dynamic example;
 @dynamic extraPictures;
 @dynamic format;
 @dynamic gpCatalog;
@@ -94,6 +103,5 @@
 @dynamic perfin;
 @dynamic saleHistory;
 @dynamic soundness;
-@dynamic example;
 
 @end

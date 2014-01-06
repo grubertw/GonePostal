@@ -15,5 +15,6 @@
 @property (strong, nonatomic) NSArray * attachmentSortDescriptors;
 @property (strong, nonatomic) NSArray * countrySortDescriptors;
 @property (strong, nonatomic) NSArray * subjectSortDescriptors;
+@property (strong, nonatomic) NSArray * salesGroupSortDescriptors;
 
 @end

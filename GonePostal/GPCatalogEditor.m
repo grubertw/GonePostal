@@ -245,6 +245,9 @@
         NSSortDescriptor *valuationPerFormatSort = [[NSSortDescriptor alloc] initWithKey:@"stampFormat.name" ascending:YES];
         _valuationPerFormatSortDescriptors = @[valuationPerFormatSort];
         
+        NSSortDescriptor *salesGroupSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+        _salesGroupSortDescriptors = @[salesGroupSort];
+        
         // Initialize the assisted search panels.
         _countrySearchController = [[GPCountrySearch alloc] initWithPredicate:countriesPredicate forStamp:NO];
         _sectionSearchController = [[GPSectionSearch alloc] initWithPredicate:sectionsPredicate forStamp:NO];

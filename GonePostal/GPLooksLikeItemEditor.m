@@ -49,6 +49,9 @@
         
         NSSortDescriptor *sectionSort = [[NSSortDescriptor alloc] initWithKey:@"group_name" ascending:YES];
         self.sectionSortDescriptors = @[sectionSort];
+        
+        NSSortDescriptor *salesGroupSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+        _salesGroupSortDescriptors = @[salesGroupSort];
     }
     
     return self;

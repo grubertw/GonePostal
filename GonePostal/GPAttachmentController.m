@@ -30,6 +30,9 @@
         
         NSSortDescriptor *subjectSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
         _subjectSortDescriptors = @[subjectSort];
+        
+        NSSortDescriptor *salesGroupSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+        _salesGroupSortDescriptors = @[salesGroupSort];
     }
     
     return self;

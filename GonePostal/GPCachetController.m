@@ -45,6 +45,9 @@
         
         NSSortDescriptor *cachetMakerSort = [[NSSortDescriptor alloc] initWithKey:@"cachet_maker_name" ascending:YES];
         self.cachetMakerNameSortDescriptors = @[cachetMakerSort];
+        
+        NSSortDescriptor *salesGroupSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+        _salesGroupSortDescriptors = @[salesGroupSort];
     }
     
     return self;

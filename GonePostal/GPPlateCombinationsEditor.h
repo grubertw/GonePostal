@@ -19,6 +19,7 @@
 @property (strong, nonatomic) NSArray * gpPlateCombinationsSortDescriptors;
 @property (strong, nonatomic) NSArray * platePositionsSortDescriptors;
 @property (strong, nonatomic) NSArray * customSearchSortDescriptors;
+@property (strong, nonatomic) NSArray * salesGroupSortDescriptors;
 
 @property (strong, nonatomic) GPCatalog * gpCatalog;
 

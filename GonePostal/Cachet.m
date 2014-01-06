@@ -2,14 +2,15 @@
 //  Cachet.m
 //  GonePostal
 //
-//  Created by Travis Gruber on 8/4/13.
-//  Copyright (c) 2013 Travis Gruber. All rights reserved.
+//  Created by Travis Gruber on 1/5/14.
+//  Copyright (c) 2014 Travis Gruber. All rights reserved.
 //
 
 #import "Cachet.h"
 #import "CachetCatalogName.h"
 #import "CachetMakerName.h"
 #import "GPCatalog.h"
+#import "GPSalesGroup.h"
 #import "Stamp.h"
 #import "Valuation.h"
 
@@ -33,6 +34,7 @@
 @dynamic cachetCatalog;
 @dynamic cachetMakerName;
 @dynamic gpCatalog;
+@dynamic salesGroup;
 @dynamic stamps;
 @dynamic values;
 
