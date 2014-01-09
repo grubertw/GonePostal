@@ -22,10 +22,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="730" height="442"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <scrollView misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZBy-41-TYe">
+                    <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZBy-41-TYe">
                         <rect key="frame" x="0.0" y="45" width="730" height="398"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <clipView key="contentView" misplaced="YES" id="iVs-47-uSJ">
+                        <clipView key="contentView" id="iVs-47-uSJ">
                             <rect key="frame" x="1" y="17" width="728" height="380"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
@@ -186,15 +186,14 @@
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="ZBy-41-TYe" secondAttribute="trailing" id="206-rP-Tor"/>
-                    <constraint firstItem="ZBy-41-TYe" firstAttribute="top" secondItem="2" secondAttribute="top" id="2Nn-XE-TOh"/>
-                    <constraint firstAttribute="bottom" secondItem="ZBy-41-TYe" secondAttribute="bottom" constant="45" id="5Lb-mN-HXd"/>
-                    <constraint firstItem="VQu-13-L4b" firstAttribute="top" secondItem="ZBy-41-TYe" secondAttribute="bottom" constant="8" symbolic="YES" id="Bpp-nM-Kxd"/>
-                    <constraint firstItem="ZBy-41-TYe" firstAttribute="centerX" secondItem="2" secondAttribute="centerX" id="JtM-NX-Da8"/>
+                    <constraint firstItem="0ix-p3-cpg" firstAttribute="top" secondItem="ZBy-41-TYe" secondAttribute="bottom" constant="8" symbolic="YES" id="0fg-Xp-WD7"/>
+                    <constraint firstAttribute="bottom" secondItem="ZBy-41-TYe" secondAttribute="bottom" constant="45" id="9yG-aO-9GN"/>
+                    <constraint firstItem="ZBy-41-TYe" firstAttribute="top" secondItem="2" secondAttribute="top" constant="-1" id="NVt-Wf-c0L"/>
                     <constraint firstItem="VQu-13-L4b" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="313" id="RFO-vS-DbE"/>
-                    <constraint firstItem="0ix-p3-cpg" firstAttribute="top" secondItem="ZBy-41-TYe" secondAttribute="bottom" constant="8" symbolic="YES" id="RXN-Ke-T7M"/>
+                    <constraint firstItem="ZBy-41-TYe" firstAttribute="centerX" secondItem="2" secondAttribute="centerX" id="dLD-Hx-ebz"/>
+                    <constraint firstItem="VQu-13-L4b" firstAttribute="top" secondItem="ZBy-41-TYe" secondAttribute="bottom" constant="8" symbolic="YES" id="eGB-KW-HTl"/>
+                    <constraint firstItem="ZBy-41-TYe" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="g62-F6-IH7"/>
                     <constraint firstItem="0ix-p3-cpg" firstAttribute="leading" secondItem="VQu-13-L4b" secondAttribute="trailing" constant="53" id="oGO-wJ-RZc"/>
-                    <constraint firstItem="ZBy-41-TYe" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="z3q-as-S4N"/>
                 </constraints>
             </view>
             <connections>
