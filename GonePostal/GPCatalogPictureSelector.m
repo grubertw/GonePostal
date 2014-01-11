@@ -8,6 +8,8 @@
 
 #import "GPCatalogPictureSelector.h"
 #import "GPDocument.h"
+#import "AlternateCatalog.h"
+#import "AlternateCatalogName.h"
 
 static NSString * CHOOSE_PICTURE_FROM_CATALOG = @"Copy Picture from Catalog Entry";
 static NSString * CHOOSE_GPID_FROM_CATALOG = @"Insert a Catalog Entry";
@@ -19,6 +21,9 @@ static NSString * CHOOSE_GPID_FROM_CATALOG = @"Insert a Catalog Entry";
 
 @property (weak, nonatomic) IBOutlet NSTableView * gpCatalogTable;
 @property (weak, nonatomic) IBOutlet NSButton * filtersActive;
+
+@property (weak, nonatomic) IBOutlet NSPopUpButton * gotoPopup;
+@property (weak, nonatomic) IBOutlet NSTextField * gotoField;
 
 @property (strong, nonatomic) IBOutlet NSArrayController * gpCatalogController;
 
@@ -174,6 +179,48 @@ static NSString * CHOOSE_GPID_FROM_CATALOG = @"Insert a Catalog Entry";
     [self querySubvarieties];
 }
 
+- (void)controlTextDidChange:(NSNotification *)aNotification {
+    NSTextField * textField = aNotification.object;
+    
+    if ([textField isEqualTo:self.gotoField]) {
+        NSArray * entries = self.gpCatalogController.arrangedObjects;
+        NSInteger searchType = [[self.gotoPopup selectedItem] tag];
+        NSString * typedValue = self.gotoField.stringValue;
+        
+        NSUInteger foundEntryRow = 0;
+        NSRange findOP = {NSNotFound, 0};
+        
+        for (NSUInteger row=0; row < [entries count]; row++) {
+            GPCatalog * entry = entries[row];
+            
+            if (searchType == 1) {
+                findOP = [entry.gp_catalog_number rangeOfString:typedValue];
+            }
+            else if (searchType == 2) {
+                NSString * altCatalogNumber;
+                
+                for (AlternateCatalog * altCatalog in entry.alternateCatalogs) {
+                    if ([altCatalog.alternateCatalogName.alternate_catalog_name isEqualToString:entry.defaultCatalogName.alternate_catalog_name]) {
+                        altCatalogNumber = altCatalog.alternate_catalog_number;
+                        break;
+                    }
+                }
+                
+                findOP = [altCatalogNumber rangeOfString:typedValue];
+            }
+            
+            if (findOP.length > 0) {
+                foundEntryRow = row;
+                break;
+            }
+        }
+        
+        NSIndexSet * changeToSelection = [NSIndexSet indexSetWithIndex:foundEntryRow];
+        [self.gpCatalogTable selectRowIndexes:changeToSelection byExtendingSelection:NO];
+        [self.gpCatalogTable scrollRowToVisible:foundEntryRow];
+    }
+}
+
 - (IBAction)openCountriesSearchPanel:(id)sender {
     NSApplication * app = [NSApplication sharedApplication];
     
@@ -263,12 +310,13 @@ static NSString * CHOOSE_GPID_FROM_CATALOG = @"Insert a Catalog Entry";
         // Create the copy-to URL.
         NSURL * copyToURL = [[[self document] fileURL] URLByAppendingPathComponent:targetPicFN];
         
+        // Delete the existing picture if there is one.
         NSFileManager * fileManager = [NSFileManager defaultManager];
+        [fileManager removeItemAtURL:copyToURL error:nil];
         
         // Copy the file.
         NSError * error;
-        BOOL writeRC = [fileManager copyItemAtURL:copyFromURL toURL:copyToURL error:&error];
-        if (!writeRC) {
+        if (![fileManager copyItemAtURL:copyFromURL toURL:copyToURL error:&error]) {
             NSLog(@"Error copying image file: %@, %@", error, error.userInfo);
             return;
         }

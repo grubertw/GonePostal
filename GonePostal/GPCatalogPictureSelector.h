@@ -15,7 +15,7 @@
 #import "GPCatalog.h"
 #import "LooksLike.h"
 
-@interface GPCatalogPictureSelector : NSWindowController <NSTableViewDelegate>
+@interface GPCatalogPictureSelector : NSWindowController <NSTableViewDelegate, NSTextFieldDelegate>
 
 @property (strong, nonatomic) NSManagedObjectContext * managedObjectContext;
 

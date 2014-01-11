@@ -761,6 +761,10 @@
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
         entry.default_picture = @"empty";
+        
+        // Delete the picture from the disk.
+        NSURL * deleteFromURL = [[[self document] fileURL] URLByAppendingPathComponent:entry.default_picture];
+        [[NSFileManager defaultManager] removeItemAtURL:deleteFromURL error:nil];
     }
 }
 
@@ -798,6 +802,10 @@
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
         entry.alternate_picture_1 = @"empty";
+        
+        // Delete the picture from the disk.
+        NSURL * deleteFromURL = [[[self document] fileURL] URLByAppendingPathComponent:entry.alternate_picture_1];
+        [[NSFileManager defaultManager] removeItemAtURL:deleteFromURL error:nil];
     }
 }
 
@@ -835,6 +843,10 @@
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
         entry.alternate_picture_2 = @"empty";
+        
+        // Delete the picture from the disk.
+        NSURL * deleteFromURL = [[[self document] fileURL] URLByAppendingPathComponent:entry.alternate_picture_2];
+        [[NSFileManager defaultManager] removeItemAtURL:deleteFromURL error:nil];
     }
 }
 
@@ -873,6 +885,10 @@
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
         entry.alternate_picture_3 = @"empty";
+        
+        // Delete the picture from the disk.
+        NSURL * deleteFromURL = [[[self document] fileURL] URLByAppendingPathComponent:entry.alternate_picture_3];
+        [[NSFileManager defaultManager] removeItemAtURL:deleteFromURL error:nil];
     }
 }
 
@@ -910,6 +926,10 @@
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
         entry.alternate_picture_4 = @"empty";
+        
+        // Delete the picture from the disk.
+        NSURL * deleteFromURL = [[[self document] fileURL] URLByAppendingPathComponent:entry.alternate_picture_4];
+        [[NSFileManager defaultManager] removeItemAtURL:deleteFromURL error:nil];
     }
 }
 
@@ -947,6 +967,10 @@
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
         entry.alternate_picture_5 = @"empty";
+        
+        // Delete the picture from the disk.
+        NSURL * deleteFromURL = [[[self document] fileURL] URLByAppendingPathComponent:entry.alternate_picture_5];
+        [[NSFileManager defaultManager] removeItemAtURL:deleteFromURL error:nil];
     }
 }
 
@@ -984,6 +1008,10 @@
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
         entry.alternate_picture_6 = @"empty";
+        
+        // Delete the picture from the disk.
+        NSURL * deleteFromURL = [[[self document] fileURL] URLByAppendingPathComponent:entry.alternate_picture_6];
+        [[NSFileManager defaultManager] removeItemAtURL:deleteFromURL error:nil];
     }
 }
 
