@@ -11,6 +11,7 @@
 
 @interface GPLooksLikePopoverController : NSViewController
 
+@property (strong, nonatomic) NSArray * looksLikeSortDescriptors;
 @property (strong, nonatomic) NSManagedObjectContext * managedObjectContext;
 @property (strong, nonatomic) GPCatalog * selectedCatalogEntry;
 

@@ -2,8 +2,8 @@
 //  GPCatalog.h
 //  GonePostal
 //
-//  Created by Travis Gruber on 10/27/13.
-//  Copyright (c) 2013 Travis Gruber. All rights reserved.
+//  Created by Travis Gruber on 1/12/14.
+//  Copyright (c) 2014 Travis Gruber. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -99,7 +99,7 @@
 @property (nonatomic, retain) NSSet *examples;
 @property (nonatomic, retain) NSSet *extraPictures;
 @property (nonatomic, retain) Format *formatType;
-@property (nonatomic, retain) LooksLike *looksLike;
+@property (nonatomic, retain) NSSet *looksLike;
 @property (nonatomic, retain) GPCatalog *majorVariety;
 @property (nonatomic, retain) NSSet *numberOfStampsInPlate;
 @property (nonatomic, retain) NSSet *plateNumbers;
@@ -153,6 +153,11 @@
 - (void)removeExtraPicturesObject:(GPPicture *)value;
 - (void)addExtraPictures:(NSSet *)values;
 - (void)removeExtraPictures:(NSSet *)values;
+
+- (void)addLooksLikeObject:(LooksLike *)value;
+- (void)removeLooksLikeObject:(LooksLike *)value;
+- (void)addLooksLike:(NSSet *)values;
+- (void)removeLooksLike:(NSSet *)values;
 
 - (void)addNumberOfStampsInPlateObject:(NumberOfStampsInPlate *)value;
 - (void)removeNumberOfStampsInPlateObject:(NumberOfStampsInPlate *)value;

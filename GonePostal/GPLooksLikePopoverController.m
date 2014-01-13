@@ -10,6 +10,7 @@
 #import "GPDocument.h"
 
 @interface GPLooksLikePopoverController ()
+@property (strong, nonatomic) IBOutlet NSArrayController * looksLikeController;
 @end
 
 @implementation GPLooksLikePopoverController
@@ -21,6 +22,10 @@
         NSDocumentController * docController = [NSDocumentController sharedDocumentController];
         GPDocument * doc = [docController currentDocument];
         self.managedObjectContext = doc.managedObjectContext;
+        
+        // Create the sort descripors
+        NSSortDescriptor *looksLikeSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+        self.looksLikeSortDescriptors = @[looksLikeSort];
     }
     return self;
 }
@@ -32,13 +37,19 @@
         NSDocumentController * docController = [NSDocumentController sharedDocumentController];
         GPDocument * doc = [docController currentDocument];
         self.managedObjectContext = doc.managedObjectContext;
+        
+        // Create the sort descripors
+        NSSortDescriptor *looksLikeSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+        self.looksLikeSortDescriptors = @[looksLikeSort];
     }
     
     return self;
 }
 
 - (IBAction)removeSelectedFromLooksLike:(id)sender {
-    self.selectedCatalogEntry.looksLike = nil;
+    NSArray * selection = [self.looksLikeController selectedObjects];
+    
+    [self.selectedCatalogEntry removeLooksLike:[NSSet setWithArray:selection]];
 }
 
 @end

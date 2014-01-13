@@ -145,7 +145,7 @@
     
     if (self.selectedLooksLike != nil) {
         //NSLog(@"looksLike.name like %@", self.selectedLooksLike.name);
-        [predicateArray addObject:[NSPredicate predicateWithFormat:@"looksLike.name like %@", self.selectedLooksLike.name]];
+        [predicateArray addObject:[NSPredicate predicateWithFormat:@"any looksLike.name like %@", self.selectedLooksLike.name]];
     }
     
     // If there is only one element in the array,
