@@ -21,6 +21,9 @@
         NSSortDescriptor *setSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
         self.gpCatalogSetsSortDescriptors = @[setSort];
         
+        NSSortDescriptor *gpCatalogSort = [[NSSortDescriptor alloc] initWithKey:@"gp_catalog_number" ascending:YES];
+        self.gpCatalogEntriesSortDescriptors = @[gpCatalogSort];
+        
         NSSortDescriptor *countrySort = [[NSSortDescriptor alloc] initWithKey:@"country_name" ascending:YES];
         self.countrySortDescriptors = @[countrySort];
         

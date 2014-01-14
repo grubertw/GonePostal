@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment defaultVersion="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4510"/>
+        <deployment defaultVersion="1090" identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="GPSetController">
@@ -70,7 +70,7 @@
                                                             </tableHeaderCell>
                                                             <popUpButtonCell key="dataCell" type="bevel" title="Pop Up" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="bezel" imageScaling="proportionallyDown" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="318" id="316">
                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                <font key="font" metaFont="system"/>
+                                                                <font key="font" metaFont="menu"/>
                                                                 <menu key="menu" title="OtherViews" id="317">
                                                                     <items>
                                                                         <menuItem title="Pop Up" state="on" id="318"/>
@@ -80,8 +80,8 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <connections>
                                                                 <binding destination="309" name="content" keyPath="arrangedObjects" id="322"/>
-                                                                <binding destination="309" name="contentValues" keyPath="arrangedObjects.country_name" previousBinding="322" id="323"/>
                                                                 <binding destination="212" name="selectedObject" keyPath="arrangedObjects.country" previousBinding="323" id="324"/>
+                                                                <binding destination="309" name="contentValues" keyPath="arrangedObjects.country_name" previousBinding="322" id="323"/>
                                                             </connections>
                                                         </tableColumn>
                                                         <tableColumn width="116" minWidth="10" maxWidth="3.4028234663852886e+38" id="306">
@@ -92,7 +92,7 @@
                                                             </tableHeaderCell>
                                                             <popUpButtonCell key="dataCell" type="bevel" title="Pop Up" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="bezel" imageScaling="proportionallyDown" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="321" id="319">
                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                <font key="font" metaFont="system"/>
+                                                                <font key="font" metaFont="menu"/>
                                                                 <menu key="menu" title="OtherViews" id="320">
                                                                     <items>
                                                                         <menuItem title="Pop Up" state="on" id="321"/>
@@ -102,8 +102,8 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <connections>
                                                                 <binding destination="312" name="content" keyPath="arrangedObjects" id="325"/>
-                                                                <binding destination="312" name="contentValues" keyPath="arrangedObjects.group_name" previousBinding="325" id="327"/>
                                                                 <binding destination="212" name="selectedObject" keyPath="arrangedObjects.catalogGroup" previousBinding="327" id="328"/>
+                                                                <binding destination="312" name="contentValues" keyPath="arrangedObjects.group_name" previousBinding="325" id="327"/>
                                                             </connections>
                                                         </tableColumn>
                                                     </tableColumns>
@@ -111,11 +111,11 @@
                                             </subviews>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </clipView>
-                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="32">
+                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="32">
                                             <rect key="frame" x="1" y="448" width="258" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" id="34">
+                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="34">
                                             <rect key="frame" x="224" y="17" width="15" height="102"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
@@ -165,11 +165,11 @@
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="66" horizontalPageScroll="10" verticalLineScroll="66" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="52">
                                         <rect key="frame" x="0.0" y="36" width="410" height="464"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <clipView key="contentView" id="ZqW-12-QJa">
+                                        <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="ZqW-12-QJa">
                                             <rect key="frame" x="1" y="1" width="408" height="462"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="64" rowSizeStyle="automatic" viewBased="YES" id="53">
+                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="64" viewBased="YES" id="53">
                                                     <rect key="frame" x="0.0" y="0.0" width="408" height="462"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
@@ -195,13 +195,13 @@
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <imageView translatesAutoresizingMaskIntoConstraints="NO" id="74">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="86" height="64"/>
+                                                                            <rect key="frame" x="-3" y="-3" width="92" height="70"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="86" id="208"/>
                                                                                 <constraint firstAttribute="height" constant="64" id="292"/>
                                                                             </constraints>
-                                                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="75"/>
+                                                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="groove" id="75"/>
                                                                             <connections>
                                                                                 <binding destination="67" name="valuePath" keyPath="objectValue.default_picture" id="233">
                                                                                     <dictionary key="options">
@@ -210,7 +210,7 @@
                                                                                 </binding>
                                                                             </connections>
                                                                         </imageView>
-                                                                        <textField autoresizesSubviews="NO" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="83">
+                                                                        <textField autoresizesSubviews="NO" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="83">
                                                                             <rect key="frame" x="88" y="47" width="171" height="17"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <constraints>
@@ -226,7 +226,7 @@
                                                                                 <binding destination="67" name="value" keyPath="objectValue.gp_catalog_number" id="235"/>
                                                                             </connections>
                                                                         </textField>
-                                                                        <textField autoresizesSubviews="NO" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="84">
+                                                                        <textField autoresizesSubviews="NO" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="84">
                                                                             <rect key="frame" x="327" y="47" width="77" height="17"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <constraints>
@@ -245,7 +245,7 @@
                                                                                 </binding>
                                                                             </connections>
                                                                         </textField>
-                                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="85">
+                                                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="85">
                                                                             <rect key="frame" x="181" y="30" width="217" height="17"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <constraints>
@@ -260,7 +260,7 @@
                                                                                 <binding destination="67" name="value" keyPath="objectValue.series" id="237"/>
                                                                             </connections>
                                                                         </textField>
-                                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="86">
+                                                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="86">
                                                                             <rect key="frame" x="88" y="16" width="316" height="17"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <constraints>
@@ -276,7 +276,7 @@
                                                                                 <binding destination="67" name="value" keyPath="objectValue.gp_description" id="245"/>
                                                                             </connections>
                                                                         </textField>
-                                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="87">
+                                                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="87">
                                                                             <rect key="frame" x="88" y="30" width="91" height="17"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <constraints>
@@ -292,7 +292,7 @@
                                                                                 <binding destination="67" name="value" keyPath="objectValue.denomination" id="243"/>
                                                                             </connections>
                                                                         </textField>
-                                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="88">
+                                                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="88">
                                                                             <rect key="frame" x="88" y="0.0" width="292" height="17"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <constraints>
@@ -339,11 +339,11 @@
                                             </subviews>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </clipView>
-                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="54">
+                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="54">
                                             <rect key="frame" x="1" y="104" width="204" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" id="56">
+                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="56">
                                             <rect key="frame" x="224" y="17" width="15" height="102"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
@@ -389,21 +389,21 @@
         </window>
         <arrayController mode="entity" entityName="GPCatalogSet" automaticallyPreparesContent="YES" automaticallyRearrangesObjects="YES" id="212" userLabel="GPCatlogSetController">
             <connections>
-                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="214"/>
                 <binding destination="-2" name="sortDescriptors" keyPath="self.gpCatalogSetsSortDescriptors" id="219"/>
+                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="214"/>
             </connections>
         </arrayController>
         <arrayController mode="entity" entityName="GPCatalog" id="251" userLabel="GPCatalogEntriesController">
             <connections>
                 <binding destination="212" name="contentSet" keyPath="selection.gpCatalogEntries" id="271"/>
-                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="256"/>
                 <binding destination="-2" name="sortDescriptors" keyPath="self.gpCatalogEntriesSortDescriptors" id="254"/>
+                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="256"/>
             </connections>
         </arrayController>
         <arrayController mode="entity" entityName="Country" editable="NO" automaticallyPreparesContent="YES" id="309" userLabel="CountriesController">
             <connections>
-                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="311"/>
                 <binding destination="-2" name="sortDescriptors" keyPath="self.countrySortDescriptors" id="329"/>
+                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="311"/>
             </connections>
         </arrayController>
         <arrayController mode="entity" entityName="GPCatalogGroup" editable="NO" automaticallyPreparesContent="YES" id="312" userLabel="SectionsController">
