@@ -13,6 +13,8 @@
 #import "PlateUsage.h"
 #import "PlateNumber+Duplicate.h"
 #import "PlatePosition.h"
+#import "BureauPrecancel.h"
+#import "BureauPrecancel+Duplicate.h"
 
 @implementation GPCatalog (Duplicate)
 
@@ -123,6 +125,14 @@
         PlateNumber *pnCopy = [pn duplicate];
         
         [target addPlateNumbersObject:pnCopy];
+    }
+}
+
+- (void)copyBureauPrecancelInfoIntoTarget:(GPCatalog *)target {
+    for (BureauPrecancel * bc in self.bureauPrecancels) {
+        BureauPrecancel * bcCopy = [bc duplicate];
+        
+        [target addBureauPrecancelsObject:bcCopy];
     }
 }
 

@@ -1213,6 +1213,22 @@
     [bc setPicture:fileName];
 }
 
+- (IBAction)copyPrecancelInformation:(NSButton *)sender {
+    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
+    if (entries == nil) return;
+    GPCatalog * entry = [entries objectAtIndex:0];
+    
+    [self.currMajorVariety copyBureauPrecancelInfoIntoTarget:entry];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
+}
+
 - (IBAction)addCancelation:(id)sender {
     NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
     if (entries == nil) return;
