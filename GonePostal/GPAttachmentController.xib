@@ -81,12 +81,12 @@
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                             </tableHeaderCell>
-                                                            <popUpButtonCell key="dataCell" type="bevel" title="Pop Up" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="bezel" imageScaling="proportionallyDown" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" id="337">
+                                                            <popUpButtonCell key="dataCell" type="bevel" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="bezel" imageScaling="proportionallyDown" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" id="337">
                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                <font key="font" metaFont="system"/>
+                                                                <font key="font" metaFont="menu"/>
                                                                 <menu key="menu" title="OtherViews" id="338">
                                                                     <items>
-                                                                        <menuItem title="Pop Up" state="on" id="339"/>
+                                                                        <menuItem title="Pop Up" id="339"/>
                                                                     </items>
                                                                 </menu>
                                                             </popUpButtonCell>
@@ -97,12 +97,12 @@
                                                                         <bool key="NSInsertsNullPlaceholder" value="YES"/>
                                                                     </dictionary>
                                                                 </binding>
+                                                                <binding destination="275" name="selectedObject" keyPath="arrangedObjects.country" previousBinding="349" id="350"/>
                                                                 <binding destination="340" name="contentValues" keyPath="arrangedObjects.country_name" previousBinding="348" id="349">
                                                                     <dictionary key="options">
                                                                         <bool key="NSInsertsNullPlaceholder" value="YES"/>
                                                                     </dictionary>
                                                                 </binding>
-                                                                <binding destination="275" name="selectedObject" keyPath="arrangedObjects.country" previousBinding="349" id="350"/>
                                                             </connections>
                                                         </tableColumn>
                                                     </tableColumns>
@@ -111,11 +111,11 @@
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </clipView>
                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="33">
-                                            <rect key="frame" x="1" y="115" width="229" height="15"/>
+                                            <rect key="frame" x="-7" y="2" width="0.0" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="35">
-                                            <rect key="frame" x="224" y="17" width="15" height="102"/>
+                                            <rect key="frame" x="-14" y="9" width="15" height="0.0"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <tableHeaderView key="headerView" id="34">
@@ -217,7 +217,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="150" id="148">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="system"/>
+                                                        <font key="font" metaFont="menu"/>
                                                         <menu key="menu" title="OtherViews" id="149">
                                                             <items>
                                                                 <menuItem title="Item 1" state="on" id="150"/>
@@ -379,7 +379,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="FqT-On-LUZ" id="sIJ-0J-t7e">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" metaFont="menu"/>
                                             <menu key="menu" title="OtherViews" id="DyU-Ok-MHC">
                                                 <items>
                                                     <menuItem title="Item 1" state="on" id="FqT-On-LUZ"/>
@@ -390,8 +390,8 @@
                                         </popUpButtonCell>
                                         <connections>
                                             <binding destination="Qc6-Mk-mvO" name="content" keyPath="arrangedObjects" id="nxb-1f-LZH"/>
-                                            <binding destination="Qc6-Mk-mvO" name="contentValues" keyPath="arrangedObjects.name" previousBinding="nxb-1f-LZH" id="vi7-Fg-YBq"/>
-                                            <binding destination="275" name="selectedObject" keyPath="selection.salesGroup" previousBinding="vi7-Fg-YBq" id="tqX-z1-AUt"/>
+                                            <binding destination="Qc6-Mk-mvO" name="contentValues" keyPath="arrangedObjects.salesIDString" previousBinding="nxb-1f-LZH" id="v3c-OT-s7K"/>
+                                            <binding destination="275" name="selectedObject" keyPath="selection.salesGroup" previousBinding="v3c-OT-s7K" id="LgP-v8-BfT"/>
                                         </connections>
                                     </popUpButton>
                                 </subviews>
@@ -416,14 +416,14 @@
         </window>
         <arrayController mode="entity" entityName="Attachment" fetchPredicateFormat="gpCatalogEntry == nil" automaticallyPreparesContent="YES" id="275" userLabel="AttachmentsController">
             <connections>
-                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="281"/>
                 <binding destination="-2" name="sortDescriptors" keyPath="self.attachmentSortDescriptors" id="280"/>
+                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="281"/>
             </connections>
         </arrayController>
         <arrayController mode="entity" entityName="Country" editable="NO" automaticallyPreparesContent="YES" id="340" userLabel="CountriesController">
             <connections>
-                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="341"/>
                 <binding destination="-2" name="sortDescriptors" keyPath="self.countrySortDescriptors" id="342"/>
+                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="341"/>
             </connections>
         </arrayController>
         <arrayController mode="entity" entityName="Subject" editable="NO" automaticallyPreparesContent="YES" id="286" userLabel="SubjectsController">

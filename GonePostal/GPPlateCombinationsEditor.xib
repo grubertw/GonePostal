@@ -381,7 +381,7 @@
                                         <font key="font" metaFont="system"/>
                                         <tabViewItems>
                                             <tabViewItem label="Info" identifier="1" id="841">
-                                                <view key="view" ambiguous="YES" id="844">
+                                                <view key="view" id="844">
                                                     <rect key="frame" x="10" y="7" width="452" height="580"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
@@ -799,7 +799,7 @@
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="yiQ-bv-fAn" id="KXy-ds-YKX">
                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                <font key="font" metaFont="system"/>
+                                                                <font key="font" metaFont="menu"/>
                                                                 <menu key="menu" title="OtherViews" id="Y9Q-za-9ow">
                                                                     <items>
                                                                         <menuItem title="Item 1" state="on" id="yiQ-bv-fAn"/>
@@ -810,8 +810,8 @@
                                                             </popUpButtonCell>
                                                             <connections>
                                                                 <binding destination="Brm-Dm-yeS" name="content" keyPath="arrangedObjects" id="QQA-8X-tyD"/>
-                                                                <binding destination="Brm-Dm-yeS" name="contentValues" keyPath="arrangedObjects.name" previousBinding="QQA-8X-tyD" id="bKR-pm-dmh"/>
-                                                                <binding destination="2118" name="selectedObject" keyPath="selection.salesGroup" previousBinding="bKR-pm-dmh" id="g4V-XW-FoF"/>
+                                                                <binding destination="Brm-Dm-yeS" name="contentValues" keyPath="arrangedObjects.salesIDString" previousBinding="QQA-8X-tyD" id="Gxm-hS-Cq8"/>
+                                                                <binding destination="2118" name="selectedObject" keyPath="selection.salesGroup" previousBinding="Gxm-hS-Cq8" id="7oa-d9-bDB"/>
                                                             </connections>
                                                         </popUpButton>
                                                     </subviews>
@@ -858,11 +858,11 @@
                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </clipView>
                                                             <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="2053">
-                                                                <rect key="frame" x="1" y="119" width="223" height="15"/>
+                                                                <rect key="frame" x="-7" y="2" width="0.0" height="15"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                             </scroller>
                                                             <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="2055">
-                                                                <rect key="frame" x="224" y="17" width="15" height="102"/>
+                                                                <rect key="frame" x="-14" y="9" width="15" height="0.0"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                             </scroller>
                                                             <tableHeaderView key="headerView" id="2054">
@@ -906,11 +906,11 @@
                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </clipView>
                                                             <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="2069">
-                                                                <rect key="frame" x="1" y="119" width="223" height="15"/>
+                                                                <rect key="frame" x="-7" y="2" width="0.0" height="15"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                             </scroller>
                                                             <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="2067">
-                                                                <rect key="frame" x="224" y="17" width="15" height="102"/>
+                                                                <rect key="frame" x="-14" y="9" width="15" height="0.0"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                             </scroller>
                                                             <tableHeaderView key="headerView" id="2068">
@@ -945,10 +945,10 @@
                                             </tabViewItem>
                                             <tabViewItem label="Notes" identifier="" id="849">
                                                 <view key="view" id="850">
-                                                    <rect key="frame" x="10" y="7" width="452" height="580"/>
+                                                    <rect key="frame" x="10" y="7" width="452" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="2106">
+                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2106">
                                                             <rect key="frame" x="4" y="2" width="443" height="572"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="2107">

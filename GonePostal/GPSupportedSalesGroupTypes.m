@@ -1,18 +1,18 @@
 //
-//  GPSalesGroupEditor.m
+//  GPSupportedSalesGroupTypes.m
 //  GonePostal
 //
-//  Created by Travis Gruber on 1/5/14.
+//  Created by Travis Gruber on 1/20/14.
 //  Copyright (c) 2014 Travis Gruber. All rights reserved.
 //
 
-#import "GPSalesGroupEditor.h"
+#import "GPSupportedSalesGroupTypes.h"
 
-@interface GPSalesGroupEditor ()
+@interface GPSupportedSalesGroupTypes ()
 @property (weak, nonatomic) IBOutlet NSArrayController * modelController;
 @end
 
-@implementation GPSalesGroupEditor
+@implementation GPSupportedSalesGroupTypes
 
 - (id)initWithWindow:(NSWindow *)window
 {
@@ -21,24 +21,20 @@
         // Create the sort descripors
         NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
         _sortDescriptors = @[sort];
-        
-        NSSortDescriptor *salesGroupTypeSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
-        _salesGroupTypeSortDescriptors = @[salesGroupTypeSort];
     }
-    
     return self;
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
-    return @"Sales Groups Editor";
+    return @"Supported Sales Group Types";
 }
 
-- (IBAction)addSalesGroup:(id)sender {
+- (IBAction)addSalesGroupType:(id)sender {
     [self.modelController insert:self];
     [self.managedObjectContext save:nil];
 }
 
-- (IBAction)removeSalesGroup:(id)sender {
+- (IBAction)removeSalesGroupType:(id)sender {
     [self.modelController remove:self];
     
     NSError * error;

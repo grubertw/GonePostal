@@ -105,11 +105,11 @@
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="67">
-                                    <rect key="frame" x="1" y="1" width="0.0" height="16"/>
+                                    <rect key="frame" x="-7" y="2" width="0.0" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="69">
-                                    <rect key="frame" x="-15" y="17" width="16" height="0.0"/>
+                                    <rect key="frame" x="-14" y="9" width="15" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <tableHeaderView key="headerView" id="68">
@@ -265,8 +265,8 @@
                                 </popUpButtonCell>
                                 <connections>
                                     <binding destination="f3Y-Va-vJZ" name="content" keyPath="arrangedObjects" id="vYg-KO-Nr6"/>
-                                    <binding destination="f3Y-Va-vJZ" name="contentValues" keyPath="arrangedObjects.name" previousBinding="vYg-KO-Nr6" id="Mo7-na-stm"/>
-                                    <binding destination="123" name="selectedObject" keyPath="selection.salesGroup" previousBinding="Mo7-na-stm" id="qjN-9g-psZ"/>
+                                    <binding destination="f3Y-Va-vJZ" name="contentValues" keyPath="arrangedObjects.salesIDString" previousBinding="vYg-KO-Nr6" id="AiG-Bq-bzy"/>
+                                    <binding destination="123" name="selectedObject" keyPath="selection.salesGroup" previousBinding="AiG-Bq-bzy" id="8y0-Da-hN4"/>
                                 </connections>
                             </popUpButton>
                         </subviews>

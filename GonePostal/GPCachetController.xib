@@ -417,7 +417,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="3tv-L4-yiH" id="iWL-WX-Foo">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="menu"/>
                                                 <menu key="menu" title="OtherViews" id="dT6-6a-O1F">
                                                     <items>
                                                         <menuItem title="Item 1" state="on" id="3tv-L4-yiH"/>
@@ -428,8 +428,8 @@
                                             </popUpButtonCell>
                                             <connections>
                                                 <binding destination="GDC-RP-O17" name="content" keyPath="arrangedObjects" id="di2-uJ-qA7"/>
-                                                <binding destination="GDC-RP-O17" name="contentValues" keyPath="arrangedObjects.name" previousBinding="di2-uJ-qA7" id="Q9u-QY-cbg"/>
-                                                <binding destination="902" name="selectedObject" keyPath="selection.salesGroup" previousBinding="Q9u-QY-cbg" id="yCh-cI-fgv"/>
+                                                <binding destination="GDC-RP-O17" name="contentValues" keyPath="arrangedObjects.salesIDString" previousBinding="di2-uJ-qA7" id="7d3-dO-u8m"/>
+                                                <binding destination="902" name="selectedObject" keyPath="selection.salesGroup" previousBinding="7d3-dO-u8m" id="u9R-dm-zBl"/>
                                             </connections>
                                         </popUpButton>
                                     </subviews>

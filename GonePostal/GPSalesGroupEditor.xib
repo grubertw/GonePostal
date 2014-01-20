@@ -26,17 +26,17 @@
                         <rect key="frame" x="0.0" y="45" width="730" height="398"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <clipView key="contentView" id="iVs-47-uSJ">
-                            <rect key="frame" x="1" y="17" width="728" height="380"/>
+                            <rect key="frame" x="1" y="17" width="728" height="365"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="jfN-Hl-7MO" id="fpg-rG-nve">
-                                    <rect key="frame" x="0.0" y="0.0" width="1320" height="380"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1677" height="365"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                     <tableColumns>
-                                        <tableColumn width="184" minWidth="40" maxWidth="1000" id="X95-RV-cY7">
+                                        <tableColumn width="228" minWidth="40" maxWidth="1000" id="X95-RV-cY7">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Name">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -52,26 +52,42 @@
                                                 <binding destination="JA5-1K-3D0" name="value" keyPath="arrangedObjects.name" id="WkJ-df-Y44"/>
                                             </connections>
                                         </tableColumn>
-                                        <tableColumn width="58" minWidth="40" maxWidth="1000" id="MkR-pH-bOI">
+                                        <tableColumn width="177" minWidth="40" maxWidth="1000" id="MkR-pH-bOI">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Sales ID">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
                                             </tableHeaderCell>
                                             <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="ho6-W0-br9">
-                                                <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="###0" negativeFormat="" localizesFormat="NO" numberStyle="decimal" allowsFloats="NO" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="1" maximumIntegerDigits="309" minimumFractionDigits="0" maximumFractionDigits="0" id="DXV-dh-brp">
-                                                    <real key="roundingIncrement" value="0.0"/>
-                                                    <metadata>
-                                                        <bool key="localizesFormat" value="NO"/>
-                                                    </metadata>
-                                                </numberFormatter>
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <connections>
-                                                <binding destination="JA5-1K-3D0" name="value" keyPath="arrangedObjects.salesID" id="ooc-mr-cC3"/>
+                                                <binding destination="JA5-1K-3D0" name="value" keyPath="arrangedObjects.salesIDString" id="1zx-sa-ZdA"/>
+                                            </connections>
+                                        </tableColumn>
+                                        <tableColumn width="191" minWidth="10" maxWidth="3.4028234663852886e+38" id="xVK-G7-uOt">
+                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Type">
+                                                <font key="font" metaFont="smallSystem"/>
+                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                            </tableHeaderCell>
+                                            <popUpButtonCell key="dataCell" type="bevel" title="Pop Up" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="bezel" imageScaling="proportionallyDown" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="9b1-sk-9GT" id="xEa-BU-Pdf">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                                <menu key="menu" title="OtherViews" id="M5H-YS-ZPW">
+                                                    <items>
+                                                        <menuItem title="Pop Up" state="on" id="9b1-sk-9GT"/>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                            <connections>
+                                                <binding destination="ME6-3k-MTH" name="content" keyPath="arrangedObjects" id="D9f-zg-9R4"/>
+                                                <binding destination="ME6-3k-MTH" name="contentValues" keyPath="arrangedObjects.name" previousBinding="D9f-zg-9R4" id="dOP-mn-fIz"/>
+                                                <binding destination="JA5-1K-3D0" name="selectedObject" keyPath="arrangedObjects.salesGroupType" previousBinding="dOP-mn-fIz" id="DQR-ML-dOl"/>
                                             </connections>
                                         </tableColumn>
                                         <tableColumn width="110" minWidth="10" maxWidth="3.4028234663852886e+38" id="IOX-Vj-wNt">
@@ -150,15 +166,15 @@
                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </clipView>
                         <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="cKR-dU-KVe">
-                            <rect key="frame" x="1" y="381" width="728" height="16"/>
+                            <rect key="frame" x="1" y="382" width="728" height="15"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
-                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="37" horizontal="NO" id="v8z-6h-01J">
+                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="v8z-6h-01J">
                             <rect key="frame" x="713" y="17" width="16" height="380"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <tableHeaderView key="headerView" id="jfN-Hl-7MO">
-                            <rect key="frame" x="0.0" y="0.0" width="1320" height="17"/>
+                            <rect key="frame" x="0.0" y="0.0" width="1677" height="17"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </tableHeaderView>
                     </scrollView>
@@ -204,6 +220,12 @@
             <connections>
                 <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="cd8-Mi-a1o"/>
                 <binding destination="-2" name="sortDescriptors" keyPath="self.sortDescriptors" id="hWZ-tc-KXq"/>
+            </connections>
+        </arrayController>
+        <arrayController mode="entity" entityName="GPSalesGroupType" automaticallyPreparesContent="YES" id="ME6-3k-MTH" userLabel="SalesGroupTypesController">
+            <connections>
+                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="Ek3-l8-Htd"/>
+                <binding destination="-2" name="sortDescriptors" keyPath="self.salesGroupTypeSortDescriptors" id="jbz-GH-1dI"/>
             </connections>
         </arrayController>
     </objects>
