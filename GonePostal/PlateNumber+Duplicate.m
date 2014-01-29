@@ -32,7 +32,7 @@
     pnCopy.unreported = self.unreported;
     pnCopy.very_rare = self.very_rare;
     
-    [pnCopy addDisallowedPlatePositions:self.disallowedPlatePositions];
+    [pnCopy addModifyingPlatePositions:self.modifyingPlatePositions];
     
     return pnCopy;
 }

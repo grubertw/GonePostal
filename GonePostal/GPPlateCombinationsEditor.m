@@ -13,6 +13,7 @@
 #import "PlateNumber+Duplicate.h"
 #import "NumberOfStampsInPlate.h"
 #import "PlateUsage.h"
+#import "PlatePosition.h"
 #import "GPCustomSearch.h"
 
 static const NSUInteger DUPLICATE_PLATE_COMBO   = 1;
@@ -22,9 +23,9 @@ static const NSUInteger EXPLODE_NUMBER          = 3;
 @interface GPPlateCombinationsEditor ()
 @property (strong, nonatomic) NSMutableArray *plateCombinations;
 
-@property (strong, nonatomic) IBOutlet NSArrayController *disallowedPlatePositionsController;
-@property (strong, nonatomic) IBOutlet NSArrayController *allowedPlatePositionsController;
-@property (strong, nonatomic) NSMutableSet *allowedPlatePositions;
+@property (strong, nonatomic) IBOutlet NSArrayController *modifyingPlatePositionsController;
+@property (strong, nonatomic) IBOutlet NSArrayController *availablePlatePositionsController;
+@property (strong, nonatomic) NSMutableSet *availablePlatePositions;
 
 @property (strong, nonatomic) IBOutlet NSPanel * createPanel;
 
@@ -56,7 +57,7 @@ static const NSUInteger EXPLODE_NUMBER          = 3;
         _plateCombinations = [[NSMutableArray alloc] initWithCapacity:0];
         [_plateCombinations setArray:[_gpCatalog.plateNumbers allObjects]];
         
-        _allowedPlatePositions = [[NSMutableSet alloc] initWithCapacity:0];
+        _availablePlatePositions = [[NSMutableSet alloc] initWithCapacity:0];
         _promptAction = 0;
     }
     
@@ -289,28 +290,37 @@ static const NSUInteger EXPLODE_NUMBER          = 3;
     }
 }
 
-- (IBAction)disallowPlatePosition:(id)sender {
-    NSArray * ppsToDisallow = [self.allowedPlatePositionsController selectedObjects];
+- (IBAction)platePositionsWillModify:(id)sender {
+    NSArray * ppsThatModify = [self.availablePlatePositionsController selectedObjects];
+    
+    // Modifying plate positions are unique per plate combination
+    NSMutableArray * ppsThatModifyCopy = [[NSMutableArray alloc] initWithCapacity:0];
+    for (PlatePosition * pp in ppsThatModify) {
+        PlatePosition * ppCopy = [NSEntityDescription insertNewObjectForEntityForName:@"PlatePosition" inManagedObjectContext:self.managedObjectContext];
+        
+        ppCopy.name = pp.name;
+        [ppsThatModifyCopy addObject:ppCopy];
+    }
     
     NSArray * entries = self.plateCombinationsController.selectedObjects;
     for (PlateNumber * entry in entries) {
-        [entry addDisallowedPlatePositions:[NSSet setWithArray:ppsToDisallow]];
+        [entry addModifyingPlatePositions:[NSSet setWithArray:ppsThatModifyCopy]];
         
-        [self.allowedPlatePositions minusSet:entry.disallowedPlatePositions];
-        [self.allowedPlatePositionsController setContent:self.allowedPlatePositions];
+        [self.availablePlatePositions minusSet:[NSSet setWithArray:ppsThatModify]];
+        [self.availablePlatePositionsController setContent:self.availablePlatePositions];
     }
 }
 
-- (IBAction)allowPlatePosition:(id)sender {
-    NSArray * ppsToAllow = [self.disallowedPlatePositionsController selectedObjects];
-    NSSet * setOfPlatePositionsToAllow = [NSSet setWithArray:ppsToAllow];
+- (IBAction)removePlatePositions:(id)sender {
+    NSArray * ppsThatNoLongerModify = [self.modifyingPlatePositionsController selectedObjects];
+    NSSet * setOfPlatePositionsThatNoLongerModify = [NSSet setWithArray:ppsThatNoLongerModify];
     
-    [self.allowedPlatePositions unionSet:setOfPlatePositionsToAllow];
-    [self.allowedPlatePositionsController setContent:self.allowedPlatePositions];
+    [self.availablePlatePositions unionSet:setOfPlatePositionsThatNoLongerModify];
+    [self.availablePlatePositionsController setContent:self.availablePlatePositions];
     
     NSArray * entries = self.plateCombinationsController.selectedObjects;
     for (PlateNumber * entry in entries) {
-        [entry removeDisallowedPlatePositions:setOfPlatePositionsToAllow];
+        [entry removeModifyingPlatePositions:setOfPlatePositionsThatNoLongerModify];
     }
 }
 
@@ -324,19 +334,28 @@ static const NSUInteger EXPLODE_NUMBER          = 3;
         NSUInteger i=0;
         for (PlateUsage * pu in plateUsage) {
             if (i == 0) {
-                [self.allowedPlatePositions setSet:pu.platePositions];
+                [self.availablePlatePositions setSet:pu.platePositions];
             }
             else {
-                [self.allowedPlatePositions intersectSet:pu.platePositions];
+                [self.availablePlatePositions intersectSet:pu.platePositions];
             }
             
             i++;
         }
         
         PlateNumber * plateCombo = selection[0];
-        [self.allowedPlatePositions minusSet:plateCombo.disallowedPlatePositions];
+        NSMutableSet * ppsToRemove = [[NSMutableSet alloc] initWithCapacity:0];
+        for (PlatePosition * pp in self.availablePlatePositions) {
+            for (PlatePosition * ppInPC in plateCombo.modifyingPlatePositions) {
+                if ([pp.name compare:ppInPC.name] == NSOrderedSame) {
+                    [ppsToRemove addObject:pp];
+                    break;
+                }
+            }
+        }
         
-        [self.allowedPlatePositionsController setContent:self.allowedPlatePositions];
+        [self.availablePlatePositions minusSet:ppsToRemove];
+        [self.availablePlatePositionsController setContent:self.availablePlatePositions];
     }
 }
 

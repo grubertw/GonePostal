@@ -2,7 +2,7 @@
 //  PlateNumber.h
 //  GonePostal
 //
-//  Created by Travis Gruber on 1/5/14.
+//  Created by Travis Gruber on 1/28/14.
 //  Copyright (c) 2014 Travis Gruber. All rights reserved.
 //
 
@@ -32,18 +32,18 @@
 @property (nonatomic, retain) NSString * plate8;
 @property (nonatomic, retain) NSNumber * unreported;
 @property (nonatomic, retain) NSNumber * very_rare;
-@property (nonatomic, retain) NSSet *disallowedPlatePositions;
+@property (nonatomic, retain) NSSet *modifyingPlatePositions;
 @property (nonatomic, retain) GPCatalog *gpCatalogEntry;
-@property (nonatomic, retain) NSSet *values;
 @property (nonatomic, retain) GPSalesGroup *salesGroup;
+@property (nonatomic, retain) NSSet *values;
 @end
 
 @interface PlateNumber (CoreDataGeneratedAccessors)
 
-- (void)addDisallowedPlatePositionsObject:(PlatePosition *)value;
-- (void)removeDisallowedPlatePositionsObject:(PlatePosition *)value;
-- (void)addDisallowedPlatePositions:(NSSet *)values;
-- (void)removeDisallowedPlatePositions:(NSSet *)values;
+- (void)addModifyingPlatePositionsObject:(PlatePosition *)value;
+- (void)removeModifyingPlatePositionsObject:(PlatePosition *)value;
+- (void)addModifyingPlatePositions:(NSSet *)values;
+- (void)removeModifyingPlatePositions:(NSSet *)values;
 
 - (void)addValuesObject:(Valuation *)value;
 - (void)removeValuesObject:(Valuation *)value;

@@ -15,9 +15,6 @@
 @interface GPAddPlateCombination ()
 @property (strong, nonatomic) IBOutlet NSObjectController *plateCombinationController;
 
-@property (strong, nonatomic) IBOutlet NSArrayController *disallowedPlatePositionsController;
-@property (strong, nonatomic) IBOutlet NSArrayController *allowedPlatePositionsController;
-
 @property (strong, nonatomic) IBOutlet NSArrayController * addedGPIDsController;
 @property (strong, nonatomic) NSMutableArray * addedGPIDs;
 
@@ -181,20 +178,6 @@
     if (plateCombo) {
         plateCombo.picture = @"empty";
     }
-}
-
-- (IBAction)disallowPlatePosition:(id)sender {
-    NSArray * ppsToDisallow = [self.allowedPlatePositionsController selectedObjects];
-    
-    [self.disallowedPlatePositionsController addObjects:ppsToDisallow];
-    [self.allowedPlatePositionsController removeObjects:ppsToDisallow];
-}
-
-- (IBAction)allowPlatePosition:(id)sender {
-    NSArray * ppsToAllow = [self.disallowedPlatePositionsController selectedObjects];
-    
-    [self.allowedPlatePositionsController addObjects:ppsToAllow];
-    [self.disallowedPlatePositionsController removeObjects:ppsToAllow];
 }
 
 - (void)windowWillClose:(NSNotification *)notification {

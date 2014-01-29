@@ -2,7 +2,7 @@
 //  PlateNumber.m
 //  GonePostal
 //
-//  Created by Travis Gruber on 1/5/14.
+//  Created by Travis Gruber on 1/28/14.
 //  Copyright (c) 2014 Travis Gruber. All rights reserved.
 //
 
@@ -34,9 +34,9 @@
 @dynamic plate8;
 @dynamic unreported;
 @dynamic very_rare;
-@dynamic disallowedPlatePositions;
+@dynamic modifyingPlatePositions;
 @dynamic gpCatalogEntry;
-@dynamic values;
 @dynamic salesGroup;
+@dynamic values;
 
 @end
