@@ -163,7 +163,8 @@
         
         // Create the sort descripors
         NSSortDescriptor *catalogNumberSort = [[NSSortDescriptor alloc] initWithKey:@"gp_catalog_number" ascending:YES];
-        self.gpCatalogEntriesSortDescriptors = @[catalogNumberSort];
+        NSSortDescriptor *subvarietySort = [[NSSortDescriptor alloc] initWithKey:@"subvarietyType.sortID" ascending:YES];
+        self.gpCatalogEntriesSortDescriptors = @[subvarietySort, catalogNumberSort];
         
         NSSortDescriptor *countrySort = [[NSSortDescriptor alloc] initWithKey:@"country_sort_id" ascending:YES];
         self.countriesSortDescriptors = @[countrySort];
