@@ -89,6 +89,10 @@
 - (IBAction)addSubvarieties:(id)sender {
     GPCatalog * entry = self.gpCatalogEntryController.content;
     
+    // Get the incrmenting and non-incrmenting part of the GPID.
+    NSString * staticID = [GPDocument parseStaticID:entry.gp_catalog_number];
+    NSInteger startingID = [GPDocument parseStartingID:entry.gp_catalog_number];
+    
     NSInteger count = [self.quantityInput integerValue];
     if (count > 1) {
         count--;
@@ -96,6 +100,11 @@
         // Duplicate the GPCatalog entry inserted from the model controller.
         for (NSInteger i=0; i<count; i++) {
             GPCatalog * dup = [entry duplicateFromThis];
+            
+            // Increment and assign the GPID.
+            startingID += GPID_INCREMENT;
+            dup.gp_catalog_number = [NSString stringWithFormat:@"%@%08ld", staticID, startingID];
+            
             [self.addedGPIDs addObject:dup];
             [self.theMajorVariety addSubvarietiesObject:dup];
         }
@@ -115,6 +124,11 @@
     
     // Prepare for the next entry.
     GPCatalog * nextEntry = [entry duplicateFromThis];
+    
+    // Increment and assign the GPID.
+    startingID += GPID_INCREMENT;
+    nextEntry.gp_catalog_number = [NSString stringWithFormat:@"%@%08ld", staticID, startingID];
+    
     [self.gpCatalogEntryController setContent:nextEntry];
 }
 
@@ -129,6 +143,10 @@
     // managed object context.
     GPCatalog * entry = self.gpCatalogEntryController.content;
     
+    // Get the incrmenting and non-incrmenting part of the GPID.
+    NSString * staticID = [GPDocument parseStaticID:entry.gp_catalog_number];
+    NSInteger startingID = [GPDocument parseStartingID:entry.gp_catalog_number];
+    
     NSInteger count = [self.quantityInput integerValue];
     if (count > 1) {
         count--;
@@ -136,6 +154,11 @@
         // Duplicate the GPCatalog entry inserted from the model controller.
         for (NSInteger i=0; i<count; i++) {
             GPCatalog * dup = [entry duplicateFromThis];
+            
+            // Increment and assign the GPID.
+            startingID += GPID_INCREMENT;
+            dup.gp_catalog_number = [NSString stringWithFormat:@"%@%08ld", staticID, startingID];
+            
             [self.theMajorVariety addSubvarietiesObject:dup];
             [self.addedGPIDs addObject:dup];
         }
