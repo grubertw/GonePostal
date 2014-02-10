@@ -23,6 +23,8 @@
 @property (strong, nonatomic) NSManagedObjectContext * managedObjectContext;
 
 @property (strong, nonatomic) NSArray * gpCatalogEntriesSortDescriptors;
+@property (strong, nonatomic) NSArray * subvarietySortDescriptors;
+
 @property (strong, nonatomic) NSArray * countriesSortDescriptors;
 @property (strong, nonatomic) NSArray * formatsSortDescriptors;
 @property (strong, nonatomic) NSArray * stampFormatsSortDescriptors;

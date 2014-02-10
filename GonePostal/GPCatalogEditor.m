@@ -148,6 +148,9 @@
     [self queryGPCatalog];
 }
 
+
+
+
 - (id)initWithAssistedSearch:(StoredSearch *)assistedSearch countrySearch:(NSPredicate *)countriesPredicate sectionSearch:(NSPredicate *)sectionsPredicate filterSearch:(NSPredicate *)filtersPredicate {
     
     self = [super initWithWindowNibName:@"GPCatalogEditor"];
@@ -163,8 +166,10 @@
         
         // Create the sort descripors
         NSSortDescriptor *catalogNumberSort = [[NSSortDescriptor alloc] initWithKey:@"gp_catalog_number" ascending:YES];
+        self.gpCatalogEntriesSortDescriptors = @[catalogNumberSort];
+        
         NSSortDescriptor *subvarietySort = [[NSSortDescriptor alloc] initWithKey:@"subvarietyType.sortID" ascending:YES];
-        self.gpCatalogEntriesSortDescriptors = @[subvarietySort, catalogNumberSort];
+        self.subvarietySortDescriptors = @[subvarietySort, catalogNumberSort];
         
         NSSortDescriptor *countrySort = [[NSSortDescriptor alloc] initWithKey:@"country_sort_id" ascending:YES];
         self.countriesSortDescriptors = @[countrySort];
@@ -326,6 +331,7 @@
     
     NSArray * results = [self.managedObjectContext executeFetchRequest:fetch error:nil];
     [self.gpCatalogEntries setArray:results];
+    [self.gpCatalogEntriesController setSortDescriptors:self.gpCatalogEntriesSortDescriptors];
     [self.gpCatalogEntriesController rearrangeObjects];
 }
 
@@ -335,6 +341,8 @@
     
     NSArray * results = [self.managedObjectContext executeFetchRequest:fetch error:nil];
     [self.gpCatalogEntries setArray:results];
+    if ([results count] > 1)
+        [self.gpCatalogEntriesController setSortDescriptors:self.subvarietySortDescriptors];
     [self.gpCatalogEntriesController rearrangeObjects];
 }
 
