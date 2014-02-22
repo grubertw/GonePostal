@@ -14,6 +14,7 @@
 #import "NumberOfStampsInPlate.h"
 #import "PlateUsage.h"
 #import "PlatePosition.h"
+#import "PlatePositionInfo.h"
 #import "GPCustomSearch.h"
 
 static const NSUInteger DUPLICATE_PLATE_COMBO   = 1;
@@ -26,6 +27,8 @@ static const NSUInteger EXPLODE_NUMBER          = 3;
 @property (strong, nonatomic) IBOutlet NSArrayController *modifyingPlatePositionsController;
 @property (strong, nonatomic) IBOutlet NSArrayController *availablePlatePositionsController;
 @property (strong, nonatomic) NSMutableSet *availablePlatePositions;
+
+@property (strong, nonatomic) IBOutlet NSObjectController *platePositionInfoController;
 
 @property (strong, nonatomic) IBOutlet NSPanel * createPanel;
 
@@ -48,6 +51,9 @@ static const NSUInteger EXPLODE_NUMBER          = 3;
         NSSortDescriptor *platePositionsSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
         _platePositionsSortDescriptors = @[platePositionsSort];
         
+        NSSortDescriptor *platePositionInfoSort = [[NSSortDescriptor alloc] initWithKey:@"platePosition.name" ascending:YES];
+        _platePositionInfoSortDescriptors = @[platePositionInfoSort];
+        
         NSSortDescriptor *customSearchSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
         _customSearchSortDescriptors = @[customSearchSort];
         
@@ -67,6 +73,23 @@ static const NSUInteger EXPLODE_NUMBER          = 3;
 - (void)windowDidLoad
 {
     [super windowDidLoad];
+    
+    // Populate the available PlatePositions controller.
+    NSSet * plateUsage = self.gpCatalog.plateUsage;
+    
+    NSUInteger i=0;
+    for (PlateUsage * pu in plateUsage) {
+        if (i == 0) {
+            [self.availablePlatePositions setSet:pu.platePositions];
+        }
+        else {
+            [self.availablePlatePositions intersectSet:pu.platePositions];
+        }
+        
+        i++;
+    }
+    
+    [self.availablePlatePositionsController setContent:self.availablePlatePositions];
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
@@ -290,72 +313,25 @@ static const NSUInteger EXPLODE_NUMBER          = 3;
     }
 }
 
-- (IBAction)platePositionsWillModify:(id)sender {
-    NSArray * ppsThatModify = [self.availablePlatePositionsController selectedObjects];
+- (IBAction)createPlatePositionInfo:(id)sender {
+    [self.platePositionInfoController add:sender];
     
-    // Modifying plate positions are unique per plate combination
-    NSMutableArray * ppsThatModifyCopy = [[NSMutableArray alloc] initWithCapacity:0];
-    for (PlatePosition * pp in ppsThatModify) {
-        PlatePosition * ppCopy = [NSEntityDescription insertNewObjectForEntityForName:@"PlatePosition" inManagedObjectContext:self.managedObjectContext];
-        
-        ppCopy.name = pp.name;
-        [ppsThatModifyCopy addObject:ppCopy];
-    }
-    
-    NSArray * entries = self.plateCombinationsController.selectedObjects;
-    for (PlateNumber * entry in entries) {
-        [entry addModifyingPlatePositions:[NSSet setWithArray:ppsThatModifyCopy]];
-        
-        [self.availablePlatePositions minusSet:[NSSet setWithArray:ppsThatModify]];
-        [self.availablePlatePositionsController setContent:self.availablePlatePositions];
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
     }
 }
 
-- (IBAction)removePlatePositions:(id)sender {
-    NSArray * ppsThatNoLongerModify = [self.modifyingPlatePositionsController selectedObjects];
-    NSSet * setOfPlatePositionsThatNoLongerModify = [NSSet setWithArray:ppsThatNoLongerModify];
+- (IBAction)removePlatePositionInfo:(id)sender {
+    [self.platePositionInfoController remove:sender];
     
-    [self.availablePlatePositions unionSet:setOfPlatePositionsThatNoLongerModify];
-    [self.availablePlatePositionsController setContent:self.availablePlatePositions];
-    
-    NSArray * entries = self.plateCombinationsController.selectedObjects;
-    for (PlateNumber * entry in entries) {
-        [entry removeModifyingPlatePositions:setOfPlatePositionsThatNoLongerModify];
-    }
-}
-
-- (void)tableViewSelectionDidChange:(NSNotification *)aNotification {
-    NSArray * selection = [self.plateCombinationsController selectedObjects];
-    
-    if ([selection count] > 0) {
-        // Populate the allowed plate positions.
-        NSSet * plateUsage = self.gpCatalog.plateUsage;
-
-        NSUInteger i=0;
-        for (PlateUsage * pu in plateUsage) {
-            if (i == 0) {
-                [self.availablePlatePositions setSet:pu.platePositions];
-            }
-            else {
-                [self.availablePlatePositions intersectSet:pu.platePositions];
-            }
-            
-            i++;
-        }
-        
-        PlateNumber * plateCombo = selection[0];
-        NSMutableSet * ppsToRemove = [[NSMutableSet alloc] initWithCapacity:0];
-        for (PlatePosition * pp in self.availablePlatePositions) {
-            for (PlatePosition * ppInPC in plateCombo.modifyingPlatePositions) {
-                if ([pp.name compare:ppInPC.name] == NSOrderedSame) {
-                    [ppsToRemove addObject:pp];
-                    break;
-                }
-            }
-        }
-        
-        [self.availablePlatePositions minusSet:ppsToRemove];
-        [self.availablePlatePositionsController setContent:self.availablePlatePositions];
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
     }
 }
 

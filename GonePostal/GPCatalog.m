@@ -2,7 +2,7 @@
 //  GPCatalog.m
 //  GonePostal
 //
-//  Created by Travis Gruber on 1/28/14.
+//  Created by Travis Gruber on 2/17/14.
 //  Copyright (c) 2014 Travis Gruber. All rights reserved.
 //
 
@@ -16,9 +16,12 @@
 #import "Country.h"
 #import "Format.h"
 #import "GPCatalog.h"
+#import "GPCatalogDate.h"
 #import "GPCatalogGroup.h"
+#import "GPCatalogPeople.h"
 #import "GPCatalogSet.h"
 #import "GPPicture.h"
+#import "GPPlateSize.h"
 #import "GPSalesGroup.h"
 #import "GPSubvarietyType.h"
 #import "LooksLike.h"
@@ -106,6 +109,16 @@
 @dynamic watermark;
 @dynamic watermark_error;
 @dynamic watermark_variation;
+@dynamic surcharge_print;
+@dynamic surcharge_text;
+@dynamic surcharge_printer;
+@dynamic surcharge_color;
+@dynamic surcharge_notes;
+@dynamic revenue_paper_type;
+@dynamic revenue_paper_issuing_agency;
+@dynamic revenue_paper_individule_account;
+@dynamic revenue_paper_imprint_location;
+@dynamic revenue_paper_printer;
 @dynamic alternateCatalogs;
 @dynamic attachments;
 @dynamic bureauPrecancels;
@@ -129,5 +142,8 @@
 @dynamic subvarietyType;
 @dynamic topics;
 @dynamic values;
+@dynamic people;
+@dynamic dates;
+@dynamic plateSizes;
 
 @end

@@ -2,7 +2,7 @@
 //  PlateNumber.m
 //  GonePostal
 //
-//  Created by Travis Gruber on 1/28/14.
+//  Created by Travis Gruber on 2/17/14.
 //  Copyright (c) 2014 Travis Gruber. All rights reserved.
 //
 
@@ -10,6 +10,7 @@
 #import "GPCatalog.h"
 #import "GPSalesGroup.h"
 #import "PlatePosition.h"
+#import "PlatePositionInfo.h"
 #import "Valuation.h"
 
 
@@ -34,9 +35,10 @@
 @dynamic plate8;
 @dynamic unreported;
 @dynamic very_rare;
-@dynamic modifyingPlatePositions;
 @dynamic gpCatalogEntry;
+@dynamic modifyingPlatePositions;
 @dynamic salesGroup;
 @dynamic values;
+@dynamic platePositionInfos;
 
 @end

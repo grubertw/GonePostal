@@ -37,6 +37,9 @@
 #import "GPSupportedPriceLists.h"
 #import "GPSalesGroupEditor.h"
 #import "GPSupportedSalesGroupTypes.h"
+#import "GPSupportedCatalogDateTypes.h"
+#import "GPSupportedCatalogPeopleTypes.h"
+#import "GPSupportedPlateSizeTypes.h"
 
 #import "GPCatalog.h"
 #import "GPImportController.h"
@@ -678,6 +681,30 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
 
 - (void)editSupportedSalesGroupTypes:(id)sender {
     GPSupportedSalesGroupTypes * controller = [[GPSupportedSalesGroupTypes alloc] initWithWindowNibName:@"GPSupportedSalesGroupTypes"];
+    [controller setManagedObjectContext:self.managedObjectContext];
+    
+    [self addWindowController:controller];
+    [controller.window makeKeyAndOrderFront:sender];
+}
+
+- (void)editSupportedCatalogDateTypes:(id)sender {
+    GPSupportedCatalogDateTypes * controller = [[GPSupportedCatalogDateTypes alloc] initWithWindowNibName:@"GPSupportedCatalogDateTypes"];
+    [controller setManagedObjectContext:self.managedObjectContext];
+    
+    [self addWindowController:controller];
+    [controller.window makeKeyAndOrderFront:sender];
+}
+
+- (void)editSupportedCatalogPeopleTypes:(id)sender {
+    GPSupportedCatalogPeopleTypes * controller = [[GPSupportedCatalogPeopleTypes alloc] initWithWindowNibName:@"GPSupportedCatalogPeopleTypes"];
+    [controller setManagedObjectContext:self.managedObjectContext];
+    
+    [self addWindowController:controller];
+    [controller.window makeKeyAndOrderFront:sender];
+}
+
+- (void)editSupportedPlateSizeTypes:(id)sender {
+    GPSupportedPlateSizeTypes * controller = [[GPSupportedPlateSizeTypes alloc] initWithWindowNibName:@"GPSupportedPlateSizeTypes"];
     [controller setManagedObjectContext:self.managedObjectContext];
     
     [self addWindowController:controller];

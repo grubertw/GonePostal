@@ -2,14 +2,14 @@
 //  PlateNumber.h
 //  GonePostal
 //
-//  Created by Travis Gruber on 1/28/14.
+//  Created by Travis Gruber on 2/17/14.
 //  Copyright (c) 2014 Travis Gruber. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class GPCatalog, GPSalesGroup, PlatePosition, Valuation;
+@class GPCatalog, GPSalesGroup, PlatePosition, PlatePositionInfo, Valuation;
 
 @interface PlateNumber : NSManagedObject
 
@@ -32,10 +32,11 @@
 @property (nonatomic, retain) NSString * plate8;
 @property (nonatomic, retain) NSNumber * unreported;
 @property (nonatomic, retain) NSNumber * very_rare;
-@property (nonatomic, retain) NSSet *modifyingPlatePositions;
 @property (nonatomic, retain) GPCatalog *gpCatalogEntry;
+@property (nonatomic, retain) NSSet *modifyingPlatePositions;
 @property (nonatomic, retain) GPSalesGroup *salesGroup;
 @property (nonatomic, retain) NSSet *values;
+@property (nonatomic, retain) NSSet *platePositionInfos;
 @end
 
 @interface PlateNumber (CoreDataGeneratedAccessors)
@@ -49,5 +50,10 @@
 - (void)removeValuesObject:(Valuation *)value;
 - (void)addValues:(NSSet *)values;
 - (void)removeValues:(NSSet *)values;
+
+- (void)addPlatePositionInfosObject:(PlatePositionInfo *)value;
+- (void)removePlatePositionInfosObject:(PlatePositionInfo *)value;
+- (void)addPlatePositionInfos:(NSSet *)values;
+- (void)removePlatePositionInfos:(NSSet *)values;
 
 @end

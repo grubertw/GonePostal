@@ -99,6 +99,9 @@
 @property (weak, nonatomic) IBOutlet NSArrayController * attachmentController;
 @property (weak, nonatomic) IBOutlet NSArrayController * priceListController;
 @property (weak, nonatomic) IBOutlet NSArrayController * valuationPerFormatController;
+@property (weak, nonatomic) IBOutlet NSArrayController * gpCatalogDateController;
+@property (weak, nonatomic) IBOutlet NSArrayController * gpCatalogPeopleController;
+@property (weak, nonatomic) IBOutlet NSArrayController * gpPlateSizeController;
 
 @property (strong, nonatomic) NSMutableArray * gpCatalogEntries;
 
@@ -253,6 +256,15 @@
         
         NSSortDescriptor *salesGroupSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
         _salesGroupSortDescriptors = @[salesGroupSort];
+        
+        NSSortDescriptor *gpCatalogDateSort = [[NSSortDescriptor alloc] initWithKey:@"dateType.name" ascending:YES];
+        _gpCatalogDateSortDescriptors = @[gpCatalogDateSort];
+        
+        NSSortDescriptor *gpCatalogPeopleSort = [[NSSortDescriptor alloc] initWithKey:@"peopleType.name" ascending:YES];
+        _gpCatalogPeopleSortDescriptors = @[gpCatalogPeopleSort];
+        
+        NSSortDescriptor *gpCatalogPlateSizeSort = [[NSSortDescriptor alloc] initWithKey:@"plateSizeType.name" ascending:YES];
+        _gpCatalogPlateSizeSortDescriptors = @[gpCatalogPlateSizeSort];
         
         // Initialize the assisted search panels.
         _countrySearchController = [[GPCountrySearch alloc] initWithPredicate:countriesPredicate forStamp:NO];
@@ -726,6 +738,90 @@
 
 - (IBAction)addAlternateCatalog:(id)sender {
     [self.altCatalogsController add:self];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
+}
+
+- (IBAction)removeAlternateCatalog:(id)sender {
+    [self.altCatalogsController remove:self];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
+}
+
+- (IBAction)addGPCatalogDate:(id)sender {
+    [self.gpCatalogDateController add:sender];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
+}
+
+- (IBAction)removeGPCatalogDate:(id)sender {
+    [self.gpCatalogDateController remove:sender];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
+}
+
+- (IBAction)addGPCatalogPerson:(id)sender {
+    [self.gpCatalogPeopleController add:sender];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
+}
+
+- (IBAction)removeGPCatalogPerson:(id)sender {
+    [self.gpCatalogPeopleController remove:sender];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
+}
+
+- (IBAction)addGPPlateSize:(id)sender {
+    [self.gpPlateSizeController add:sender];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
+}
+
+- (IBAction)removeGPPlateSize:(id)sender {
+    [self.gpPlateSizeController remove:sender];
     
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
