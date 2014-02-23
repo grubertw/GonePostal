@@ -40,6 +40,7 @@
 #import "GPSupportedCatalogDateTypes.h"
 #import "GPSupportedCatalogPeopleTypes.h"
 #import "GPSupportedPlateSizeTypes.h"
+#import "GPSupportedCatalogQuantityTypes.h"
 
 #import "GPCatalog.h"
 #import "GPImportController.h"
@@ -705,6 +706,14 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
 
 - (void)editSupportedPlateSizeTypes:(id)sender {
     GPSupportedPlateSizeTypes * controller = [[GPSupportedPlateSizeTypes alloc] initWithWindowNibName:@"GPSupportedPlateSizeTypes"];
+    [controller setManagedObjectContext:self.managedObjectContext];
+    
+    [self addWindowController:controller];
+    [controller.window makeKeyAndOrderFront:sender];
+}
+
+- (void)editSupportedGPCatalogQuantityTypes:(id)sender {
+    GPSupportedCatalogQuantityTypes * controller = [[GPSupportedCatalogQuantityTypes alloc] initWithWindowNibName:@"GPSupportedCatalogQuantityTypes"];
     [controller setManagedObjectContext:self.managedObjectContext];
     
     [self addWindowController:controller];

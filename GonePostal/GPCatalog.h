@@ -2,14 +2,14 @@
 //  GPCatalog.h
 //  GonePostal
 //
-//  Created by Travis Gruber on 2/17/14.
+//  Created by Travis Gruber on 2/23/14.
 //  Copyright (c) 2014 Travis Gruber. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class AlternateCatalog, AlternateCatalogName, Attachment, BureauPrecancel, Cachet, Cancelations, Country, Format, GPCatalog, GPCatalogDate, GPCatalogGroup, GPCatalogPeople, GPCatalogSet, GPPicture, GPPlateSize, GPSalesGroup, GPSubvarietyType, LooksLike, NumberOfStampsInPlate, PlateNumber, PlateUsage, Stamp, Topic, Valuation;
+@class AlternateCatalog, AlternateCatalogName, Attachment, BureauPrecancel, Cachet, Cancelations, Country, Format, GPCatalog, GPCatalogDate, GPCatalogGroup, GPCatalogPeople, GPCatalogQuantity, GPCatalogSet, GPPicture, GPPlateSize, GPSalesGroup, GPSubvarietyType, LooksLike, NumberOfStampsInPlate, PlateNumber, PlateUsage, Stamp, Topic, Valuation;
 
 @interface GPCatalog : NSManagedObject
 
@@ -75,7 +75,17 @@
 @property (nonatomic, retain) NSNumber * quantity_ordered;
 @property (nonatomic, retain) NSNumber * quantity_printed;
 @property (nonatomic, retain) NSNumber * quantity_sold;
+@property (nonatomic, retain) NSString * revenue_paper_imprint_location;
+@property (nonatomic, retain) NSString * revenue_paper_individule_account;
+@property (nonatomic, retain) NSString * revenue_paper_issuing_agency;
+@property (nonatomic, retain) NSString * revenue_paper_printer;
+@property (nonatomic, retain) NSString * revenue_paper_type;
 @property (nonatomic, retain) NSString * series;
+@property (nonatomic, retain) NSString * surcharge_color;
+@property (nonatomic, retain) NSString * surcharge_notes;
+@property (nonatomic, retain) NSString * surcharge_print;
+@property (nonatomic, retain) NSString * surcharge_printer;
+@property (nonatomic, retain) NSString * surcharge_text;
 @property (nonatomic, retain) NSString * surcharge_type;
 @property (nonatomic, retain) NSNumber * surcharged;
 @property (nonatomic, retain) NSString * tag;
@@ -87,16 +97,6 @@
 @property (nonatomic, retain) NSString * watermark;
 @property (nonatomic, retain) NSNumber * watermark_error;
 @property (nonatomic, retain) NSNumber * watermark_variation;
-@property (nonatomic, retain) NSString * surcharge_print;
-@property (nonatomic, retain) NSString * surcharge_text;
-@property (nonatomic, retain) NSString * surcharge_printer;
-@property (nonatomic, retain) NSString * surcharge_color;
-@property (nonatomic, retain) NSString * surcharge_notes;
-@property (nonatomic, retain) NSString * revenue_paper_type;
-@property (nonatomic, retain) NSString * revenue_paper_issuing_agency;
-@property (nonatomic, retain) NSString * revenue_paper_individule_account;
-@property (nonatomic, retain) NSString * revenue_paper_imprint_location;
-@property (nonatomic, retain) NSString * revenue_paper_printer;
 @property (nonatomic, retain) NSSet *alternateCatalogs;
 @property (nonatomic, retain) NSSet *attachments;
 @property (nonatomic, retain) NSSet *bureauPrecancels;
@@ -105,6 +105,7 @@
 @property (nonatomic, retain) GPCatalogGroup *catalogGroup;
 @property (nonatomic, retain) NSSet *catalogSets;
 @property (nonatomic, retain) Country *country;
+@property (nonatomic, retain) NSSet *dates;
 @property (nonatomic, retain) AlternateCatalogName *defaultCatalogName;
 @property (nonatomic, retain) NSSet *examples;
 @property (nonatomic, retain) NSSet *extraPictures;
@@ -112,7 +113,9 @@
 @property (nonatomic, retain) NSSet *looksLike;
 @property (nonatomic, retain) GPCatalog *majorVariety;
 @property (nonatomic, retain) NSSet *numberOfStampsInPlate;
+@property (nonatomic, retain) NSSet *people;
 @property (nonatomic, retain) NSSet *plateNumbers;
+@property (nonatomic, retain) NSSet *plateSizes;
 @property (nonatomic, retain) NSSet *plateUsage;
 @property (nonatomic, retain) GPSalesGroup *salesGroup;
 @property (nonatomic, retain) NSSet *stamps;
@@ -120,9 +123,7 @@
 @property (nonatomic, retain) GPSubvarietyType *subvarietyType;
 @property (nonatomic, retain) NSSet *topics;
 @property (nonatomic, retain) NSSet *values;
-@property (nonatomic, retain) NSSet *people;
-@property (nonatomic, retain) NSSet *dates;
-@property (nonatomic, retain) NSSet *plateSizes;
+@property (nonatomic, retain) NSSet *quantities;
 @end
 
 @interface GPCatalog (CoreDataGeneratedAccessors)
@@ -157,6 +158,11 @@
 - (void)addCatalogSets:(NSSet *)values;
 - (void)removeCatalogSets:(NSSet *)values;
 
+- (void)addDatesObject:(GPCatalogDate *)value;
+- (void)removeDatesObject:(GPCatalogDate *)value;
+- (void)addDates:(NSSet *)values;
+- (void)removeDates:(NSSet *)values;
+
 - (void)addExamplesObject:(Stamp *)value;
 - (void)removeExamplesObject:(Stamp *)value;
 - (void)addExamples:(NSSet *)values;
@@ -177,10 +183,20 @@
 - (void)addNumberOfStampsInPlate:(NSSet *)values;
 - (void)removeNumberOfStampsInPlate:(NSSet *)values;
 
+- (void)addPeopleObject:(GPCatalogPeople *)value;
+- (void)removePeopleObject:(GPCatalogPeople *)value;
+- (void)addPeople:(NSSet *)values;
+- (void)removePeople:(NSSet *)values;
+
 - (void)addPlateNumbersObject:(PlateNumber *)value;
 - (void)removePlateNumbersObject:(PlateNumber *)value;
 - (void)addPlateNumbers:(NSSet *)values;
 - (void)removePlateNumbers:(NSSet *)values;
+
+- (void)addPlateSizesObject:(GPPlateSize *)value;
+- (void)removePlateSizesObject:(GPPlateSize *)value;
+- (void)addPlateSizes:(NSSet *)values;
+- (void)removePlateSizes:(NSSet *)values;
 
 - (void)addPlateUsageObject:(PlateUsage *)value;
 - (void)removePlateUsageObject:(PlateUsage *)value;
@@ -207,19 +223,9 @@
 - (void)addValues:(NSSet *)values;
 - (void)removeValues:(NSSet *)values;
 
-- (void)addPeopleObject:(GPCatalogPeople *)value;
-- (void)removePeopleObject:(GPCatalogPeople *)value;
-- (void)addPeople:(NSSet *)values;
-- (void)removePeople:(NSSet *)values;
-
-- (void)addDatesObject:(GPCatalogDate *)value;
-- (void)removeDatesObject:(GPCatalogDate *)value;
-- (void)addDates:(NSSet *)values;
-- (void)removeDates:(NSSet *)values;
-
-- (void)addPlateSizesObject:(GPPlateSize *)value;
-- (void)removePlateSizesObject:(GPPlateSize *)value;
-- (void)addPlateSizes:(NSSet *)values;
-- (void)removePlateSizes:(NSSet *)values;
+- (void)addQuantitiesObject:(GPCatalogQuantity *)value;
+- (void)removeQuantitiesObject:(GPCatalogQuantity *)value;
+- (void)addQuantities:(NSSet *)values;
+- (void)removeQuantities:(NSSet *)values;
 
 @end

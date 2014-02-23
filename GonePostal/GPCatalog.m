@@ -2,7 +2,7 @@
 //  GPCatalog.m
 //  GonePostal
 //
-//  Created by Travis Gruber on 2/17/14.
+//  Created by Travis Gruber on 2/23/14.
 //  Copyright (c) 2014 Travis Gruber. All rights reserved.
 //
 
@@ -19,6 +19,7 @@
 #import "GPCatalogDate.h"
 #import "GPCatalogGroup.h"
 #import "GPCatalogPeople.h"
+#import "GPCatalogQuantity.h"
 #import "GPCatalogSet.h"
 #import "GPPicture.h"
 #import "GPPlateSize.h"
@@ -97,7 +98,17 @@
 @dynamic quantity_ordered;
 @dynamic quantity_printed;
 @dynamic quantity_sold;
+@dynamic revenue_paper_imprint_location;
+@dynamic revenue_paper_individule_account;
+@dynamic revenue_paper_issuing_agency;
+@dynamic revenue_paper_printer;
+@dynamic revenue_paper_type;
 @dynamic series;
+@dynamic surcharge_color;
+@dynamic surcharge_notes;
+@dynamic surcharge_print;
+@dynamic surcharge_printer;
+@dynamic surcharge_text;
 @dynamic surcharge_type;
 @dynamic surcharged;
 @dynamic tag;
@@ -109,16 +120,6 @@
 @dynamic watermark;
 @dynamic watermark_error;
 @dynamic watermark_variation;
-@dynamic surcharge_print;
-@dynamic surcharge_text;
-@dynamic surcharge_printer;
-@dynamic surcharge_color;
-@dynamic surcharge_notes;
-@dynamic revenue_paper_type;
-@dynamic revenue_paper_issuing_agency;
-@dynamic revenue_paper_individule_account;
-@dynamic revenue_paper_imprint_location;
-@dynamic revenue_paper_printer;
 @dynamic alternateCatalogs;
 @dynamic attachments;
 @dynamic bureauPrecancels;
@@ -127,6 +128,7 @@
 @dynamic catalogGroup;
 @dynamic catalogSets;
 @dynamic country;
+@dynamic dates;
 @dynamic defaultCatalogName;
 @dynamic examples;
 @dynamic extraPictures;
@@ -134,7 +136,9 @@
 @dynamic looksLike;
 @dynamic majorVariety;
 @dynamic numberOfStampsInPlate;
+@dynamic people;
 @dynamic plateNumbers;
+@dynamic plateSizes;
 @dynamic plateUsage;
 @dynamic salesGroup;
 @dynamic stamps;
@@ -142,8 +146,6 @@
 @dynamic subvarietyType;
 @dynamic topics;
 @dynamic values;
-@dynamic people;
-@dynamic dates;
-@dynamic plateSizes;
+@dynamic quantities;
 
 @end

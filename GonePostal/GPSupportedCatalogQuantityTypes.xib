@@ -4,9 +4,9 @@
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="GPSupportedPlateSizeTypes">
+        <customObject id="-2" userLabel="File's Owner" customClass="GPSupportedCatalogQuantityTypes">
             <connections>
-                <outlet property="modelController" destination="wDN-Oh-WsR" id="3om-eD-lLs"/>
+                <outlet property="modelController" destination="BOj-ed-2Pb" id="1Fb-mE-GDZ"/>
                 <outlet property="window" destination="1" id="3"/>
             </connections>
         </customObject>
@@ -15,20 +15,20 @@
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" wantsToBeColor="NO" animationBehavior="default" id="1">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="125" y="422" width="340" height="360"/>
+            <rect key="contentRect" x="114" y="431" width="340" height="360"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="900"/>
             <view key="contentView" id="2">
                 <rect key="frame" x="0.0" y="0.0" width="340" height="360"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wI4-U9-K4l">
+                    <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pdh-2J-hIm">
                         <rect key="frame" x="0.0" y="32" width="340" height="328"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <clipView key="contentView" ambiguous="YES" misplaced="YES" id="mK9-5N-YWW">
+                        <clipView key="contentView" ambiguous="YES" misplaced="YES" id="agp-bh-dmg">
                             <rect key="frame" x="1" y="17" width="338" height="310"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="QR9-xI-kLy" id="65o-tq-57P">
+                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="CvB-Ud-F2Y" id="0Qd-or-c08">
                                     <rect key="frame" x="0.0" y="0.0" width="338" height="310"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
@@ -36,20 +36,20 @@
                                     <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                     <tableColumns>
-                                        <tableColumn width="335" minWidth="120" maxWidth="1000" id="1kK-Kc-st6">
-                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Plate Size Type">
+                                        <tableColumn width="335" minWidth="120" maxWidth="1000" id="o6m-Tr-afd">
+                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Quantity Type">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
                                             </tableHeaderCell>
-                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="krz-UK-WbY">
+                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="fHF-j7-BnZ">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <connections>
-                                                <binding destination="wDN-Oh-WsR" name="value" keyPath="arrangedObjects.name" id="ial-M7-Nau"/>
+                                                <binding destination="BOj-ed-2Pb" name="value" keyPath="arrangedObjects.name" id="Org-d8-s0i"/>
                                             </connections>
                                         </tableColumn>
                                     </tableColumns>
@@ -57,39 +57,39 @@
                             </subviews>
                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </clipView>
-                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="ljg-Sw-2ZR">
+                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="b64-J4-Ewv">
                             <rect key="frame" x="-7" y="2" width="0.0" height="15"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
-                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="xE2-rg-Swk">
+                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="Vj5-bF-xm4">
                             <rect key="frame" x="-14" y="9" width="15" height="0.0"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
-                        <tableHeaderView key="headerView" id="QR9-xI-kLy">
+                        <tableHeaderView key="headerView" id="CvB-Ud-F2Y">
                             <rect key="frame" x="0.0" y="0.0" width="338" height="17"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </tableHeaderView>
                     </scrollView>
-                    <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LA8-4S-4hF">
+                    <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vqh-69-uHi">
                         <rect key="frame" x="127" y="-7" width="39" height="38"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="round" title="+" bezelStyle="circular" alignment="center" borderStyle="border" imageScaling="proportionallyDown" id="YTb-jO-1tA">
+                        <buttonCell key="cell" type="round" title="+" bezelStyle="circular" alignment="center" borderStyle="border" imageScaling="proportionallyDown" id="h8x-0R-xzm">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="addGPPlateSizeType:" target="-2" id="NX6-xK-oC0"/>
+                            <action selector="addSupportedQuantityType:" target="-2" id="Ei9-38-dHs"/>
                         </connections>
                     </button>
-                    <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rCI-JN-ycJ">
+                    <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZJv-y5-bDM">
                         <rect key="frame" x="176" y="-7" width="39" height="38"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="round" title="-" bezelStyle="circular" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" id="vJw-wX-TvD">
+                        <buttonCell key="cell" type="round" title="-" bezelStyle="circular" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" id="LbN-gk-cNg">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="removeGPPlateSizeType:" target="-2" id="AVz-pD-dTw"/>
+                            <action selector="removeSupportedQuantityType:" target="-2" id="6NS-oX-OOs"/>
                         </connections>
                     </button>
                 </subviews>
@@ -98,10 +98,10 @@
                 <outlet property="delegate" destination="-2" id="4"/>
             </connections>
         </window>
-        <arrayController mode="entity" entityName="GPPlateSizeType" automaticallyPreparesContent="YES" id="wDN-Oh-WsR">
+        <arrayController mode="entity" entityName="GPCatalogQuantityType" automaticallyPreparesContent="YES" automaticallyRearrangesObjects="YES" id="BOj-ed-2Pb">
             <connections>
-                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="AaA-ro-Of5"/>
-                <binding destination="-2" name="sortDescriptors" keyPath="self.sortDescriptors" id="NHc-gf-NYe"/>
+                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="mGM-ln-MRK"/>
+                <binding destination="-2" name="sortDescriptors" keyPath="self.sortDescriptors" id="Zb5-KY-FdD"/>
             </connections>
         </arrayController>
     </objects>

@@ -102,6 +102,7 @@
 @property (weak, nonatomic) IBOutlet NSArrayController * gpCatalogDateController;
 @property (weak, nonatomic) IBOutlet NSArrayController * gpCatalogPeopleController;
 @property (weak, nonatomic) IBOutlet NSArrayController * gpPlateSizeController;
+@property (weak, nonatomic) IBOutlet NSArrayController * gpCatalogQuantityController;
 
 @property (strong, nonatomic) NSMutableArray * gpCatalogEntries;
 
@@ -265,6 +266,9 @@
         
         NSSortDescriptor *gpCatalogPlateSizeSort = [[NSSortDescriptor alloc] initWithKey:@"plateSizeType.name" ascending:YES];
         _gpCatalogPlateSizeSortDescriptors = @[gpCatalogPlateSizeSort];
+        
+        NSSortDescriptor *gpCatalogQuantitySort = [[NSSortDescriptor alloc] initWithKey:@"quantityType.name" ascending:YES];
+        _gpCatalogQuantitySortDescriptors = @[gpCatalogQuantitySort];
         
         // Initialize the assisted search panels.
         _countrySearchController = [[GPCountrySearch alloc] initWithPredicate:countriesPredicate forStamp:NO];
@@ -822,6 +826,30 @@
 
 - (IBAction)removeGPPlateSize:(id)sender {
     [self.gpPlateSizeController remove:sender];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
+}
+
+- (IBAction)addGPCatalogQuantity:(id)sender {
+    [self.gpCatalogQuantityController add:sender];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
+}
+
+- (IBAction)removeGPCatalogQuantity:(id)sender {
+    [self.gpCatalogQuantityController remove:sender];
     
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
