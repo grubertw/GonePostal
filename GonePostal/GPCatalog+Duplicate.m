@@ -86,6 +86,7 @@
     duplicate.defaultCatalogName = self.defaultCatalogName;
     duplicate.formatType = self.formatType;
     duplicate.subvarietyType = self.subvarietyType;
+    duplicate.salesGroup = self.salesGroup;
 
     // Duplicate the alternate catalogs.
     for (AlternateCatalog * ac in self.alternateCatalogs) {

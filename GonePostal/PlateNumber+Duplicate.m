@@ -31,6 +31,7 @@
     pnCopy.plate8 = self.plate8;
     pnCopy.unreported = self.unreported;
     pnCopy.very_rare = self.very_rare;
+    pnCopy.salesGroup = self.salesGroup;
     
     [pnCopy addModifyingPlatePositions:self.modifyingPlatePositions];
     

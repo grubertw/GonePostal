@@ -18,6 +18,7 @@
     dup.state = self.state;
     dup.cancel_style = self.cancel_style;
     dup.pss_type = self.pss_type;
+    dup.salesGroup = self.salesGroup;
     
     return dup;
 }
