@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment defaultVersion="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4510"/>
+        <deployment defaultVersion="1090" identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="GPStampExamples">
@@ -23,13 +23,9 @@
                 <rect key="frame" x="0.0" y="0.0" width="655" height="650"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView translatesAutoresizingMaskIntoConstraints="NO" id="5" customClass="GPPopupImage">
+                    <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5" customClass="GPPopupImage">
                         <rect key="frame" x="7" y="548" width="110" height="102"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="110" id="22"/>
-                            <constraint firstAttribute="height" constant="102" id="404"/>
-                        </constraints>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="24"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="preferredEdge">
@@ -44,13 +40,9 @@
                             </binding>
                         </connections>
                     </imageView>
-                    <textField autoresizesSubviews="NO" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6">
+                    <textField autoresizesSubviews="NO" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6">
                         <rect key="frame" x="122" y="633" width="221" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="215" id="21"/>
-                            <constraint firstAttribute="height" constant="17" id="407"/>
-                        </constraints>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="101-15-100000100-2000" id="20">
                             <font key="font" metaFont="systemBold"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -60,12 +52,9 @@
                             <binding destination="-2" name="value" keyPath="self.gpCatalog.gp_catalog_number" id="544"/>
                         </connections>
                     </textField>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8">
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8">
                         <rect key="frame" x="215" y="594" width="296" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="290" id="75"/>
-                        </constraints>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Series" id="18">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -75,12 +64,9 @@
                             <binding destination="-2" name="value" keyPath="self.gpCatalog.series" id="560"/>
                         </connections>
                     </textField>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9">
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9">
                         <rect key="frame" x="122" y="573" width="426" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="420" id="386"/>
-                        </constraints>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Description" id="16">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -90,12 +76,9 @@
                             <binding destination="-2" name="value" keyPath="self.gpCatalog.gp_description" id="562"/>
                         </connections>
                     </textField>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="10">
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="10">
                         <rect key="frame" x="122" y="594" width="91" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="85" id="14"/>
-                        </constraints>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Denom" id="13">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -105,12 +88,9 @@
                             <binding destination="-2" name="value" keyPath="self.gpCatalog.denomination" id="558"/>
                         </connections>
                     </textField>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="11">
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="11">
                         <rect key="frame" x="122" y="554" width="404" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="398" id="387"/>
-                        </constraints>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Variety Description" id="12">
                             <font key="font" metaFont="cellTitle"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -120,14 +100,14 @@
                             <binding destination="-2" name="value" keyPath="self.gpCatalog.variety_description" id="564"/>
                         </connections>
                     </textField>
-                    <scrollView autohidesScrollers="YES" horizontalLineScroll="92" horizontalPageScroll="10" verticalLineScroll="92" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="77">
+                    <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="92" horizontalPageScroll="10" verticalLineScroll="92" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="77">
                         <rect key="frame" x="-1" y="39" width="657" height="507"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <clipView key="contentView" id="2fl-QN-wT0">
+                        <clipView key="contentView" ambiguous="YES" misplaced="YES" id="2fl-QN-wT0">
                             <rect key="frame" x="1" y="1" width="655" height="505"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="90" rowSizeStyle="automatic" viewBased="YES" id="78">
+                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="90" viewBased="YES" id="78">
                                     <rect key="frame" x="0.0" y="0.0" width="655" height="505"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
@@ -151,12 +131,9 @@
                                                     <rect key="frame" x="1" y="1" width="652" height="90"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <imageView translatesAutoresizingMaskIntoConstraints="NO" id="119" customClass="GPPopupImage">
+                                                        <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="119" customClass="GPPopupImage">
                                                             <rect key="frame" x="0.0" y="0.0" width="113" height="90"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="107" id="587"/>
-                                                            </constraints>
                                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="photo" id="167"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="preferredEdge">
@@ -171,26 +148,18 @@
                                                                 </binding>
                                                             </connections>
                                                         </imageView>
-                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="127">
+                                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="127">
                                                             <rect key="frame" x="142" y="-15" width="696" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="17" id="149"/>
-                                                                <constraint firstAttribute="width" constant="690" id="150"/>
-                                                            </constraints>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Variety Description" id="151">
                                                                 <font key="font" metaFont="cellTitle"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
-                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="128">
+                                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="128">
                                                             <rect key="frame" x="130" y="68" width="166" height="19"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="19" id="147"/>
-                                                                <constraint firstAttribute="width" constant="160" id="423"/>
-                                                            </constraints>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Format" id="148">
                                                                 <font key="font" size="14" name="LucidaGrande"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -200,8 +169,8 @@
                                                                 <binding destination="96" name="value" keyPath="objectValue.format.name" id="569"/>
                                                             </connections>
                                                         </textField>
-                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="129">
-                                                            <rect key="frame" x="304" y="68" width="37" height="19"/>
+                                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="129">
+                                                            <rect key="frame" x="300" y="68" width="41" height="19"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Mint" id="145">
                                                                 <font key="font" size="14" name="LucidaGrande-Bold"/>
@@ -216,12 +185,9 @@
                                                                 </binding>
                                                             </connections>
                                                         </textField>
-                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="130">
+                                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="130">
                                                             <rect key="frame" x="130" y="39" width="166" height="19"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="19" id="347"/>
-                                                            </constraints>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Grade" id="144">
                                                                 <font key="font" size="14" name="LucidaGrande"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -231,12 +197,9 @@
                                                                 <binding destination="96" name="value" keyPath="objectValue.grade.name" id="570"/>
                                                             </connections>
                                                         </textField>
-                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="132">
-                                                            <rect key="frame" x="338" y="68" width="36" height="19"/>
+                                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="132">
+                                                            <rect key="frame" x="338" y="68" width="47" height="19"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="30" id="137"/>
-                                                            </constraints>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Used" id="138">
                                                                 <font key="font" size="14" name="LucidaGrande-Bold"/>
                                                                 <color key="textColor" red="0.90055006380000002" green="0.1021407049" blue="0.21485588750000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -246,12 +209,9 @@
                                                                 <binding destination="96" name="hidden" keyPath="objectValue.mint_used" id="578"/>
                                                             </connections>
                                                         </textField>
-                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="414">
+                                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="414">
                                                             <rect key="frame" x="304" y="39" width="166" height="19"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="160" id="444"/>
-                                                            </constraints>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Centering" id="415">
                                                                 <font key="font" size="14" name="LucidaGrande"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -261,12 +221,9 @@
                                                                 <binding destination="96" name="value" keyPath="objectValue.centering.name" id="572"/>
                                                             </connections>
                                                         </textField>
-                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="427">
+                                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="427">
                                                             <rect key="frame" x="304" y="10" width="166" height="19"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="19" id="509"/>
-                                                            </constraints>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Hinged" id="429">
                                                                 <font key="font" size="14" name="LucidaGrande"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -276,12 +233,9 @@
                                                                 <binding destination="96" name="value" keyPath="objectValue.hinged.name" id="573"/>
                                                             </connections>
                                                         </textField>
-                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="452">
+                                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="452">
                                                             <rect key="frame" x="130" y="12" width="166" height="19"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="19" id="455"/>
-                                                            </constraints>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Gum" id="453">
                                                                 <font key="font" size="14" name="LucidaGrande"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -291,13 +245,9 @@
                                                                 <binding destination="96" name="value" keyPath="objectValue.gumCondition.name" id="571"/>
                                                             </connections>
                                                         </textField>
-                                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="514">
+                                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="514">
                                                             <rect key="frame" x="572" y="24" width="63" height="42"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="39" id="519"/>
-                                                                <constraint firstAttribute="width" constant="63" id="522"/>
-                                                            </constraints>
                                                             <buttonCell key="cell" type="squareTextured" title="Detail" bezelStyle="texturedSquare" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="515">
                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                 <font key="font" metaFont="system"/>
@@ -307,35 +257,6 @@
                                                             </connections>
                                                         </button>
                                                     </subviews>
-                                                    <constraints>
-                                                        <constraint firstItem="129" firstAttribute="baseline" secondItem="132" secondAttribute="baseline" id="196"/>
-                                                        <constraint firstItem="128" firstAttribute="top" secondItem="96" secondAttribute="top" constant="3" id="321"/>
-                                                        <constraint firstItem="128" firstAttribute="leading" secondItem="96" secondAttribute="leading" constant="133" id="339"/>
-                                                        <constraint firstItem="127" firstAttribute="leading" secondItem="96" secondAttribute="leading" constant="145" id="340"/>
-                                                        <constraint firstItem="132" firstAttribute="top" secondItem="96" secondAttribute="top" constant="3" id="350"/>
-                                                        <constraint firstItem="130" firstAttribute="top" secondItem="96" secondAttribute="top" constant="32" id="351"/>
-                                                        <constraint firstItem="129" firstAttribute="baseline" secondItem="128" secondAttribute="baseline" id="352"/>
-                                                        <constraint firstItem="129" firstAttribute="top" secondItem="96" secondAttribute="top" constant="3" id="353"/>
-                                                        <constraint firstItem="130" firstAttribute="leading" secondItem="128" secondAttribute="leading" id="355"/>
-                                                        <constraint firstItem="414" firstAttribute="baseline" secondItem="130" secondAttribute="baseline" id="420"/>
-                                                        <constraint firstItem="414" firstAttribute="top" secondItem="130" secondAttribute="top" id="421"/>
-                                                        <constraint firstItem="414" firstAttribute="leading" secondItem="129" secondAttribute="leading" id="437"/>
-                                                        <constraint firstItem="129" firstAttribute="leading" secondItem="96" secondAttribute="leading" constant="307" id="447"/>
-                                                        <constraint firstItem="130" firstAttribute="trailing" secondItem="128" secondAttribute="trailing" id="449"/>
-                                                        <constraint firstItem="452" firstAttribute="trailing" secondItem="130" secondAttribute="trailing" id="458"/>
-                                                        <constraint firstItem="452" firstAttribute="top" secondItem="130" secondAttribute="bottom" constant="8" symbolic="YES" id="459"/>
-                                                        <constraint firstItem="452" firstAttribute="leading" secondItem="130" secondAttribute="leading" id="460"/>
-                                                        <constraint firstAttribute="trailing" secondItem="132" secondAttribute="trailing" constant="281" id="491"/>
-                                                        <constraint firstItem="127" firstAttribute="top" secondItem="427" secondAttribute="bottom" constant="8" symbolic="YES" id="511"/>
-                                                        <constraint firstItem="414" firstAttribute="trailing" secondItem="427" secondAttribute="trailing" id="512"/>
-                                                        <constraint firstItem="414" firstAttribute="leading" secondItem="427" secondAttribute="leading" id="513"/>
-                                                        <constraint firstItem="127" firstAttribute="top" secondItem="96" secondAttribute="top" constant="88" id="521"/>
-                                                        <constraint firstAttribute="trailing" secondItem="514" secondAttribute="trailing" constant="17" id="524"/>
-                                                        <constraint firstItem="514" firstAttribute="centerY" secondItem="119" secondAttribute="centerY" id="527"/>
-                                                        <constraint firstItem="119" firstAttribute="leading" secondItem="96" secondAttribute="leading" constant="3" id="584"/>
-                                                        <constraint firstAttribute="bottom" secondItem="119" secondAttribute="bottom" constant="3" id="585"/>
-                                                        <constraint firstItem="119" firstAttribute="top" secondItem="96" secondAttribute="top" constant="3" id="586"/>
-                                                    </constraints>
                                                 </tableCellView>
                                             </prototypeCellViews>
                                         </tableColumn>
@@ -349,16 +270,16 @@
                             </subviews>
                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </clipView>
-                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="79">
+                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="79">
                             <rect key="frame" x="1" y="119" width="223" height="15"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
-                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" id="81">
+                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="81">
                             <rect key="frame" x="224" y="17" width="15" height="102"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="238">
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="238">
                         <rect key="frame" x="392" y="633" width="132" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Default Catalog Name" id="251">
@@ -370,7 +291,7 @@
                             <binding destination="-2" name="value" keyPath="self.gpCatalog.defaultCatalogName.alternate_catalog_name" id="547"/>
                         </connections>
                     </textField>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="239">
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="239">
                         <rect key="frame" x="526" y="633" width="21" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title=": #" id="250">
@@ -379,12 +300,9 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="240">
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="240">
                         <rect key="frame" x="544" y="633" width="94" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="88" id="282"/>
-                        </constraints>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Alt Catalog #" id="248">
                             <font key="font" size="12" name="LucidaGrande-Bold"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -398,13 +316,9 @@
                             </binding>
                         </connections>
                     </textField>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="241">
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="241">
                         <rect key="frame" x="122" y="613" width="158" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="152" id="301"/>
-                            <constraint firstAttribute="height" constant="18" id="311"/>
-                        </constraints>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Country" id="245">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -414,13 +328,9 @@
                             <binding destination="-2" name="value" keyPath="self.gpCatalog.country.country_name" id="553"/>
                         </connections>
                     </textField>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="242">
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="242">
                         <rect key="frame" x="282" y="613" width="166" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="160" id="303"/>
-                            <constraint firstAttribute="height" constant="17" id="310"/>
-                        </constraints>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Section" id="243">
                             <font key="font" size="14" name="LucidaGrande"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -430,7 +340,7 @@
                             <binding destination="-2" name="value" keyPath="self.gpCatalog.catalogGroup.group_name" id="556"/>
                         </connections>
                     </textField>
-                    <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="492">
+                    <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="492">
                         <rect key="frame" x="14" y="1" width="39" height="38"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="round" title="+" bezelStyle="circular" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" id="493">
@@ -441,7 +351,7 @@
                             <action selector="addStampExample:" target="-2" id="534"/>
                         </connections>
                     </button>
-                    <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="496">
+                    <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="496">
                         <rect key="frame" x="64" y="1" width="39" height="38"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="round" title="-" bezelStyle="circular" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" id="497">
@@ -452,7 +362,7 @@
                             <action selector="removeStampExample:" target="-2" id="536"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="502">
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="502">
                         <rect key="frame" x="291" y="3" width="73" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Done" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="503">
@@ -464,42 +374,6 @@
                         </connections>
                     </button>
                 </subviews>
-                <constraints>
-                    <constraint firstItem="9" firstAttribute="leading" secondItem="5" secondAttribute="trailing" constant="8" symbolic="YES" id="45"/>
-                    <constraint firstItem="11" firstAttribute="leading" secondItem="5" secondAttribute="trailing" constant="8" symbolic="YES" id="50"/>
-                    <constraint firstItem="10" firstAttribute="leading" secondItem="5" secondAttribute="trailing" constant="8" symbolic="YES" id="61"/>
-                    <constraint firstItem="8" firstAttribute="leading" secondItem="10" secondAttribute="trailing" constant="8" symbolic="YES" id="73"/>
-                    <constraint firstItem="77" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="-1" id="90"/>
-                    <constraint firstItem="6" firstAttribute="top" secondItem="2" secondAttribute="top" id="236"/>
-                    <constraint firstItem="239" firstAttribute="baseline" secondItem="240" secondAttribute="baseline" id="254"/>
-                    <constraint firstItem="239" firstAttribute="baseline" secondItem="238" secondAttribute="baseline" id="258"/>
-                    <constraint firstItem="242" firstAttribute="baseline" secondItem="241" secondAttribute="baseline" id="300"/>
-                    <constraint firstItem="242" firstAttribute="leading" secondItem="241" secondAttribute="trailing" constant="8" symbolic="YES" id="302"/>
-                    <constraint firstItem="241" firstAttribute="leading" secondItem="5" secondAttribute="trailing" constant="8" symbolic="YES" id="314"/>
-                    <constraint firstItem="242" firstAttribute="top" secondItem="2" secondAttribute="top" constant="20" symbolic="YES" id="315"/>
-                    <constraint firstItem="5" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="7" id="364"/>
-                    <constraint firstItem="8" firstAttribute="baseline" secondItem="10" secondAttribute="baseline" id="385"/>
-                    <constraint firstItem="9" firstAttribute="top" secondItem="2" secondAttribute="top" constant="60" id="393"/>
-                    <constraint firstItem="6" firstAttribute="leading" secondItem="5" secondAttribute="trailing" constant="8" symbolic="YES" id="397"/>
-                    <constraint firstItem="5" firstAttribute="top" secondItem="2" secondAttribute="top" id="398"/>
-                    <constraint firstItem="77" firstAttribute="top" secondItem="11" secondAttribute="bottom" constant="8" symbolic="YES" id="403"/>
-                    <constraint firstItem="11" firstAttribute="top" secondItem="2" secondAttribute="top" constant="80" id="405"/>
-                    <constraint firstItem="10" firstAttribute="top" secondItem="2" secondAttribute="top" constant="39" id="406"/>
-                    <constraint firstItem="240" firstAttribute="top" secondItem="2" secondAttribute="top" id="408"/>
-                    <constraint firstItem="238" firstAttribute="top" secondItem="2" secondAttribute="top" id="412"/>
-                    <constraint firstItem="6" firstAttribute="baseline" secondItem="238" secondAttribute="baseline" id="413"/>
-                    <constraint firstAttribute="bottom" secondItem="77" secondAttribute="bottom" constant="39" id="472"/>
-                    <constraint firstItem="239" firstAttribute="leading" secondItem="238" secondAttribute="trailing" constant="8" symbolic="YES" id="484"/>
-                    <constraint firstAttribute="trailing" secondItem="77" secondAttribute="trailing" constant="-1" id="486"/>
-                    <constraint firstAttribute="trailing" secondItem="239" secondAttribute="trailing" constant="111" id="489"/>
-                    <constraint firstAttribute="trailing" secondItem="240" secondAttribute="trailing" constant="20" symbolic="YES" id="490"/>
-                    <constraint firstItem="492" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="20" symbolic="YES" id="494"/>
-                    <constraint firstAttribute="bottom" secondItem="492" secondAttribute="bottom" constant="10" id="495"/>
-                    <constraint firstItem="496" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="70" id="500"/>
-                    <constraint firstItem="496" firstAttribute="top" secondItem="492" secondAttribute="top" id="501"/>
-                    <constraint firstItem="502" firstAttribute="centerX" secondItem="77" secondAttribute="centerX" id="504"/>
-                    <constraint firstItem="502" firstAttribute="bottom" secondItem="496" secondAttribute="bottom" id="505"/>
-                </constraints>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="4"/>

@@ -280,59 +280,116 @@
 }
 
 - (IBAction)addDefaultPicture:(id)sender {
-    NSString * fileName = [self.doc addFileToWrapperUsingGPID:self.stamp.gpCatalog.gp_catalog_number forAttribute:@"stamp.default_picture" fileType:GPImportFileTypePicture];
+    NSString * fileName = [self.doc addFileToWrapperUsingGPID:self.stamp.gp_stamp_number forAttribute:@"stamp.default_picture" fileType:GPImportFileTypePicture];
     if (fileName == nil) return;
     
     // Store the filename into the model.
     self.stamp.default_picture = fileName;
 }
 
+- (IBAction)removeDefaultPicture:(id)sender {
+    self.stamp.default_picture = @"empty";
+    
+    // Delete the picture from the disk.
+    NSURL * deleteFromURL = [[[self document] fileURL] URLByAppendingPathComponent:self.stamp.default_picture];
+    [[NSFileManager defaultManager] removeItemAtURL:deleteFromURL error:nil];
+    
+}
+
 - (IBAction)addAlternatePicture1:(id)sender {
-    NSString * fileName = [self.doc addFileToWrapperUsingGPID:self.stamp.gpCatalog.gp_catalog_number forAttribute:@"stamp.alternate_picture_1" fileType:GPImportFileTypePicture];
+    NSString * fileName = [self.doc addFileToWrapperUsingGPID:self.stamp.gp_stamp_number forAttribute:@"stamp.alternate_picture_1" fileType:GPImportFileTypePicture];
     if (fileName == nil) return;
     
     // Store the filename into the model.
     self.stamp.alternate_picture_1 = fileName;
 }
 
+- (IBAction)removeAlternatePicture1:(id)sender {
+    self.stamp.alternate_picture_1 = @"empty";
+    
+    // Delete the picture from the disk.
+    NSURL * deleteFromURL = [[[self document] fileURL] URLByAppendingPathComponent:self.stamp.alternate_picture_1];
+    [[NSFileManager defaultManager] removeItemAtURL:deleteFromURL error:nil];
+}
+
 - (IBAction)addAlternatePicture2:(id)sender {
-    NSString * fileName = [self.doc addFileToWrapperUsingGPID:self.stamp.gpCatalog.gp_catalog_number forAttribute:@"stamp.alternate_picture_2" fileType:GPImportFileTypePicture];
+    NSString * fileName = [self.doc addFileToWrapperUsingGPID:self.stamp.gp_stamp_number forAttribute:@"stamp.alternate_picture_2" fileType:GPImportFileTypePicture];
     if (fileName == nil) return;
     
     // Store the filename into the model.
     self.stamp.alternate_picture_2 = fileName;
 }
 
+- (IBAction)removeAlternatePicture2:(id)sender {
+    self.stamp.alternate_picture_2 = @"empty";
+    
+    // Delete the picture from the disk.
+    NSURL * deleteFromURL = [[[self document] fileURL] URLByAppendingPathComponent:self.stamp.alternate_picture_2];
+    [[NSFileManager defaultManager] removeItemAtURL:deleteFromURL error:nil];
+}
+
 - (IBAction)addAlternatePicture3:(id)sender {
-    NSString * fileName = [self.doc addFileToWrapperUsingGPID:self.stamp.gpCatalog.gp_catalog_number forAttribute:@"stamp.alternate_picture_3" fileType:GPImportFileTypePicture];
+    NSString * fileName = [self.doc addFileToWrapperUsingGPID:self.stamp.gp_stamp_number forAttribute:@"stamp.alternate_picture_3" fileType:GPImportFileTypePicture];
     if (fileName == nil) return;
     
     // Store the filename into the model.
     self.stamp.alternate_picture_3 = fileName;
 }
 
+- (IBAction)removeAlternatePicture3:(id)sender {
+    self.stamp.alternate_picture_3 = @"empty";
+    
+    // Delete the picture from the disk.
+    NSURL * deleteFromURL = [[[self document] fileURL] URLByAppendingPathComponent:self.stamp.alternate_picture_3];
+    [[NSFileManager defaultManager] removeItemAtURL:deleteFromURL error:nil];
+}
+
 - (IBAction)addAlternatePicture4:(id)sender {
-    NSString * fileName = [self.doc addFileToWrapperUsingGPID:self.stamp.gpCatalog.gp_catalog_number forAttribute:@"stamp.alternate_picture_4" fileType:GPImportFileTypePicture];
+    NSString * fileName = [self.doc addFileToWrapperUsingGPID:self.stamp.gp_stamp_number forAttribute:@"stamp.alternate_picture_4" fileType:GPImportFileTypePicture];
     if (fileName == nil) return;
     
     // Store the filename into the model.
     self.stamp.alternate_picture_4 = fileName;
 }
 
+- (IBAction)removeAlternatePicture4:(id)sender {
+    self.stamp.alternate_picture_4 = @"empty";
+    
+    // Delete the picture from the disk.
+    NSURL * deleteFromURL = [[[self document] fileURL] URLByAppendingPathComponent:self.stamp.alternate_picture_4];
+    [[NSFileManager defaultManager] removeItemAtURL:deleteFromURL error:nil];
+}
+
 - (IBAction)addAlternatePicture5:(id)sender {
-    NSString * fileName = [self.doc addFileToWrapperUsingGPID:self.stamp.gpCatalog.gp_catalog_number forAttribute:@"stamp.alternate_picture_5" fileType:GPImportFileTypePicture];
+    NSString * fileName = [self.doc addFileToWrapperUsingGPID:self.stamp.gp_stamp_number forAttribute:@"stamp.alternate_picture_5" fileType:GPImportFileTypePicture];
     if (fileName == nil) return;
     
     // Store the filename into the model.
     self.stamp.alternate_picture_5 = fileName;
 }
 
+- (IBAction)removeAlternatePicture5:(id)sender {
+    self.stamp.alternate_picture_5 = @"empty";
+    
+    // Delete the picture from the disk.
+    NSURL * deleteFromURL = [[[self document] fileURL] URLByAppendingPathComponent:self.stamp.alternate_picture_5];
+    [[NSFileManager defaultManager] removeItemAtURL:deleteFromURL error:nil];
+}
+
 - (IBAction)addAlternatePicture6:(id)sender {
-    NSString * fileName = [self.doc addFileToWrapperUsingGPID:self.stamp.gpCatalog.gp_catalog_number forAttribute:@"stamp.alternate_picture_6" fileType:GPImportFileTypePicture];
+    NSString * fileName = [self.doc addFileToWrapperUsingGPID:self.stamp.gp_stamp_number forAttribute:@"stamp.alternate_picture_6" fileType:GPImportFileTypePicture];
     if (fileName == nil) return;
     
     // Store the filename into the model.
     self.stamp.alternate_picture_6 = fileName;
+}
+
+- (IBAction)removeAlternatePicture6:(id)sender {
+    self.stamp.alternate_picture_6 = @"empty";
+    
+    // Delete the picture from the disk.
+    NSURL * deleteFromURL = [[[self document] fileURL] URLByAppendingPathComponent:self.stamp.alternate_picture_6];
+    [[NSFileManager defaultManager] removeItemAtURL:deleteFromURL error:nil];
 }
 
 - (IBAction)removeFromSellList:(id)sender {

@@ -7,7 +7,7 @@
 //
 
 #import "GPStampExamples.h"
-#import "Stamp.h"
+#import "Stamp+Create.h"
 #import "GPDocument.h"
 #import "GPStampDetail.h"
 
@@ -43,10 +43,8 @@
 }
 
 - (IBAction)addStampExample:(id)sender {
-    Stamp * stamp = [NSEntityDescription insertNewObjectForEntityForName:@"Stamp" inManagedObjectContext:self.managedObjectContext];
-    
+    Stamp * stamp = [Stamp CreateFromDefaultsUsingManagedObjectContext:self.managedObjectContext];
     [stamp setGpCatalog:self.gpCatalog];
-    [stamp setDefault_picture:self.gpCatalog.default_picture];
     [stamp setGp_stamp_number:self.gpCatalog.gp_catalog_number];
     
     [self.stampExamplesController addObject:stamp];
