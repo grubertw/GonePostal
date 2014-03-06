@@ -41,6 +41,7 @@
 #import "GPSupportedCatalogPeopleTypes.h"
 #import "GPSupportedPlateSizeTypes.h"
 #import "GPSupportedCatalogQuantityTypes.h"
+#import "GPSaleHistoryDefaults.h"
 
 #import "GPCatalog.h"
 #import "GPImportController.h"
@@ -467,6 +468,13 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
 
 - (void)openStampDefaults:(id)sender {
     GPStampDefaults * controller = [[GPStampDefaults alloc] initWithWindowNibName:@"GPStampDefaults"];
+    [self addWindowController:controller];
+    
+    [controller.window makeKeyAndOrderFront:sender];
+}
+
+- (void)openSaleHistoryDefaults:(id)sender {
+    GPSaleHistoryDefaults * controller = [[GPSaleHistoryDefaults alloc] initWithWindowNibName:@"GPSaleHistoryDefaults"];
     [self addWindowController:controller];
     
     [controller.window makeKeyAndOrderFront:sender];

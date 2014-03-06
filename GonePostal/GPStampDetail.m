@@ -23,6 +23,7 @@
 #import "Perfin.h"
 #import "PlateUsage.h"
 #import "StampFormat.h"
+#import "SaleHistory+Create.h"
 
 @interface GPStampDetail ()
 @property (weak, nonatomic) IBOutlet NSScrollView * stampPicsScrollView;
@@ -272,7 +273,8 @@
 }
 
 - (IBAction)addSaleHistory:(id)sender {
-    [self.saleHistoryController insert:sender];
+    SaleHistory * sh = [SaleHistory createFromDefaultUsingManagedObjectContext:self.managedObjectContext];
+    [self.saleHistoryController addObject:sh];
 }
 
 - (IBAction)removeSaleHistory:(id)sender {

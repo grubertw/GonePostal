@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13C64" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment defaultVersion="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4510"/>
+        <deployment defaultVersion="1090" identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="GPStampDefaults">
@@ -12,7 +12,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application"/>
-        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" wantsToBeColor="NO" animationBehavior="default" id="1">
+        <window title="Stamp Defaults" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" wantsToBeColor="NO" animationBehavior="default" id="1">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="64" y="260" width="700" height="540"/>
@@ -21,14 +21,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="700" height="540"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <box autoresizesSubviews="NO" title="Box" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="5">
+                    <box autoresizesSubviews="NO" misplaced="YES" title="Box" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="5">
                         <rect key="frame" x="5" y="482" width="683" height="52"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView">
                             <rect key="frame" x="1" y="1" width="681" height="50"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="16">
+                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="16">
                                     <rect key="frame" x="16" y="29" width="76" height="17"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <constraints>
@@ -62,7 +62,7 @@
                                     </constraints>
                                     <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="24" id="20">
                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
+                                        <font key="font" metaFont="menu"/>
                                         <menu key="menu" title="OtherViews" id="21">
                                             <items>
                                                 <menuItem title="Item 1" state="on" id="24"/>
@@ -72,12 +72,20 @@
                                         </menu>
                                     </popUpButtonCell>
                                     <connections>
-                                        <binding destination="590" name="content" keyPath="arrangedObjects" id="601"/>
-                                        <binding destination="590" name="contentValues" keyPath="arrangedObjects.name" previousBinding="601" id="602"/>
-                                        <binding destination="-2" name="selectedObject" keyPath="self.stamp.format" previousBinding="602" id="613"/>
+                                        <binding destination="590" name="content" keyPath="arrangedObjects" id="J4b-b0-YTP">
+                                            <dictionary key="options">
+                                                <bool key="NSInsertsNullPlaceholder" value="YES"/>
+                                            </dictionary>
+                                        </binding>
+                                        <binding destination="590" name="contentValues" keyPath="arrangedObjects.name" previousBinding="J4b-b0-YTP" id="swU-Cx-TNc">
+                                            <dictionary key="options">
+                                                <bool key="NSInsertsNullPlaceholder" value="YES"/>
+                                            </dictionary>
+                                        </binding>
+                                        <binding destination="-2" name="selectedObject" keyPath="self.stamp.format" previousBinding="swU-Cx-TNc" id="0xK-4k-sZN"/>
                                     </connections>
                                 </popUpButton>
-                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="39">
+                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="39">
                                     <rect key="frame" x="483" y="30" width="126" height="17"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <constraints>
@@ -89,7 +97,7 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="40">
+                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="40">
                                     <rect key="frame" x="483" y="7" width="185" height="22"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <constraints>
@@ -134,7 +142,7 @@
                             <rect key="frame" x="1" y="1" width="690" height="140"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="72">
+                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="72">
                                     <rect key="frame" x="15" y="120" width="126" height="17"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <constraints>
@@ -146,7 +154,7 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="71">
+                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="71">
                                     <rect key="frame" x="370" y="119" width="126" height="17"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <constraints>
@@ -158,7 +166,7 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="70">
+                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="70">
                                     <rect key="frame" x="15" y="78" width="126" height="17"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Grade" id="110">
@@ -167,7 +175,7 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="69">
+                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="69">
                                     <rect key="frame" x="370" y="78" width="126" height="17"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Gum Condition" id="111">
@@ -176,7 +184,7 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="68">
+                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="68">
                                     <rect key="frame" x="15" y="38" width="126" height="17"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Hinged" id="112">
@@ -185,7 +193,7 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="67">
+                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="67">
                                     <rect key="frame" x="370" y="38" width="126" height="17"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Faults" id="113">
@@ -217,7 +225,7 @@
                                     </constraints>
                                     <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="118" id="116">
                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
+                                        <font key="font" metaFont="menu"/>
                                         <menu key="menu" title="OtherViews" id="117">
                                             <items>
                                                 <menuItem title="Item 1" state="on" id="118"/>
@@ -227,9 +235,17 @@
                                         </menu>
                                     </popUpButtonCell>
                                     <connections>
-                                        <binding destination="591" name="content" keyPath="arrangedObjects" id="607"/>
-                                        <binding destination="591" name="contentValues" keyPath="arrangedObjects.name" previousBinding="607" id="609"/>
-                                        <binding destination="-2" name="selectedObject" keyPath="self.stamp.centering" previousBinding="609" id="611"/>
+                                        <binding destination="591" name="content" keyPath="arrangedObjects" id="C62-v5-Khf">
+                                            <dictionary key="options">
+                                                <bool key="NSInsertsNullPlaceholder" value="YES"/>
+                                            </dictionary>
+                                        </binding>
+                                        <binding destination="591" name="contentValues" keyPath="arrangedObjects.name" previousBinding="C62-v5-Khf" id="5nc-ci-tlZ">
+                                            <dictionary key="options">
+                                                <bool key="NSInsertsNullPlaceholder" value="YES"/>
+                                            </dictionary>
+                                        </binding>
+                                        <binding destination="-2" name="selectedObject" keyPath="self.stamp.centering" previousBinding="5nc-ci-tlZ" id="M3K-hk-Xyc"/>
                                     </connections>
                                 </popUpButton>
                                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="64">
@@ -240,7 +256,7 @@
                                     </constraints>
                                     <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="123" id="121">
                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
+                                        <font key="font" metaFont="menu"/>
                                         <menu key="menu" title="OtherViews" id="122">
                                             <items>
                                                 <menuItem title="Item 1" state="on" id="123"/>
@@ -250,9 +266,17 @@
                                         </menu>
                                     </popUpButtonCell>
                                     <connections>
-                                        <binding destination="592" name="content" keyPath="arrangedObjects" id="614"/>
-                                        <binding destination="592" name="contentValues" keyPath="arrangedObjects.name" previousBinding="614" id="616"/>
-                                        <binding destination="-2" name="selectedObject" keyPath="self.stamp.soundness" previousBinding="616" id="618"/>
+                                        <binding destination="592" name="content" keyPath="arrangedObjects" id="TOG-qg-KNc">
+                                            <dictionary key="options">
+                                                <bool key="NSInsertsNullPlaceholder" value="YES"/>
+                                            </dictionary>
+                                        </binding>
+                                        <binding destination="592" name="contentValues" keyPath="arrangedObjects.name" previousBinding="TOG-qg-KNc" id="TtQ-Bi-WxF">
+                                            <dictionary key="options">
+                                                <bool key="NSInsertsNullPlaceholder" value="YES"/>
+                                            </dictionary>
+                                        </binding>
+                                        <binding destination="-2" name="selectedObject" keyPath="self.stamp.soundness" previousBinding="TtQ-Bi-WxF" id="8kZ-Qx-Zu3"/>
                                     </connections>
                                 </popUpButton>
                                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="63">
@@ -260,7 +284,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="130" id="126">
                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
+                                        <font key="font" metaFont="menu"/>
                                         <menu key="menu" title="OtherViews" id="127">
                                             <items>
                                                 <menuItem title="Item 1" state="on" id="130"/>
@@ -270,17 +294,25 @@
                                         </menu>
                                     </popUpButtonCell>
                                     <connections>
-                                        <binding destination="593" name="content" keyPath="arrangedObjects" id="619"/>
-                                        <binding destination="593" name="contentValues" keyPath="arrangedObjects.name" previousBinding="619" id="621"/>
-                                        <binding destination="-2" name="selectedObject" keyPath="self.stamp.grade" previousBinding="621" id="623"/>
+                                        <binding destination="593" name="content" keyPath="arrangedObjects" id="Izl-oC-lnq">
+                                            <dictionary key="options">
+                                                <bool key="NSInsertsNullPlaceholder" value="YES"/>
+                                            </dictionary>
+                                        </binding>
+                                        <binding destination="593" name="contentValues" keyPath="arrangedObjects.name" previousBinding="Izl-oC-lnq" id="7ag-pn-3hb">
+                                            <dictionary key="options">
+                                                <bool key="NSInsertsNullPlaceholder" value="YES"/>
+                                            </dictionary>
+                                        </binding>
+                                        <binding destination="-2" name="selectedObject" keyPath="self.stamp.grade" previousBinding="7ag-pn-3hb" id="V4h-KP-wcU"/>
                                     </connections>
                                 </popUpButton>
-                                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="62">
-                                    <rect key="frame" x="370" y="54" width="305" height="26"/>
+                                <popUpButton verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="62">
+                                    <rect key="frame" x="370" y="55" width="305" height="26"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="135" id="131">
                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
+                                        <font key="font" metaFont="menu"/>
                                         <menu key="menu" title="OtherViews" id="132">
                                             <items>
                                                 <menuItem title="Item 1" state="on" id="135"/>
@@ -290,9 +322,17 @@
                                         </menu>
                                     </popUpButtonCell>
                                     <connections>
-                                        <binding destination="594" name="content" keyPath="arrangedObjects" id="624"/>
-                                        <binding destination="594" name="contentValues" keyPath="arrangedObjects.name" previousBinding="624" id="626"/>
-                                        <binding destination="-2" name="selectedObject" keyPath="self.stamp.gumCondition" previousBinding="626" id="628"/>
+                                        <binding destination="594" name="content" keyPath="arrangedObjects" id="CsD-WN-qyR">
+                                            <dictionary key="options">
+                                                <bool key="NSInsertsNullPlaceholder" value="YES"/>
+                                            </dictionary>
+                                        </binding>
+                                        <binding destination="594" name="contentValues" keyPath="arrangedObjects.name" previousBinding="CsD-WN-qyR" id="uht-Bv-E0g">
+                                            <dictionary key="options">
+                                                <bool key="NSInsertsNullPlaceholder" value="YES"/>
+                                            </dictionary>
+                                        </binding>
+                                        <binding destination="-2" name="selectedObject" keyPath="self.stamp.gumCondition" previousBinding="uht-Bv-E0g" id="NAP-2o-sng"/>
                                     </connections>
                                 </popUpButton>
                                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="61">
@@ -300,7 +340,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="140" id="136">
                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
+                                        <font key="font" metaFont="menu"/>
                                         <menu key="menu" title="OtherViews" id="137">
                                             <items>
                                                 <menuItem title="Item 1" state="on" id="140"/>
@@ -310,9 +350,17 @@
                                         </menu>
                                     </popUpButtonCell>
                                     <connections>
-                                        <binding destination="595" name="content" keyPath="arrangedObjects" id="629"/>
-                                        <binding destination="595" name="contentValues" keyPath="arrangedObjects.name" previousBinding="629" id="631"/>
-                                        <binding destination="-2" name="selectedObject" keyPath="self.stamp.hinged" previousBinding="631" id="633"/>
+                                        <binding destination="595" name="content" keyPath="arrangedObjects" id="8WE-sY-XXp">
+                                            <dictionary key="options">
+                                                <bool key="NSInsertsNullPlaceholder" value="YES"/>
+                                            </dictionary>
+                                        </binding>
+                                        <binding destination="595" name="contentValues" keyPath="arrangedObjects.name" previousBinding="8WE-sY-XXp" id="Ayj-SB-ttj">
+                                            <dictionary key="options">
+                                                <bool key="NSInsertsNullPlaceholder" value="YES"/>
+                                            </dictionary>
+                                        </binding>
+                                        <binding destination="-2" name="selectedObject" keyPath="self.stamp.hinged" previousBinding="Ayj-SB-ttj" id="I5u-We-Bqb"/>
                                     </connections>
                                 </popUpButton>
                             </subviews>
@@ -354,14 +402,14 @@
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <font key="titleFont" size="14" name="LucidaGrande-Bold"/>
                     </box>
-                    <box autoresizesSubviews="NO" title="Box" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="246">
-                        <rect key="frame" x="5" y="206" width="683" height="110"/>
+                    <box autoresizesSubviews="NO" misplaced="YES" title="Box" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="246">
+                        <rect key="frame" x="5" y="206" width="691" height="110"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView">
-                            <rect key="frame" x="1" y="1" width="681" height="108"/>
+                            <rect key="frame" x="1" y="1" width="689" height="108"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="250">
+                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="250">
                                     <rect key="frame" x="361" y="85" width="126" height="17"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <constraints>
@@ -373,8 +421,8 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="249">
-                                    <rect key="frame" x="361" y="63" width="297" height="22"/>
+                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="249">
+                                    <rect key="frame" x="369" y="63" width="297" height="22"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="297" id="315"/>
@@ -406,7 +454,7 @@
                                         <binding destination="-2" name="value" keyPath="self.stamp.cancelation_date" id="639"/>
                                     </connections>
                                 </datePicker>
-                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="251">
+                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="251">
                                     <rect key="frame" x="222" y="85" width="126" height="17"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <constraints>
@@ -418,7 +466,7 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="248">
+                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="248">
                                     <rect key="frame" x="16" y="38" width="152" height="17"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <constraints>
@@ -438,7 +486,7 @@
                                     </constraints>
                                     <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="290" id="286">
                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
+                                        <font key="font" metaFont="menu"/>
                                         <menu key="menu" title="OtherViews" id="287">
                                             <items>
                                                 <menuItem title="Item 1" state="on" id="290"/>
@@ -448,12 +496,20 @@
                                         </menu>
                                     </popUpButtonCell>
                                     <connections>
-                                        <binding destination="596" name="content" keyPath="arrangedObjects" id="642"/>
-                                        <binding destination="596" name="contentValues" keyPath="arrangedObjects.name" previousBinding="642" id="644"/>
-                                        <binding destination="-2" name="selectedObject" keyPath="self.stamp.cancelQuality" previousBinding="644" id="646"/>
+                                        <binding destination="596" name="content" keyPath="arrangedObjects" id="V2H-eq-zwO">
+                                            <dictionary key="options">
+                                                <bool key="NSInsertsNullPlaceholder" value="YES"/>
+                                            </dictionary>
+                                        </binding>
+                                        <binding destination="596" name="contentValues" keyPath="arrangedObjects.name" previousBinding="V2H-eq-zwO" id="Re8-ie-WtR">
+                                            <dictionary key="options">
+                                                <bool key="NSInsertsNullPlaceholder" value="YES"/>
+                                            </dictionary>
+                                        </binding>
+                                        <binding destination="-2" name="selectedObject" keyPath="self.stamp.cancelQuality" previousBinding="Re8-ie-WtR" id="sFn-y5-26H"/>
                                     </connections>
                                 </popUpButton>
-                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="253">
+                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="253">
                                     <rect key="frame" x="16" y="85" width="126" height="17"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <constraints>
@@ -513,7 +569,7 @@
                             <rect key="frame" x="1" y="1" width="689" height="140"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="396">
+                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="396">
                                     <rect key="frame" x="16" y="122" width="126" height="17"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <constraints>
@@ -564,7 +620,7 @@
                                         <binding destination="-2" name="value" keyPath="self.stamp.purchase_date" id="690"/>
                                     </connections>
                                 </datePicker>
-                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="393">
+                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="393">
                                     <rect key="frame" x="222" y="122" width="126" height="17"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <constraints>
@@ -576,7 +632,7 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="392">
+                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="392">
                                     <rect key="frame" x="370" y="120" width="126" height="17"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <constraints>
@@ -588,7 +644,7 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="391">
+                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="391">
                                     <rect key="frame" x="16" y="80" width="126" height="17"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Lot" id="436">
@@ -597,7 +653,7 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="390">
+                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="390">
                                     <rect key="frame" x="370" y="76" width="126" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <constraints>
@@ -609,7 +665,7 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="389">
+                                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="389">
                                     <rect key="frame" x="16" y="39" width="126" height="17"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Mount" id="440">
@@ -626,7 +682,7 @@
                                     </constraints>
                                     <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="462" id="458">
                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
+                                        <font key="font" metaFont="menu"/>
                                         <menu key="menu" title="OtherViews" id="459">
                                             <items>
                                                 <menuItem title="Item 1" state="on" id="462"/>
@@ -636,9 +692,17 @@
                                         </menu>
                                     </popUpButtonCell>
                                     <connections>
-                                        <binding destination="597" name="content" keyPath="arrangedObjects" id="647"/>
-                                        <binding destination="597" name="contentValues" keyPath="arrangedObjects.name" previousBinding="647" id="648"/>
-                                        <binding destination="-2" name="selectedObject" keyPath="self.stamp.dealer" previousBinding="648" id="650"/>
+                                        <binding destination="597" name="content" keyPath="arrangedObjects" id="Vyz-fF-Gcg">
+                                            <dictionary key="options">
+                                                <bool key="NSInsertsNullPlaceholder" value="YES"/>
+                                            </dictionary>
+                                        </binding>
+                                        <binding destination="597" name="contentValues" keyPath="arrangedObjects.name" previousBinding="Vyz-fF-Gcg" id="aJV-qy-krd">
+                                            <dictionary key="options">
+                                                <bool key="NSInsertsNullPlaceholder" value="YES"/>
+                                            </dictionary>
+                                        </binding>
+                                        <binding destination="-2" name="selectedObject" keyPath="self.stamp.dealer" previousBinding="aJV-qy-krd" id="VtT-Rj-zrh"/>
                                     </connections>
                                 </popUpButton>
                                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="388">
@@ -649,7 +713,7 @@
                                     </constraints>
                                     <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="445" id="441">
                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
+                                        <font key="font" metaFont="menu"/>
                                         <menu key="menu" title="OtherViews" id="442">
                                             <items>
                                                 <menuItem title="Item 1" state="on" id="445"/>
@@ -659,9 +723,17 @@
                                         </menu>
                                     </popUpButtonCell>
                                     <connections>
-                                        <binding destination="598" name="content" keyPath="arrangedObjects" id="651"/>
-                                        <binding destination="598" name="contentValues" keyPath="arrangedObjects.name" previousBinding="651" id="652"/>
-                                        <binding destination="-2" name="selectedObject" keyPath="self.stamp.lot" previousBinding="652" id="654"/>
+                                        <binding destination="598" name="content" keyPath="arrangedObjects" id="KDN-Qv-g8f">
+                                            <dictionary key="options">
+                                                <bool key="NSInsertsNullPlaceholder" value="YES"/>
+                                            </dictionary>
+                                        </binding>
+                                        <binding destination="598" name="contentValues" keyPath="arrangedObjects.name" previousBinding="KDN-Qv-g8f" id="yzw-SY-Ekx">
+                                            <dictionary key="options">
+                                                <bool key="NSInsertsNullPlaceholder" value="YES"/>
+                                            </dictionary>
+                                        </binding>
+                                        <binding destination="-2" name="selectedObject" keyPath="self.stamp.lot" previousBinding="yzw-SY-Ekx" id="3tW-U3-29U"/>
                                     </connections>
                                 </popUpButton>
                                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="387">
@@ -669,7 +741,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="451" id="447">
                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
+                                        <font key="font" metaFont="menu"/>
                                         <menu key="menu" title="OtherViews" id="448">
                                             <items>
                                                 <menuItem title="Item 1" state="on" id="451"/>
@@ -679,9 +751,17 @@
                                         </menu>
                                     </popUpButtonCell>
                                     <connections>
-                                        <binding destination="599" name="content" keyPath="arrangedObjects" id="655"/>
-                                        <binding destination="599" name="contentValues" keyPath="arrangedObjects.name" previousBinding="655" id="656"/>
-                                        <binding destination="-2" name="selectedObject" keyPath="self.stamp.location" previousBinding="656" id="658"/>
+                                        <binding destination="599" name="content" keyPath="arrangedObjects" id="gkW-SI-Tfq">
+                                            <dictionary key="options">
+                                                <bool key="NSInsertsNullPlaceholder" value="YES"/>
+                                            </dictionary>
+                                        </binding>
+                                        <binding destination="599" name="contentValues" keyPath="arrangedObjects.name" previousBinding="gkW-SI-Tfq" id="uwv-Rd-JV0">
+                                            <dictionary key="options">
+                                                <bool key="NSInsertsNullPlaceholder" value="YES"/>
+                                            </dictionary>
+                                        </binding>
+                                        <binding destination="-2" name="selectedObject" keyPath="self.stamp.location" previousBinding="uwv-Rd-JV0" id="Dbv-cy-Dkd"/>
                                     </connections>
                                 </popUpButton>
                                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="386">
@@ -689,7 +769,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="456" id="452">
                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
+                                        <font key="font" metaFont="menu"/>
                                         <menu key="menu" title="OtherViews" id="453">
                                             <items>
                                                 <menuItem title="Item 1" state="on" id="456"/>
@@ -699,9 +779,17 @@
                                         </menu>
                                     </popUpButtonCell>
                                     <connections>
-                                        <binding destination="600" name="content" keyPath="arrangedObjects" id="659"/>
-                                        <binding destination="600" name="contentValues" keyPath="arrangedObjects.name" previousBinding="659" id="660"/>
-                                        <binding destination="-2" name="selectedObject" keyPath="self.stamp.mount" previousBinding="660" id="662"/>
+                                        <binding destination="600" name="content" keyPath="arrangedObjects" id="IiT-gQ-46l">
+                                            <dictionary key="options">
+                                                <bool key="NSInsertsNullPlaceholder" value="YES"/>
+                                            </dictionary>
+                                        </binding>
+                                        <binding destination="600" name="contentValues" keyPath="arrangedObjects.name" previousBinding="IiT-gQ-46l" id="XDt-rX-EMO">
+                                            <dictionary key="options">
+                                                <bool key="NSInsertsNullPlaceholder" value="YES"/>
+                                            </dictionary>
+                                        </binding>
+                                        <binding destination="-2" name="selectedObject" keyPath="self.stamp.mount" previousBinding="XDt-rX-EMO" id="nWH-uf-YZx"/>
                                     </connections>
                                 </popUpButton>
                             </subviews>
@@ -741,7 +829,7 @@
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <font key="titleFont" size="14" name="LucidaGrande-Bold"/>
                     </box>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="585">
+                    <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="585">
                         <rect key="frame" x="310" y="8" width="73" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Done" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="586">
@@ -780,14 +868,14 @@
         </window>
         <arrayController mode="entity" entityName="StampFormat" editable="NO" automaticallyPreparesContent="YES" id="590" userLabel="FormatsController">
             <connections>
-                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="665"/>
                 <binding destination="-2" name="sortDescriptors" keyPath="self.formatSortDescriptors" id="664"/>
+                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="665"/>
             </connections>
         </arrayController>
         <arrayController mode="entity" entityName="Centering" editable="NO" automaticallyPreparesContent="YES" id="591" userLabel="CenteringController">
             <connections>
-                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="667"/>
                 <binding destination="-2" name="sortDescriptors" keyPath="self.centeringSortDescriptors" id="666"/>
+                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="667"/>
             </connections>
         </arrayController>
         <arrayController mode="entity" entityName="Soundness" editable="NO" automaticallyPreparesContent="YES" id="592" userLabel="SoundnessController">
@@ -798,44 +886,44 @@
         </arrayController>
         <arrayController mode="entity" entityName="Grade" editable="NO" automaticallyPreparesContent="YES" id="593" userLabel="GradeController">
             <connections>
-                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="671"/>
                 <binding destination="-2" name="sortDescriptors" keyPath="self.gradeSortDescriptors" id="670"/>
+                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="671"/>
             </connections>
         </arrayController>
         <arrayController mode="entity" entityName="GumCondition" editable="NO" automaticallyPreparesContent="YES" id="594" userLabel="GumConditionController">
             <connections>
-                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="674"/>
                 <binding destination="-2" name="sortDescriptors" keyPath="self.gumConditionSortDescriptors" id="673"/>
+                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="674"/>
             </connections>
         </arrayController>
         <arrayController mode="entity" entityName="Hinged" editable="NO" automaticallyPreparesContent="YES" id="595" userLabel="HingedController">
             <connections>
-                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="676"/>
                 <binding destination="-2" name="sortDescriptors" keyPath="self.hingedSortDescriptors" id="675"/>
+                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="676"/>
             </connections>
         </arrayController>
         <arrayController mode="entity" entityName="CancelQuality" editable="NO" automaticallyPreparesContent="YES" id="596" userLabel="CancelationQualityController">
             <connections>
-                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="678"/>
                 <binding destination="-2" name="sortDescriptors" keyPath="self.cancelQualitySortDescriptors" id="677"/>
+                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="678"/>
             </connections>
         </arrayController>
         <arrayController mode="entity" entityName="Dealer" editable="NO" automaticallyPreparesContent="YES" id="597" userLabel="DealerController">
             <connections>
-                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="679"/>
                 <binding destination="-2" name="sortDescriptors" keyPath="self.dealerSortDescriptors" id="680"/>
+                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="679"/>
             </connections>
         </arrayController>
         <arrayController mode="entity" entityName="Lot" editable="NO" automaticallyPreparesContent="YES" id="598" userLabel="LotController">
             <connections>
-                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="682"/>
                 <binding destination="-2" name="sortDescriptors" keyPath="self.lotSortDescriptors" id="681"/>
+                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="682"/>
             </connections>
         </arrayController>
         <arrayController mode="entity" entityName="Location" editable="NO" automaticallyPreparesContent="YES" id="599" userLabel="LocationController">
             <connections>
-                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="684"/>
                 <binding destination="-2" name="sortDescriptors" keyPath="self.locationSortDescriptors" id="683"/>
+                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="684"/>
             </connections>
         </arrayController>
         <arrayController mode="entity" entityName="Mount" editable="NO" automaticallyPreparesContent="YES" id="600" userLabel="MountController">

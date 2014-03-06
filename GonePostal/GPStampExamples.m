@@ -8,6 +8,7 @@
 
 #import "GPStampExamples.h"
 #import "Stamp+Create.h"
+#import "SaleHistory+Create.h"
 #import "GPDocument.h"
 #import "GPStampDetail.h"
 
@@ -48,6 +49,10 @@
     [stamp setGp_stamp_number:self.gpCatalog.gp_catalog_number];
     
     [self.stampExamplesController addObject:stamp];
+    
+    // Create a SaleHistory from the defaults.
+    SaleHistory * sh = [SaleHistory createFromDefaultUsingManagedObjectContext:self.managedObjectContext];
+    [stamp addSaleHistoryObject:sh];
     
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
