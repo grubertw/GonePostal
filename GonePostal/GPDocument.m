@@ -71,6 +71,15 @@
 #import "CommonCrypto/CommonDigest.h"
 #import "ExceptionHandling/NSExceptionHandler.h"
 
+#import "GPCatalogDateType.h"
+#import "GPCatalogDate.h"
+#import "GPCatalogPeopleType.h"
+#import "GPCatalogPeople.h"
+#import "GPCatalogQuantityType.h"
+#import "GPCatalogQuantity.h"
+#import "GPPlateSizeType.h"
+#import "GPPlateSize.h"
+
 // static indexes into the CustomSearches table for fetching data.
 const NSInteger ASSISTED_GP_CATALOG_EDITER_SEARCH_ID        = 1;
 const NSInteger ASSISTED_GP_CATALOG_BROWSER_SEARCH_ID       = 2;
@@ -949,6 +958,184 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
     } else {
         NSLog(@"No stack trace available.");
     }
+}
+
+- (IBAction)migrateGPDatesPeoplePlateSizeQuantityData:(id)sender {
+    // Fetch all GPCatalog entries
+    NSFetchRequest * gpCatalogEntryFetch = [NSFetchRequest fetchRequestWithEntityName:@"GPCatalog"];
+    NSPredicate * catalogQuery = [NSPredicate predicateWithFormat:@"is_default == NO"];
+    [gpCatalogEntryFetch setPredicate:catalogQuery];
+    NSArray * gpCatalogEntries = [self.managedObjectContext executeFetchRequest:gpCatalogEntryFetch error:nil];
+    if (!gpCatalogEntries || [gpCatalogEntries count] == 0) return;
+    
+    // Fetch all GPCatalogDateType(s).
+    NSFetchRequest * gpCatalogDateTypeFetch = [NSFetchRequest fetchRequestWithEntityName:@"GPCatalogDateType"];
+    NSArray * gpCatalogDateTypes = [self.managedObjectContext executeFetchRequest:gpCatalogDateTypeFetch error:nil];
+    // Get "Date Documented First Use" and "Date Issued"
+    GPCatalogDateType * dateDocumentedFirstUseType;
+    GPCatalogDateType * dateIssuedType;
+    if (gpCatalogDateTypes) {
+        for (GPCatalogDateType * dateType in gpCatalogDateTypes) {
+            if ([dateType.name compare:@"Date Documented First Use"] == NSOrderedSame) {
+                dateDocumentedFirstUseType = dateType;
+            }
+            else if ([dateType.name compare:@"Date Issued"] == NSOrderedSame) {
+                dateIssuedType = dateType;
+            }
+        }
+    }
+    
+    // Fetch all GPCatalogPeopleTypes(s).
+    NSFetchRequest * gpCatalogPeopleTypeFetch = [NSFetchRequest fetchRequestWithEntityName:@"GPCatalogPeopleType"];
+    NSArray * gpCatalogPeopleTypes = [self.managedObjectContext executeFetchRequest:gpCatalogPeopleTypeFetch error:nil];
+    // Get "Designer" and "Engraver"
+    GPCatalogPeopleType * designerType;
+    GPCatalogPeopleType * engraverType;
+    if (gpCatalogPeopleTypes) {
+        for (GPCatalogPeopleType * personType in gpCatalogPeopleTypes) {
+            if ([personType.name compare:@"Designer"] == NSOrderedSame) {
+                designerType = personType;
+            }
+            else if ([personType.name compare:@"Engraver"] == NSOrderedSame) {
+                engraverType = personType;
+            }
+        }
+    }
+    
+    // Fetch all GPCatalogQuantityType(s).
+    NSFetchRequest * gpCatalogQuantityTypeFetch = [NSFetchRequest fetchRequestWithEntityName:@"GPCatalogQuantityType"];
+    NSArray * gpCatalogQuantityTypes = [self.managedObjectContext executeFetchRequest:gpCatalogQuantityTypeFetch error:nil];
+    // Get "Ordered" "Printed" and "Sold"
+    GPCatalogQuantityType * orderedType;
+    GPCatalogQuantityType * printedType;
+    GPCatalogQuantityType * soldType;
+    if (gpCatalogQuantityTypes) {
+        for (GPCatalogQuantityType * quantityType in gpCatalogQuantityTypes) {
+            if ([quantityType.name compare:@"Ordered"] == NSOrderedSame) {
+                orderedType = quantityType;
+            }
+            else if ([quantityType.name compare:@"Printed"] == NSOrderedSame) {
+                printedType = quantityType;
+            }
+            else if ([quantityType.name compare:@"Sold"] == NSOrderedSame) {
+                soldType = quantityType;
+            }
+        }
+    }
+    
+    NSDate * earliestDate = [NSDate dateWithString:@"1840-01-01 00:00:00 +0000"];
+    
+    NSUInteger catalogDateCount = 0;
+    NSUInteger catalogPersonCount = 0;
+    NSUInteger catalogQuantityCount = 0;
+    NSUInteger catalogPlateSizeCount = 0;
+    
+    // Enter main copy loop.
+    for (GPCatalog * catalogEntry in gpCatalogEntries) {
+        if (   dateDocumentedFirstUseType && catalogEntry.date_documented_first_use
+            && ([catalogEntry.date_documented_first_use compare:earliestDate] == NSOrderedDescending)) {
+            //NSLog(@"catalogEntry.date_documented_first_use %@", catalogEntry.date_documented_first_use);
+            
+            GPCatalogDate * catalogDate = [NSEntityDescription insertNewObjectForEntityForName:@"GPCatalogDate" inManagedObjectContext:self.managedObjectContext];
+            catalogDate.dateType = dateDocumentedFirstUseType;
+            catalogDate.catalogDate = catalogEntry.date_documented_first_use;
+            if (   catalogEntry.date_documented_first_use_exact
+                && [catalogEntry.date_documented_first_use_exact boolValue] == YES) {
+                catalogDate.dayExact = @(YES);
+                catalogDate.monthExact = @(YES);
+            }
+            
+            [catalogEntry addDatesObject:catalogDate];
+            catalogDateCount++;
+        }
+
+        if (   dateIssuedType && catalogEntry.date_issued
+            && ([catalogEntry.date_issued compare:earliestDate] == NSOrderedDescending)) {
+            GPCatalogDate * catalogDate = [NSEntityDescription insertNewObjectForEntityForName:@"GPCatalogDate" inManagedObjectContext:self.managedObjectContext];
+            catalogDate.dateType = dateIssuedType;
+            catalogDate.catalogDate = catalogEntry.date_issued;
+            if (   catalogEntry.date_issued_exact
+                && [catalogEntry.date_issued_exact boolValue] == YES) {
+                catalogDate.dayExact = @(YES);
+                catalogDate.monthExact = @(YES);
+            }
+            
+            [catalogEntry addDatesObject:catalogDate];
+            catalogDateCount++;
+        }
+        
+        if (designerType && catalogEntry.designers) {
+            // Delimeter of this field is ", "
+            NSArray * designers = [catalogEntry.designers componentsSeparatedByString:@", "];
+            for (NSString * designer in designers) {
+                GPCatalogPeople * catalogPerson = [NSEntityDescription insertNewObjectForEntityForName:@"GPCatalogPeople" inManagedObjectContext:self.managedObjectContext];
+                catalogPerson.peopleType = designerType;
+                catalogPerson.personName = designer;
+                
+                [catalogEntry addPeopleObject:catalogPerson];
+                catalogPersonCount++;
+            }
+        }
+        
+        if (engraverType && catalogEntry.engravers) {
+            // Delimeter of this field is ", "
+            NSArray * engravers = [catalogEntry.engravers componentsSeparatedByString:@", "];
+            for (NSString * engraver in engravers) {
+                GPCatalogPeople * catalogPerson = [NSEntityDescription insertNewObjectForEntityForName:@"GPCatalogPeople" inManagedObjectContext:self.managedObjectContext];
+                catalogPerson.peopleType = engraverType;
+                catalogPerson.personName = engraver;
+                
+                [catalogEntry addPeopleObject:catalogPerson];
+                catalogPersonCount++;
+            }
+        }
+        
+        if (   orderedType && catalogEntry.quantity_ordered
+            && ([catalogEntry.quantity_ordered integerValue] > 0)) {
+            GPCatalogQuantity * catalogQuantity = [NSEntityDescription insertNewObjectForEntityForName:@"GPCatalogQuantity" inManagedObjectContext:self.managedObjectContext];
+            catalogQuantity.quantityType = orderedType;
+            catalogQuantity.quantity = catalogEntry.quantity_ordered;
+            
+            [catalogEntry addQuantitiesObject:catalogQuantity];
+            catalogQuantityCount++;
+        }
+        
+        if (   printedType && catalogEntry.quantity_printed
+            && ([catalogEntry.quantity_printed integerValue] > 0)) {
+            GPCatalogQuantity * catalogQuantity = [NSEntityDescription insertNewObjectForEntityForName:@"GPCatalogQuantity" inManagedObjectContext:self.managedObjectContext];
+            catalogQuantity.quantityType = printedType;
+            catalogQuantity.quantity = catalogEntry.quantity_printed;
+            
+            [catalogEntry addQuantitiesObject:catalogQuantity];
+            catalogQuantityCount++;
+        }
+        
+        if (   soldType && catalogEntry.quantity_sold
+            && [catalogEntry.quantity_sold integerValue] > 0) {
+            GPCatalogQuantity * catalogQuantity = [NSEntityDescription insertNewObjectForEntityForName:@"GPCatalogQuantity" inManagedObjectContext:self.managedObjectContext];
+            catalogQuantity.quantityType = soldType;
+            catalogQuantity.quantity = catalogEntry.quantity_sold;
+            
+            [catalogEntry addQuantitiesObject:catalogQuantity];
+            catalogQuantityCount++;
+        }
+        
+        // If any of the plate size fields are non-zero, a GPPlateSize object should be created
+        if (   (catalogEntry.plate_size && [catalogEntry.plate_size integerValue] > 0)
+            || (catalogEntry.pane_size && [catalogEntry.pane_size integerValue] > 0)
+            || (catalogEntry.number_of_panes && [catalogEntry.number_of_panes integerValue] > 0)) {
+            GPPlateSize * plateSize = [NSEntityDescription insertNewObjectForEntityForName:@"GPPlateSize" inManagedObjectContext:self.managedObjectContext];
+            plateSize.plateSize = catalogEntry.plate_size;
+            plateSize.paneSize = catalogEntry.pane_size;
+            plateSize.numberOfPanes = catalogEntry.number_of_panes;
+            
+            [catalogEntry addPlateSizesObject:plateSize];
+            catalogPlateSizeCount++;
+        }
+    }
+    
+    NSAlert * errSheet = [NSAlert alertWithMessageText:@"Migrate Status" defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:@"%ld GPCatalogDates created.\n%ld GPCatalogPeople created.\n%ld GPCatalogQuantities created.\n%ld GPPlateSizes created.", catalogDateCount, catalogPersonCount, catalogQuantityCount, catalogPlateSizeCount];
+    [errSheet beginSheetModalForWindow:self.windowForSheet modalDelegate:nil didEndSelector:nil contextInfo:nil];
 }
 
 - (IBAction)deleteStampsAndCollections:(id)sender {
