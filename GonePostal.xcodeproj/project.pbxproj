@@ -147,7 +147,6 @@
 		1F49308C16D93A9B0094672A /* GPDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F49308B16D93A9B0094672A /* GPDocument.m */; };
 		1F49308F16D93A9B0094672A /* GPDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F49308D16D93A9B0094672A /* GPDocument.xib */; };
 		1F49309216D93A9B0094672A /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F49309016D93A9B0094672A /* MainMenu.xib */; };
-		1F49309D16D93A9B0094672A /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F49309C16D93A9B0094672A /* SenTestingKit.framework */; };
 		1F49309E16D93A9B0094672A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F49307816D93A9B0094672A /* Cocoa.framework */; };
 		1F4930A616D93A9B0094672A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1F4930A416D93A9B0094672A /* InfoPlist.strings */; };
 		1F4930A916D93A9B0094672A /* GonePostalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4930A816D93A9B0094672A /* GonePostalTests.m */; };
@@ -509,6 +508,7 @@
 		1F2E549B1707563600F177A0 /* PerfinCatalogName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerfinCatalogName.m; sourceTree = "<group>"; };
 		1F2E549E170759FB00F177A0 /* GPDocument 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "GPDocument 2.xcdatamodel"; sourceTree = "<group>"; };
 		1F2E549F170759FB00F177A0 /* GPDocument.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GPDocument.xcdatamodel; sourceTree = "<group>"; };
+		1F3C1365195CB12E00E7D406 /* GPDocument 29.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "GPDocument 29.xcdatamodel"; sourceTree = "<group>"; };
 		1F49307516D93A9B0094672A /* GonePostal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GonePostal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F49307816D93A9B0094672A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		1F49307B16D93A9B0094672A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -523,8 +523,7 @@
 		1F49308B16D93A9B0094672A /* GPDocument.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GPDocument.m; sourceTree = "<group>"; };
 		1F49308E16D93A9B0094672A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/GPDocument.xib; sourceTree = "<group>"; };
 		1F49309116D93A9B0094672A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		1F49309B16D93A9B0094672A /* GonePostalTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GonePostalTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1F49309C16D93A9B0094672A /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		1F49309B16D93A9B0094672A /* GonePostalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GonePostalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F4930A316D93A9B0094672A /* GonePostalTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GonePostalTests-Info.plist"; sourceTree = "<group>"; };
 		1F4930A516D93A9B0094672A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1F4930A716D93A9B0094672A /* GonePostalTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GonePostalTests.h; sourceTree = "<group>"; };
@@ -767,7 +766,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F49309D16D93A9B0094672A /* SenTestingKit.framework in Frameworks */,
 				1F49309E16D93A9B0094672A /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1044,7 +1042,7 @@
 			isa = PBXGroup;
 			children = (
 				1F49307516D93A9B0094672A /* GonePostal.app */,
-				1F49309B16D93A9B0094672A /* GonePostalTests.octest */,
+				1F49309B16D93A9B0094672A /* GonePostalTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1053,7 +1051,6 @@
 			isa = PBXGroup;
 			children = (
 				1F49307816D93A9B0094672A /* Cocoa.framework */,
-				1F49309C16D93A9B0094672A /* SenTestingKit.framework */,
 				1F49307B16D93A9B0094672A /* AppKit.framework */,
 				1F49307A16D93A9B0094672A /* Other Frameworks */,
 			);
@@ -1422,8 +1419,8 @@
 			);
 			name = GonePostalTests;
 			productName = GonePostalTests;
-			productReference = 1F49309B16D93A9B0094672A /* GonePostalTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productReference = 1F49309B16D93A9B0094672A /* GonePostalTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -1432,6 +1429,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = GP;
+				LastTestingUpgradeCheck = 0600;
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Travis Gruber";
 			};
@@ -1918,13 +1916,15 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/GonePostal.app/Contents/MacOS/GonePostal";
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(inherited)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GonePostal/GonePostal-Prefix.pch";
 				INFOPLIST_FILE = "GonePostalTests/GonePostalTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -1933,13 +1933,15 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/GonePostal.app/Contents/MacOS/GonePostal";
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(inherited)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GonePostal/GonePostal-Prefix.pch";
 				INFOPLIST_FILE = "GonePostalTests/GonePostalTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};
@@ -1979,6 +1981,7 @@
 		1F2E549D170759FB00F177A0 /* GPDocument.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				1F3C1365195CB12E00E7D406 /* GPDocument 29.xcdatamodel */,
 				1F6E8F4718C782010062746F /* GPDocument 28.xcdatamodel */,
 				1F6FEBF718BA76B800606C6B /* GPDocument 27.xcdatamodel */,
 				1F254E5F18B27480003A3CD7 /* GPDocument 25.xcdatamodel */,
@@ -2008,7 +2011,7 @@
 				1F2E549E170759FB00F177A0 /* GPDocument 2.xcdatamodel */,
 				1F2E549F170759FB00F177A0 /* GPDocument.xcdatamodel */,
 			);
-			currentVersion = 1F6E8F4718C782010062746F /* GPDocument 28.xcdatamodel */;
+			currentVersion = 1F3C1365195CB12E00E7D406 /* GPDocument 29.xcdatamodel */;
 			path = GPDocument.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

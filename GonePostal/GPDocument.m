@@ -351,7 +351,7 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
             self.assistedSearch = [NSEntityDescription insertNewObjectForEntityForName:@"StoredSearch" inManagedObjectContext:self.managedObjectContext];
         }
         
-        self.assistedSearch.identifier = [NSNumber numberWithInt:searchID];
+        self.assistedSearch.identifier = [NSNumber numberWithLong:searchID];
     }
 }
 
