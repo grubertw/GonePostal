@@ -9,6 +9,7 @@
 #import "GPStampViewer.h"
 #import "GPStampDetail.h"
 #import "Stamp.h"
+#import "Stamp+Create.h"
 #import "GPAddStampController.h"
 #import "GPSetChooser.h"
 #import "GPDocument.h"
@@ -20,6 +21,8 @@
 #import "Stamp+CreateComposite.h"
 #import "AlternateCatalog.h"
 #import "AlternateCatalogName.h"
+#import "GPCatalog.h"
+#import "GPValuationCalculator.h"
 
 @interface GPStampViewer ()
 @property (strong, nonatomic) NSColor * COLLECTION_COLOR;
@@ -637,6 +640,70 @@
 - (IBAction)cancelViewWantSellList:(id)sender {
     [NSApp endSheet:self.manageWantSellPanel];
     [self.manageWantSellPanel orderOut:sender];
+}
+
+- (IBAction)addMissingEntriesFromCatalogIntoWantList:(id)sender {
+    if (!self.inManageWantLists)
+        return;
+    GPCollection * selectedWantList = self.wantSellListsController.selectedObjects[0];
+    
+    // For now, scan entire GPCatalog for adding missing entries into the want list.
+    // Later, a screen should be presented that allows the user to filter by country+section
+    // (seporate from the current active assistedSearch in the GPDocument)
+    NSFetchRequest * catalogFetch = [NSFetchRequest fetchRequestWithEntityName:@"GPCatalog"];
+    NSPredicate * majorVarietySearch = [NSPredicate predicateWithFormat:BASE_GP_CATALOG_QUERY];
+    [catalogFetch setPredicate:majorVarietySearch];
+    
+    NSError * error;
+    NSArray * results = [self.managedObjectContext executeFetchRequest:catalogFetch error:&error];
+    
+    // Create the list of catalog entries to add that are mising from the user's
+    // current stamp collection.
+    NSMutableArray * entriesToAdd = [[NSMutableArray alloc] initWithCapacity:0];
+    if (results && ([results count] > 0)) {
+        for (GPCatalog * catalogEntry in results) {
+            bool alreadyInCollection = false;
+            
+            // Do not add entries that are already in collection
+            for (Stamp * stamp in self.myCollection.stamps) {
+                if ([catalogEntry.gp_catalog_number compare:stamp.gp_stamp_number] == NSOrderedSame) {
+                    alreadyInCollection = true;
+                    break;
+                }
+            }
+            
+            // Do not add entries into want list if they are already present.
+            for (Stamp * stamp in selectedWantList.stamps) {
+                if ([catalogEntry.gp_catalog_number compare:stamp.gp_stamp_number] == NSOrderedSame) {
+                    alreadyInCollection = true;
+                    break;
+                }
+            }
+            
+            if (!alreadyInCollection) {
+                [entriesToAdd addObject:catalogEntry];
+            }
+        }
+    }
+    
+    // Create the want-list stamps
+    for (GPCatalog * catalogEntry in entriesToAdd) {
+        Stamp * stamp = [Stamp CreateFromDefaultsUsingManagedObjectContext:self.managedObjectContext];
+        stamp.gpCatalog = catalogEntry;
+        stamp.gp_stamp_number = catalogEntry.gp_catalog_number;
+        
+        // Derive the catalog_value of the stamp from the Valuation data.
+        [GPValuationCalculator deriveCatalogValueOfStamp:stamp];
+        
+        [selectedWantList addStampsObject:stamp];
+    }
+    
+    // Save it!
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+    }
 }
 
 - (IBAction)returnToCollection:(id)sender {
