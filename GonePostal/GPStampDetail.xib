@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6245"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="GPStampDetail">
@@ -25,19 +26,19 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" animationBehavior="default" id="1">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+        <window title="Stamp Detail" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" animationBehavior="default" id="1">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="105" y="275" width="750" height="640"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="900"/>
+            <rect key="contentRect" x="105" y="275" width="770" height="640"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1080"/>
             <view key="contentView" id="2">
-                <rect key="frame" x="0.0" y="0.0" width="750" height="640"/>
+                <rect key="frame" x="0.0" y="0.0" width="770" height="640"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <box autoresizesSubviews="NO" fixedFrame="YES" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="5">
-                        <rect key="frame" x="2" y="545" width="330" height="90"/>
+                        <rect key="frame" x="2" y="545" width="349" height="90"/>
                         <view key="contentView">
-                            <rect key="frame" x="1" y="1" width="328" height="88"/>
+                            <rect key="frame" x="1" y="1" width="347" height="88"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="23">
@@ -132,7 +133,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="329">
-                                    <rect key="frame" x="236" y="5" width="85" height="23"/>
+                                    <rect key="frame" x="253" y="5" width="85" height="23"/>
                                     <buttonCell key="cell" type="squareTextured" title="Catalog Info" bezelStyle="texturedSquare" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="330">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -147,8 +148,8 @@
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <font key="titleFont" size="14" name="LucidaGrande"/>
                     </box>
-                    <scrollView fixedFrame="YES" borderType="groove" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" horizontalScrollElasticity="none" verticalScrollElasticity="allowed" translatesAutoresizingMaskIntoConstraints="NO" id="310">
-                        <rect key="frame" x="5" y="221" width="324" height="323"/>
+                    <scrollView fixedFrame="YES" borderType="groove" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" horizontalScrollElasticity="none" verticalScrollElasticity="allowed" translatesAutoresizingMaskIntoConstraints="NO" id="310">
+                        <rect key="frame" x="5" y="221" width="343" height="323"/>
                         <clipView key="contentView" ambiguous="YES" misplaced="YES" id="JtN-6j-meb">
                             <rect key="frame" x="2" y="2" width="320" height="319"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -162,13 +163,13 @@
                             <rect key="frame" x="-100" y="-100" width="307" height="15"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
-                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="313">
+                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="313">
                             <rect key="frame" x="-100" y="-100" width="15" height="319"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
                     <tabView fixedFrame="YES" type="rightTabsBezelBorder" initialItem="3027" translatesAutoresizingMaskIntoConstraints="NO" id="369">
-                        <rect key="frame" x="330" y="211" width="426" height="384"/>
+                        <rect key="frame" x="350" y="211" width="426" height="384"/>
                         <font key="font" metaFont="system" size="10"/>
                         <tabViewItems>
                             <tabViewItem label="Value" identifier="" id="3027">
@@ -176,7 +177,7 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3133">
-                                            <rect key="frame" x="5" y="302" width="286" height="18"/>
+                                            <rect key="frame" x="5" y="630" width="286" height="18"/>
                                             <buttonCell key="cell" type="check" title="Manual Value Overrides Catalog Value" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="3134">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -186,7 +187,7 @@
                                             </connections>
                                         </button>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3029">
-                                            <rect key="frame" x="-6" y="275" width="178" height="17"/>
+                                            <rect key="frame" x="-6" y="603" width="178" height="17"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Derived Catalog Value:" id="3030">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -194,7 +195,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3038">
-                                            <rect key="frame" x="179" y="274" width="131" height="18"/>
+                                            <rect key="frame" x="179" y="602" width="131" height="18"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="0" id="3039">
                                                 <numberFormatter key="formatter" formatterBehavior="default10_4" positiveFormat="¤ #,##0.00" negativeFormat="¤ #,##0.00" numberStyle="currency" paddingCharacter="*" minimumIntegerDigits="1" maximumIntegerDigits="309" minimumFractionDigits="2" maximumFractionDigits="2" decimalSeparator="." groupingSeparator="," currencyDecimalSeparator="." plusSign="+" minusSign="-" notANumberSymbol="NaN" perMillSymbol="‰" percentSymbol="%" exponentSymbol="E" positivePrefix="¤ " positiveSuffix="" negativePrefix="-¤ " negativeSuffix="" id="3053"/>
                                                 <font key="font" metaFont="system"/>
@@ -206,7 +207,7 @@
                                             </connections>
                                         </textField>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3072">
-                                            <rect key="frame" x="4" y="241" width="178" height="17"/>
+                                            <rect key="frame" x="4" y="569" width="178" height="17"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Value Derived From..." id="3075">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
@@ -214,7 +215,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3152">
-                                            <rect key="frame" x="143" y="99" width="111" height="23"/>
+                                            <rect key="frame" x="143" y="427" width="111" height="23"/>
                                             <buttonCell key="cell" type="squareTextured" title="Recalculate" bezelStyle="texturedSquare" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3153">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -224,7 +225,7 @@
                                             </connections>
                                         </button>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3160">
-                                            <rect key="frame" x="5" y="129" width="375" height="109"/>
+                                            <rect key="frame" x="5" y="457" width="375" height="109"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" allowsEditingTextAttributes="YES" id="3161">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -1136,7 +1137,7 @@
                         </tabViewItems>
                     </tabView>
                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="385">
-                        <rect key="frame" x="334" y="620" width="76" height="17"/>
+                        <rect key="frame" x="354" y="620" width="76" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Format" id="397">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1144,7 +1145,7 @@
                         </textFieldCell>
                     </textField>
                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="387">
-                        <rect key="frame" x="335" y="596" width="195" height="26"/>
+                        <rect key="frame" x="355" y="596" width="195" height="26"/>
                         <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="393" id="389">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="menu"/>
@@ -1163,7 +1164,7 @@
                         </connections>
                     </popUpButton>
                     <tabView fixedFrame="YES" initialItem="425" translatesAutoresizingMaskIntoConstraints="NO" id="424">
-                        <rect key="frame" x="-2" y="18" width="752" height="205"/>
+                        <rect key="frame" x="9" y="14" width="752" height="205"/>
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
                             <tabViewItem label="Condition" identifier="1" id="425">
@@ -1940,7 +1941,7 @@
                         </tabViewItems>
                     </tabView>
                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1034">
-                        <rect key="frame" x="597" y="620" width="126" height="17"/>
+                        <rect key="frame" x="617" y="620" width="126" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Manual Value" id="1039">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1948,7 +1949,7 @@
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1035">
-                        <rect key="frame" x="600" y="598" width="130" height="22"/>
+                        <rect key="frame" x="620" y="598" width="130" height="22"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1036">
                             <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="¤ #,##0.00" negativeFormat="¤ #,##0.00" numberStyle="currency" lenient="YES" paddingCharacter="*" minimumIntegerDigits="1" maximumIntegerDigits="309" minimumFractionDigits="2" maximumFractionDigits="2" decimalSeparator="." groupingSeparator="," currencyDecimalSeparator="." plusSign="+" minusSign="-" notANumberSymbol="NaN" perMillSymbol="‰" percentSymbol="%" exponentSymbol="E" positivePrefix="¤ " positiveSuffix="" negativePrefix="-¤ " negativeSuffix="" id="1038"/>
                             <font key="font" metaFont="system"/>
@@ -1960,7 +1961,7 @@
                         </connections>
                     </textField>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="386">
-                        <rect key="frame" x="533" y="604" width="61" height="18"/>
+                        <rect key="frame" x="553" y="604" width="61" height="18"/>
                         <buttonCell key="cell" type="check" title="Mint" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="395">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
@@ -1970,7 +1971,7 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2981">
-                        <rect key="frame" x="339" y="-2" width="73" height="32"/>
+                        <rect key="frame" x="349" y="-2" width="73" height="32"/>
                         <buttonCell key="cell" type="push" title="Done" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2982">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -1984,6 +1985,7 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="4"/>
             </connections>
+            <point key="canvasLocation" x="274" y="438"/>
         </window>
         <customView id="1835" userLabel="PictureScrollContent">
             <rect key="frame" x="0.0" y="0.0" width="323" height="2143"/>
@@ -2242,6 +2244,7 @@
                     </connections>
                 </button>
             </subviews>
+            <point key="canvasLocation" x="892.5" y="540.5"/>
         </customView>
         <arrayController mode="entity" entityName="StampFormat" editable="NO" automaticallyRearrangesObjects="YES" id="1655" userLabel="StampFormatsController">
             <connections>

@@ -805,13 +805,13 @@
         return;
     }
    
-    NSAlert * alertSheet = [NSAlert alertWithMessageText:nil defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:@"Composite %@ will be broken down into your collection. %ld stamps will be added.  Are you sure you wish to proceed?", composite.gp_stamp_number, [composite.children count]];
-    [alertSheet beginSheetModalForWindow:self.window modalDelegate:self didEndSelector:@selector(userConfirmedCompositeBreakdown:returnCode:contextInfo:) contextInfo:(__bridge void *)(composite)];
-}
-
-- (void)userConfirmedCompositeBreakdown:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
-    if (returnCode == NSAlertDefaultReturn && contextInfo != nil) {
-        Stamp * composite = (__bridge Stamp *)contextInfo;
+    NSAlert * alertSheet = [[NSAlert alloc] init];
+    [alertSheet addButtonWithTitle:@"Cancel"];
+    [alertSheet addButtonWithTitle:@"OK"];
+    [alertSheet setMessageText:@"break-down Composite"];
+    [alertSheet setInformativeText:[NSString stringWithFormat:@"Composite %@ will be broken down into your collection. %ld stamps will be added.  Are you sure you wish to proceed?", composite.gp_stamp_number, [composite.children count]]];
+    
+    if ([alertSheet runModal] == NSAlertSecondButtonReturn) {
         NSSet * children = [[NSSet alloc] initWithSet:[composite children]];
         
         for (Stamp * child in children) {
@@ -836,7 +836,6 @@
         
         NSError * error;
         if (![self.managedObjectContext save:&error]) {
-            [alert.window orderOut:self];
             NSAlert * errSheet = [NSAlert alertWithError:error];
             [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
             [self.managedObjectContext undo];
