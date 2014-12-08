@@ -13,11 +13,20 @@
 + (Stamp *)CreateFromDefaultsUsingManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
     Stamp * newStamp = [NSEntityDescription insertNewObjectForEntityForName:@"Stamp" inManagedObjectContext:managedObjectContext];
     
-    [newStamp setToDefaults];
+    Stamp * defaults = [newStamp setToDefaults];
+    
+    // Use the defaults to assign the gb_stamp_number as an incrementing count.
+    NSString * stampNumber = defaults.gp_stamp_number;
+    newStamp.gp_stamp_number = stampNumber;
+    
+    // Increment the count in defaults for the next stamp to be created.
+    NSInteger stampNumInc = [stampNumber integerValue] + 1;
+    defaults.gp_stamp_number = [NSString stringWithFormat:@"%ld", (long)stampNumInc];
+    
     return newStamp;
 }
 
-- (void)setToDefaults {
+- (Stamp *)setToDefaults {
     NSFetchRequest *fetch = [NSFetchRequest fetchRequestWithEntityName:@"Stamp"];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"is_default == YES"];
     [fetch setPredicate:predicate];
@@ -30,8 +39,10 @@
 	    abort();
     }
     
-    if (results && [results count] == 1) {
-        Stamp * defaults = results[0];
+    Stamp * defaults;
+    
+    if ([results count] == 1) {
+        defaults = results[0];
         
         self.address_type = defaults.address_type;
         self.cancelation_date = defaults.cancelation_date;
@@ -61,6 +72,8 @@
         self.mount = defaults.mount;
         self.soundness = defaults.soundness;
     }
+    
+    return defaults;
 }
 
 @end

@@ -826,15 +826,20 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
     return success;
 }
 
-- (BOOL)saveInPlace {
-    NSError * error;
-    BOOL rc = [self saveToURL:[self fileURL] ofType:[self fileType] forSaveOperation:NSSaveOperation error:&error];
-    
-    if (rc == NO) {
-        NSLog(@"Error saving to %@:  %@, %@", [[self fileURL] path], error, error.userInfo);
+void (^fileSaveHandler)(NSError * error) = ^(NSError * error){
+    if (error != nil) {
+        NSDocumentController * docController = [NSDocumentController sharedDocumentController];
+        GPDocument * doc = [docController currentDocument];
+        
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:[doc windowForSheet] modalDelegate:nil didEndSelector:nil contextInfo:nil];
     }
+};
+
+- (BOOL)saveInPlace {
+    [self saveToURL:[self fileURL] ofType:[self fileType] forSaveOperation:NSSaveOperation completionHandler:fileSaveHandler];
     
-    return rc;
+    return YES;
 }
 
 /*
@@ -978,6 +983,58 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
             [self.managedObjectContext deleteObject:collection];
         }
     }
+}
+
+- (IBAction)reNumberStampIDs:(id)sender {
+    // first fetch stamp defaults.
+    NSFetchRequest *fetch = [NSFetchRequest fetchRequestWithEntityName:@"Stamp"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"is_default == YES"];
+    [fetch setPredicate:predicate];
+    
+    NSArray *results = [self.managedObjectContext executeFetchRequest:fetch error:nil];
+    
+    Stamp * defaults;
+    
+    // Defaults must be created if it does not exist.
+    if ([results count] == 0) {
+        NSLog(@"reNumberStampIDs: Creating default stamp.");
+        defaults = [NSEntityDescription insertNewObjectForEntityForName:@"Stamp" inManagedObjectContext:self.managedObjectContext];
+        defaults.is_default = @(YES);
+    }
+    else if ([results count] == 1) {
+        NSLog(@"reNumberStampIDs: Found default stamp.");
+        defaults = results[0];
+    }
+    
+    if (defaults) {
+        long stampIDCounter = 1;
+        
+        // Fetch all regular stamps.
+        predicate = [NSPredicate predicateWithFormat:@"is_default == NO"];
+        [fetch setPredicate:predicate];
+        
+        NSArray * stamps = [self.managedObjectContext executeFetchRequest:fetch error:nil];
+        if ([stamps count] > 0) {
+            NSLog(@"reNumberStampIDs: %lu stamps found.", (unsigned long)[stamps count]);
+            
+            NSSortDescriptor *stampSort = [[NSSortDescriptor alloc] initWithKey:@"gpCatalog.gp_catalog_number" ascending:YES];
+            NSSortDescriptor *formatSort = [[NSSortDescriptor alloc] initWithKey:@"format.name" ascending:YES];
+            NSArray * stampSortDescriptors = @[stampSort, formatSort];
+            
+            NSArray * sortedStamps = [stamps sortedArrayUsingDescriptors:stampSortDescriptors];
+            
+            for (Stamp * stamp in sortedStamps) {
+                stamp.gp_stamp_number = [NSString stringWithFormat:@"%ld", stampIDCounter];
+                stampIDCounter++;
+            }
+        }
+        
+        defaults.gp_stamp_number = [NSString stringWithFormat:@"%ld", stampIDCounter];
+        
+        NSLog(@"reNumberStampIDs: last stamp ID is %@.", defaults.gp_stamp_number);
+    }
+    
+    [self.managedObjectContext save:nil];
 }
 
 @end

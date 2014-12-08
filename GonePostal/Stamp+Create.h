@@ -12,6 +12,8 @@
 
 + (Stamp *)CreateFromDefaultsUsingManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
 
-- (void)setToDefaults;
+// Sets self instance of the stamp to the stamp defaults and returns a pointer
+// to the defaults object used.
+- (Stamp *)setToDefaults;
 
 @end

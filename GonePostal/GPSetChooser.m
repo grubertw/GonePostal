@@ -138,8 +138,7 @@
     
     for (GPCatalog * entry in entries) {
         Stamp * stamp = [Stamp CreateFromDefaultsUsingManagedObjectContext:self.managedObjectContext];
-        
-        stamp.gp_stamp_number = entry.gp_catalog_number;
+
         stamp.gpCatalog = entry;
         [stamps addObject:stamp];
     }

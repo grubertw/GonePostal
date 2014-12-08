@@ -20,7 +20,6 @@
     dup.census_id = self.census_id;
     dup.certificates = self.certificates;
     dup.faults = self.faults;
-    dup.gp_stamp_number = self.gp_stamp_number;
     dup.history = self.history;
     dup.inprint_1 = self.inprint_1;
     dup.inprint_2 = self.inprint_2;
@@ -60,6 +59,23 @@
     dup.mount = self.mount;
     dup.perfin = self.perfin;
     dup.soundness = self.soundness;
+    
+    // Stamp number must be obtained from the defaults.
+    NSFetchRequest *fetch = [NSFetchRequest fetchRequestWithEntityName:@"Stamp"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"is_default == YES"];
+    [fetch setPredicate:predicate];
+    
+    NSArray *results = [self.managedObjectContext executeFetchRequest:fetch error:nil];
+    if ([results count] == 1) {
+        Stamp * defaults = results[0];
+        
+        NSString * stampNumber = defaults.gp_stamp_number;
+        dup.gp_stamp_number = stampNumber;
+        
+        // Increment the count in defaults for the next stamp to be created.
+        NSInteger stampNumInc = [stampNumber integerValue] + 1;
+        defaults.gp_stamp_number = [NSString stringWithFormat:@"%ld", (long)stampNumInc];
+    }
     
     return dup;
 }

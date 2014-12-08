@@ -230,7 +230,6 @@ static NSString * NEW_STAMP_PAGE_TITLE = @"Specify Stamp Specifics";
 - (IBAction)quickAdd:(id)sender {
     Stamp * stamp = [Stamp CreateFromDefaultsUsingManagedObjectContext:self.managedObjectContext];
     stamp.gpCatalog = self.gpCatalogPage.selectedGPCatalog;
-    stamp.gp_stamp_number = self.gpCatalogPage.selectedGPCatalog.gp_catalog_number;
     
     // Derive the catalog_value of the stamp from the Valuation data.
     [GPValuationCalculator deriveCatalogValueOfStamp:stamp];

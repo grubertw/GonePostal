@@ -176,9 +176,6 @@
     
     Stamp * stamp = [self.stampController content];
     [stamp setGpCatalog:gpCatalog];
-    
-    // Copy the GPID from the catalog into the stamp.
-    [stamp setGp_stamp_number:gpCatalog.gp_catalog_number];
 }
 
 - (void)addStampObservers {

@@ -127,7 +127,7 @@
         _formatsPredicate = formatsPredicate;
         _locationsPredicate = locationsPredicate;
         
-        NSSortDescriptor *stampSort = [[NSSortDescriptor alloc] initWithKey:@"gp_stamp_number" ascending:YES];
+        NSSortDescriptor *stampSort = [[NSSortDescriptor alloc] initWithKey:@"gpCatalog.gp_catalog_number" ascending:YES];
         NSSortDescriptor *formatSort = [[NSSortDescriptor alloc] initWithKey:@"format.name" ascending:YES];
         _stampSortDescriptors = @[stampSort, formatSort];
         
@@ -690,7 +690,6 @@
     for (GPCatalog * catalogEntry in entriesToAdd) {
         Stamp * stamp = [Stamp CreateFromDefaultsUsingManagedObjectContext:self.managedObjectContext];
         stamp.gpCatalog = catalogEntry;
-        stamp.gp_stamp_number = catalogEntry.gp_catalog_number;
         
         // Derive the catalog_value of the stamp from the Valuation data.
         [GPValuationCalculator deriveCatalogValueOfStamp:stamp];

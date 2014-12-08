@@ -50,20 +50,36 @@ const NSInteger COMPOSITE_TYPE_INTEGRAL                     = 3;
     if (!set || [set count] == 0) return nil;
     
     // Sort the set to find out the lowest GPID.
-    NSSortDescriptor * stampSort = [[NSSortDescriptor alloc] initWithKey:@"gp_stamp_number" ascending:NO];
+    NSSortDescriptor * stampSort = [[NSSortDescriptor alloc] initWithKey:@"gpCatalog.gp_catalog_number" ascending:NO];
     NSArray * sortDescs = @[stampSort];
     
     NSArray * sortedSet = [set sortedArrayUsingDescriptors:sortDescs];
     Stamp * representingStamp = sortedSet[0];
     
-    NSString * repGPID = representingStamp.gp_stamp_number;
+    NSString * repGPID = representingStamp.gpCatalog.gp_catalog_number;
     Country * country = representingStamp.gpCatalog.country;
     GPCatalogGroup * section = representingStamp.gpCatalog.catalogGroup;
     
     // Create the composite.
     Stamp * composite = [NSEntityDescription insertNewObjectForEntityForName:@"Stamp" inManagedObjectContext:[[set anyObject] managedObjectContext]];
-    composite.gp_stamp_number = repGPID;
     composite.parentType = @(type);
+    
+    // Stamp number must be obtained from the defaults.
+    NSFetchRequest *fetch = [NSFetchRequest fetchRequestWithEntityName:@"Stamp"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"is_default == YES"];
+    [fetch setPredicate:predicate];
+    
+    NSArray *results = [representingStamp.managedObjectContext executeFetchRequest:fetch error:nil];
+    if ([results count] == 1) {
+        Stamp * defaults = results[0];
+        
+        NSString * stampNumber = defaults.gp_stamp_number;
+        composite.gp_stamp_number = stampNumber;
+        
+        // Increment the count in defaults for the next stamp to be created.
+        NSInteger stampNumInc = [stampNumber integerValue] + 1;
+        defaults.gp_stamp_number = [NSString stringWithFormat:@"%ld", (long)stampNumInc];
+    }
     
     // Create a dummy GPCatalog entry for sorting by country and section.
     GPCatalog * dummyEntry = [NSEntityDescription insertNewObjectForEntityForName:@"GPCatalog" inManagedObjectContext:composite.managedObjectContext];

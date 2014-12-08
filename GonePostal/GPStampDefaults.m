@@ -68,11 +68,6 @@
         if (results && [results count] == 1) {
             _stamp = results[0];
         }
-        else {
-            _stamp = [NSEntityDescription insertNewObjectForEntityForName:@"Stamp" inManagedObjectContext:self.managedObjectContext];
-            self.stamp.is_default = @(YES);
-        }
-        
     }
     
     return self;
