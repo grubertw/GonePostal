@@ -199,7 +199,7 @@
     NSInteger tabIndexToInsert = 0;
     
     // Show or hide the tabs, based on the display BOOLs of the StampFormat.
-    if (stamp.format.displayCachetInfo) {
+    if ([stamp.format.displayCachetInfo isEqualToNumber:@(YES)]) {
         if ([self.sideTabs indexOfTabViewItem:self.cachetTab] == NSNotFound) {
             [self.sideTabs insertTabViewItem:self.cachetTab atIndex:tabIndexToInsert];
         }
@@ -211,7 +211,7 @@
         }
     }
     
-    if (stamp.format.displayPlateInfo) {
+    if ([stamp.format.displayPlateInfo isEqualToNumber:@(YES)]) {
         if ([self.sideTabs indexOfTabViewItem:self.platesTab] == NSNotFound) {
             [self.sideTabs insertTabViewItem:self.platesTab atIndex:tabIndexToInsert];
         }
@@ -223,7 +223,7 @@
         }
     }
     
-    if (stamp.format.displayPerfinInfo) {
+    if ([stamp.format.displayPerfinInfo isEqualToNumber:@(YES)]) {
         if ([self.sideTabs indexOfTabViewItem:self.perfinsTab] == NSNotFound) {
             [self.sideTabs insertTabViewItem:self.perfinsTab atIndex:tabIndexToInsert];
         }
