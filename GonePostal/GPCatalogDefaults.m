@@ -12,7 +12,7 @@
 #import "AlternateCatalog.h"
 
 @interface GPCatalogDefaults ()
-
+@property (weak, nonatomic) IBOutlet NSArrayController * allowedStampFormatsController;
 @end
 
 @implementation GPCatalogDefaults
@@ -24,7 +24,7 @@
         NSSortDescriptor *countrySort = [[NSSortDescriptor alloc] initWithKey:@"country_sort_id" ascending:YES];
         _countriesSortDescriptors = @[countrySort];
         
-        NSSortDescriptor *formatSort = [[NSSortDescriptor alloc] initWithKey:@"formatName" ascending:YES];
+        NSSortDescriptor *formatSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
         _formatsSortDescriptors = @[formatSort];
         
         NSSortDescriptor *gpGroupSort = [[NSSortDescriptor alloc] initWithKey:@"group_name" ascending:YES];
@@ -84,6 +84,32 @@
         [entry addAlternateCatalogsObject:altCatalog];
         
         [self.gpCatalogDefaultsController setContent:entry];
+    }
+}
+
+- (IBAction)addAllowedStampFormat:(id)sender {
+    if (self.allowedStampFormatToAdd == nil) return;
+    
+    [self.allowedStampFormatsController addObject:self.allowedStampFormatToAdd];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
+}
+
+- (IBAction)removeAllowedStampFormat:(id)sender {
+    [self.allowedStampFormatsController remove:self];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
     }
 }
 

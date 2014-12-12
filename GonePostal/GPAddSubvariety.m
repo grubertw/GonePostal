@@ -13,6 +13,7 @@
 
 @interface GPAddSubvariety ()
 @property (strong, nonatomic) IBOutlet NSArrayController * alternateCatalogsController;
+@property (weak, nonatomic) IBOutlet NSArrayController * allowedStampFormatsController;
 
 @property (weak, nonatomic) IBOutlet NSTableView * addedGPIDsTable;
 @property (strong, nonatomic) IBOutlet NSArrayController * addedGPIDsController;
@@ -33,7 +34,7 @@
         NSSortDescriptor *gpCatalogSort = [[NSSortDescriptor alloc] initWithKey:@"gp_catalog_number" ascending:NO];
         _gpCatalogSortDescriptors = @[gpCatalogSort];
         
-        NSSortDescriptor *formatSort = [[NSSortDescriptor alloc] initWithKey:@"formatName" ascending:YES];
+        NSSortDescriptor *formatSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
         _formatsSortDescriptors = @[formatSort];
         
         NSSortDescriptor *altCatalogSort = [[NSSortDescriptor alloc] initWithKey:@"alternateCatalogName.alternate_catalog_name" ascending:YES];
@@ -134,6 +135,32 @@
 
 - (IBAction)addAlternateCatalogEntry:(id)sender {
     [self.alternateCatalogsController add:self];
+}
+
+- (IBAction)addAllowedStampFormat:(id)sender {
+    if (self.allowedStampFormatToAdd == nil) return;
+    
+    [self.allowedStampFormatsController addObject:self.allowedStampFormatToAdd];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
+}
+
+- (IBAction)removeAllowedStampFormat:(id)sender {
+    [self.allowedStampFormatsController remove:self];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
 }
 
 - (IBAction)save:(id)sender {

@@ -2,7 +2,7 @@
 //  Stamp.h
 //  GonePostal
 //
-//  Created by Travis Gruber on 1/5/14.
+//  Created by Travis Gruber on 12/10/14.
 //  Copyright (c) 2014 Travis Gruber. All rights reserved.
 //
 
@@ -20,6 +20,11 @@
 @property (nonatomic, retain) NSString * alternate_picture_4;
 @property (nonatomic, retain) NSString * alternate_picture_5;
 @property (nonatomic, retain) NSString * alternate_picture_6;
+@property (nonatomic, retain) NSNumber * blockHasPlateNumber;
+@property (nonatomic, retain) NSNumber * blockSelvageBottom;
+@property (nonatomic, retain) NSNumber * blockSelvageLeft;
+@property (nonatomic, retain) NSNumber * blockSelvageRight;
+@property (nonatomic, retain) NSNumber * blockSelvageTop;
 @property (nonatomic, retain) NSDate * cancelation_date;
 @property (nonatomic, retain) NSString * cancelation_type;
 @property (nonatomic, retain) NSNumber * catalog_value;
@@ -34,13 +39,17 @@
 @property (nonatomic, retain) NSString * inprint_1;
 @property (nonatomic, retain) NSString * inprint_2;
 @property (nonatomic, retain) NSNumber * inventory_number;
+@property (nonatomic, retain) NSNumber * irregularBlock;
 @property (nonatomic, retain) NSNumber * is_default;
 @property (nonatomic, retain) NSNumber * last_sale_price;
 @property (nonatomic, retain) NSNumber * manual_value;
 @property (nonatomic, retain) NSNumber * manual_value_overrides_catalog_value;
 @property (nonatomic, retain) NSNumber * mint_used;
+@property (nonatomic, retain) NSNumber * modifiedByUser;
 @property (nonatomic, retain) NSString * notes;
 @property (nonatomic, retain) NSNumber * numStampsInBlock;
+@property (nonatomic, retain) NSNumber * numStampsInBlockHorrizontal;
+@property (nonatomic, retain) NSNumber * numStampsInBlockVertical;
 @property (nonatomic, retain) NSNumber * parentType;
 @property (nonatomic, retain) NSString * plate_1;
 @property (nonatomic, retain) NSString * plate_2;
@@ -54,15 +63,8 @@
 @property (nonatomic, retain) NSString * plate_position;
 @property (nonatomic, retain) NSNumber * purchase_amount;
 @property (nonatomic, retain) NSDate * purchase_date;
+@property (nonatomic, retain) NSString * serial_number;
 @property (nonatomic, retain) NSString * source;
-@property (nonatomic, retain) NSNumber * numStampsInBlockVertical;
-@property (nonatomic, retain) NSNumber * numStampsInBlockHorrizontal;
-@property (nonatomic, retain) NSNumber * irregularBlock;
-@property (nonatomic, retain) NSNumber * blockHasPlateNumber;
-@property (nonatomic, retain) NSNumber * blockSelvageTop;
-@property (nonatomic, retain) NSNumber * blockSelvageBottom;
-@property (nonatomic, retain) NSNumber * blockSelvageLeft;
-@property (nonatomic, retain) NSNumber * blockSelvageRight;
 @property (nonatomic, retain) BureauPrecancel *bureauPrecancel;
 @property (nonatomic, retain) Cachet *cachet;
 @property (nonatomic, retain) CancelQuality *cancelQuality;

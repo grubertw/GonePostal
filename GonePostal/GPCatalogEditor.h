@@ -17,6 +17,7 @@
 #import "GPSectionSearch.h"
 #import "GPFilterSearch.h"
 #import "GPSubvarietySearch.h"
+#import "StampFormat.h"
 
 @interface GPCatalogEditor : NSWindowController <NSTableViewDelegate, NSTextFieldDelegate>
 
@@ -76,6 +77,9 @@
 
 // Used when adding GPCatalog entries to a GPCatalogSet.
 @property (strong, nonatomic) GPCatalogSet * selectedSet;
+
+// Used when adding allowed stamp formats to a GPCatalog entrey.
+@property (strong, nonatomic) StampFormat * allowedStampFormatToAdd;
 
 - (void)loadSubvarieties:(GPCatalog *)majorVariety;
 

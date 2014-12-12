@@ -2,7 +2,7 @@
 //  GPCatalog.m
 //  GonePostal
 //
-//  Created by Travis Gruber on 2/23/14.
+//  Created by Travis Gruber on 12/10/14.
 //  Copyright (c) 2014 Travis Gruber. All rights reserved.
 //
 
@@ -30,6 +30,7 @@
 #import "PlateNumber.h"
 #import "PlateUsage.h"
 #import "Stamp.h"
+#import "StampFormat.h"
 #import "Topic.h"
 #import "Valuation.h"
 
@@ -73,6 +74,7 @@
 @dynamic issue_name;
 @dynamic knife;
 @dynamic long_description;
+@dynamic modifiedByUser;
 @dynamic multiple_transfer;
 @dynamic number_of_panes;
 @dynamic number_of_plates;
@@ -120,6 +122,7 @@
 @dynamic watermark;
 @dynamic watermark_error;
 @dynamic watermark_variation;
+@dynamic allowedStampFormats;
 @dynamic alternateCatalogs;
 @dynamic attachments;
 @dynamic bureauPrecancels;
@@ -140,12 +143,12 @@
 @dynamic plateNumbers;
 @dynamic plateSizes;
 @dynamic plateUsage;
+@dynamic quantities;
 @dynamic salesGroup;
 @dynamic stamps;
 @dynamic subvarieties;
 @dynamic subvarietyType;
 @dynamic topics;
 @dynamic values;
-@dynamic quantities;
 
 @end

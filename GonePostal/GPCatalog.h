@@ -2,14 +2,14 @@
 //  GPCatalog.h
 //  GonePostal
 //
-//  Created by Travis Gruber on 2/23/14.
+//  Created by Travis Gruber on 12/10/14.
 //  Copyright (c) 2014 Travis Gruber. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class AlternateCatalog, AlternateCatalogName, Attachment, BureauPrecancel, Cachet, Cancelations, Country, Format, GPCatalog, GPCatalogDate, GPCatalogGroup, GPCatalogPeople, GPCatalogQuantity, GPCatalogSet, GPPicture, GPPlateSize, GPSalesGroup, GPSubvarietyType, LooksLike, NumberOfStampsInPlate, PlateNumber, PlateUsage, Stamp, Topic, Valuation;
+@class AlternateCatalog, AlternateCatalogName, Attachment, BureauPrecancel, Cachet, Cancelations, Country, Format, GPCatalog, GPCatalogDate, GPCatalogGroup, GPCatalogPeople, GPCatalogQuantity, GPCatalogSet, GPPicture, GPPlateSize, GPSalesGroup, GPSubvarietyType, LooksLike, NumberOfStampsInPlate, PlateNumber, PlateUsage, Stamp, StampFormat, Topic, Valuation;
 
 @interface GPCatalog : NSManagedObject
 
@@ -50,6 +50,7 @@
 @property (nonatomic, retain) NSString * issue_name;
 @property (nonatomic, retain) NSString * knife;
 @property (nonatomic, retain) NSString * long_description;
+@property (nonatomic, retain) NSNumber * modifiedByUser;
 @property (nonatomic, retain) NSNumber * multiple_transfer;
 @property (nonatomic, retain) NSNumber * number_of_panes;
 @property (nonatomic, retain) NSNumber * number_of_plates;
@@ -97,6 +98,7 @@
 @property (nonatomic, retain) NSString * watermark;
 @property (nonatomic, retain) NSNumber * watermark_error;
 @property (nonatomic, retain) NSNumber * watermark_variation;
+@property (nonatomic, retain) NSSet *allowedStampFormats;
 @property (nonatomic, retain) NSSet *alternateCatalogs;
 @property (nonatomic, retain) NSSet *attachments;
 @property (nonatomic, retain) NSSet *bureauPrecancels;
@@ -117,16 +119,21 @@
 @property (nonatomic, retain) NSSet *plateNumbers;
 @property (nonatomic, retain) NSSet *plateSizes;
 @property (nonatomic, retain) NSSet *plateUsage;
+@property (nonatomic, retain) NSSet *quantities;
 @property (nonatomic, retain) GPSalesGroup *salesGroup;
 @property (nonatomic, retain) NSSet *stamps;
 @property (nonatomic, retain) NSSet *subvarieties;
 @property (nonatomic, retain) GPSubvarietyType *subvarietyType;
 @property (nonatomic, retain) NSSet *topics;
 @property (nonatomic, retain) NSSet *values;
-@property (nonatomic, retain) NSSet *quantities;
 @end
 
 @interface GPCatalog (CoreDataGeneratedAccessors)
+
+- (void)addAllowedStampFormatsObject:(StampFormat *)value;
+- (void)removeAllowedStampFormatsObject:(StampFormat *)value;
+- (void)addAllowedStampFormats:(NSSet *)values;
+- (void)removeAllowedStampFormats:(NSSet *)values;
 
 - (void)addAlternateCatalogsObject:(AlternateCatalog *)value;
 - (void)removeAlternateCatalogsObject:(AlternateCatalog *)value;
@@ -203,6 +210,11 @@
 - (void)addPlateUsage:(NSSet *)values;
 - (void)removePlateUsage:(NSSet *)values;
 
+- (void)addQuantitiesObject:(GPCatalogQuantity *)value;
+- (void)removeQuantitiesObject:(GPCatalogQuantity *)value;
+- (void)addQuantities:(NSSet *)values;
+- (void)removeQuantities:(NSSet *)values;
+
 - (void)addStampsObject:(Stamp *)value;
 - (void)removeStampsObject:(Stamp *)value;
 - (void)addStamps:(NSSet *)values;
@@ -222,10 +234,5 @@
 - (void)removeValuesObject:(Valuation *)value;
 - (void)addValues:(NSSet *)values;
 - (void)removeValues:(NSSet *)values;
-
-- (void)addQuantitiesObject:(GPCatalogQuantity *)value;
-- (void)removeQuantitiesObject:(GPCatalogQuantity *)value;
-- (void)addQuantities:(NSSet *)values;
-- (void)removeQuantities:(NSSet *)values;
 
 @end

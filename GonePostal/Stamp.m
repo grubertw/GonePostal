@@ -2,7 +2,7 @@
 //  Stamp.m
 //  GonePostal
 //
-//  Created by Travis Gruber on 1/5/14.
+//  Created by Travis Gruber on 12/10/14.
 //  Copyright (c) 2014 Travis Gruber. All rights reserved.
 //
 
@@ -38,6 +38,11 @@
 @dynamic alternate_picture_4;
 @dynamic alternate_picture_5;
 @dynamic alternate_picture_6;
+@dynamic blockHasPlateNumber;
+@dynamic blockSelvageBottom;
+@dynamic blockSelvageLeft;
+@dynamic blockSelvageRight;
+@dynamic blockSelvageTop;
 @dynamic cancelation_date;
 @dynamic cancelation_type;
 @dynamic catalog_value;
@@ -52,13 +57,17 @@
 @dynamic inprint_1;
 @dynamic inprint_2;
 @dynamic inventory_number;
+@dynamic irregularBlock;
 @dynamic is_default;
 @dynamic last_sale_price;
 @dynamic manual_value;
 @dynamic manual_value_overrides_catalog_value;
 @dynamic mint_used;
+@dynamic modifiedByUser;
 @dynamic notes;
 @dynamic numStampsInBlock;
+@dynamic numStampsInBlockHorrizontal;
+@dynamic numStampsInBlockVertical;
 @dynamic parentType;
 @dynamic plate_1;
 @dynamic plate_2;
@@ -72,15 +81,8 @@
 @dynamic plate_position;
 @dynamic purchase_amount;
 @dynamic purchase_date;
+@dynamic serial_number;
 @dynamic source;
-@dynamic numStampsInBlockVertical;
-@dynamic numStampsInBlockHorrizontal;
-@dynamic irregularBlock;
-@dynamic blockHasPlateNumber;
-@dynamic blockSelvageTop;
-@dynamic blockSelvageBottom;
-@dynamic blockSelvageLeft;
-@dynamic blockSelvageRight;
 @dynamic bureauPrecancel;
 @dynamic cachet;
 @dynamic cancelQuality;

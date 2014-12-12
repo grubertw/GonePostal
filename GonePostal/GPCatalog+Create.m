@@ -99,7 +99,7 @@
         entry.catalogGroup = defaults.catalogGroup;
         entry.country = defaults.country;
         entry.defaultCatalogName = defaults.defaultCatalogName;
-        entry.formatType = defaults.formatType;
+        [entry addAllowedStampFormats:defaults.allowedStampFormats];
         
         AlternateCatalog * defaultAltCatalog;
         for (AlternateCatalog * ac in defaults.alternateCatalogs) {

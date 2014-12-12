@@ -52,6 +52,8 @@
 #import "GPStampDefaults.h"
 #import "GPDatabaseStats.h"
 #import "PlateNumber.h"
+#import "StampFormat.h"
+#import "Format.h"
 
 #import "GPFilenameTransformer.h"
 #import "GPAlternateCatalogNumberTransformer.h"
@@ -67,6 +69,7 @@
 #import "GPStampDescriptionTransformer.h"
 #import "GPPictureTransformer.h"
 #import "GPPlateNumberMasterDisplayTransformer.h"
+#import "GPAllowedStampFormatsTransformer.h"
 
 #import "CommonCrypto/CommonDigest.h"
 #import "ExceptionHandling/NSExceptionHandler.h"
@@ -284,6 +287,9 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
         
         id pictureTransformer = [[GPPictureTransformer alloc] initWithDocument:self];
         [NSValueTransformer setValueTransformer:pictureTransformer forName:@"GPPictureTransformer"];
+        
+        id allowedStampFormatsTransformer = [[GPAllowedStampFormatsTransformer alloc] init];
+        [NSValueTransformer setValueTransformer:allowedStampFormatsTransformer forName:@"GPAllowedStampFormatsTransformer"];
         
         // Configure the global exception handler
         NSExceptionHandler * defaultHandler = [NSExceptionHandler defaultExceptionHandler];
@@ -985,54 +991,25 @@ void (^fileSaveHandler)(NSError * error) = ^(NSError * error){
     }
 }
 
-- (IBAction)reNumberStampIDs:(id)sender {
-    // first fetch stamp defaults.
-    NSFetchRequest *fetch = [NSFetchRequest fetchRequestWithEntityName:@"Stamp"];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"is_default == YES"];
+- (IBAction)pushAllowedStampFormatsIntoCatalog:(id)sender {
+    // Pull every GPCatalog entry that is not the default.
+    NSFetchRequest *fetch = [NSFetchRequest fetchRequestWithEntityName:@"GPCatalog"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"is_default == 0"];
     [fetch setPredicate:predicate];
     
-    NSArray *results = [self.managedObjectContext executeFetchRequest:fetch error:nil];
+    // Execute the query
+    NSArray * results = [self.managedObjectContext executeFetchRequest:fetch error:nil];
+    NSLog(@"Fetched %ld catalog entries.", [results count]);
     
-    Stamp * defaults;
-    
-    // Defaults must be created if it does not exist.
-    if ([results count] == 0) {
-        NSLog(@"reNumberStampIDs: Creating default stamp.");
-        defaults = [NSEntityDescription insertNewObjectForEntityForName:@"Stamp" inManagedObjectContext:self.managedObjectContext];
-        defaults.is_default = @(YES);
-    }
-    else if ([results count] == 1) {
-        NSLog(@"reNumberStampIDs: Found default stamp.");
-        defaults = results[0];
+    NSInteger movedStampFormats = 0;
+    for (GPCatalog * gpCatalog in results) {
+        // Extract the allowedStampFromats from the formatType assigned to the entry and
+        // write into the resident allowedStampFromats set.
+        [gpCatalog addAllowedStampFormats:gpCatalog.formatType.allowedStampFormats];
+        movedStampFormats += [gpCatalog.allowedStampFormats count];
     }
     
-    if (defaults) {
-        long stampIDCounter = 1;
-        
-        // Fetch all regular stamps.
-        predicate = [NSPredicate predicateWithFormat:@"is_default == NO"];
-        [fetch setPredicate:predicate];
-        
-        NSArray * stamps = [self.managedObjectContext executeFetchRequest:fetch error:nil];
-        if ([stamps count] > 0) {
-            NSLog(@"reNumberStampIDs: %lu stamps found.", (unsigned long)[stamps count]);
-            
-            NSSortDescriptor *stampSort = [[NSSortDescriptor alloc] initWithKey:@"gpCatalog.gp_catalog_number" ascending:YES];
-            NSSortDescriptor *formatSort = [[NSSortDescriptor alloc] initWithKey:@"format.name" ascending:YES];
-            NSArray * stampSortDescriptors = @[stampSort, formatSort];
-            
-            NSArray * sortedStamps = [stamps sortedArrayUsingDescriptors:stampSortDescriptors];
-            
-            for (Stamp * stamp in sortedStamps) {
-                stamp.gp_stamp_number = [NSString stringWithFormat:@"%ld", stampIDCounter];
-                stampIDCounter++;
-            }
-        }
-        
-        defaults.gp_stamp_number = [NSString stringWithFormat:@"%ld", stampIDCounter];
-        
-        NSLog(@"reNumberStampIDs: last stamp ID is %@.", defaults.gp_stamp_number);
-    }
+    NSLog(@"Copied %ld StampFormats.", movedStampFormats);
     
     [self.managedObjectContext save:nil];
 }

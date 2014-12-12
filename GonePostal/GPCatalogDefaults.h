@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "AlternateCatalogGroup.h"
+#import "StampFormat.h"
 
 @interface GPCatalogDefaults : NSWindowController
 
@@ -22,6 +23,9 @@
 @property (weak, nonatomic) IBOutlet NSObjectController * gpCatalogDefaultsController;
 
 @property (strong, nonatomic) AlternateCatalogGroup * selectedAltCatalogSection;
+
+// Used when adding allowed stamp formats to a GPCatalog entrey.
+@property (strong, nonatomic) StampFormat * allowedStampFormatToAdd;
 
 - (IBAction)save:(id)sender;
 

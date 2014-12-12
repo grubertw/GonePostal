@@ -32,4 +32,7 @@
 
 @property (weak, nonatomic) IBOutlet NSTextField * quantityInput;
 
+// Used when adding allowed stamp formats to a GPCatalog entrey.
+@property (strong, nonatomic) StampFormat * allowedStampFormatToAdd;
+
 @end

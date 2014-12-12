@@ -2,14 +2,14 @@
 //  StampFormat.h
 //  GonePostal
 //
-//  Created by Travis Gruber on 8/4/13.
-//  Copyright (c) 2013 Travis Gruber. All rights reserved.
+//  Created by Travis Gruber on 12/10/14.
+//  Copyright (c) 2014 Travis Gruber. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Format, NumberOfStampsInPlate, Stamp, Valuation;
+@class Format, GPCatalog, NumberOfStampsInPlate, Stamp, Valuation;
 
 @interface StampFormat : NSManagedObject
 
@@ -17,11 +17,13 @@
 @property (nonatomic, retain) NSNumber * displayCachetInfo;
 @property (nonatomic, retain) NSNumber * displayCancelationInfo;
 @property (nonatomic, retain) NSNumber * displayLocalPrecancelInfo;
+@property (nonatomic, retain) NSNumber * displayNumberOfStamps;
 @property (nonatomic, retain) NSNumber * displayPerfinInfo;
 @property (nonatomic, retain) NSNumber * displayPlateInfo;
+@property (nonatomic, retain) NSNumber * modifiedByUser;
 @property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSNumber * displayNumberOfStamps;
 @property (nonatomic, retain) NSSet *containers;
+@property (nonatomic, retain) NSSet *gpCatalogEntries;
 @property (nonatomic, retain) NSSet *numberOfStampCombinations;
 @property (nonatomic, retain) NSSet *stamps;
 @property (nonatomic, retain) NSSet *values;
@@ -33,6 +35,11 @@
 - (void)removeContainersObject:(Format *)value;
 - (void)addContainers:(NSSet *)values;
 - (void)removeContainers:(NSSet *)values;
+
+- (void)addGpCatalogEntriesObject:(GPCatalog *)value;
+- (void)removeGpCatalogEntriesObject:(GPCatalog *)value;
+- (void)addGpCatalogEntries:(NSSet *)values;
+- (void)removeGpCatalogEntries:(NSSet *)values;
 
 - (void)addNumberOfStampCombinationsObject:(NumberOfStampsInPlate *)value;
 - (void)removeNumberOfStampCombinationsObject:(NumberOfStampsInPlate *)value;

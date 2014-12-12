@@ -103,6 +103,7 @@
 @property (weak, nonatomic) IBOutlet NSArrayController * gpCatalogPeopleController;
 @property (weak, nonatomic) IBOutlet NSArrayController * gpPlateSizeController;
 @property (weak, nonatomic) IBOutlet NSArrayController * gpCatalogQuantityController;
+@property (weak, nonatomic) IBOutlet NSArrayController * allowedStampFormatsController;
 
 @property (strong, nonatomic) NSMutableArray * gpCatalogEntries;
 
@@ -738,6 +739,32 @@
     [self.looksLikePopoverController setSelectedCatalogEntry:selectedEntry];
     
     [self.looksLikePopover showRelativeToRect:llButton.bounds ofView:sender preferredEdge:self.gpCatalogTable.selectedRow];
+}
+
+- (IBAction)addAllowedStampFormat:(id)sender {
+    if (self.allowedStampFormatToAdd == nil) return;
+    
+    [self.allowedStampFormatsController addObject:self.allowedStampFormatToAdd];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
+}
+
+- (IBAction)removeAllowedStampFormat:(id)sender {
+    [self.allowedStampFormatsController remove:self];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
 }
 
 - (IBAction)addAlternateCatalog:(id)sender {
