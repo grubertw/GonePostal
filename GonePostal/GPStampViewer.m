@@ -271,8 +271,8 @@
         for (NSUInteger row=0; row < [entries count]; row++) {
             Stamp * entry = entries[row];
             
-            if (searchType == 1) {
-                findOP = [entry.gp_stamp_number rangeOfString:typedValue];
+            if ((searchType == 1) && entry.gpCatalog) {
+                findOP = [entry.gpCatalog.gp_catalog_number rangeOfString:typedValue];
             }
             else if (searchType == 2) {
                 NSString * altCatalogNumber;
@@ -287,6 +287,9 @@
                 }
                 
                 findOP = [altCatalogNumber rangeOfString:typedValue];
+            }
+            else if (searchType == 3) {
+                findOP = [entry.gp_stamp_number rangeOfString:typedValue];
             }
             
             if (findOP.length > 0) {
