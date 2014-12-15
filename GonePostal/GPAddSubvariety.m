@@ -141,26 +141,10 @@
     if (self.allowedStampFormatToAdd == nil) return;
     
     [self.allowedStampFormatsController addObject:self.allowedStampFormatToAdd];
-    
-    NSError * error;
-    if (![self.managedObjectContext save:&error]) {
-        NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
-        [self.managedObjectContext undo];
-        return;
-    }
 }
 
 - (IBAction)removeAllowedStampFormat:(id)sender {
     [self.allowedStampFormatsController remove:self];
-    
-    NSError * error;
-    if (![self.managedObjectContext save:&error]) {
-        NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
-        [self.managedObjectContext undo];
-        return;
-    }
 }
 
 - (IBAction)save:(id)sender {

@@ -265,7 +265,7 @@
                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="1326">
                                                             <rect key="frame" x="0.0" y="95" width="196" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="GPID" id="1385">
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" placeholderString="121-11-100006700-SUB-10000100" id="1385">
                                                                 <font key="font" metaFont="system" size="14"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -453,19 +453,16 @@
                                                             </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" id="1340">
-                                                            <rect key="frame" x="856" y="7" width="114" height="17"/>
+                                                            <rect key="frame" x="874" y="95" width="71" height="15"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Cachet" id="1353">
-                                                                <font key="font" metaFont="system"/>
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Inventory #:" id="1353">
+                                                                <font key="font" metaFont="cellTitle"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
-                                                            <connections>
-                                                                <binding destination="1318" name="value" keyPath="objectValue.cachet.gp_cachet_number" id="1484"/>
-                                                            </connections>
                                                         </textField>
                                                         <button verticalHuggingPriority="750" id="1341">
-                                                            <rect key="frame" x="894" y="34" width="100" height="41"/>
+                                                            <rect key="frame" x="894" y="37" width="100" height="41"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <buttonCell key="cell" type="squareTextured" title="Detail" bezelStyle="texturedSquare" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1351">
                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -509,7 +506,7 @@
                                                             </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" id="2018">
-                                                            <rect key="frame" x="798" y="95" width="199" height="17"/>
+                                                            <rect key="frame" x="807" y="21" width="194" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Multi-Quantity Composite" id="2020">
                                                                 <font key="font" metaFont="systemBold"/>
@@ -572,7 +569,7 @@
                                                             </connections>
                                                         </box>
                                                         <textField verticalHuggingPriority="750" id="2168">
-                                                            <rect key="frame" x="798" y="77" width="129" height="17"/>
+                                                            <rect key="frame" x="807" y="3" width="129" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Number of Children:" id="2169">
                                                                 <font key="font" metaFont="cellTitle"/>
@@ -588,7 +585,7 @@
                                                             </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" id="2186">
-                                                            <rect key="frame" x="929" y="77" width="68" height="17"/>
+                                                            <rect key="frame" x="938" y="3" width="68" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="4" id="2187">
                                                                 <font key="font" metaFont="system"/>
@@ -606,6 +603,18 @@
                                                                         <string key="NSValueTransformerName">GPSetCounter</string>
                                                                     </dictionary>
                                                                 </binding>
+                                                            </connections>
+                                                        </textField>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="39p-vu-uTb" userLabel="stamp ID">
+                                                            <rect key="frame" x="944" y="95" width="57" height="15"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" placeholderString="9999999" id="8nn-e2-YKC">
+                                                                <font key="font" metaFont="systemBold" size="12"/>
+                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                            <connections>
+                                                                <binding destination="1318" name="value" keyPath="objectValue.gp_stamp_number" id="HFO-qH-zWh"/>
                                                             </connections>
                                                         </textField>
                                                     </subviews>
@@ -880,6 +889,11 @@
                             </binding>
                         </connections>
                     </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="D1C79C00-26D4-466A-8FEF-1C68343F1FA7" label="Uncatalogged+" paletteLabel="Add Cuncatalogged Stamp" tag="-1" id="8aV-tg-u4e">
+                        <connections>
+                            <action selector="openAddUncataloggedStampController:" target="-2" id="nE2-LM-IOF"/>
+                        </connections>
+                    </toolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
                     <toolbarItem reference="14"/>
@@ -887,6 +901,7 @@
                     <toolbarItem reference="13"/>
                     <toolbarItem reference="12"/>
                     <toolbarItem reference="2214"/>
+                    <toolbarItem reference="8aV-tg-u4e"/>
                     <toolbarItem reference="1276"/>
                     <toolbarItem reference="1696"/>
                     <toolbarItem reference="9"/>

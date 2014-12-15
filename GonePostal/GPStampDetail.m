@@ -43,6 +43,7 @@
 
 @property (weak, nonatomic) IBOutlet NSTextField *valuationDescription;
 
+@property (strong, nonatomic) IBOutlet NSArrayController * stampFormatsController;
 @property (strong, nonatomic) IBOutlet NSArrayController * saleHistoryController;
 @property (strong, nonatomic) IBOutlet NSArrayController * sellListsController;
 
@@ -176,6 +177,16 @@
     }
     else {
         [self.bottomTabs removeTabViewItem:self.saleHistoryTab];
+    }
+    
+    // Set the available stamps formats.
+    if (self.stamp.gpCatalog != nil) {
+        [self.stampFormatsController setContent:self.stamp.gpCatalog.allowedStampFormats];
+    }
+    else {
+        NSFetchRequest *fetch = [NSFetchRequest fetchRequestWithEntityName:@"StampFormat"];
+        NSArray * results = [self.managedObjectContext executeFetchRequest:fetch error:nil];
+        [self.stampFormatsController setContent:results];
     }
     
     // Register this object as a key-value observer of the stamp

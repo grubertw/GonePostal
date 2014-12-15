@@ -23,6 +23,7 @@
 #import "AlternateCatalogName.h"
 #import "GPCatalog.h"
 #import "GPValuationCalculator.h"
+#import "GPAddNoCatalogStampController.h"
 
 @interface GPStampViewer ()
 @property (strong, nonatomic) NSColor * COLLECTION_COLOR;
@@ -128,8 +129,8 @@
         _locationsPredicate = locationsPredicate;
         
         NSSortDescriptor *stampSort = [[NSSortDescriptor alloc] initWithKey:@"gpCatalog.gp_catalog_number" ascending:YES];
-        NSSortDescriptor *formatSort = [[NSSortDescriptor alloc] initWithKey:@"format.name" ascending:YES];
-        _stampSortDescriptors = @[stampSort, formatSort];
+        NSSortDescriptor *invSort = [[NSSortDescriptor alloc] initWithKey:@"gp_stamp_number" ascending:YES];
+        _stampSortDescriptors = @[stampSort, invSort];
         
         NSSortDescriptor *customSearchSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
         _customSearchSortDescriptors = @[customSearchSort];
@@ -426,6 +427,13 @@
     NSApplication * app = [NSApplication sharedApplication];
     
     [app beginSheet:self.locationSearchController.panel modalForWindow:self.window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
+}
+
+- (IBAction)openAddUncataloggedStampController:(id)sender {
+    GPAddNoCatalogStampController * controller = [[GPAddNoCatalogStampController alloc] initWithCollection:self.currStampsContainer];
+    
+    [self.document addWindowController:controller];
+    [controller.window makeKeyAndOrderFront:sender];
 }
 
 - (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {

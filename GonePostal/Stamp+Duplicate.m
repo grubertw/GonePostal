@@ -42,6 +42,7 @@
     dup.purchase_amount = self.purchase_amount;
     dup.purchase_date = self.purchase_date;
     dup.source = self.source;
+    dup.serial_number = self.serial_number;
     
     dup.bureauPrecancel = self.bureauPrecancel;
     dup.cachet = self.cachet;

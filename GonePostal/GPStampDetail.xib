@@ -18,6 +18,7 @@
                 <outlet property="sellListsController" destination="2949" id="2972"/>
                 <outlet property="sellListsTab" destination="2866" id="2973"/>
                 <outlet property="sideTabs" destination="369" id="2805"/>
+                <outlet property="stampFormatsController" destination="1655" id="zRH-vR-tOr"/>
                 <outlet property="stampPicsScrollContent" destination="1835" id="2012"/>
                 <outlet property="stampPicsScrollView" destination="310" id="2013"/>
                 <outlet property="valuationDescription" destination="3160" id="3203"/>
@@ -157,7 +158,7 @@
                                     <rect key="frame" x="85" y="6" width="116" height="18"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="10000000000" id="OHD-aB-6Y3">
-                                        <font key="font" metaFont="cellTitle"/>
+                                        <font key="font" metaFont="systemBold" size="12"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
@@ -168,8 +169,8 @@
                                 <textField verticalHuggingPriority="750" id="eqJ-yg-CnJ">
                                     <rect key="frame" x="5" y="6" width="78" height="18"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Stamp ID:" id="3iB-Qh-giD">
-                                        <font key="font" metaFont="systemBold" size="12"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Inventory #:" id="3iB-Qh-giD">
+                                        <font key="font" metaFont="cellTitle"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
@@ -2417,7 +2418,6 @@
             <connections>
                 <binding destination="-2" name="sortDescriptors" keyPath="self.formatSortDescriptors" id="1661"/>
                 <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="1657"/>
-                <binding destination="-2" name="contentSet" keyPath="self.stamp.gpCatalog.formatType.allowedStampFormats" id="2793"/>
             </connections>
         </arrayController>
         <arrayController mode="entity" entityName="Centering" editable="NO" automaticallyPreparesContent="YES" automaticallyRearrangesObjects="YES" id="1662" userLabel="CenteringsController">
