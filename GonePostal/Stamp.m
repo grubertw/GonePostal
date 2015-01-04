@@ -2,8 +2,8 @@
 //  Stamp.m
 //  GonePostal
 //
-//  Created by Travis Gruber on 12/10/14.
-//  Copyright (c) 2014 Travis Gruber. All rights reserved.
+//  Created by Travis Gruber on 1/3/15.
+//  Copyright (c) 2015 Travis Gruber. All rights reserved.
 //
 
 #import "Stamp.h"
@@ -52,6 +52,7 @@
 @dynamic composite_name;
 @dynamic default_picture;
 @dynamic faults;
+@dynamic folded;
 @dynamic gp_stamp_number;
 @dynamic history;
 @dynamic inprint_1;
@@ -68,6 +69,7 @@
 @dynamic numStampsInBlock;
 @dynamic numStampsInBlockHorrizontal;
 @dynamic numStampsInBlockVertical;
+@dynamic origionalPackaging;
 @dynamic parentType;
 @dynamic plate_1;
 @dynamic plate_2;

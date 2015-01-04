@@ -2,13 +2,14 @@
 //  StampFormat.m
 //  GonePostal
 //
-//  Created by Travis Gruber on 12/10/14.
-//  Copyright (c) 2014 Travis Gruber. All rights reserved.
+//  Created by Travis Gruber on 1/3/15.
+//  Copyright (c) 2015 Travis Gruber. All rights reserved.
 //
 
 #import "StampFormat.h"
 #import "Format.h"
 #import "GPCatalog.h"
+#import "GPCatalogAlbumSize.h"
 #import "NumberOfStampsInPlate.h"
 #import "Stamp.h"
 #import "Valuation.h"
@@ -25,6 +26,7 @@
 @dynamic displayPlateInfo;
 @dynamic modifiedByUser;
 @dynamic name;
+@dynamic albumSizes;
 @dynamic containers;
 @dynamic gpCatalogEntries;
 @dynamic numberOfStampCombinations;

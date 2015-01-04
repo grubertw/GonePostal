@@ -2,8 +2,8 @@
 //  Stamp.h
 //  GonePostal
 //
-//  Created by Travis Gruber on 12/10/14.
-//  Copyright (c) 2014 Travis Gruber. All rights reserved.
+//  Created by Travis Gruber on 1/3/15.
+//  Copyright (c) 2015 Travis Gruber. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -34,6 +34,7 @@
 @property (nonatomic, retain) NSString * composite_name;
 @property (nonatomic, retain) NSString * default_picture;
 @property (nonatomic, retain) NSString * faults;
+@property (nonatomic, retain) NSNumber * folded;
 @property (nonatomic, retain) NSString * gp_stamp_number;
 @property (nonatomic, retain) NSString * history;
 @property (nonatomic, retain) NSString * inprint_1;
@@ -50,6 +51,7 @@
 @property (nonatomic, retain) NSNumber * numStampsInBlock;
 @property (nonatomic, retain) NSNumber * numStampsInBlockHorrizontal;
 @property (nonatomic, retain) NSNumber * numStampsInBlockVertical;
+@property (nonatomic, retain) NSNumber * origionalPackaging;
 @property (nonatomic, retain) NSNumber * parentType;
 @property (nonatomic, retain) NSString * plate_1;
 @property (nonatomic, retain) NSString * plate_2;

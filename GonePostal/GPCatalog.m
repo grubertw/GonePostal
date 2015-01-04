@@ -2,8 +2,8 @@
 //  GPCatalog.m
 //  GonePostal
 //
-//  Created by Travis Gruber on 12/10/14.
-//  Copyright (c) 2014 Travis Gruber. All rights reserved.
+//  Created by Travis Gruber on 1/3/15.
+//  Copyright (c) 2015 Travis Gruber. All rights reserved.
 //
 
 #import "GPCatalog.h"
@@ -16,6 +16,7 @@
 #import "Country.h"
 #import "Format.h"
 #import "GPCatalog.h"
+#import "GPCatalogAlbumSize.h"
 #import "GPCatalogDate.h"
 #import "GPCatalogGroup.h"
 #import "GPCatalogPeople.h"
@@ -61,6 +62,7 @@
 @dynamic designers;
 @dynamic engravers;
 @dynamic envelope_size;
+@dynamic foldable;
 @dynamic gp_catalog_number;
 @dynamic gp_description;
 @dynamic gum;
@@ -80,6 +82,7 @@
 @dynamic number_of_plates;
 @dynamic number_of_plates_used;
 @dynamic other_error;
+@dynamic packaging;
 @dynamic pane_size;
 @dynamic paper_color;
 @dynamic paper_type;
@@ -122,6 +125,7 @@
 @dynamic watermark;
 @dynamic watermark_error;
 @dynamic watermark_variation;
+@dynamic albumSizes;
 @dynamic allowedStampFormats;
 @dynamic alternateCatalogs;
 @dynamic attachments;

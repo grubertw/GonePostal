@@ -41,6 +41,7 @@
 #import "PriceList.h"
 #import "Format.h"
 #import "StampFormat.h"
+#import "GPCatalogAlbumSize.h"
 
 // Private members.
 @interface GPCatalogEditor ()
@@ -104,6 +105,7 @@
 @property (weak, nonatomic) IBOutlet NSArrayController * gpPlateSizeController;
 @property (weak, nonatomic) IBOutlet NSArrayController * gpCatalogQuantityController;
 @property (weak, nonatomic) IBOutlet NSArrayController * allowedStampFormatsController;
+@property (weak, nonatomic) IBOutlet NSArrayController * gpCatalogAlbumSizeController;
 
 @property (strong, nonatomic) NSMutableArray * gpCatalogEntries;
 
@@ -270,6 +272,9 @@
         
         NSSortDescriptor *gpCatalogQuantitySort = [[NSSortDescriptor alloc] initWithKey:@"quantityType.name" ascending:YES];
         _gpCatalogQuantitySortDescriptors = @[gpCatalogQuantitySort];
+        
+        NSSortDescriptor *gpCatalogAlbumSizeSort = [[NSSortDescriptor alloc] initWithKey:@"format.name" ascending:YES];
+        _gpCatalogAlbumSizeSortDescriptors = @[gpCatalogAlbumSizeSort];
         
         // Initialize the assisted search panels.
         _countrySearchController = [[GPCountrySearch alloc] initWithPredicate:countriesPredicate forStamp:NO];
@@ -877,6 +882,53 @@
 
 - (IBAction)removeGPCatalogQuantity:(id)sender {
     [self.gpCatalogQuantityController remove:sender];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
+}
+
+- (IBAction)addGPCatalogAlbumSize:(id)sender {
+    [self.gpCatalogAlbumSizeController add:sender];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
+}
+
+- (IBAction)removeGPCatalogAlbumSize:(id)sender {
+    [self.gpCatalogAlbumSizeController remove:sender];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
+}
+
+- (IBAction)createAlbumSizesFromAvailableFormats:(id)sender {
+    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
+    if (entries.count > 0) {
+        GPCatalog * entry = [entries objectAtIndex:0];
+        NSSet * availableFormats = [entry allowedStampFormats];
+        
+        for (StampFormat * format in availableFormats) {
+            GPCatalogAlbumSize * albumSize = [NSEntityDescription insertNewObjectForEntityForName:@"GPCatalogAlbumSize" inManagedObjectContext:self.managedObjectContext];
+            albumSize.format = format;
+            
+            [entry addAlbumSizesObject:albumSize];
+        }
+    }
     
     NSError * error;
     if (![self.managedObjectContext save:&error]) {

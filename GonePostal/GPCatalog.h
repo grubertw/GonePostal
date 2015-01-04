@@ -2,14 +2,14 @@
 //  GPCatalog.h
 //  GonePostal
 //
-//  Created by Travis Gruber on 12/10/14.
-//  Copyright (c) 2014 Travis Gruber. All rights reserved.
+//  Created by Travis Gruber on 1/3/15.
+//  Copyright (c) 2015 Travis Gruber. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class AlternateCatalog, AlternateCatalogName, Attachment, BureauPrecancel, Cachet, Cancelations, Country, Format, GPCatalog, GPCatalogDate, GPCatalogGroup, GPCatalogPeople, GPCatalogQuantity, GPCatalogSet, GPPicture, GPPlateSize, GPSalesGroup, GPSubvarietyType, LooksLike, NumberOfStampsInPlate, PlateNumber, PlateUsage, Stamp, StampFormat, Topic, Valuation;
+@class AlternateCatalog, AlternateCatalogName, Attachment, BureauPrecancel, Cachet, Cancelations, Country, Format, GPCatalog, GPCatalogAlbumSize, GPCatalogDate, GPCatalogGroup, GPCatalogPeople, GPCatalogQuantity, GPCatalogSet, GPPicture, GPPlateSize, GPSalesGroup, GPSubvarietyType, LooksLike, NumberOfStampsInPlate, PlateNumber, PlateUsage, Stamp, StampFormat, Topic, Valuation;
 
 @interface GPCatalog : NSManagedObject
 
@@ -37,6 +37,7 @@
 @property (nonatomic, retain) NSString * designers;
 @property (nonatomic, retain) NSString * engravers;
 @property (nonatomic, retain) NSString * envelope_size;
+@property (nonatomic, retain) NSNumber * foldable;
 @property (nonatomic, retain) NSString * gp_catalog_number;
 @property (nonatomic, retain) NSString * gp_description;
 @property (nonatomic, retain) NSString * gum;
@@ -56,6 +57,7 @@
 @property (nonatomic, retain) NSNumber * number_of_plates;
 @property (nonatomic, retain) NSNumber * number_of_plates_used;
 @property (nonatomic, retain) NSNumber * other_error;
+@property (nonatomic, retain) NSNumber * packaging;
 @property (nonatomic, retain) NSNumber * pane_size;
 @property (nonatomic, retain) NSString * paper_color;
 @property (nonatomic, retain) NSString * paper_type;
@@ -98,6 +100,7 @@
 @property (nonatomic, retain) NSString * watermark;
 @property (nonatomic, retain) NSNumber * watermark_error;
 @property (nonatomic, retain) NSNumber * watermark_variation;
+@property (nonatomic, retain) NSSet *albumSizes;
 @property (nonatomic, retain) NSSet *allowedStampFormats;
 @property (nonatomic, retain) NSSet *alternateCatalogs;
 @property (nonatomic, retain) NSSet *attachments;
@@ -129,6 +132,11 @@
 @end
 
 @interface GPCatalog (CoreDataGeneratedAccessors)
+
+- (void)addAlbumSizesObject:(GPCatalogAlbumSize *)value;
+- (void)removeAlbumSizesObject:(GPCatalogAlbumSize *)value;
+- (void)addAlbumSizes:(NSSet *)values;
+- (void)removeAlbumSizes:(NSSet *)values;
 
 - (void)addAllowedStampFormatsObject:(StampFormat *)value;
 - (void)removeAllowedStampFormatsObject:(StampFormat *)value;

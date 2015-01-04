@@ -24,6 +24,7 @@
                 <outlet property="formatsController" destination="2247" id="2282"/>
                 <outlet property="gotoField" destination="8214" id="8285"/>
                 <outlet property="gotoPopup" destination="8242" id="8286"/>
+                <outlet property="gpCatalogAlbumSizeController" destination="fdx-7F-ueJ" id="QKK-Hz-Egs"/>
                 <outlet property="gpCatalogDateController" destination="cue-Nl-ITS" id="ro0-OJ-TXP"/>
                 <outlet property="gpCatalogDetailTabs" destination="509" id="ADc-2m-Wlb"/>
                 <outlet property="gpCatalogEntriesController" destination="2244" id="2283"/>
@@ -821,66 +822,14 @@
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <box autoresizesSubviews="NO" borderType="line" titlePosition="noTitle" id="cgp-E5-HOP">
-                                                            <rect key="frame" x="14" y="557" width="526" height="112"/>
+                                                            <rect key="frame" x="14" y="588" width="526" height="81"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <view key="contentView">
-                                                                <rect key="frame" x="1" y="1" width="524" height="110"/>
+                                                                <rect key="frame" x="1" y="1" width="524" height="79"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
-                                                                    <textField verticalHuggingPriority="750" id="YQy-V8-Lml">
-                                                                        <rect key="frame" x="7" y="91" width="109" height="17"/>
-                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Album Height" id="B1a-5k-Cbd">
-                                                                            <font key="font" metaFont="systemBold" size="12"/>
-                                                                            <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                        </textFieldCell>
-                                                                    </textField>
-                                                                    <textField verticalHuggingPriority="750" id="jhJ-sJ-T6X">
-                                                                        <rect key="frame" x="10" y="71" width="130" height="22"/>
-                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="xbK-E1-FcR">
-                                                                            <numberFormatter key="formatter" formatterBehavior="default10_4" positiveFormat="#,##0.###" negativeFormat="#,##0.###" numberStyle="decimal" paddingCharacter="*" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" decimalSeparator="." groupingSeparator="," currencyDecimalSeparator="." plusSign="+" minusSign="-" notANumberSymbol="NaN" perMillSymbol="‰" percentSymbol="%" exponentSymbol="E" positivePrefix="" positiveSuffix="" negativePrefix="-" negativeSuffix="" id="ddQ-Io-KXV"/>
-                                                                            <font key="font" metaFont="cellTitle"/>
-                                                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                                        </textFieldCell>
-                                                                        <connections>
-                                                                            <binding destination="2244" name="value" keyPath="selection.album_height" id="38D-36-GEB">
-                                                                                <dictionary key="options">
-                                                                                    <bool key="NSConditionallySetsEditable" value="NO"/>
-                                                                                </dictionary>
-                                                                            </binding>
-                                                                        </connections>
-                                                                    </textField>
-                                                                    <textField verticalHuggingPriority="750" id="Mer-vb-ryR">
-                                                                        <rect key="frame" x="152" y="91" width="105" height="17"/>
-                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Album Width" id="DUd-Fm-Kg0">
-                                                                            <font key="font" metaFont="systemBold" size="12"/>
-                                                                            <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                        </textFieldCell>
-                                                                    </textField>
-                                                                    <textField verticalHuggingPriority="750" id="YAS-YU-1IF">
-                                                                        <rect key="frame" x="155" y="71" width="106" height="22"/>
-                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="TBm-Ug-Vcq">
-                                                                            <numberFormatter key="formatter" formatterBehavior="default10_4" positiveFormat="#,##0.###" negativeFormat="#,##0.###" numberStyle="decimal" paddingCharacter="*" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" decimalSeparator="." groupingSeparator="," currencyDecimalSeparator="." plusSign="+" minusSign="-" notANumberSymbol="NaN" perMillSymbol="‰" percentSymbol="%" exponentSymbol="E" positivePrefix="" positiveSuffix="" negativePrefix="-" negativeSuffix="" id="YWu-qD-Itn"/>
-                                                                            <font key="font" metaFont="cellTitle"/>
-                                                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                                        </textFieldCell>
-                                                                        <connections>
-                                                                            <binding destination="2244" name="value" keyPath="selection.album_width" id="dDi-ge-Kcw">
-                                                                                <dictionary key="options">
-                                                                                    <bool key="NSConditionallySetsEditable" value="NO"/>
-                                                                                </dictionary>
-                                                                            </binding>
-                                                                        </connections>
-                                                                    </textField>
                                                                     <button id="EN8-uo-qio">
-                                                                        <rect key="frame" x="8" y="53" width="127" height="18"/>
+                                                                        <rect key="frame" x="9" y="51" width="127" height="18"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                         <buttonCell key="cell" type="check" title="Printing on Back" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="gx7-xz-XD0">
                                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -891,7 +840,7 @@
                                                                         </connections>
                                                                     </button>
                                                                     <textField verticalHuggingPriority="750" id="1eQ-Bq-ynb">
-                                                                        <rect key="frame" x="10" y="30" width="136" height="17"/>
+                                                                        <rect key="frame" x="11" y="28" width="136" height="17"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Envelope Size" id="9R9-gC-tZ0">
                                                                             <font key="font" metaFont="systemBold" size="12"/>
@@ -900,7 +849,7 @@
                                                                         </textFieldCell>
                                                                     </textField>
                                                                     <textField verticalHuggingPriority="750" id="etf-5X-GpQ">
-                                                                        <rect key="frame" x="10" y="11" width="156" height="21"/>
+                                                                        <rect key="frame" x="11" y="9" width="156" height="21"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="Kn6-dp-vYy">
                                                                             <font key="font" metaFont="cellTitle"/>
@@ -916,7 +865,7 @@
                                                                         </connections>
                                                                     </textField>
                                                                     <textField verticalHuggingPriority="750" id="tM1-4I-cum">
-                                                                        <rect key="frame" x="183" y="30" width="136" height="17"/>
+                                                                        <rect key="frame" x="184" y="28" width="136" height="17"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Knife" id="wCy-nD-vGe">
                                                                             <font key="font" metaFont="systemBold" size="12"/>
@@ -925,7 +874,7 @@
                                                                         </textFieldCell>
                                                                     </textField>
                                                                     <textField verticalHuggingPriority="750" id="3zN-ei-eWj">
-                                                                        <rect key="frame" x="183" y="11" width="156" height="21"/>
+                                                                        <rect key="frame" x="184" y="9" width="156" height="21"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="oE3-m8-cJn">
                                                                             <font key="font" metaFont="cellTitle"/>
@@ -940,13 +889,109 @@
                                                                             </binding>
                                                                         </connections>
                                                                     </textField>
+                                                                    <button id="zdy-c2-vI0">
+                                                                        <rect key="frame" x="180" y="51" width="162" height="18"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                        <buttonCell key="cell" type="check" title="Packaging" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="8F3-0k-1kG">
+                                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                            <font key="font" metaFont="system"/>
+                                                                        </buttonCell>
+                                                                        <connections>
+                                                                            <binding destination="2244" name="value" keyPath="selection.packaging" id="wQg-hQ-coE"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <button id="NKc-5i-K3k">
+                                                                        <rect key="frame" x="352" y="51" width="156" height="18"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                        <buttonCell key="cell" type="check" title="Foldable" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="QMF-fb-M9Z">
+                                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                            <font key="font" metaFont="system"/>
+                                                                        </buttonCell>
+                                                                        <connections>
+                                                                            <binding destination="2244" name="value" keyPath="selection.foldable" id="YfN-Gy-dAW"/>
+                                                                        </connections>
+                                                                    </button>
                                                                 </subviews>
                                                             </view>
                                                             <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                                             <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         </box>
+                                                        <box autoresizesSubviews="NO" title="Album Sizes" borderType="line" id="AfJ-Tn-5kb">
+                                                            <rect key="frame" x="14" y="415" width="526" height="169"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <view key="contentView">
+                                                                <rect key="frame" x="1" y="1" width="524" height="149"/>
+                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                <subviews>
+                                                                    <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="bc8-gw-x4A">
+                                                                        <rect key="frame" x="3" y="6" width="460" height="111"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                        <clipView key="contentView" id="sUg-aZ-WBb">
+                                                                            <rect key="frame" x="1" y="1" width="248" height="158"/>
+                                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                            <subviews>
+                                                                                <collectionView selectable="YES" id="Tod-VL-Htd">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="248" height="158"/>
+                                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                                    <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                                    <connections>
+                                                                                        <binding destination="fdx-7F-ueJ" name="content" keyPath="arrangedObjects" id="v7u-Yh-8wB"/>
+                                                                                        <binding destination="fdx-7F-ueJ" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="v7u-Yh-8wB" id="VMX-hW-QaQ"/>
+                                                                                        <outlet property="itemPrototype" destination="3GT-8N-JbT" id="gvd-th-UH1"/>
+                                                                                    </connections>
+                                                                                </collectionView>
+                                                                            </subviews>
+                                                                        </clipView>
+                                                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="lQX-bz-fa9">
+                                                                            <rect key="frame" x="1" y="144" width="233" height="15"/>
+                                                                            <autoresizingMask key="autoresizingMask"/>
+                                                                        </scroller>
+                                                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="OHt-UZ-DOw">
+                                                                            <rect key="frame" x="234" y="1" width="15" height="143"/>
+                                                                            <autoresizingMask key="autoresizingMask"/>
+                                                                        </scroller>
+                                                                    </scrollView>
+                                                                    <button verticalHuggingPriority="750" id="ugV-MD-pmE">
+                                                                        <rect key="frame" x="5" y="116" width="99" height="32"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                        <buttonCell key="cell" type="push" title="Create" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gbj-h0-jdb">
+                                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                            <font key="font" metaFont="system"/>
+                                                                        </buttonCell>
+                                                                        <connections>
+                                                                            <action selector="createAlbumSizesFromAvailableFormats:" target="-2" id="Kvv-RG-KxL"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <button verticalHuggingPriority="750" id="pzc-kT-LVX">
+                                                                        <rect key="frame" x="474" y="66" width="39" height="38"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                        <buttonCell key="cell" type="round" title="+" bezelStyle="circular" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hS3-jF-Mje">
+                                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                            <font key="font" metaFont="system"/>
+                                                                        </buttonCell>
+                                                                        <connections>
+                                                                            <action selector="addGPCatalogAlbumSize:" target="-2" id="9J7-lu-XsA"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <button verticalHuggingPriority="750" id="4br-HA-lTo">
+                                                                        <rect key="frame" x="474" y="21" width="39" height="38"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                        <buttonCell key="cell" type="round" title="-" bezelStyle="circular" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="dsH-Zw-Scv">
+                                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                            <font key="font" metaFont="system"/>
+                                                                        </buttonCell>
+                                                                        <connections>
+                                                                            <action selector="removeGPCatalogAlbumSize:" target="-2" id="wwB-rn-IP2"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                </subviews>
+                                                            </view>
+                                                            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                                            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <font key="titleFont" metaFont="systemBold" size="15"/>
+                                                        </box>
                                                         <box autoresizesSubviews="NO" title="Surcharge Information" borderType="line" id="BeE-1A-sWc">
-                                                            <rect key="frame" x="14" y="363" width="526" height="190"/>
+                                                            <rect key="frame" x="14" y="221" width="526" height="190"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <view key="contentView">
                                                                 <rect key="frame" x="1" y="1" width="524" height="170"/>
@@ -1085,7 +1130,7 @@
                                                             <font key="titleFont" metaFont="systemBold" size="15"/>
                                                         </box>
                                                         <box autoresizesSubviews="NO" title="Revenue Paper" borderType="line" id="5IW-Eb-Yoo">
-                                                            <rect key="frame" x="14" y="233" width="526" height="126"/>
+                                                            <rect key="frame" x="14" y="91" width="526" height="126"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <view key="contentView">
                                                                 <rect key="frame" x="1" y="1" width="524" height="106"/>
@@ -2371,6 +2416,7 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="4"/>
             </connections>
+            <point key="canvasLocation" x="322" y="383"/>
         </window>
         <collectionViewItem title="Cachets" nibName="GPCachetController" id="4966" userLabel="Cachets" customClass="GPCachetController"/>
         <customView id="802" userLabel="Ident Contents">
@@ -3253,7 +3299,7 @@
                     <font key="titleFont" metaFont="systemBold" size="14"/>
                 </box>
             </subviews>
-            <point key="canvasLocation" x="543" y="-405.5"/>
+            <point key="canvasLocation" x="527" y="-733.5"/>
         </customView>
         <customView id="1256" userLabel="Info Contents">
             <rect key="frame" x="0.0" y="0.0" width="560" height="2040"/>
@@ -4017,6 +4063,7 @@
                     <font key="titleFont" metaFont="systemBold" size="15"/>
                 </box>
             </subviews>
+            <point key="canvasLocation" x="211" y="1876"/>
         </customView>
         <customView id="3807" userLabel="Plate Contents">
             <rect key="frame" x="0.0" y="0.0" width="560" height="692"/>
@@ -4325,7 +4372,7 @@
                     </connections>
                 </button>
             </subviews>
-            <point key="canvasLocation" x="552" y="726"/>
+            <point key="canvasLocation" x="982" y="1254"/>
         </customView>
         <collectionViewItem title="GPPlateUsage" nibName="GPPlateUsage" id="3824" userLabel="PlateUsage" customClass="GPPlateUsageController"/>
         <customView id="3542" userLabel="AddToSetSelector">
@@ -5037,6 +5084,14 @@ Gw
                 <binding destination="2244" name="contentSet" keyPath="selection.allowedStampFormats" id="gDO-E4-6LJ"/>
                 <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="gl4-b9-4ym"/>
                 <binding destination="-2" name="sortDescriptors" keyPath="self.stampFormatsSortDescriptors" id="BPf-6Y-zN8"/>
+            </connections>
+        </arrayController>
+        <collectionViewItem title="GP Album Size" nibName="GPAlbumSizeController" id="3GT-8N-JbT" userLabel="GPCatalogAlbumSizeViewItem" customClass="GPAlbumSizeController"/>
+        <arrayController mode="entity" entityName="GPCatalogAlbumSize" id="fdx-7F-ueJ" userLabel="GPCatalogAlbumSizeController">
+            <connections>
+                <binding destination="2244" name="contentSet" keyPath="selection.albumSizes" id="v0x-eE-h1s"/>
+                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="uFH-ea-2h1"/>
+                <binding destination="-2" name="sortDescriptors" keyPath="self.gpCatalogAlbumSizeSortDescriptors" id="sNl-QK-8ZO"/>
             </connections>
         </arrayController>
     </objects>

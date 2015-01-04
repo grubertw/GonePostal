@@ -1624,22 +1624,6 @@
                                                 <binding destination="-2" name="value" keyPath="self.stamp.composite_name" id="2832"/>
                                             </connections>
                                         </textField>
-                                        <textField verticalHuggingPriority="750" id="2839">
-                                            <rect key="frame" x="252" y="23" width="167" height="17"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Composite Description" id="2842">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                            <connections>
-                                                <binding destination="-2" name="hidden" keyPath="self.stamp.children" id="2845">
-                                                    <dictionary key="options">
-                                                        <string key="NSValueTransformerName">GPEmptySetChecker</string>
-                                                    </dictionary>
-                                                </binding>
-                                            </connections>
-                                        </textField>
                                         <textField verticalHuggingPriority="750" id="2988">
                                             <rect key="frame" x="502" y="64" width="161" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -1696,7 +1680,7 @@
                                             </connections>
                                         </textField>
                                         <textField verticalHuggingPriority="750" id="2840">
-                                            <rect key="frame" x="254" y="1" width="472" height="22"/>
+                                            <rect key="frame" x="501" y="1" width="225" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="2841">
                                                 <font key="font" metaFont="system"/>
@@ -1710,6 +1694,54 @@
                                                     </dictionary>
                                                 </binding>
                                                 <binding destination="-2" name="value" keyPath="self.stamp.composite_description" id="2865"/>
+                                            </connections>
+                                        </textField>
+                                        <button id="gHG-tp-nrd">
+                                            <rect key="frame" x="254" y="22" width="226" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="check" title="Origional Packaging" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Dtx-tb-IjU">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <binding destination="-2" name="hidden" keyPath="self.stamp.gpCatalog.packaging" id="NhT-y1-czu">
+                                                    <dictionary key="options">
+                                                        <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                    </dictionary>
+                                                </binding>
+                                                <binding destination="-2" name="value" keyPath="self.stamp.origionalPackaging" id="IQz-qA-z9a"/>
+                                            </connections>
+                                        </button>
+                                        <button id="LJJ-hm-NvO">
+                                            <rect key="frame" x="254" y="0.0" width="226" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="check" title="Folded" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Wsy-rq-0Y2">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <binding destination="-2" name="hidden" keyPath="self.stamp.gpCatalog.foldable" id="qBA-Gt-g42">
+                                                    <dictionary key="options">
+                                                        <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                    </dictionary>
+                                                </binding>
+                                                <binding destination="-2" name="value" keyPath="self.stamp.folded" id="evw-fu-sfC"/>
+                                            </connections>
+                                        </button>
+                                        <textField verticalHuggingPriority="750" id="2839">
+                                            <rect key="frame" x="502" y="23" width="167" height="17"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Composite Description" id="2842">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <connections>
+                                                <binding destination="-2" name="hidden" keyPath="self.stamp.children" id="2845">
+                                                    <dictionary key="options">
+                                                        <string key="NSValueTransformerName">GPEmptySetChecker</string>
+                                                    </dictionary>
+                                                </binding>
                                             </connections>
                                         </textField>
                                     </subviews>

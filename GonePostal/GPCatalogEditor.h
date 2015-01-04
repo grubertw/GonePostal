@@ -54,6 +54,7 @@
 @property (strong, nonatomic) NSArray * gpCatalogPeopleSortDescriptors;
 @property (strong, nonatomic) NSArray * gpCatalogPlateSizeSortDescriptors;
 @property (strong, nonatomic) NSArray * gpCatalogQuantitySortDescriptors;
+@property (strong, nonatomic) NSArray * gpCatalogAlbumSizeSortDescriptors;
 
 @property (weak, nonatomic) IBOutlet NSArrayController * gpCatalogEntriesController;
 
