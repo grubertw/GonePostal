@@ -2,8 +2,8 @@
 //  GPCatalogPeople.m
 //  GonePostal
 //
-//  Created by Travis Gruber on 2/17/14.
-//  Copyright (c) 2014 Travis Gruber. All rights reserved.
+//  Created by Travis Gruber on 1/22/15.
+//  Copyright (c) 2015 Travis Gruber. All rights reserved.
 //
 
 #import "GPCatalogPeople.h"
@@ -13,9 +13,10 @@
 
 @implementation GPCatalogPeople
 
-@dynamic personName;
 @dynamic details;
-@dynamic peopleType;
+@dynamic modifiedByUser;
+@dynamic personName;
 @dynamic catalogEntries;
+@dynamic peopleType;
 
 @end

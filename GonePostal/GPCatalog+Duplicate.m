@@ -15,6 +15,12 @@
 #import "PlatePosition.h"
 #import "BureauPrecancel.h"
 #import "BureauPrecancel+Duplicate.h"
+#import "GPCatalogAlbumSize.h"
+#import "GPCatalogDate.h"
+#import "GPCatalogPeople.h"
+#import "GPCatalogQuantity.h"
+#import "GPPlateSize.h"
+
 
 @implementation GPCatalog (Duplicate)
 
@@ -96,6 +102,64 @@
         altCatalog.alternate_catalog_number = ac.alternate_catalog_number;
         // Add to new entry.
         [duplicate addAlternateCatalogsObject:altCatalog];
+    }
+    
+    // Duplicate the ablum sizes.
+    for (GPCatalogAlbumSize * albumSize in self.albumSizes) {
+        GPCatalogAlbumSize * newAlbumSize = [NSEntityDescription insertNewObjectForEntityForName:@"GPCatalogAlbumSize" inManagedObjectContext:self.managedObjectContext];
+        newAlbumSize.albumHeight = albumSize.albumHeight;
+        newAlbumSize.albumWidth = albumSize.albumWidth;
+        newAlbumSize.modifiedByUser = albumSize.modifiedByUser;
+        newAlbumSize.mountSize = albumSize.mountSize;
+        newAlbumSize.format = albumSize.format;
+        [duplicate addAlbumSizesObject:newAlbumSize];
+    }
+    
+    // Duplicate catalog dates.
+    for (GPCatalogDate * date in self.dates) {
+        GPCatalogDate * newDate = [NSEntityDescription insertNewObjectForEntityForName:@"GPCatalogDate" inManagedObjectContext:self.managedObjectContext];
+        newDate.catalogDate = date.catalogDate;
+        newDate.dayExact = date.dayExact;
+        newDate.details = date.details;
+        newDate.modifiedByUser = date.modifiedByUser;
+        newDate.monthExact = date.monthExact;
+        newDate.dateType = date.dateType;
+        [duplicate addDatesObject:newDate];
+    }
+    
+    // Dublicate people.
+    for (GPCatalogPeople * person in self.people) {
+        GPCatalogPeople * newPerson = [NSEntityDescription insertNewObjectForEntityForName:@"GPCatalogPeople" inManagedObjectContext:self.managedObjectContext];
+        newPerson.details = person.details;
+        newPerson.modifiedByUser = person.modifiedByUser;
+        newPerson.personName = person.personName;
+        newPerson.peopleType = person.peopleType;
+        [duplicate addPeopleObject:newPerson];
+    }
+    
+    // Duplicate quantities.
+    for (GPCatalogQuantity * quant in self.quantities) {
+        GPCatalogQuantity * newQuant = [NSEntityDescription insertNewObjectForEntityForName:@"GPCatalogQuantity" inManagedObjectContext:self.managedObjectContext];
+        newQuant.details = quant.details;
+        newQuant.modifiedByUser = quant.modifiedByUser;
+        newQuant.quantity = quant.quantity;
+        newQuant.quantityType = quant.quantityType;
+        [duplicate addQuantitiesObject:newQuant];
+    }
+    
+    // Duplicate Plate Sizes.
+    for (GPPlateSize * ps in self.plateSizes) {
+        GPPlateSize * newPS = [NSEntityDescription insertNewObjectForEntityForName:@"GPPlateSize" inManagedObjectContext:self.managedObjectContext];
+        newPS.coilLength = ps.coilLength;
+        newPS.details = ps.details;
+        newPS.modifiedByUser = ps.modifiedByUser;
+        newPS.numberOfPanes = ps.numberOfPanes;
+        newPS.paneHeight = ps.paneHeight;
+        newPS.paneSize = ps.paneSize;
+        newPS.paneWidth = ps.paneWidth;
+        newPS.plateSize = ps.plateSize;
+        newPS.plateSizeType = ps.plateSizeType;
+        [duplicate addPlateSizesObject:newPS];
     }
     
     return duplicate;

@@ -2,8 +2,8 @@
 //  GPCatalogQuantity.h
 //  GonePostal
 //
-//  Created by Travis Gruber on 2/23/14.
-//  Copyright (c) 2014 Travis Gruber. All rights reserved.
+//  Created by Travis Gruber on 1/22/15.
+//  Copyright (c) 2015 Travis Gruber. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -13,10 +13,11 @@
 
 @interface GPCatalogQuantity : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * quantity;
 @property (nonatomic, retain) NSString * details;
-@property (nonatomic, retain) GPCatalogQuantityType *quantityType;
+@property (nonatomic, retain) NSNumber * modifiedByUser;
+@property (nonatomic, retain) NSNumber * quantity;
 @property (nonatomic, retain) NSSet *catalogEntries;
+@property (nonatomic, retain) GPCatalogQuantityType *quantityType;
 @end
 
 @interface GPCatalogQuantity (CoreDataGeneratedAccessors)

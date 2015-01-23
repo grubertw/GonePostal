@@ -2,8 +2,8 @@
 //  GPCatalogQuantity.m
 //  GonePostal
 //
-//  Created by Travis Gruber on 2/23/14.
-//  Copyright (c) 2014 Travis Gruber. All rights reserved.
+//  Created by Travis Gruber on 1/22/15.
+//  Copyright (c) 2015 Travis Gruber. All rights reserved.
 //
 
 #import "GPCatalogQuantity.h"
@@ -13,9 +13,10 @@
 
 @implementation GPCatalogQuantity
 
-@dynamic quantity;
 @dynamic details;
-@dynamic quantityType;
+@dynamic modifiedByUser;
+@dynamic quantity;
 @dynamic catalogEntries;
+@dynamic quantityType;
 
 @end

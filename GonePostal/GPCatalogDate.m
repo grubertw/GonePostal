@@ -2,8 +2,8 @@
 //  GPCatalogDate.m
 //  GonePostal
 //
-//  Created by Travis Gruber on 2/21/14.
-//  Copyright (c) 2014 Travis Gruber. All rights reserved.
+//  Created by Travis Gruber on 1/22/15.
+//  Copyright (c) 2015 Travis Gruber. All rights reserved.
 //
 
 #import "GPCatalogDate.h"
@@ -16,6 +16,7 @@
 @dynamic catalogDate;
 @dynamic dayExact;
 @dynamic details;
+@dynamic modifiedByUser;
 @dynamic monthExact;
 @dynamic catalogEntries;
 @dynamic dateType;
