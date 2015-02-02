@@ -19,6 +19,11 @@
 @property (strong, nonatomic) NSArray * altCatalogsSortDescriptors;
 @property (strong, nonatomic) NSArray * altCatalogSectionsSortDescriptors;
 @property (strong, nonatomic) NSArray * gpGroupsSortDescriptors;
+@property (strong, nonatomic) NSArray * gpCatalogDateSortDescriptors;
+@property (strong, nonatomic) NSArray * gpCatalogPeopleSortDescriptors;
+@property (strong, nonatomic) NSArray * gpCatalogPlateSizeSortDescriptors;
+@property (strong, nonatomic) NSArray * gpCatalogQuantitySortDescriptors;
+@property (strong, nonatomic) NSArray * gpCatalogAlbumSizeSortDescriptors;
 
 @property (weak, nonatomic) IBOutlet NSObjectController * gpCatalogDefaultsController;
 

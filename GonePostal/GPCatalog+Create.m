@@ -9,6 +9,11 @@
 #import "GPCatalog+Create.h"
 #import "GPCatalog+Duplicate.h"
 #import "AlternateCatalog.h"
+#import "GPCatalogAlbumSize.h"
+#import "GPCatalogDate.h"
+#import "GPCatalogPeople.h"
+#import "GPCatalogQuantity.h"
+#import "GPPlateSize.h"
 
 @implementation GPCatalog (Create)
 
@@ -51,6 +56,7 @@
         entry.design_measurement = defaults.design_measurement;
         entry.designers = defaults.designers;
         entry.engravers = defaults.engravers;
+        entry.foldable = defaults.foldable;
         entry.gp_description = defaults.gp_description;
         entry.gum = defaults.gum;
         entry.gum_variety = defaults.gum_variety;
@@ -64,6 +70,7 @@
         entry.number_of_plates = defaults.number_of_plates;
         entry.number_of_plates_used = defaults.number_of_plates_used;
         entry.other_error = defaults.other_error;
+        entry.packaging = defaults.packaging;
         entry.pane_size = defaults.pane_size;
         entry.paper_color = defaults.paper_color;
         entry.paper_type = defaults.paper_type;
@@ -80,6 +87,7 @@
         entry.print = defaults.print;
         entry.print_variety = defaults.print_variety;
         entry.printer = defaults.printer;
+        entry.printing_on_back = defaults.printing_on_back;
         entry.quantity_ordered = defaults.quantity_ordered;
         entry.quantity_printed = defaults.quantity_printed;
         entry.quantity_sold = defaults.quantity_sold;
@@ -113,6 +121,64 @@
         altCatalog.alternateCatalogGroup = defaultAltCatalog.alternateCatalogGroup;
         // Add to new entry.
         [entry addAlternateCatalogsObject:altCatalog];
+        
+        // Copy the ablum sizes.
+        for (GPCatalogAlbumSize * albumSize in defaults.albumSizes) {
+            GPCatalogAlbumSize * newAlbumSize = [NSEntityDescription insertNewObjectForEntityForName:@"GPCatalogAlbumSize" inManagedObjectContext:defaults.managedObjectContext];
+            newAlbumSize.albumHeight = albumSize.albumHeight;
+            newAlbumSize.albumWidth = albumSize.albumWidth;
+            newAlbumSize.modifiedByUser = albumSize.modifiedByUser;
+            newAlbumSize.mountSize = albumSize.mountSize;
+            newAlbumSize.format = albumSize.format;
+            [entry addAlbumSizesObject:newAlbumSize];
+        }
+        
+        // Copy catalog dates.
+        for (GPCatalogDate * date in defaults.dates) {
+            GPCatalogDate * newDate = [NSEntityDescription insertNewObjectForEntityForName:@"GPCatalogDate" inManagedObjectContext:defaults.managedObjectContext];
+            newDate.catalogDate = date.catalogDate;
+            newDate.dayExact = date.dayExact;
+            newDate.details = date.details;
+            newDate.modifiedByUser = date.modifiedByUser;
+            newDate.monthExact = date.monthExact;
+            newDate.dateType = date.dateType;
+            [entry addDatesObject:newDate];
+        }
+        
+        // Copy people.
+        for (GPCatalogPeople * person in defaults.people) {
+            GPCatalogPeople * newPerson = [NSEntityDescription insertNewObjectForEntityForName:@"GPCatalogPeople" inManagedObjectContext:defaults.managedObjectContext];
+            newPerson.details = person.details;
+            newPerson.modifiedByUser = person.modifiedByUser;
+            newPerson.personName = person.personName;
+            newPerson.peopleType = person.peopleType;
+            [entry addPeopleObject:newPerson];
+        }
+        
+        // Copy quantities.
+        for (GPCatalogQuantity * quant in defaults.quantities) {
+            GPCatalogQuantity * newQuant = [NSEntityDescription insertNewObjectForEntityForName:@"GPCatalogQuantity" inManagedObjectContext:defaults.managedObjectContext];
+            newQuant.details = quant.details;
+            newQuant.modifiedByUser = quant.modifiedByUser;
+            newQuant.quantity = quant.quantity;
+            newQuant.quantityType = quant.quantityType;
+            [entry addQuantitiesObject:newQuant];
+        }
+        
+        // Copy Plate Sizes.
+        for (GPPlateSize * ps in defaults.plateSizes) {
+            GPPlateSize * newPS = [NSEntityDescription insertNewObjectForEntityForName:@"GPPlateSize" inManagedObjectContext:defaults.managedObjectContext];
+            newPS.coilLength = ps.coilLength;
+            newPS.details = ps.details;
+            newPS.modifiedByUser = ps.modifiedByUser;
+            newPS.numberOfPanes = ps.numberOfPanes;
+            newPS.paneHeight = ps.paneHeight;
+            newPS.paneSize = ps.paneSize;
+            newPS.paneWidth = ps.paneWidth;
+            newPS.plateSize = ps.plateSize;
+            newPS.plateSizeType = ps.plateSizeType;
+            [entry addPlateSizesObject:newPS];
+        }
     }
     
     return entry;

@@ -42,6 +42,7 @@
     duplicate.design_measurement = self.design_measurement;
     duplicate.designers = self.designers;
     duplicate.engravers = self.engravers;
+    duplicate.foldable = self.foldable;
     duplicate.gp_description = self.gp_description;
     duplicate.gum = self.gum;
     duplicate.gum_variety = self.gum_variety;
@@ -55,6 +56,7 @@
     duplicate.number_of_plates = self.number_of_plates;
     duplicate.number_of_plates_used = self.number_of_plates_used;
     duplicate.other_error = self.other_error;
+    duplicate.packaging = self.packaging;
     duplicate.pane_size = self.pane_size;
     duplicate.paper_color = self.paper_color;
     duplicate.paper_type = self.paper_type;
@@ -71,6 +73,7 @@
     duplicate.print = self.print;
     duplicate.print_variety = self.print_variety;
     duplicate.printer = self.printer;
+    duplicate.printing_on_back = self.printing_on_back;
     duplicate.quantity_ordered = self.quantity_ordered;
     duplicate.quantity_printed = self.quantity_printed;
     duplicate.quantity_sold = self.quantity_sold;
