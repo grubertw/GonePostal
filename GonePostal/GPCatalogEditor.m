@@ -1587,7 +1587,7 @@
         NSMutableArray * l1Valuations = [NSMutableArray arrayWithCapacity:0];
         
         // If the level 1 valuation entries do not exist, create them.
-        for (StampFormat * stampFormat in selectedGPCatalog.formatType.allowedStampFormats) {
+        for (StampFormat * stampFormat in selectedGPCatalog.allowedStampFormats) {
             Valuation * l1Valuation = [NSEntityDescription insertNewObjectForEntityForName:@"Valuation" inManagedObjectContext:self.managedObjectContext];
             
             l1Valuation.gpCatalog = selectedGPCatalog;
@@ -1608,7 +1608,7 @@
         for (Valuation * existingNode in existingNodes) {
             bool needToRemove = YES;
             
-            for (StampFormat * stampFormat in selectedGPCatalog.formatType.allowedStampFormats) {
+            for (StampFormat * stampFormat in selectedGPCatalog.allowedStampFormats) {
                 if ([stampFormat isEqualTo:existingNode.stampFormat]) {
                     needToRemove = NO;
                     break;
@@ -1622,7 +1622,7 @@
         }
         
         // Determine which nodes to add.
-        for (StampFormat * stampFormat in selectedGPCatalog.formatType.allowedStampFormats) {
+        for (StampFormat * stampFormat in selectedGPCatalog.allowedStampFormats) {
             bool needToAdd = YES;
             
             for (Valuation * existingNode in existingNodes) {
@@ -1684,9 +1684,12 @@
     NSArray * selectedGPCatalogEntries = self.gpCatalogEntriesController.selectedObjects;
     if (!selectedGPCatalogEntries || [selectedGPCatalogEntries count] == 0) return;
     
-    GPCatalog * selectedGPCatalog = selectedGPCatalogEntries[0];
+    // Always clear the Valuation data when the GPCatalog selection changes.
+    [self.valuationPerFormatController setContent:nil];
     
     if ([[[self.gpCatalogDetailTabs selectedTabViewItem] identifier] isEqualToString:@"11"]) {
+        GPCatalog * selectedGPCatalog = selectedGPCatalogEntries[0];
+        
         NSArray * selection = self.priceListController.selectedObjects;
         if (!selection || [selection count] == 0) return;
         
@@ -1701,31 +1704,6 @@
         NSArray * formatValues = [self.managedObjectContext executeFetchRequest:valuationLevel1Fetch error:nil];
         if (formatValues && [formatValues count] > 0) {
             [self.valuationPerFormatController setContent:formatValues];
-        }
-        else {
-            NSMutableArray * l1Valuations = [NSMutableArray arrayWithCapacity:0];
-            
-            // If the level 1 valuation entries do not exist, create them.
-            for (StampFormat * stampFormat in selectedGPCatalog.formatType.allowedStampFormats) {
-                Valuation * l1Valuation = [NSEntityDescription insertNewObjectForEntityForName:@"Valuation" inManagedObjectContext:self.managedObjectContext];
-                
-                l1Valuation.gpCatalog = selectedGPCatalog;
-                l1Valuation.stampFormat = stampFormat;
-                l1Valuation.priceList = selectedPriceList;
-                l1Valuation.decisionLevel = @(VALUATION_LEVEL_FORMAT);
-                
-                [l1Valuations addObject:l1Valuation];
-            }
-            
-            [self.valuationPerFormatController setContent:l1Valuations];
-            
-            NSError * error;
-            if (![self.managedObjectContext save:&error]) {
-                NSAlert * errSheet = [NSAlert alertWithError:error];
-                [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
-                [self.managedObjectContext undo];
-                return;
-            }
         }
     }
 }
