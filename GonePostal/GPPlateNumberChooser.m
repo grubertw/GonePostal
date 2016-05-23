@@ -10,6 +10,8 @@
 #import "GPPlateUsageChooser.h"
 #import "PlateNumber.h"
 #import "PlateUsage.h"
+#import "NumberOfStampsInPlate.h"
+#import "StampFormat.h"
 
 @interface GPPlateNumberChooser ()
 @property (nonatomic) BOOL isDrawer;
@@ -30,6 +32,7 @@
 @property (weak, nonatomic) IBOutlet NSTextField * plate8;
 @property (weak, nonatomic) IBOutlet NSTextField * imprint1;
 @property (weak, nonatomic) IBOutlet NSTextField * imprint2;
+@property (weak, nonatomic) IBOutlet NSTextField * marking;
 @property (weak, nonatomic) IBOutlet NSTextField * position;
 
 @end
@@ -73,6 +76,28 @@
             [column setHidden:YES];
         }
     }
+    
+    [self filterPlateNumbers];
+}
+
+- (void)filterPlateNumbers {
+    NSMutableArray * filters = [NSMutableArray arrayWithCapacity:1];
+    for (NumberOfStampsInPlate * n in self.gpCatalog.numberOfStampsInPlate) {
+        if ([self.stamp.format isEqualTo:n.stampFormat]) {
+            NSPredicate *filter = [NSPredicate predicateWithFormat:@"number_of_stamps == %@",
+                                   n.numberOfStamps];
+            [filters addObject:filter];
+        }
+    }
+    NSCompoundPredicate * pred = [NSCompoundPredicate orPredicateWithSubpredicates:filters];
+    
+    [self.plateCombinationsController setFilterPredicate:pred];
+    [self.plateCombinationsController rearrangeObjects];
+    
+    if (self.stamp.plateNumber != nil) {
+        NSArray * sel = [NSArray arrayWithObject:self.stamp.plateNumber];
+        [self.plateCombinationsController setSelectedObjects:sel];
+    }
 }
 
 - (void)clearManualPlateEntry {
@@ -86,6 +111,7 @@
     [self.plate8 setStringValue:@""];
     [self.imprint1 setStringValue:@""];
     [self.imprint2 setStringValue:@""];
+    [self.marking setStringValue:@""];
     [self.position setStringValue:@""];
 }
 
@@ -110,7 +136,9 @@
         self.stamp.plate_8 = selectedPlateCombo.plate8;
         self.stamp.inprint_1 = selectedPlateCombo.imprint_1;
         self.stamp.inprint_2 = selectedPlateCombo.imprint_2;
+        self.stamp.marking = selectedPlateCombo.marking;
         self.stamp.plate_position = self.selectedPlatePosition;
+        self.stamp.plateNumber = selectedPlateCombo; // Ref so this selection can reappear if choosing again.
     }
     else {
         self.stamp.plate_1 = [self.plate1 stringValue];
@@ -123,6 +151,7 @@
         self.stamp.plate_8 = [self.plate8 stringValue];
         self.stamp.inprint_1 = [self.imprint1 stringValue];
         self.stamp.inprint_2 = [self.imprint2 stringValue];
+        self.stamp.marking = [self.marking stringValue];
         self.stamp.plate_position = [self.position stringValue];
     }
     
@@ -138,7 +167,7 @@
 }
 
 - (void)formatPlateInfo {
-    NSString * plateInfo = @"Printed using the following Plate(s)\n";
+    NSString * plateInfo = @"Plate Number(s):\n";
  
     if (self.stamp.plate_1 && [self.stamp.plate_1 length] > 0) {
         plateInfo = [plateInfo stringByAppendingFormat:@"\t%@\n", self.stamp.plate_1];
@@ -165,18 +194,18 @@
         plateInfo = [plateInfo stringByAppendingFormat:@"\t%@\n", self.stamp.plate_8];
     }
     
-    if (self.stamp.inprint_1 && [self.stamp.inprint_1 length] > 0) {
-        plateInfo = [plateInfo stringByAppendingString:@"and Imprint(s):\n"];
-    }
+    plateInfo = [plateInfo stringByAppendingString:@"Imprint(s):\n"];
     
     if (self.stamp.inprint_1 && [self.stamp.inprint_1 length] > 0) {
-        plateInfo = [plateInfo stringByAppendingFormat:@"\t#%@", self.stamp.inprint_1];
+        plateInfo = [plateInfo stringByAppendingFormat:@"\t#%@\n", self.stamp.inprint_1];
     }
     if (self.stamp.inprint_2 && [self.stamp.inprint_2 length] > 0) {
-        plateInfo = [plateInfo stringByAppendingFormat:@"\t#%@", self.stamp.inprint_2];
+        plateInfo = [plateInfo stringByAppendingFormat:@"\t#%@\n", self.stamp.inprint_2];
     }
     
-    plateInfo = [plateInfo stringByAppendingFormat:@"At position %@", self.stamp.plate_position];
+    plateInfo = [plateInfo stringByAppendingFormat:@"With marking: %@\n", self.stamp.marking];
+    
+    plateInfo = [plateInfo stringByAppendingFormat:@"At position: %@\n", self.stamp.plate_position];
     
     [self.plateInfoField setStringValue:plateInfo];
 }

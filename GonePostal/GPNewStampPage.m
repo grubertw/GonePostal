@@ -228,6 +228,10 @@
                                             currY,
                                             self.platesFrame.size.width,
                                             self.platesFrame.size.height)];
+        
+        // Refresh contant of plate number editor (drawer)
+        [self.plateNumberChooser filterPlateNumbers];
+        [self.plateNumberChooser formatPlateInfo];
     }
     else {
         [self.platesBox setFrame:NSMakeRect(0, 0, 0, 0)];
@@ -305,6 +309,7 @@
     
     [self.stampPeriferalsBox addSubview:self.plateNumberChooser.view];
     [self.plateNumberChooser.view setFrameOrigin:NSMakePoint(7, 5)];
+    [self.plateNumberChooser filterPlateNumbers];
 }
 
 - (IBAction)chooseBureauPrecancel:(id)sender {

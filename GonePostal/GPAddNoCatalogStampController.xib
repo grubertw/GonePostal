@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
+        <capability name="box content view" minToolsVersion="7.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="GPAddNoCatalogStampController">
@@ -19,8 +20,8 @@
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="900" height="580"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
-            <value key="minSize" type="size" width="825" height="500"/>
-            <value key="maxSize" type="size" width="825" height="500"/>
+            <value key="minSize" type="size" width="900" height="580"/>
+            <value key="maxSize" type="size" width="900" height="580"/>
             <view key="contentView" id="se5-gp-TjO">
                 <rect key="frame" x="0.0" y="0.0" width="900" height="580"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -111,7 +112,7 @@
                     <box autoresizesSubviews="NO" title="Condition" borderType="line" id="UzN-Qw-cnp">
                         <rect key="frame" x="9" y="351" width="415" height="150"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <view key="contentView">
+                        <view key="contentView" id="FOT-A9-ZeK">
                             <rect key="frame" x="1" y="1" width="413" height="131"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
@@ -290,7 +291,7 @@
                     <box autoresizesSubviews="NO" title="Info" borderType="line" id="EwP-L7-wrK">
                         <rect key="frame" x="9" y="201" width="415" height="150"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <view key="contentView">
+                        <view key="contentView" id="qH1-FW-LM4">
                             <rect key="frame" x="1" y="1" width="413" height="131"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
@@ -408,7 +409,7 @@
                     <box autoresizesSubviews="NO" title="Pictures" borderType="line" id="Ev7-rp-FJ0">
                         <rect key="frame" x="435" y="200" width="455" height="377"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <view key="contentView">
+                        <view key="contentView" id="2zZ-wz-bPZ">
                             <rect key="frame" x="1" y="1" width="453" height="358"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
@@ -582,7 +583,7 @@
                     <box autoresizesSubviews="NO" title="History &amp; Storage" borderType="line" id="J0G-Ne-TVg">
                         <rect key="frame" x="9" y="43" width="415" height="154"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <view key="contentView">
+                        <view key="contentView" id="EGd-6G-Wll">
                             <rect key="frame" x="1" y="1" width="413" height="135"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
@@ -757,7 +758,7 @@
                     <box autoresizesSubviews="NO" title="Notes" borderType="line" id="yea-rR-SB7">
                         <rect key="frame" x="430" y="43" width="453" height="155"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <view key="contentView">
+                        <view key="contentView" id="epF-P2-7nt">
                             <rect key="frame" x="1" y="1" width="451" height="136"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
@@ -851,26 +852,26 @@ Gw
         </objectController>
         <arrayController mode="entity" entityName="StampFormat" editable="NO" automaticallyPreparesContent="YES" id="JtN-x6-upH" userLabel="FormatsController">
             <connections>
-                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="uRh-Bk-I2L"/>
                 <binding destination="-2" name="sortDescriptors" keyPath="self.formatSortDescriptors" id="aV3-41-7ir"/>
+                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="uRh-Bk-I2L"/>
             </connections>
         </arrayController>
         <arrayController mode="entity" entityName="GumCondition" editable="NO" automaticallyPreparesContent="YES" id="cbf-Ww-zwZ" userLabel="GumConditionsController">
             <connections>
-                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="WwK-ZZ-HD9"/>
                 <binding destination="-2" name="sortDescriptors" keyPath="self.gumConditionSortDescriptors" id="4tG-S3-WTs"/>
+                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="WwK-ZZ-HD9"/>
             </connections>
         </arrayController>
         <arrayController mode="entity" entityName="Centering" editable="NO" automaticallyPreparesContent="YES" id="Jyz-fT-njv" userLabel="CenteringsController">
             <connections>
-                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="nqJ-GT-vM8"/>
                 <binding destination="-2" name="sortDescriptors" keyPath="self.centeringSortDescriptors" id="KLj-o8-FSa"/>
+                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="nqJ-GT-vM8"/>
             </connections>
         </arrayController>
         <arrayController mode="entity" entityName="Grade" editable="NO" automaticallyPreparesContent="YES" id="vOu-zo-ylh" userLabel="GradesController">
             <connections>
-                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="y9p-qd-kw0"/>
                 <binding destination="-2" name="sortDescriptors" keyPath="self.gradeSortDescriptors" id="YRO-yr-bB5"/>
+                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="y9p-qd-kw0"/>
             </connections>
         </arrayController>
         <arrayController mode="entity" entityName="Soundness" editable="NO" automaticallyPreparesContent="YES" id="GfI-pA-GyU" userLabel="SoundnessController">
@@ -881,26 +882,26 @@ Gw
         </arrayController>
         <arrayController mode="entity" entityName="Hinged" editable="NO" automaticallyPreparesContent="YES" id="Qcw-Cd-Ans" userLabel="HingedController">
             <connections>
-                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="n3x-xZ-3BU"/>
                 <binding destination="-2" name="sortDescriptors" keyPath="self.hingedSortDescriptors" id="E15-xh-GNn"/>
+                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="n3x-xZ-3BU"/>
             </connections>
         </arrayController>
         <arrayController mode="entity" entityName="Dealer" editable="NO" automaticallyPreparesContent="YES" id="MJE-pX-us9" userLabel="DealersController">
             <connections>
-                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="leL-CW-6wi"/>
                 <binding destination="-2" name="sortDescriptors" keyPath="self.dealerSortDescriptors" id="Won-Sj-Qfl"/>
+                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="leL-CW-6wi"/>
             </connections>
         </arrayController>
         <arrayController mode="entity" entityName="Lot" editable="NO" automaticallyPreparesContent="YES" id="Yd7-C4-hHL" userLabel="LotsController">
             <connections>
-                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="bLl-WL-Wmp"/>
                 <binding destination="-2" name="sortDescriptors" keyPath="self.lotSortDescriptors" id="Hib-2B-Wjs"/>
+                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="bLl-WL-Wmp"/>
             </connections>
         </arrayController>
         <arrayController mode="entity" entityName="Location" editable="NO" automaticallyPreparesContent="YES" id="8i3-VQ-QAA" userLabel="LocationsController">
             <connections>
-                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="aWJ-i2-pT6"/>
                 <binding destination="-2" name="sortDescriptors" keyPath="self.locationSortDescriptors" id="NCm-Rc-LZ6"/>
+                <binding destination="-2" name="managedObjectContext" keyPath="self.managedObjectContext" id="aWJ-i2-pT6"/>
             </connections>
         </arrayController>
         <arrayController mode="entity" entityName="Mount" editable="NO" automaticallyPreparesContent="YES" id="LEJ-v3-2Qy" userLabel="MountsController">

@@ -37,6 +37,7 @@
  */
 - (id)initAsDrawer:(BOOL)isDrawer modifyingStamp:(Stamp *)stamp;
 
+- (void)filterPlateNumbers;
 - (void)clearManualPlateEntry;
 - (void)formatPlateInfo;
 

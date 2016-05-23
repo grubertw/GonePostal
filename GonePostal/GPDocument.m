@@ -797,7 +797,7 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
         NSString *filePath = [inAbsoluteURL path];
         
         // Nothing exists at the URL: set up the directory and migrate the Core Data store.
-        filewrapper = [[NSFileWrapper alloc] initDirectoryWithFileWrappers:nil];
+        filewrapper = [[NSFileWrapper alloc] initWithURL:inAbsoluteURL options:0 error:outError];
         // Need to write once so there's somewhere for the store file to go.
         [filewrapper writeToURL:inAbsoluteURL options:NSFileWrapperWritingAtomic originalContentsURL:nil error:outError];
         
@@ -933,7 +933,7 @@ void (^fileSaveHandler)(NSError * error) = ^(NSError * error){
     }
     
     // Add the file to the GPWrapper
-    NSFileWrapper *gpWrapper = [[NSFileWrapper alloc] initWithPath:[[self fileURL] path]];
+    NSFileWrapper *gpWrapper = [[NSFileWrapper alloc] initWithURL:[self fileURL] options:0 error:&error];
     [gpWrapper addFileWrapper:fileWrapper];
     
     return fileName;

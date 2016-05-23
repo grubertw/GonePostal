@@ -227,6 +227,10 @@
             [self.sideTabs insertTabViewItem:self.platesTab atIndex:tabIndexToInsert];
         }
         tabIndexToInsert++;
+        
+        // Refresh contant of plate number editor (drawer)
+        [self.plateNumberChooser filterPlateNumbers];
+        [self.plateNumberChooser formatPlateInfo];
     }
     else {
         if ([self.sideTabs indexOfTabViewItem:self.platesTab] != NSNotFound) {
