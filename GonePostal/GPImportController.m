@@ -222,7 +222,7 @@ BOOL (^stringInArrayCompare)(id, NSUInteger, BOOL *) = ^(id obj, NSUInteger idx,
     NSString * csvData = [NSString stringWithContentsOfURL:[self.importPathChooser URL] encoding:NSMacOSRomanStringEncoding error:&error];
     if (csvData == nil) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         return NO;
     }
     
@@ -273,15 +273,19 @@ BOOL (^stringInArrayCompare)(id, NSUInteger, BOOL *) = ^(id obj, NSUInteger idx,
         // Check for column number mismatch
         if (   [self.abortOnColumnNumberMisMatchCheck state] == NSOnState
             && [csvColumns count] != [self.gpCatalogImportColumns.arrangedObjects count]) {
-            NSAlert * errSheet = [NSAlert alertWithMessageText:@"Import Error" defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:@"Number of fields specified do not match the number of colums found in CSV file.  Column count=%ld  selected field count=%ld", [csvColumns count], [self.gpCatalogImportColumns.arrangedObjects count]];
-            [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+            NSAlert * errSheet = [[NSAlert alloc] init];
+            errSheet.messageText = @"Import Error";
+            errSheet.informativeText = [NSString stringWithFormat:@"Number of fields specified do not match the number of colums found in CSV file.  Column count=%ld  selected field count=%ld", [csvColumns count], [self.gpCatalogImportColumns.arrangedObjects count]];
             
+            [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
             return NO;
         }
         if ([csvColumns count] > [self.gpCatalogImportColumns.arrangedObjects count]) {
-            NSAlert * errSheet = [NSAlert alertWithMessageText:@"Import Error" defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:@"Not enough fields specified for the number of colums found in CSV file.  Column count=%ld  selected field count=%ld", [csvColumns count], [self.gpCatalogImportColumns.arrangedObjects count]];
-            [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+            NSAlert * errSheet = [[NSAlert alloc] init];
+            errSheet.messageText = @"Import Error";
+            errSheet.informativeText = [NSString stringWithFormat:@"Not enough fields specified for the number of colums found in CSV file.  Column count=%ld  selected field count=%ld", [csvColumns count], [self.gpCatalogImportColumns.arrangedObjects count]];
             
+            [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
             return NO;
         }
         
@@ -416,15 +420,18 @@ BOOL (^stringInArrayCompare)(id, NSUInteger, BOOL *) = ^(id obj, NSUInteger idx,
     //NSLog(@"save");
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         
         NSLog(@"ERROR saving during export %@ %@", error, error.userInfo);
         return NO;
     }
     
     if (skipCount > 0) {
-        NSAlert * errSheet = [NSAlert alertWithMessageText:@"Import Error" defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:@"%ld GP catalog entries could not be matched to a major variety.  Refer to the log for a full listing of skipped GPIDs.", skipCount];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        NSAlert * errSheet = [[NSAlert alloc] init];
+        errSheet.messageText = @"Import Error";
+        errSheet.informativeText = [NSString stringWithFormat:@"%ld GP catalog entries could not be matched to a major variety.  Refer to the log for a full listing of skipped GPIDs.", skipCount];
+       
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         
         self.addCount = self.addCount - skipCount;
         return NO;

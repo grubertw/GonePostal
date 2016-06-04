@@ -147,8 +147,7 @@ static NSString * PREDICATE_FORMAT_FOR_STAMP = @"location.name == %@";
     }
     
     // End the sheet.
-    NSApplication * app = [NSApplication sharedApplication];
-    [app endSheet:self.view.window];
+    [self.view.window.parentWindow endSheet:self.panel];
     [self.view.window close];
 }
 

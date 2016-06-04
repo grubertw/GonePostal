@@ -252,6 +252,10 @@
 		1FF09E3E1CF267C9002A35F8 /* PlateNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF09E3C1CF267C9002A35F8 /* PlateNumber.m */; };
 		1FF1F6741736C4ED00DD9813 /* GPCustomSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1F6721736C4ED00DD9813 /* GPCustomSearch.m */; };
 		1FF1F6751736C4ED00DD9813 /* GPCustomSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FF1F6731736C4ED00DD9813 /* GPCustomSearch.xib */; };
+		1FF61F371CFCE156007D5324 /* GPReportController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF61F351CFCE156007D5324 /* GPReportController.swift */; };
+		1FF61F381CFCE156007D5324 /* GPReportController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FF61F361CFCE156007D5324 /* GPReportController.xib */; };
+		1FF61F3E1CFD096C007D5324 /* StampReport+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF61F3B1CFD096C007D5324 /* StampReport+CoreDataProperties.m */; };
+		1FF61F3F1CFD096C007D5324 /* StampReport.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF61F3D1CFD096C007D5324 /* StampReport.m */; };
 		1FF6255716E9B05400D4D849 /* GPAddStampController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6255516E9B05400D4D849 /* GPAddStampController.m */; };
 		1FF6255816E9B05400D4D849 /* GPAddStampController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FF6255616E9B05400D4D849 /* GPAddStampController.xib */; };
 		1FF6255C16E9BCF900D4D849 /* GPLocatorPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6255A16E9BCF900D4D849 /* GPLocatorPage.m */; };
@@ -728,6 +732,13 @@
 		1FF1F6711736C4ED00DD9813 /* GPCustomSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPCustomSearch.h; sourceTree = "<group>"; };
 		1FF1F6721736C4ED00DD9813 /* GPCustomSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPCustomSearch.m; sourceTree = "<group>"; };
 		1FF1F6731736C4ED00DD9813 /* GPCustomSearch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GPCustomSearch.xib; sourceTree = "<group>"; };
+		1FF61F351CFCE156007D5324 /* GPReportController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPReportController.swift; sourceTree = "<group>"; };
+		1FF61F361CFCE156007D5324 /* GPReportController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GPReportController.xib; sourceTree = "<group>"; };
+		1FF61F391CFCFC61007D5324 /* GPDocument 33.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "GPDocument 33.xcdatamodel"; sourceTree = "<group>"; };
+		1FF61F3A1CFD096C007D5324 /* StampReport+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "StampReport+CoreDataProperties.h"; sourceTree = "<group>"; };
+		1FF61F3B1CFD096C007D5324 /* StampReport+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "StampReport+CoreDataProperties.m"; sourceTree = "<group>"; };
+		1FF61F3C1CFD096C007D5324 /* StampReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StampReport.h; sourceTree = "<group>"; };
+		1FF61F3D1CFD096C007D5324 /* StampReport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StampReport.m; sourceTree = "<group>"; };
 		1FF6255416E9B05400D4D849 /* GPAddStampController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPAddStampController.h; sourceTree = "<group>"; };
 		1FF6255516E9B05400D4D849 /* GPAddStampController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPAddStampController.m; sourceTree = "<group>"; };
 		1FF6255616E9B05400D4D849 /* GPAddStampController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GPAddStampController.xib; sourceTree = "<group>"; };
@@ -812,6 +823,10 @@
 			isa = PBXGroup;
 			children = (
 				1F2E549D170759FB00F177A0 /* GPDocument.xcdatamodeld */,
+				1FF61F3A1CFD096C007D5324 /* StampReport+CoreDataProperties.h */,
+				1FF61F3B1CFD096C007D5324 /* StampReport+CoreDataProperties.m */,
+				1FF61F3C1CFD096C007D5324 /* StampReport.h */,
+				1FF61F3D1CFD096C007D5324 /* StampReport.m */,
 				1FF09E391CF267C9002A35F8 /* PlateNumber+CoreDataProperties.h */,
 				1FF09E3A1CF267C9002A35F8 /* PlateNumber+CoreDataProperties.m */,
 				1FF09E3B1CF267C9002A35F8 /* PlateNumber.h */,
@@ -1121,6 +1136,7 @@
 				1F1B69B4178A324B0018B930 /* GPDatabaseStats.xib */,
 				1F1B69B2178A324A0018B930 /* GPDatabaseStats.h */,
 				1F1B69B3178A324B0018B930 /* GPDatabaseStats.m */,
+				1FF61F321CFCDFBA007D5324 /* Reports */,
 				1FC06C1216E41A7100DA8DFB /* Preferences */,
 				1F55AD7B1711FE640094C076 /* ImportExport */,
 				1FC06C1716E500BA00DA8DFB /* Search */,
@@ -1423,6 +1439,15 @@
 			name = UI;
 			sourceTree = "<group>";
 		};
+		1FF61F321CFCDFBA007D5324 /* Reports */ = {
+			isa = PBXGroup;
+			children = (
+				1FF61F361CFCE156007D5324 /* GPReportController.xib */,
+				1FF61F351CFCE156007D5324 /* GPReportController.swift */,
+			);
+			name = Reports;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1534,6 +1559,7 @@
 				1F0EC77816D9481000427B4C /* GPSupportedFormatsController.xib in Resources */,
 				1F0EC77916D9481000427B4C /* GPSupportedGroupsController.xib in Resources */,
 				1F0EC77B16D948EC00427B4C /* GPCatalogEditor.xib in Resources */,
+				1FF61F381CFCE156007D5324 /* GPReportController.xib in Resources */,
 				1F0EC78D16D95C9300427B4C /* GPSetPopoverController.xib in Resources */,
 				1F0EC79816DA7AA600427B4C /* GPTopicsController.xib in Resources */,
 				1FC06C1116E4027F00DA8DFB /* GPStampViewer.xib in Resources */,
@@ -1701,6 +1727,7 @@
 				1FFD14DB1879FEA80026143B /* Cancelations.m in Sources */,
 				1FF6255716E9B05400D4D849 /* GPAddStampController.m in Sources */,
 				1FF6255C16E9BCF900D4D849 /* GPLocatorPage.m in Sources */,
+				1FF61F3F1CFD096C007D5324 /* StampReport.m in Sources */,
 				1F991556188DBEE20090AF64 /* GPSalesGroup.m in Sources */,
 				1FF6256116E9BD7F00D4D849 /* GPCatalogChooserPage.m in Sources */,
 				1F22F5B818B842C200D48448 /* GPCatalogDateType.m in Sources */,
@@ -1740,6 +1767,7 @@
 				1F2E54A0170759FB00F177A0 /* GPDocument.xcdatamodeld in Sources */,
 				1FCC1B581710D84D00A81196 /* GPPicture.m in Sources */,
 				1F55AD8417120FAE0094C076 /* GPImportController.m in Sources */,
+				1FF61F371CFCE156007D5324 /* GPReportController.swift in Sources */,
 				1FF09E381CF266AF002A35F8 /* Stamp.m in Sources */,
 				1F55AD89171A70A30094C076 /* GPStampDetail.m in Sources */,
 				1F1F923C1A71D80C003E090D /* GPCatalogDate.m in Sources */,
@@ -1767,6 +1795,7 @@
 				1F254E8318B2F8F2003A3CD7 /* GPPlateSizeType.m in Sources */,
 				1F254E6818B2F89F003A3CD7 /* PlatePosition.m in Sources */,
 				1FD287C3175458AE00B718EF /* GPSellListLocator.m in Sources */,
+				1FF61F3E1CFD096C007D5324 /* StampReport+CoreDataProperties.m in Sources */,
 				1FDDDC7F1758503A00830C80 /* Stamp+CreateComposite.m in Sources */,
 				1F1F92391A71D80C003E090D /* GPCatalogQuantity.m in Sources */,
 				1FDDDC821759AF4B00830C80 /* GPCompositeTypeTransformer.m in Sources */,
@@ -1944,7 +1973,7 @@
 				GCC_PREFIX_HEADER = "GonePostal/GonePostal-Prefix.pch";
 				INFOPLIST_FILE = "GonePostal/GonePostal-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "gb.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "GonePostal/GonePostal-Bridging-Header.h";
@@ -1962,7 +1991,7 @@
 				GCC_PREFIX_HEADER = "GonePostal/GonePostal-Prefix.pch";
 				INFOPLIST_FILE = "GonePostal/GonePostal-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "gb.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "GonePostal/GonePostal-Bridging-Header.h";
@@ -2042,6 +2071,7 @@
 		1F2E549D170759FB00F177A0 /* GPDocument.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				1FF61F391CFCFC61007D5324 /* GPDocument 33.xcdatamodel */,
 				1FF09E261CF23735002A35F8 /* GPDocument 32.xcdatamodel */,
 				1F21022F1A587A300043374F /* GPDocument 31.xcdatamodel */,
 				1FCEAE4E1A38CBA800D75689 /* GPDocument 30.xcdatamodel */,
@@ -2075,7 +2105,7 @@
 				1F2E549E170759FB00F177A0 /* GPDocument 2.xcdatamodel */,
 				1F2E549F170759FB00F177A0 /* GPDocument.xcdatamodel */,
 			);
-			currentVersion = 1FF09E261CF23735002A35F8 /* GPDocument 32.xcdatamodel */;
+			currentVersion = 1FF61F391CFCFC61007D5324 /* GPDocument 33.xcdatamodel */;
 			path = GPDocument.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

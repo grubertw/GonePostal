@@ -381,7 +381,7 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
     
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.mainWindow modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.mainWindow completionHandler:nil];
         [self.managedObjectContext undo];
     }
 }
@@ -392,7 +392,7 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.mainWindow modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.mainWindow completionHandler:nil];
         [self.managedObjectContext undo];
     }
 }
@@ -817,7 +817,9 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
             success = ([coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:outError] != nil);
         }
         
-        [filewrapper addFileWithPath:[storeURL path]];
+        // Create core data store wrapper and add to directory wrapper.
+        NSFileWrapper *storeWrapper = [[NSFileWrapper alloc] initWithURL:storeURL options:0 error:outError];
+        [filewrapper addFileWrapper:storeWrapper];
     }
  
     if (success) {
@@ -838,7 +840,7 @@ void (^fileSaveHandler)(NSError * error) = ^(NSError * error){
         GPDocument * doc = [docController currentDocument];
         
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:[doc windowForSheet] modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:[doc windowForSheet] completionHandler:nil];
     }
 };
 

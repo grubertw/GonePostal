@@ -3,7 +3,17 @@
 //
 
 #import "GPDocument.h"
+#import "GPCountrySearch.h"
+#import "GPSectionSearch.h"
+#import "GPFilterSearch.h"
+#import "GPFormatSearch.h"
+#import "GPLocationSearch.h"
+#import "GPSubvarietySearch.h"
+#import "GPCustomSearch.h"
 
+// Models.
 #import "GPCatalog.h"
 #import "Stamp.h"
 #import "StampFormat.h"
+#import "StampReport.h"
+#import "StoredSearch.h"

@@ -56,7 +56,7 @@
         NSError * error;
         if (![self.managedObjectContext save:&error]) {
             NSAlert * errSheet = [NSAlert alertWithError:error];
-            [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+            [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
             [self.managedObjectContext undo];
         }
     }
@@ -112,7 +112,7 @@
         [availableTemplates addObject:predicateTemplate];
         
         count = 0;
-        lhsButton = predicateTemplate.templateViews[0];
+        lhsButton = (NSPopUpButton *)predicateTemplate.templateViews[0];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Background Information"];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Color"];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Denomination"];
@@ -155,7 +155,7 @@
         [availableTemplates addObject:predicateTemplate];
         
         count = 0;
-        lhsButton = predicateTemplate.templateViews[0];
+        lhsButton = (NSPopUpButton *)predicateTemplate.templateViews[0];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Catalog Number"];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Catalog Name"];
         
@@ -176,7 +176,7 @@
         [availableTemplates addObject:predicateTemplate];
         
         count = 0;
-        lhsButton = predicateTemplate.templateViews[0];
+        lhsButton = (NSPopUpButton *)predicateTemplate.templateViews[0];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Album Height"];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Album Width"];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Number of Panes"];
@@ -197,7 +197,7 @@
         [availableTemplates addObject:predicateTemplate];
         
         count = 0;
-        lhsButton = predicateTemplate.templateViews[0];
+        lhsButton = (NSPopUpButton *)predicateTemplate.templateViews[0];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Album Height"];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Album Width"];
         
@@ -210,7 +210,7 @@
         [availableTemplates addObject:predicateTemplate];
         
         count = 0;
-        lhsButton = predicateTemplate.templateViews[0];
+        lhsButton = (NSPopUpButton *)predicateTemplate.templateViews[0];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Date Documented First Use"];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Date Issued"];
         
@@ -225,7 +225,7 @@
         [availableTemplates addObject:predicateTemplate];
         
         count = 0;
-        lhsButton = predicateTemplate.templateViews[0];
+        lhsButton = (NSPopUpButton *)predicateTemplate.templateViews[0];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Has Subvarieties"];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"User Catalog"];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Show Default Catalog"];
@@ -284,7 +284,7 @@
         [availableTemplates addObject:predicateTemplate];
         
         count = 0;
-        lhsButton = predicateTemplate.templateViews[0];
+        lhsButton = (NSPopUpButton *)predicateTemplate.templateViews[0];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Color"];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Denomination"];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Design Measurement"];
@@ -358,7 +358,7 @@
         [availableTemplates addObject:predicateTemplate];
         
         count = 0;
-        lhsButton = predicateTemplate.templateViews[0];
+        lhsButton = (NSPopUpButton *)predicateTemplate.templateViews[0];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Last Sale Price"];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Manual Value"];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Purchase Amount"];
@@ -371,7 +371,7 @@
         [availableTemplates addObject:predicateTemplate];
         
         count = 0;
-        lhsButton = predicateTemplate.templateViews[0];
+        lhsButton = (NSPopUpButton *)predicateTemplate.templateViews[0];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Mint"];
         
         
@@ -382,7 +382,7 @@
         [availableTemplates addObject:predicateTemplate];
         
         count = 0;
-        lhsButton = predicateTemplate.templateViews[0];
+        lhsButton = (NSPopUpButton *)predicateTemplate.templateViews[0];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Cancelation Date"];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Purchase Date"];
     }
@@ -404,7 +404,7 @@
         [availableTemplates addObject:predicateTemplate];
         
         count = 0;
-        lhsButton = predicateTemplate.templateViews[0];
+        lhsButton = (NSPopUpButton *)predicateTemplate.templateViews[0];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Plate Number GPID"];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Imprint 1"];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Imprint 2"];
@@ -428,7 +428,7 @@
         [availableTemplates addObject:predicateTemplate];
         
         count = 0;
-        lhsButton = predicateTemplate.templateViews[0];
+        lhsButton = (NSPopUpButton *)predicateTemplate.templateViews[0];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Max Percentage"];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Number of Stamps"];
         
@@ -442,7 +442,7 @@
         [availableTemplates addObject:predicateTemplate];
         
         count = 0;
-        lhsButton = predicateTemplate.templateViews[0];
+        lhsButton = (NSPopUpButton *)predicateTemplate.templateViews[0];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Combination Unknown"];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Unreported"];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Very Rare"];
@@ -469,7 +469,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
     }
     
@@ -482,7 +482,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
     }
 }
@@ -494,7 +494,7 @@
         NSError * error;
         if (![self.managedObjectContext save:&error]) {
             NSAlert * errSheet = [NSAlert alertWithError:error];
-            [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+            [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
             [self.managedObjectContext undo];
         }
     }

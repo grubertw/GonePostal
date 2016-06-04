@@ -333,17 +333,13 @@
 }
 
 - (IBAction)openAddCompositeEditor:(id)sender {
-    NSApplication * app = [NSApplication sharedApplication];
-    
     [self.managedObjectContext save:nil];
-    [app beginSheet:self.createCompositePanel modalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+    [self.window beginSheet:self.createCompositePanel completionHandler:nil];
 }
 
 - (IBAction)createComposite:(id)sender {
     NSArray * selectedStamps = [self.stampsController selectedObjects];
     if (!selectedStamps) return;
-    
-    NSApplication * app = [NSApplication sharedApplication];
     
     NSInteger compositeType;
     if (self.setOrIntegralCompositeCheckBox.state == NSOnState) {
@@ -357,12 +353,12 @@
         if ([stamp.children count] > 0) {
             [self.managedObjectContext rollback];
             
-            [app endSheet:self.createCompositePanel];
+            [self.window endSheet:self.createCompositePanel];
             [self.createCompositePanel close];
             
             NSAlert * alertSheet = [NSAlert alertWithMessageText:nil defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:@"A Composite item cannot be placed within another composite.  Please remove the composite item from your selection."];
             
-            [alertSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+            [alertSheet beginSheetModalForWindow:self.window completionHandler:nil];
             return;
         }
         
@@ -373,22 +369,20 @@
     [self.myCollection addStampsObject:composite];
     
     // End the sheet.
-    [app endSheet:self.createCompositePanel];
+    [self.window endSheet:self.createCompositePanel];
     [self.createCompositePanel close];
     
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext rollback];
     }
 }
 
 - (IBAction)cancelComposite:(id)sender {
-    NSApplication * app = [NSApplication sharedApplication];
-    
     // End the sheet.
-    [app endSheet:self.createCompositePanel];
+    [self.window endSheet:self.createCompositePanel];
     [self.createCompositePanel close];
 }
 

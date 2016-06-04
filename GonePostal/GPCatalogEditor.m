@@ -462,7 +462,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
         return;
     }
@@ -476,7 +476,10 @@
         
         NSError * error;
         if (![entry validateForDelete:&error]) {
-            [NSAlert alertWithMessageText:@"Delete Error" defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:@"Unable to remove catalog entry. Entry has one or more subvarieties."];
+            NSAlert * alert = [[NSAlert alloc] init];
+            alert.messageText = @"Delete Error";
+            alert.informativeText = @"Unable to remove catalog entry. Entry has one or more subvarieties.";
+            [alert beginSheetModalForWindow:self.window completionHandler:nil];
         }
         
         if (self.currMajorVariety) {
@@ -489,7 +492,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
         return;
     }
@@ -517,8 +520,7 @@
     }
     
     // Run the add to set panel as a sheet on top of the catalog editor.
-    NSApplication * app = [NSApplication sharedApplication];
-    [app beginSheet:self.addToSetPanel modalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+    [self.window beginSheet:self.addToSetPanel completionHandler:nil];
 }
 
 - (IBAction)addSelectedEntriesToSet:(id)sender {    
@@ -529,14 +531,11 @@
     }
     
     // End the sheet.
-    NSApplication * app = [NSApplication sharedApplication];
-    [app endSheet:self.addToSetPanel];
+    [self.window endSheet:self.addToSetPanel];
     [self.addToSetPanel close];
 }
 
 - (IBAction)addToLooksLike:(id)sender {
-    NSApplication * app = [NSApplication sharedApplication];
-    
     NSMutableArray * predicateArray = [NSMutableArray arrayWithCapacity:0];
     
     if (self.countrySearchController.predicate != nil) {
@@ -559,7 +558,7 @@
     [self.looksLikeController setFilterPredicate:llPredicate];
     [self.looksLikeController fetch:sender];
     
-    [app beginSheet:self.addToLooksLikePanel modalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+    [self.window beginSheet:self.addToLooksLikePanel completionHandler:nil];
 }
 
 - (IBAction)addSelectedEntriesToLooksLike:(id)sender {
@@ -580,8 +579,7 @@
     }
     
     // End the sheet.
-    NSApplication * app = [NSApplication sharedApplication];
-    [app endSheet:self.addToLooksLikePanel];
+    [self.window endSheet:self.addToLooksLikePanel];
     [self.addToLooksLikePanel close];
 }
 
@@ -626,27 +624,19 @@
 }
 
 - (IBAction)openCountriesSearchPanel:(id)sender {
-    NSApplication * app = [NSApplication sharedApplication];
-    
-    [app beginSheet:self.countrySearchController.panel modalForWindow:self.window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
+    [self.window beginSheet:self.countrySearchController.panel completionHandler:nil];
 }
 
 - (IBAction)openSectionsSearchPanel:(id)sender {
-    NSApplication * app = [NSApplication sharedApplication];
-    
-    [app beginSheet:self.sectionSearchController.panel modalForWindow:self.window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
+    [self.window beginSheet:self.sectionSearchController.panel completionHandler:nil];
 }
 
 - (IBAction)openFiltersSearchPanel:(id)sender {
-    NSApplication * app = [NSApplication sharedApplication];
-    
-    [app beginSheet:self.filterSearchController.panel modalForWindow:self.window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
+    [self.window beginSheet:self.filterSearchController.panel completionHandler:nil];
 }
 
 - (IBAction)openSubvarietySearchPanel:(id)sender {
-    NSApplication * app = [NSApplication sharedApplication];
-    
-    [app beginSheet:self.subvarietySearchController.panel modalForWindow:self.window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
+    [self.window beginSheet:self.subvarietySearchController.panel completionHandler:nil];
 }
 
 - (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
@@ -754,7 +744,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
         return;
     }
@@ -766,7 +756,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
         return;
     }
@@ -778,7 +768,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
         return;
     }
@@ -790,7 +780,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
         return;
     }
@@ -802,7 +792,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
         return;
     }
@@ -814,7 +804,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
         return;
     }
@@ -826,7 +816,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
         return;
     }
@@ -838,7 +828,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
         return;
     }
@@ -850,7 +840,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
         return;
     }
@@ -862,7 +852,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
         return;
     }
@@ -874,7 +864,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
         return;
     }
@@ -886,7 +876,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
         return;
     }
@@ -898,7 +888,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
         return;
     }
@@ -910,7 +900,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
         return;
     }
@@ -933,7 +923,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
         return;
     }
@@ -1270,7 +1260,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
         return;
     }
@@ -1282,7 +1272,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
         return;
     }
@@ -1305,7 +1295,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
         return;
     }
@@ -1324,7 +1314,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
         return;
     }
@@ -1340,7 +1330,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
         return;
     }
@@ -1371,7 +1361,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
         return;
     }
@@ -1390,7 +1380,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
         return;
     }
@@ -1409,7 +1399,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
         return;
     }
@@ -1435,7 +1425,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
         return;
     }
@@ -1455,7 +1445,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
         return;
     }
@@ -1473,7 +1463,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
         return;
     }
@@ -1501,7 +1491,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
         return;
     }
@@ -1520,7 +1510,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
         return;
     }
@@ -1532,7 +1522,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
         return;
     }
@@ -1544,7 +1534,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
         return;
     }
@@ -1650,7 +1640,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
         return;
     }
@@ -1674,7 +1664,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
         return;
     }

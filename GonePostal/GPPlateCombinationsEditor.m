@@ -128,7 +128,7 @@ static const NSUInteger EXPLODE_NUMBER          = 3;
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
         return;
     }
@@ -144,7 +144,7 @@ static const NSUInteger EXPLODE_NUMBER          = 3;
     [self.startingGPID setStringValue:[NSString stringWithFormat:@"%@%08ld", staticID, startingID]];
     
     self.promptAction = DUPLICATE_PLATE_COMBO;
-    [NSApp beginSheet:self.createPanel modalForWindow:self.window modalDelegate:self didEndSelector:nil contextInfo:nil];
+    [self.window beginSheet:self.createPanel completionHandler:nil];
 }
 
 - (IBAction)openExplodePlatesPrompt:(id)sender {
@@ -156,7 +156,7 @@ static const NSUInteger EXPLODE_NUMBER          = 3;
     [self.startingGPID setStringValue:[NSString stringWithFormat:@"%@%08ld", staticID, startingID]];
     
     self.promptAction = EXPLODE_PLATE;
-    [NSApp beginSheet:self.createPanel modalForWindow:self.window modalDelegate:self didEndSelector:nil contextInfo:nil];
+    [self.window beginSheet:self.createPanel completionHandler:nil];
 }
 
 - (IBAction)openExplodeNumbersPrompt:(id)sender {
@@ -168,17 +168,18 @@ static const NSUInteger EXPLODE_NUMBER          = 3;
     [self.startingGPID setStringValue:[NSString stringWithFormat:@"%@%08ld", staticID, startingID]];
     
     self.promptAction = EXPLODE_NUMBER;
-    [NSApp beginSheet:self.createPanel modalForWindow:self.window modalDelegate:self didEndSelector:nil contextInfo:nil];
+    [self.window beginSheet:self.createPanel completionHandler:nil];
 }
 
 - (IBAction)closePrompt:(id)sender {
     NSString * staticID = [GPDocument parseStaticID:[self.startingGPID stringValue]];
     if (!staticID) {
-        [NSApp endSheet:self.createPanel];
+        [self.window endSheet:self.createPanel];
         [self.createPanel orderOut:sender];
-        NSAlert * alertSheet = [NSAlert alertWithMessageText:nil defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:@"Invalid format entered for GPID.  Number must be formatted with dashes."];
+        NSAlert * alertSheet = [[NSAlert alloc] init];
+        alertSheet.informativeText = @"Invalid format entered for GPID.  Number must be formatted with dashes.";
         
-        [alertSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [alertSheet beginSheetModalForWindow:self.window completionHandler:nil];
         self.promptAction = 0;
         return;
     }
@@ -193,20 +194,20 @@ static const NSUInteger EXPLODE_NUMBER          = 3;
         [self explodeNumbers:staticID withStartingID:startingID];
     
     self.promptAction = 0;
-    [NSApp endSheet:self.createPanel];
+    [self.window endSheet:self.createPanel];
     [self.createPanel orderOut:sender];
     
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
     }
 }
 
 - (IBAction)cancelPrompt:(id)sender {
     self.promptAction = 0;
-    [NSApp endSheet:self.createPanel];
+    [self.window endSheet:self.createPanel];
     [self.createPanel orderOut:sender];
 }
 
@@ -319,7 +320,7 @@ static const NSUInteger EXPLODE_NUMBER          = 3;
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
     }
 }
@@ -330,7 +331,7 @@ static const NSUInteger EXPLODE_NUMBER          = 3;
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
     }
 }

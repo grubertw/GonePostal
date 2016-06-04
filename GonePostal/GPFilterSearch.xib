@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <deployment defaultVersion="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
+        <capability name="box content view" minToolsVersion="7.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="GPFilterSearch">
@@ -11,18 +12,14 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <view id="127">
             <rect key="frame" x="0.0" y="0.0" width="470" height="300"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <button translatesAutoresizingMaskIntoConstraints="NO" id="132">
+                <button id="132">
                     <rect key="frame" x="136" y="261" width="199" height="27"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="195" id="148"/>
-                        <constraint firstAttribute="height" constant="23" id="149"/>
-                    </constraints>
                     <buttonCell key="cell" type="check" title="Enable Search by Filter" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="147">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system" size="15"/>
@@ -31,19 +28,16 @@
                         <binding destination="-2" name="value" keyPath="self.filterSearchEnabled" id="222"/>
                     </connections>
                 </button>
-                <box autoresizesSubviews="NO" verticalCompressionResistancePriority="1000" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="131">
+                <box autoresizesSubviews="NO" verticalCompressionResistancePriority="1000" borderType="line" id="131">
                     <rect key="frame" x="27" y="185" width="416" height="81"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <view key="contentView">
+                    <view key="contentView" id="jer-jI-Tav">
                         <rect key="frame" x="1" y="1" width="414" height="65"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button autoresizesSubviews="NO" translatesAutoresizingMaskIntoConstraints="NO" id="157">
+                            <button autoresizesSubviews="NO" id="157">
                                 <rect key="frame" x="16" y="39" width="118" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="114" id="310"/>
-                                </constraints>
                                 <buttonCell key="cell" type="check" title="Always Display" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="165">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="cellTitle"/>
@@ -52,12 +46,9 @@
                                     <binding destination="-2" name="value" keyPath="self.filterByAlwaysDisplay" id="225"/>
                                 </connections>
                             </button>
-                            <button autoresizesSubviews="NO" translatesAutoresizingMaskIntoConstraints="NO" id="158">
+                            <button autoresizesSubviews="NO" id="158">
                                 <rect key="frame" x="146" y="39" width="103" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="99" id="314"/>
-                                </constraints>
                                 <buttonCell key="cell" type="check" title="Very Rare" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="162">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="cellTitle"/>
@@ -66,12 +57,9 @@
                                     <binding destination="-2" name="value" keyPath="self.filterByVeryRare" id="224"/>
                                 </connections>
                             </button>
-                            <button autoresizesSubviews="NO" translatesAutoresizingMaskIntoConstraints="NO" id="159">
+                            <button autoresizesSubviews="NO" id="159">
                                 <rect key="frame" x="276" y="39" width="84" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="80" id="161"/>
-                                </constraints>
                                 <buttonCell key="cell" type="check" title="Hidden" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="160">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="cellTitle"/>
@@ -80,7 +68,7 @@
                                     <binding destination="-2" name="value" keyPath="self.filterByHidden" id="226"/>
                                 </connections>
                             </button>
-                            <button autoresizesSubviews="NO" translatesAutoresizingMaskIntoConstraints="NO" id="254">
+                            <button autoresizesSubviews="NO" id="254">
                                 <rect key="frame" x="16" y="12" width="118" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Plated" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="259">
@@ -91,7 +79,7 @@
                                     <binding destination="-2" name="value" keyPath="self.filterByPlated" id="322"/>
                                 </connections>
                             </button>
-                            <button autoresizesSubviews="NO" translatesAutoresizingMaskIntoConstraints="NO" id="255">
+                            <button autoresizesSubviews="NO" id="255">
                                 <rect key="frame" x="145" y="12" width="104" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Surcharged" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="256">
@@ -104,36 +92,19 @@
                             </button>
                         </subviews>
                     </view>
-                    <constraints>
-                        <constraint firstItem="159" firstAttribute="top" secondItem="131" secondAttribute="top" constant="25" id="151"/>
-                        <constraint firstItem="158" firstAttribute="top" secondItem="131" secondAttribute="top" constant="25" id="153"/>
-                        <constraint firstItem="157" firstAttribute="top" secondItem="131" secondAttribute="top" constant="25" id="155"/>
-                        <constraint firstItem="157" firstAttribute="leading" secondItem="131" secondAttribute="leading" constant="16" id="156"/>
-                        <constraint firstAttribute="bottom" secondItem="254" secondAttribute="bottom" constant="11" id="264"/>
-                        <constraint firstItem="254" firstAttribute="leading" secondItem="131" secondAttribute="leading" constant="16" id="267"/>
-                        <constraint firstAttribute="bottom" secondItem="255" secondAttribute="bottom" constant="11" id="268"/>
-                        <constraint firstItem="157" firstAttribute="trailing" secondItem="254" secondAttribute="trailing" id="311"/>
-                        <constraint firstItem="158" firstAttribute="centerX" secondItem="255" secondAttribute="centerX" id="315"/>
-                        <constraint firstItem="158" firstAttribute="trailing" secondItem="255" secondAttribute="trailing" id="316"/>
-                        <constraint firstItem="255" firstAttribute="leading" secondItem="131" secondAttribute="leading" constant="145" id="317"/>
-                        <constraint firstAttribute="trailing" secondItem="159" secondAttribute="trailing" constant="54" id="320"/>
-                    </constraints>
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
-                <box autoresizesSubviews="NO" verticalCompressionResistancePriority="1000" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="130">
+                <box autoresizesSubviews="NO" verticalCompressionResistancePriority="1000" borderType="line" id="130">
                     <rect key="frame" x="27" y="110" width="416" height="81"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <view key="contentView">
+                    <view key="contentView" id="uBO-Dz-JJl">
                         <rect key="frame" x="1" y="1" width="414" height="65"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="166">
+                            <button id="166">
                                 <rect key="frame" x="16" y="39" width="107" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="103" id="295"/>
-                                </constraints>
                                 <buttonCell key="cell" type="check" title="Color Variety" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="189">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="cellTitle"/>
@@ -142,12 +113,9 @@
                                     <binding destination="-2" name="value" keyPath="self.filterByColorVariety" id="231"/>
                                 </connections>
                             </button>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="181">
+                            <button id="181">
                                 <rect key="frame" x="145" y="39" width="102" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="98" id="300"/>
-                                </constraints>
                                 <buttonCell key="cell" type="check" title="Gum Variety" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="186">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="cellTitle"/>
@@ -156,12 +124,9 @@
                                     <binding destination="-2" name="value" keyPath="self.filterByGumVariety" id="223"/>
                                 </connections>
                             </button>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="182">
+                            <button id="182">
                                 <rect key="frame" x="266" y="39" width="111" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="107" id="279"/>
-                                </constraints>
                                 <buttonCell key="cell" type="check" title="Plate Variation" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="184">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="cellTitle"/>
@@ -170,7 +135,7 @@
                                     <binding destination="-2" name="value" keyPath="self.filterByPlateVariety" id="229"/>
                                 </connections>
                             </button>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="168">
+                            <button id="168">
                                 <rect key="frame" x="16" y="12" width="107" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Tag Variety" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="187">
@@ -181,7 +146,7 @@
                                     <binding destination="-2" name="value" keyPath="self.filterByTagVariety" id="220"/>
                                 </connections>
                             </button>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="167">
+                            <button id="167">
                                 <rect key="frame" x="145" y="12" width="102" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Print Variety" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="188">
@@ -192,7 +157,7 @@
                                     <binding destination="-2" name="value" keyPath="self.filterByPrintVariety" id="230"/>
                                 </connections>
                             </button>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="270">
+                            <button id="270">
                                 <rect key="frame" x="266" y="12" width="141" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Watermark Variation" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="271">
@@ -205,38 +170,19 @@
                             </button>
                         </subviews>
                     </view>
-                    <constraints>
-                        <constraint firstItem="182" firstAttribute="top" secondItem="130" secondAttribute="top" constant="25" id="170"/>
-                        <constraint firstAttribute="bottom" secondItem="167" secondAttribute="bottom" constant="11" id="172"/>
-                        <constraint firstItem="181" firstAttribute="leading" secondItem="167" secondAttribute="leading" id="173"/>
-                        <constraint firstItem="181" firstAttribute="top" secondItem="130" secondAttribute="top" constant="25" id="175"/>
-                        <constraint firstItem="168" firstAttribute="leading" secondItem="130" secondAttribute="leading" constant="16" id="176"/>
-                        <constraint firstAttribute="bottom" secondItem="168" secondAttribute="bottom" constant="11" id="178"/>
-                        <constraint firstItem="166" firstAttribute="top" secondItem="130" secondAttribute="top" constant="25" id="179"/>
-                        <constraint firstItem="166" firstAttribute="leading" secondItem="130" secondAttribute="leading" constant="16" id="180"/>
-                        <constraint firstAttribute="bottom" secondItem="270" secondAttribute="bottom" constant="11" id="276"/>
-                        <constraint firstItem="168" firstAttribute="trailing" secondItem="166" secondAttribute="trailing" id="296"/>
-                        <constraint firstItem="181" firstAttribute="leading" secondItem="130" secondAttribute="leading" constant="145" id="301"/>
-                        <constraint firstItem="181" firstAttribute="trailing" secondItem="167" secondAttribute="trailing" id="302"/>
-                        <constraint firstItem="182" firstAttribute="leading" secondItem="270" secondAttribute="leading" id="303"/>
-                        <constraint firstAttribute="trailing" secondItem="270" secondAttribute="trailing" constant="7" id="304"/>
-                    </constraints>
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
-                <box autoresizesSubviews="NO" horizontalCompressionResistancePriority="600" verticalCompressionResistancePriority="1000" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="129">
+                <box autoresizesSubviews="NO" horizontalCompressionResistancePriority="600" verticalCompressionResistancePriority="1000" borderType="line" id="129">
                     <rect key="frame" x="27" y="31" width="416" height="86"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <view key="contentView">
+                    <view key="contentView" id="myX-Ai-yUI">
                         <rect key="frame" x="1" y="1" width="414" height="70"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="206">
+                            <button id="206">
                                 <rect key="frame" x="16" y="44" width="98" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="94" id="306"/>
-                                </constraints>
                                 <buttonCell key="cell" type="check" title="Color Error" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="214">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="cellTitle"/>
@@ -245,7 +191,7 @@
                                     <binding destination="-2" name="value" keyPath="self.filterByColorError" id="227"/>
                                 </connections>
                             </button>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="192">
+                            <button id="192">
                                 <rect key="frame" x="145" y="44" width="124" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Tag Error" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="215">
@@ -256,12 +202,9 @@
                                     <binding destination="-2" name="value" keyPath="self.filterByTagError" id="221"/>
                                 </connections>
                             </button>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="207">
+                            <button id="207">
                                 <rect key="frame" x="145" y="12" width="124" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="120" id="212"/>
-                                </constraints>
                                 <buttonCell key="cell" type="check" title="Multiple Transfer" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="211">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="cellTitle"/>
@@ -270,7 +213,7 @@
                                     <binding destination="-2" name="value" keyPath="self.filterByMultipleTransfer" id="228"/>
                                 </connections>
                             </button>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="191">
+                            <button id="191">
                                 <rect key="frame" x="16" y="12" width="98" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Perf Error" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="216">
@@ -281,12 +224,9 @@
                                     <binding destination="-2" name="value" keyPath="self.filterByPerfError" id="218"/>
                                 </connections>
                             </button>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="208">
+                            <button id="208">
                                 <rect key="frame" x="277" y="44" width="98" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="94" id="210"/>
-                                </constraints>
                                 <buttonCell key="cell" type="check" title="Plate Error" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="209">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="cellTitle"/>
@@ -295,12 +235,9 @@
                                     <binding destination="-2" name="value" keyPath="self.filterByPlateError" id="219"/>
                                 </connections>
                             </button>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="280">
+                            <button id="280">
                                 <rect key="frame" x="277" y="12" width="121" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="117" id="293"/>
-                                </constraints>
                                 <buttonCell key="cell" type="check" title="Watermark Error" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="281">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="cellTitle"/>
@@ -311,27 +248,10 @@
                             </button>
                         </subviews>
                     </view>
-                    <constraints>
-                        <constraint firstItem="208" firstAttribute="top" secondItem="129" secondAttribute="top" constant="25" id="194"/>
-                        <constraint firstItem="207" firstAttribute="trailing" secondItem="192" secondAttribute="trailing" id="195"/>
-                        <constraint firstItem="207" firstAttribute="leading" secondItem="192" secondAttribute="leading" id="196"/>
-                        <constraint firstAttribute="bottom" secondItem="207" secondAttribute="bottom" constant="11" id="197"/>
-                        <constraint firstItem="192" firstAttribute="top" secondItem="129" secondAttribute="top" constant="25" id="199"/>
-                        <constraint firstAttribute="bottom" secondItem="191" secondAttribute="bottom" constant="11" id="200"/>
-                        <constraint firstItem="191" firstAttribute="top" secondItem="129" secondAttribute="top" constant="57" id="201"/>
-                        <constraint firstItem="191" firstAttribute="leading" secondItem="129" secondAttribute="leading" constant="16" id="202"/>
-                        <constraint firstItem="206" firstAttribute="top" secondItem="129" secondAttribute="top" constant="25" id="204"/>
-                        <constraint firstItem="206" firstAttribute="leading" secondItem="129" secondAttribute="leading" constant="16" id="205"/>
-                        <constraint firstAttribute="bottom" secondItem="280" secondAttribute="bottom" constant="11" id="285"/>
-                        <constraint firstItem="280" firstAttribute="leading" secondItem="208" secondAttribute="leading" id="291"/>
-                        <constraint firstItem="206" firstAttribute="trailing" secondItem="191" secondAttribute="trailing" id="307"/>
-                        <constraint firstItem="207" firstAttribute="centerX" secondItem="129" secondAttribute="centerX" id="308"/>
-                        <constraint firstAttribute="trailing" secondItem="280" secondAttribute="trailing" constant="16" id="309"/>
-                    </constraints>
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="128">
+                <button verticalHuggingPriority="750" id="128">
                     <rect key="frame" x="198" y="2" width="74" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="push" title="Done" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" inset="2" id="217">
@@ -343,23 +263,6 @@
                     </connections>
                 </button>
             </subviews>
-            <constraints>
-                <constraint firstItem="131" firstAttribute="leading" secondItem="130" secondAttribute="leading" id="133"/>
-                <constraint firstItem="131" firstAttribute="centerX" secondItem="132" secondAttribute="centerX" id="134"/>
-                <constraint firstItem="131" firstAttribute="leading" secondItem="127" secondAttribute="leading" constant="30" id="136"/>
-                <constraint firstItem="130" firstAttribute="trailing" secondItem="131" secondAttribute="trailing" id="137"/>
-                <constraint firstItem="132" firstAttribute="top" secondItem="127" secondAttribute="top" constant="14" id="141"/>
-                <constraint firstItem="129" firstAttribute="leading" secondItem="130" secondAttribute="leading" id="142"/>
-                <constraint firstItem="129" firstAttribute="trailing" secondItem="130" secondAttribute="trailing" id="143"/>
-                <constraint firstItem="129" firstAttribute="centerX" secondItem="128" secondAttribute="centerX" id="144"/>
-                <constraint firstAttribute="bottom" secondItem="128" secondAttribute="bottom" constant="9" id="236"/>
-                <constraint firstItem="129" firstAttribute="top" secondItem="127" secondAttribute="top" constant="183" id="237"/>
-                <constraint firstAttribute="bottom" secondItem="130" secondAttribute="bottom" constant="114" id="247"/>
-                <constraint firstItem="130" firstAttribute="top" secondItem="127" secondAttribute="top" constant="109" id="248"/>
-                <constraint firstItem="131" firstAttribute="top" secondItem="127" secondAttribute="top" constant="34" id="252"/>
-                <constraint firstAttribute="bottom" secondItem="131" secondAttribute="bottom" constant="189" id="253"/>
-                <constraint firstItem="129" firstAttribute="centerX" secondItem="127" secondAttribute="centerX" id="277"/>
-            </constraints>
         </view>
     </objects>
 </document>

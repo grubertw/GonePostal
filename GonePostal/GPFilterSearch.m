@@ -240,8 +240,7 @@
     }
     
     // End the sheet.
-    NSApplication * app = [NSApplication sharedApplication];
-    [app endSheet:self.view.window];
+    [self.view.window.parentWindow endSheet:self.panel];
     [self.view.window close];
 }
 
