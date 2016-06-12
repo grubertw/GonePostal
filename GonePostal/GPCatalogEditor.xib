@@ -16,7 +16,6 @@
                 <outlet property="altCatalogsController" destination="2531" id="2532"/>
                 <outlet property="attachmentController" destination="8996" id="8998"/>
                 <outlet property="bureauPrecancelsTable" destination="5135" id="7850"/>
-                <outlet property="cachetCollectionView" destination="4963" id="5027"/>
                 <outlet property="cachetController" destination="4870" id="5026"/>
                 <outlet property="cancelationsController" destination="5191" id="5194"/>
                 <outlet property="countriesController" destination="2256" id="2281"/>
@@ -737,7 +736,7 @@
                                                             <rect key="frame" x="0.0" y="-3" width="561" height="687"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <clipView key="contentView" id="Deu-cj-7g4">
-                                                                <rect key="frame" x="1" y="1" width="544" height="685"/>
+                                                                <rect key="frame" x="1" y="1" width="559" height="685"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
                                                                     <view id="641">
@@ -750,8 +749,8 @@
                                                                 <rect key="frame" x="-100" y="-100" width="562" height="15"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                             </scroller>
-                                                            <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="643">
-                                                                <rect key="frame" x="545" y="1" width="15" height="685"/>
+                                                            <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="643">
+                                                                <rect key="frame" x="544" y="1" width="16" height="685"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                             </scroller>
                                                         </scrollView>
@@ -1257,53 +1256,149 @@
                                                     <rect key="frame" x="10" y="7" width="561" height="684"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <button horizontalHuggingPriority="750" verticalHuggingPriority="750" id="4954">
-                                                            <rect key="frame" x="11" y="648" width="39" height="38"/>
+                                                        <button verticalHuggingPriority="750" id="ZkU-95-7pt">
+                                                            <rect key="frame" x="335" y="649" width="227" height="32"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <buttonCell key="cell" type="round" title="+" bezelStyle="circular" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" id="4955">
+                                                            <buttonCell key="cell" type="push" title="Open Cachet Editor" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1pk-RA-ivV">
                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                <font key="font" metaFont="system" size="15"/>
+                                                                <font key="font" metaFont="system"/>
                                                             </buttonCell>
                                                             <connections>
-                                                                <action selector="addCachet:" target="-2" id="5024"/>
+                                                                <action selector="openCachetsEditor:" target="-2" id="L0M-en-nbm"/>
                                                             </connections>
                                                         </button>
-                                                        <button horizontalHuggingPriority="750" verticalHuggingPriority="750" id="4958">
-                                                            <rect key="frame" x="63" y="648" width="39" height="38"/>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Zfl-UU-VE1">
+                                                            <rect key="frame" x="15" y="658" width="129" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <buttonCell key="cell" type="round" title="-" bezelStyle="circular" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" id="4959">
-                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Cachets" id="bdv-nb-ACs">
                                                                 <font key="font" metaFont="system" size="15"/>
-                                                            </buttonCell>
-                                                            <connections>
-                                                                <action selector="removeCachet:" target="-2" id="5025"/>
-                                                            </connections>
-                                                        </button>
-                                                        <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="4962">
-                                                            <rect key="frame" x="0.0" y="-3" width="560" height="657"/>
+                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                        <scrollView autohidesScrollers="YES" horizontalLineScroll="72" horizontalPageScroll="10" verticalLineScroll="72" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="N4h-Lp-IaD">
+                                                            <rect key="frame" x="4" y="7" width="552" height="643"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <clipView key="contentView" id="T97-H6-1X3">
-                                                                <rect key="frame" x="1" y="1" width="558" height="655"/>
+                                                            <clipView key="contentView" id="zS0-mB-AvF">
+                                                                <rect key="frame" x="1" y="1" width="550" height="641"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
-                                                                    <collectionView selectable="YES" allowsMultipleSelection="YES" maxNumberOfRows="1000" maxNumberOfColumns="1" id="4963">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="558" height="655"/>
-                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                                        <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                    <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="70" rowSizeStyle="automatic" viewBased="YES" id="7yq-Gh-lZB">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="552" height="641"/>
+                                                                        <autoresizingMask key="autoresizingMask"/>
+                                                                        <size key="intercellSpacing" width="3" height="2"/>
+                                                                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                        <tableViewGridLines key="gridStyleMask" dashed="YES"/>
+                                                                        <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
+                                                                        <tableColumns>
+                                                                            <tableColumn width="549" minWidth="40" maxWidth="549" id="BKm-Kr-UuB">
+                                                                                <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
+                                                                                    <font key="font" metaFont="smallSystem"/>
+                                                                                    <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                    <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                                                </tableHeaderCell>
+                                                                                <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="QJ0-7d-X8x">
+                                                                                    <font key="font" metaFont="system"/>
+                                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                                </textFieldCell>
+                                                                                <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                                                <prototypeCellViews>
+                                                                                    <tableCellView id="39w-xQ-NBI">
+                                                                                        <rect key="frame" x="1" y="1" width="549" height="70"/>
+                                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                                        <subviews>
+                                                                                            <imageView id="z9M-Qm-CHP">
+                                                                                                <rect key="frame" x="5" y="5" width="71" height="60"/>
+                                                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="photo" id="3t8-vn-gbf"/>
+                                                                                                <connections>
+                                                                                                    <binding destination="39w-xQ-NBI" name="valuePath" keyPath="objectValue.cachet_picture" id="VCF-EE-wEu">
+                                                                                                        <dictionary key="options">
+                                                                                                            <string key="NSValueTransformerName">GPFilenameTransformer</string>
+                                                                                                        </dictionary>
+                                                                                                    </binding>
+                                                                                                </connections>
+                                                                                            </imageView>
+                                                                                            <textField verticalHuggingPriority="750" id="QQp-W8-T0P">
+                                                                                                <rect key="frame" x="79" y="50" width="394" height="17"/>
+                                                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="101-11-100000000-CHT-10000000" id="jzs-wy-odU">
+                                                                                                    <font key="font" metaFont="cellTitle"/>
+                                                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                                                </textFieldCell>
+                                                                                                <connections>
+                                                                                                    <binding destination="39w-xQ-NBI" name="value" keyPath="objectValue.gp_cachet_number" id="NGK-ch-XbQ"/>
+                                                                                                </connections>
+                                                                                            </textField>
+                                                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="yua-hU-zFk">
+                                                                                                <rect key="frame" x="79" y="31" width="324" height="17"/>
+                                                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Catalog Name" id="Mi6-MQ-JPy">
+                                                                                                    <font key="font" metaFont="system"/>
+                                                                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                                                </textFieldCell>
+                                                                                                <connections>
+                                                                                                    <binding destination="39w-xQ-NBI" name="value" keyPath="objectValue.cachetCatalog.cachet_catalog_name" id="ENc-Qr-HHh"/>
+                                                                                                </connections>
+                                                                                            </textField>
+                                                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Ryk-ne-8HQ">
+                                                                                                <rect key="frame" x="434" y="31" width="99" height="17"/>
+                                                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Number" id="LdN-yF-jh8">
+                                                                                                    <font key="font" metaFont="system"/>
+                                                                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                                                </textFieldCell>
+                                                                                                <connections>
+                                                                                                    <binding destination="39w-xQ-NBI" name="value" keyPath="objectValue.external_catalog_number" id="vKM-yF-hf5"/>
+                                                                                                </connections>
+                                                                                            </textField>
+                                                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Nb6-1y-SgP">
+                                                                                                <rect key="frame" x="79" y="8" width="204" height="17"/>
+                                                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Cachet Maker" id="2dg-SD-n55">
+                                                                                                    <font key="font" metaFont="system"/>
+                                                                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                                                </textFieldCell>
+                                                                                                <connections>
+                                                                                                    <binding destination="39w-xQ-NBI" name="value" keyPath="objectValue.cachetMakerName.cachet_maker_name" id="8B5-FE-d34"/>
+                                                                                                </connections>
+                                                                                            </textField>
+                                                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="rC7-ob-lDm">
+                                                                                                <rect key="frame" x="287" y="8" width="246" height="17"/>
+                                                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="description" id="yQE-9m-j8z">
+                                                                                                    <font key="font" metaFont="system"/>
+                                                                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                                                </textFieldCell>
+                                                                                                <connections>
+                                                                                                    <binding destination="39w-xQ-NBI" name="value" keyPath="objectValue.cachet_description" id="Plq-Nw-ySi"/>
+                                                                                                </connections>
+                                                                                            </textField>
+                                                                                        </subviews>
+                                                                                    </tableCellView>
+                                                                                </prototypeCellViews>
+                                                                            </tableColumn>
+                                                                        </tableColumns>
                                                                         <connections>
-                                                                            <binding destination="4870" name="content" keyPath="arrangedObjects" id="5021"/>
-                                                                            <binding destination="4870" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="5021" id="5023"/>
-                                                                            <outlet property="itemPrototype" destination="4966" id="4968"/>
+                                                                            <binding destination="4870" name="content" keyPath="arrangedObjects" id="Ook-vM-FPC"/>
+                                                                            <binding destination="4870" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="Ook-vM-FPC" id="6e6-Ke-5xR"/>
                                                                         </connections>
-                                                                    </collectionView>
+                                                                    </tableView>
                                                                 </subviews>
+                                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </clipView>
-                                                            <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="4964">
-                                                                <rect key="frame" x="1" y="144" width="233" height="15"/>
+                                                            <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="Grq-cz-yGc">
+                                                                <rect key="frame" x="1" y="626" width="550" height="16"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                             </scroller>
-                                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="4965">
-                                                                <rect key="frame" x="234" y="1" width="15" height="143"/>
+                                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="qP6-qJ-cWs">
+                                                                <rect key="frame" x="224" y="17" width="15" height="102"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                             </scroller>
                                                         </scrollView>

@@ -17,3 +17,4 @@
 #import "StampFormat.h"
 #import "StampReport.h"
 #import "StoredSearch.h"
+#import "Cachet.h"

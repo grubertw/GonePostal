@@ -42,6 +42,7 @@
 #import "Format.h"
 #import "StampFormat.h"
 #import "GPCatalogAlbumSize.h"
+#import "GonePostal-Swift.h"
 
 // Private members.
 @interface GPCatalogEditor ()
@@ -1347,43 +1348,14 @@
     [controller.window makeKeyAndOrderFront:sender];
 }
 
-- (IBAction)addCachet:(id)sender {
-    Cachet * cachet = [NSEntityDescription insertNewObjectForEntityForName:@"Cachet" inManagedObjectContext:self.managedObjectContext];
-    
+- (IBAction)openCachetsEditor:(id)sender {
     NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
-    if (entries == nil) return;
+    if (entries == nil || [entries count] == 0) return;
     GPCatalog * entry = [entries objectAtIndex:0];
     
-    [entry addCachetsObject:cachet];
-    
-    cachet.gp_cachet_number = entry.gp_catalog_number;
-    
-    NSError * error;
-    if (![self.managedObjectContext save:&error]) {
-        NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
-        [self.managedObjectContext undo];
-        return;
-    }
-}
-
-- (IBAction)removeCachet:(id)sender {
-    NSArray * selectedCachets = self.cachetController.selectedObjects;
-    if (selectedCachets == nil) return;
-    
-    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
-    if (entries == nil) return;
-    GPCatalog * entry = [entries objectAtIndex:0];
-    
-    [entry removeCachets:[NSSet setWithArray:selectedCachets]];
-    
-    NSError * error;
-    if (![self.managedObjectContext save:&error]) {
-        NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
-        [self.managedObjectContext undo];
-        return;
-    }
+    GPCachetEditor * controller = [[GPCachetEditor alloc] initWithGpCatalog:entry];
+    [[self document] addWindowController:controller];
+    [controller.window makeKeyAndOrderFront:sender];
 }
 
 - (IBAction)addPrecancel:(id)sender {

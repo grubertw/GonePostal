@@ -2,8 +2,8 @@
 //  Cachet.h
 //  GonePostal
 //
-//  Created by Travis Gruber on 1/5/14.
-//  Copyright (c) 2014 Travis Gruber. All rights reserved.
+//  Created by Travis Gruber on 6/5/16.
+//  Copyright © 2016 Travis Gruber. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -11,40 +11,14 @@
 
 @class CachetCatalogName, CachetMakerName, GPCatalog, GPSalesGroup, Stamp, Valuation;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface Cachet : NSManagedObject
 
-@property (nonatomic, retain) NSString * alternate_picture_1;
-@property (nonatomic, retain) NSString * alternate_picture_2;
-@property (nonatomic, retain) NSString * alternate_picture_3;
-@property (nonatomic, retain) NSString * alternate_picture_4;
-@property (nonatomic, retain) NSString * alternate_picture_5;
-@property (nonatomic, retain) NSString * alternate_picture_6;
-@property (nonatomic, retain) NSString * cachet_description;
-@property (nonatomic, retain) NSString * cachet_picture;
-@property (nonatomic, retain) NSString * cachet_type;
-@property (nonatomic, retain) NSString * color;
-@property (nonatomic, retain) NSString * design_description;
-@property (nonatomic, retain) NSString * external_catalog_number;
-@property (nonatomic, retain) NSNumber * first_cachet;
-@property (nonatomic, retain) NSString * gp_cachet_number;
-@property (nonatomic, retain) CachetCatalogName *cachetCatalog;
-@property (nonatomic, retain) CachetMakerName *cachetMakerName;
-@property (nonatomic, retain) GPCatalog *gpCatalog;
-@property (nonatomic, retain) GPSalesGroup *salesGroup;
-@property (nonatomic, retain) NSSet *stamps;
-@property (nonatomic, retain) NSSet *values;
-@end
-
-@interface Cachet (CoreDataGeneratedAccessors)
-
-- (void)addStampsObject:(Stamp *)value;
-- (void)removeStampsObject:(Stamp *)value;
-- (void)addStamps:(NSSet *)values;
-- (void)removeStamps:(NSSet *)values;
-
-- (void)addValuesObject:(Valuation *)value;
-- (void)removeValuesObject:(Valuation *)value;
-- (void)addValues:(NSSet *)values;
-- (void)removeValues:(NSSet *)values;
+- (Cachet *) duplicate;
 
 @end
+
+NS_ASSUME_NONNULL_END
+
+#import "Cachet+CoreDataProperties.h"
