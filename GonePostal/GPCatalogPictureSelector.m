@@ -34,6 +34,7 @@ static NSString * CHOOSE_GPID_FROM_CATALOG = @"Insert a Catalog Entry";
 @property (strong, nonatomic) NSString * attributeString;
 
 @property (nonatomic) BOOL selectingPicture;
+@property (nonatomic, copy) void (^updateSearch)(NSModalResponse rc);
 @end
 
 @implementation GPCatalogPictureSelector
@@ -95,6 +96,14 @@ static NSString * CHOOSE_GPID_FROM_CATALOG = @"Insert a Catalog Entry";
     }
     
     [self queryGPCatalog];
+    
+    GPCatalogPictureSelector * __weak weakSelf = self;
+    self.updateSearch = ^(NSModalResponse rc){
+        if (weakSelf.currMajorVariety)
+            [weakSelf updateSubvarietiesSearch];
+        else
+            [weakSelf updateCurrentSearch];
+    };
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
@@ -144,7 +153,7 @@ static NSString * CHOOSE_GPID_FROM_CATALOG = @"Insert a Catalog Entry";
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
     }
     
     // Refresh the active filter search.
@@ -222,34 +231,19 @@ static NSString * CHOOSE_GPID_FROM_CATALOG = @"Insert a Catalog Entry";
 }
 
 - (IBAction)openCountriesSearchPanel:(id)sender {
-    NSApplication * app = [NSApplication sharedApplication];
-    
-    [app beginSheet:self.countrySearchController.panel modalForWindow:self.window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
+    [self.window beginSheet:self.countrySearchController.panel completionHandler:self.updateSearch];
 }
 
 - (IBAction)openSectionsSearchPanel:(id)sender {
-    NSApplication * app = [NSApplication sharedApplication];
-    
-    [app beginSheet:self.sectionSearchController.panel modalForWindow:self.window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
+    [self.window beginSheet:self.countrySearchController.panel completionHandler:self.updateSearch];
 }
 
 - (IBAction)openFiltersSearchPanel:(id)sender {
-    NSApplication * app = [NSApplication sharedApplication];
-    
-    [app beginSheet:self.filterSearchController.panel modalForWindow:self.window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
+    [self.window beginSheet:self.filterSearchController.panel completionHandler:self.updateSearch];
 }
 
 - (IBAction)openSubvarietySearchPanel:(id)sender {
-    NSApplication * app = [NSApplication sharedApplication];
-    
-    [app beginSheet:self.subvarietySearchController.panel modalForWindow:self.window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
-}
-
-- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
-    if (self.currMajorVariety)
-        [self updateSubvarietiesSearch];
-    else
-        [self updateCurrentSearch];
+    [self.window beginSheet:self.subvarietySearchController.panel completionHandler:self.updateSearch];
 }
 
 - (IBAction)viewSubvarieties:(id)sender {

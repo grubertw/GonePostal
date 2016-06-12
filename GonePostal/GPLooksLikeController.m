@@ -12,6 +12,7 @@
 
 @interface GPLooksLikeController ()
 @property (strong, nonatomic) GPDocument * doc;
+@property (nonatomic, copy) void (^updateSearch)(NSModalResponse rc);
 @end
 
 @implementation GPLooksLikeController
@@ -81,6 +82,11 @@
     [self.sectionSearchController.panel setContentView:self.sectionSearchController.view];
     
     [self queryLooksLike];
+    
+    GPLooksLikeController * __weak weakSelf = self;
+    self.updateSearch = ^(NSModalResponse rc){
+        [weakSelf updateCurrentSearch];
+    };
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
@@ -93,15 +99,11 @@
 }
 
 - (IBAction)openCountriesSearchPanel:(id)sender {
-    NSApplication * app = [NSApplication sharedApplication];
-    
-    [app beginSheet:self.countrySearchController.panel modalForWindow:self.window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
+    [self.window beginSheet:self.countrySearchController.panel completionHandler:self.updateSearch];
 }
 
 - (IBAction)openSectionsSearchPanel:(id)sender {
-    NSApplication * app = [NSApplication sharedApplication];
-    
-    [app beginSheet:self.sectionSearchController.panel modalForWindow:self.window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
+    [self.window beginSheet:self.sectionSearchController.panel completionHandler:self.updateSearch];
 }
 
 - (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
@@ -114,7 +116,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
     }
 }
@@ -125,7 +127,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
     }
 }

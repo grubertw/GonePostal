@@ -114,6 +114,8 @@
 @property (strong, nonatomic) NSPredicate * subvarietiesSearch;
 
 @property (strong, nonatomic) Topic * selectedTopic;
+
+@property (nonatomic, copy) void (^updateSearch)(NSModalResponse rc);
 @end
 
 @implementation GPCatalogEditor
@@ -342,6 +344,14 @@
     // Fetch the GP Catalog Data.
     self.currSearch = self.assistedSearch.predicate;
     [self queryGPCatalog];
+    
+    GPCatalogEditor * __weak weakSelf = self;
+    self.updateSearch = ^(NSModalResponse rc){
+        if (weakSelf.currMajorVariety)
+            [weakSelf updateSubvarietiesSearch];
+        else
+            [weakSelf updateCurrentSearch];
+    };
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
@@ -625,26 +635,19 @@
 }
 
 - (IBAction)openCountriesSearchPanel:(id)sender {
-    [self.window beginSheet:self.countrySearchController.panel completionHandler:nil];
+    [self.window beginSheet:self.countrySearchController.panel completionHandler:self.updateSearch];
 }
 
 - (IBAction)openSectionsSearchPanel:(id)sender {
-    [self.window beginSheet:self.sectionSearchController.panel completionHandler:nil];
+    [self.window beginSheet:self.sectionSearchController.panel completionHandler:self.updateSearch];
 }
 
 - (IBAction)openFiltersSearchPanel:(id)sender {
-    [self.window beginSheet:self.filterSearchController.panel completionHandler:nil];
+    [self.window beginSheet:self.filterSearchController.panel completionHandler:self.updateSearch];
 }
 
 - (IBAction)openSubvarietySearchPanel:(id)sender {
-    [self.window beginSheet:self.subvarietySearchController.panel completionHandler:nil];
-}
-
-- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
-    if (self.currMajorVariety)
-        [self updateSubvarietiesSearch];
-    else
-        [self updateCurrentSearch];
+    [self.window beginSheet:self.subvarietySearchController.panel completionHandler:self.updateSearch];
 }
 
 - (void)updateSubvarietiesSearch {

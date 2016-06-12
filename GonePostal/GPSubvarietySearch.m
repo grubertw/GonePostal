@@ -150,7 +150,7 @@ static NSString * PREDICATE_FORMAT_FOR_GPCATALG = @"subvarietyType.sortID == %@"
     }
     
     // End the sheet.
-    [self.view.window.parentWindow endSheet:self.panel];
+    [self.panel.sheetParent endSheet:self.panel];
     [self.view.window close];
 }
 

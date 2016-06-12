@@ -144,7 +144,7 @@ static NSString * PREDICATE_FORMAT_FOR_STAMP = @"format.name == %@";
     }
     
     // End the sheet.
-    [self.view.window.parentWindow endSheet:self.panel];
+    [self.panel.sheetParent endSheet:self.panel];
     [self.view.window close];
 }
 
