@@ -91,8 +91,10 @@
     }
     NSCompoundPredicate * pred = [NSCompoundPredicate orPredicateWithSubpredicates:filters];
     
-    [self.plateCombinationsController setFilterPredicate:pred];
-    [self.plateCombinationsController rearrangeObjects];
+    if (filters.count > 0) {
+        [self.plateCombinationsController setFilterPredicate:pred];
+        [self.plateCombinationsController rearrangeObjects];
+    }
     
     if (self.stamp.plateNumber != nil) {
         NSArray * sel = [NSArray arrayWithObject:self.stamp.plateNumber];
