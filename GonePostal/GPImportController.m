@@ -67,7 +67,7 @@ static NSString * EXPERT_SUBVARIETY_GPID = @"EXP";
         [doc saveInPlace];
         
         // Create a managed object context seporate from the persistant document's instance.
-        _managedObjectContext = [[NSManagedObjectContext alloc] init];
+        _managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
         [_managedObjectContext setPersistentStoreCoordinator:[doc.managedObjectContext persistentStoreCoordinator]];
         [_managedObjectContext setUndoManager:nil];
         

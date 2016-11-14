@@ -87,19 +87,17 @@
 }
 
 - (IBAction)openCountriesSearchPanel:(id)sender {
-    NSApplication * app = [NSApplication sharedApplication];
-    
-    [app beginSheet:self.countrySearchController.panel modalForWindow:self.view.window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
+    [self.view.window beginSheet:self.countrySearchController.panel completionHandler:^(NSModalResponse returnCode) {
+        [self updateCurrentSearch];
+        [self.view.window endSheet:self.countrySearchController.panel];
+    }];
 }
 
 - (IBAction)openSectionsSearchPanel:(id)sender {
-    NSApplication * app = [NSApplication sharedApplication];
-    
-    [app beginSheet:self.sectionSearchController.panel modalForWindow:self.view.window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
-}
-
-- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
-    [self updateCurrentSearch];
+    [self.view.window beginSheet:self.sectionSearchController.panel completionHandler:^(NSModalResponse returnCode) {
+        [self updateCurrentSearch];
+        [self.view.window endSheet:self.sectionSearchController.panel];
+    }];
 }
 
 @end

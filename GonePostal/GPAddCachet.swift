@@ -53,21 +53,21 @@ internal class GPAddCachet: NSWindowController, NSWindowDelegate {
         do {
             try self.managedObjectContect.save();
             
-            let cachet: Cachet = NSEntityDescription.insertNewObjectForEntityForName("Cachet", inManagedObjectContext: self.managedObjectContect) as! Cachet
+            let cachet: Cachet = NSEntityDescription.insertNewObject(forEntityName: "Cachet", into: self.managedObjectContect) as! Cachet
             cachet.gp_cachet_number = self.gpCatalog.gp_catalog_number
             self.cachetController.content = cachet
         } catch {
             let saveError = error as NSError
             let alert = NSAlert(error: saveError)
-            alert.beginSheetModalForWindow(self.window!, completionHandler: nil)
+            alert.beginSheetModal(for: self.window!, completionHandler: nil)
         }
     }
     
-    override func windowTitleForDocumentDisplayName(displayName: String) -> String {
+    override func windowTitle(forDocumentDisplayName displayName: String) -> String {
         return "Add a Cachet"
     }
     
-    @IBAction func addMoreCachets(sender: AnyObject) {
+    @IBAction func addMoreCachets(_ sender: AnyObject) {
         let cachet: Cachet = self.cachetController.content as! Cachet
         self.gpCatalog.addCachetsObject(cachet)
         self.addedCachetsController.addObject(cachet)
@@ -82,7 +82,7 @@ internal class GPAddCachet: NSWindowController, NSWindowDelegate {
             for _ in 2...count {
                 startingID += GPID_INCREMENT
                 let dup = cachet.duplicate()
-                dup.gp_cachet_number = String(format: "%@%08ld",staticID, startingID)
+                dup.gp_cachet_number = String(format: "%@%08ld",staticID!, startingID)
                 self.gpCatalog.addCachetsObject(dup)
                 self.addedCachetsController.addObject(dup)
             }
@@ -93,18 +93,18 @@ internal class GPAddCachet: NSWindowController, NSWindowDelegate {
         } catch {
             let saveError = error as NSError
             let alert = NSAlert(error: saveError)
-            alert.beginSheetModalForWindow(self.window!, completionHandler: nil)
+            alert.beginSheetModal(for: self.window!, completionHandler: nil)
             self.managedObjectContect.rollback()
         }
         
         // Prepare for the next entry.
         let nextCachet = cachet.duplicate()
         startingID += GPID_INCREMENT
-        nextCachet.gp_cachet_number = String(format: "%@%08ld",staticID, startingID)
+        nextCachet.gp_cachet_number = String(format: "%@%08ld",staticID!, startingID)
         self.cachetController.content = nextCachet
     }
     
-    @IBAction func saveCachet(sender: AnyObject) {
+    @IBAction func saveCachet(_ sender: AnyObject) {
         self.savePressed = true
         
         let cachet: Cachet = self.cachetController.content as! Cachet
@@ -120,7 +120,7 @@ internal class GPAddCachet: NSWindowController, NSWindowDelegate {
             for _ in 2...count {
                 startingID += GPID_INCREMENT
                 let dup = cachet.duplicate()
-                dup.gp_cachet_number = String(format: "%@%08ld",staticID, startingID)
+                dup.gp_cachet_number = String(format: "%@%08ld",staticID!, startingID)
                 self.gpCatalog.addCachetsObject(dup)
             }
         }
@@ -130,61 +130,61 @@ internal class GPAddCachet: NSWindowController, NSWindowDelegate {
         } catch {
             let saveError = error as NSError
             let alert = NSAlert(error: saveError)
-            alert.beginSheetModalForWindow(self.window!, completionHandler: nil)
+            alert.beginSheetModal(for: self.window!, completionHandler: nil)
             self.managedObjectContect.rollback()
         }
         self.close()
     }
 
-    @IBAction func cancelCachet(sender: AnyObject) {
+    @IBAction func cancelCachet(_ sender: AnyObject) {
         self.close()
     }
     
-    func windowWillClose(notification: NSNotification) {
+    func windowWillClose(_ notification: Notification) {
         if !self.savePressed {
             self.managedObjectContect.rollback()
         }
     }
     
-    @IBAction func addPicture(sender: AnyObject) {
+    @IBAction func addPicture(_ sender: AnyObject) {
         if let entry = self.cachetController.content as? Cachet {
-            entry.cachet_picture = self.doc.addFileToWrapperUsingGPID(entry.gp_cachet_number, forAttribute: "Cachet.default_picture", fileType: GPImportFileTypePicture)
+            entry.cachet_picture = self.doc.addFileToWrapper(usingGPID: entry.gp_cachet_number, forAttribute: "Cachet.default_picture", fileType: GPImportFileTypePicture)
         }
     }
     
-    @IBAction func addAlternatePic1(sender: AnyObject) {
+    @IBAction func addAlternatePic1(_ sender: AnyObject) {
         if let entry = self.cachetController.content as? Cachet {
-            entry.alternate_picture_1 = self.doc.addFileToWrapperUsingGPID(entry.gp_cachet_number, forAttribute: "Cachet.alternate_picture_1", fileType: GPImportFileTypePicture)
+            entry.alternate_picture_1 = self.doc.addFileToWrapper(usingGPID: entry.gp_cachet_number, forAttribute: "Cachet.alternate_picture_1", fileType: GPImportFileTypePicture)
         }
     }
     
-    @IBAction func addAlternatePic2(sender: AnyObject) {
+    @IBAction func addAlternatePic2(_ sender: AnyObject) {
         if let entry = self.cachetController.content as? Cachet {
-            entry.alternate_picture_2 = self.doc.addFileToWrapperUsingGPID(entry.gp_cachet_number, forAttribute: "Cachet.alternate_picture_2", fileType: GPImportFileTypePicture)
+            entry.alternate_picture_2 = self.doc.addFileToWrapper(usingGPID: entry.gp_cachet_number, forAttribute: "Cachet.alternate_picture_2", fileType: GPImportFileTypePicture)
         }
     }
     
-    @IBAction func addAlternatePic3(sender: AnyObject) {
+    @IBAction func addAlternatePic3(_ sender: AnyObject) {
         if let entry = self.cachetController.content as? Cachet {
-            entry.alternate_picture_3 = self.doc.addFileToWrapperUsingGPID(entry.gp_cachet_number, forAttribute: "Cachet.alternate_picture_3", fileType: GPImportFileTypePicture)
+            entry.alternate_picture_3 = self.doc.addFileToWrapper(usingGPID: entry.gp_cachet_number, forAttribute: "Cachet.alternate_picture_3", fileType: GPImportFileTypePicture)
         }
     }
     
-    @IBAction func addAltPic4(sender: AnyObject) {
+    @IBAction func addAltPic4(_ sender: AnyObject) {
         if let entry = self.cachetController.content as? Cachet {
-            entry.alternate_picture_4 = self.doc.addFileToWrapperUsingGPID(entry.gp_cachet_number, forAttribute: "Cachet.alternate_picture_4", fileType: GPImportFileTypePicture)
+            entry.alternate_picture_4 = self.doc.addFileToWrapper(usingGPID: entry.gp_cachet_number, forAttribute: "Cachet.alternate_picture_4", fileType: GPImportFileTypePicture)
         }
     }
     
-    @IBAction func addAltPic5(sender: AnyObject) {
+    @IBAction func addAltPic5(_ sender: AnyObject) {
         if let entry = self.cachetController.content as? Cachet {
-            entry.alternate_picture_5 = self.doc.addFileToWrapperUsingGPID(entry.gp_cachet_number, forAttribute: "Cachet.alternate_picture_5", fileType: GPImportFileTypePicture)
+            entry.alternate_picture_5 = self.doc.addFileToWrapper(usingGPID: entry.gp_cachet_number, forAttribute: "Cachet.alternate_picture_5", fileType: GPImportFileTypePicture)
         }
     }
     
-    @IBAction func addAltPic6(sender: AnyObject) {
+    @IBAction func addAltPic6(_ sender: AnyObject) {
         if let entry = self.cachetController.content as? Cachet {
-            entry.alternate_picture_6 = self.doc.addFileToWrapperUsingGPID(entry.gp_cachet_number, forAttribute: "Cachet.alternate_picture_6", fileType: GPImportFileTypePicture)
+            entry.alternate_picture_6 = self.doc.addFileToWrapper(usingGPID: entry.gp_cachet_number, forAttribute: "Cachet.alternate_picture_6", fileType: GPImportFileTypePicture)
         }
     }
 }

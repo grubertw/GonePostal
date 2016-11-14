@@ -80,9 +80,7 @@
         _catalogDetail = [[GPCatalogDetail alloc] initWithManagedObjectContext:self.managedObjectContext];
         _catalogDetailPopover = [[NSPopover alloc] init];
         _catalogDetailPopover.contentViewController = self.catalogDetail;
-        _catalogDetailPopover.appearance = NSPopoverAppearanceMinimal;
         _catalogDetailPopover.behavior = NSPopoverBehaviorTransient;
-        
     }
     
     return self;
@@ -237,34 +235,44 @@
 }
 
 - (IBAction)openCountriesSearchPanel:(id)sender {
-    NSApplication * app = [NSApplication sharedApplication];
+    [self.view.window beginSheet:self.countrySearchController.panel completionHandler:^(NSModalResponse returnCode) {
+        if (self.currMajorVariety)
+            [self updateSubvarietiesSearch];
+        else
+            [self updateCurrentSearch];
+        [self.view.window endSheet:self.countrySearchController.panel];
+    }];
     
-    [app beginSheet:self.countrySearchController.panel modalForWindow:self.view.window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
 }
 
 - (IBAction)openSectionsSearchPanel:(id)sender {
-    NSApplication * app = [NSApplication sharedApplication];
-    
-    [app beginSheet:self.sectionSearchController.panel modalForWindow:self.view.window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
+    [self.view.window beginSheet:self.sectionSearchController.panel completionHandler:^(NSModalResponse returnCode) {
+        if (self.currMajorVariety)
+            [self updateSubvarietiesSearch];
+        else
+            [self updateCurrentSearch];
+        [self.view.window endSheet:self.sectionSearchController.panel];
+    }];
 }
 
 - (IBAction)openFiltersSearchPanel:(id)sender {
-    NSApplication * app = [NSApplication sharedApplication];
-    
-    [app beginSheet:self.filterSearchController.panel modalForWindow:self.view.window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
+    [self.view.window beginSheet:self.filterSearchController.panel completionHandler:^(NSModalResponse returnCode) {
+        if (self.currMajorVariety)
+            [self updateSubvarietiesSearch];
+        else
+            [self updateCurrentSearch];
+        [self.view.window endSheet:self.filterSearchController.panel];
+    }];
 }
 
 - (IBAction)openSubvarietySearchPanel:(id)sender {
-    NSApplication * app = [NSApplication sharedApplication];
-    
-    [app beginSheet:self.subvarietySearchController.panel modalForWindow:self.view.window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
-}
-
-- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
-    if (self.currMajorVariety)
-        [self updateSubvarietiesSearch];
-    else
-        [self updateCurrentSearch];
+    [self.view.window beginSheet:self.subvarietySearchController.panel completionHandler:^(NSModalResponse returnCode) {
+        if (self.currMajorVariety)
+            [self updateSubvarietiesSearch];
+        else
+            [self updateCurrentSearch];
+        [self.view.window endSheet:self.subvarietySearchController.panel];
+    }];
 }
 
 - (IBAction)viewSubvarieties:(id)sender {

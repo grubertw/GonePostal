@@ -44,13 +44,15 @@
         
         if (   [[error domain] isEqualToString:NSCocoaErrorDomain]
             && [error code] == NSValidationRelationshipDeniedDeleteError) {
-            errSheet = [NSAlert alertWithMessageText:@"Delete Error" defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:@"Item is currently in use within the library."];
+            errSheet = [[NSAlert alloc] init];
+            [errSheet setMessageText:@"Delete Error"];
+            [errSheet setInformativeText:@"Item is currently in use within the library."];
         }
         else {
             errSheet = [NSAlert alertWithError:error];
         }
         
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
     }
 }

@@ -75,19 +75,15 @@
 }
 
 - (IBAction)openCountriesSearchPanel:(id)sender {
-    NSApplication * app = [NSApplication sharedApplication];
-    
-    [app beginSheet:self.countrySearchController.panel modalForWindow:self.window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
+    [self.window beginSheet:self.countrySearchController.panel completionHandler:^(NSModalResponse returnCode) {
+        [self updateCurrentSearch];
+    }];
 }
 
 - (IBAction)openSectionsSearchPanel:(id)sender {
-    NSApplication * app = [NSApplication sharedApplication];
-    
-    [app beginSheet:self.sectionSearchController.panel modalForWindow:self.window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
-}
-
-- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
-    [self updateCurrentSearch];
+    [self.window beginSheet:self.sectionSearchController.panel completionHandler:^(NSModalResponse returnCode) {
+        [self updateCurrentSearch];
+    }];
 }
 
 // Update the current search based on the saved compound predicates.

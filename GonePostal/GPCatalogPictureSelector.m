@@ -39,7 +39,12 @@ static NSString * CHOOSE_GPID_FROM_CATALOG = @"Insert a Catalog Entry";
 
 @implementation GPCatalogPictureSelector
 
-- (id)initWithAssistedSearch:(StoredSearch *)assistedSearch countrySearch:(NSPredicate *)countriesPredicate sectionSearch:(NSPredicate *)sectionsPredicate filterSearch:(NSPredicate *)filtersPredicate targetAttributeName:(NSString *)attributeName selectingPicture:(BOOL)selectingPicture {
+- (id)initWithAssistedSearch:(StoredSearch *)assistedSearch
+               countrySearch:(NSPredicate *)countriesPredicate
+               sectionSearch:(NSPredicate *)sectionsPredicate
+                filterSearch:(NSPredicate *)filtersPredicate
+         targetAttributeName:(NSString *)attributeName
+            selectingPicture:(BOOL)selectingPicture {
     
     self = [super initWithWindowNibName:@"GPCatalogPictureSelector"];
     if (self) {

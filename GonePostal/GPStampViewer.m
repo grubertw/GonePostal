@@ -355,9 +355,8 @@
             
             [self.window endSheet:self.createCompositePanel];
             [self.createCompositePanel close];
-            
-            NSAlert * alertSheet = [NSAlert alertWithMessageText:nil defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:@"A Composite item cannot be placed within another composite.  Please remove the composite item from your selection."];
-            
+            NSAlert * alertSheet = [[NSAlert alloc] init];
+            [alertSheet setInformativeText:@"A Composite item cannot be placed within another composite.  Please remove the composite item from your selection."];
             [alertSheet beginSheetModalForWindow:self.window completionHandler:nil];
             return;
         }
@@ -600,7 +599,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
     }
 }
@@ -611,7 +610,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
     }
 }
@@ -705,7 +704,7 @@
     // Save it!
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
     }
 }
@@ -759,7 +758,7 @@
     NSError * error;
     if (![self.managedObjectContext save:&error]) {
         NSAlert * errSheet = [NSAlert alertWithError:error];
-        [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
         [self.managedObjectContext undo];
     }
 }
@@ -798,14 +797,14 @@
     if (composite.parentType == nil) {
         NSAlert * alertSheet = [NSAlert alertWithMessageText:nil defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:@"Selected stamp is not a composite.  Only a composite stamp can be broken down into the collection."];
         
-        [alertSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [alertSheet beginSheetModalForWindow:self.window completionHandler:nil];
         return;
     }
     
     if ([composite.parentType isEqualToNumber:@(COMPOSITE_TYPE_INTEGRAL)]) {
         NSAlert * alertSheet = [NSAlert alertWithMessageText:nil defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:@"Integral composite %@ cannot be borken down into the collection.  Click remove if you wish to remove this composite from your collection.", composite.gp_stamp_number];
         
-        [alertSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [alertSheet beginSheetModalForWindow:self.window completionHandler:nil];
         return;
     }
    
@@ -841,7 +840,7 @@
         NSError * error;
         if (![self.managedObjectContext save:&error]) {
             NSAlert * errSheet = [NSAlert alertWithError:error];
-            [errSheet beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+            [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
             [self.managedObjectContext undo];
         }
     }
