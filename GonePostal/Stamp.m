@@ -8,7 +8,7 @@
 
 #import "Stamp.h"
 #import "BureauPrecancel.h"
-#import "Cachet.h"
+#import "Cachet+CoreDataClass.h"
 #import "CancelQuality.h"
 #import "Centering.h"
 #import "Dealer.h"

@@ -11,12 +11,11 @@
 #import "GPAddToCatalogController.h"
 #import "GPAddSubvariety.h"
 #import "GPCatalog+Duplicate.h"
-#import "GPCatalogSet.h"
-#import "GPSetController.h"
+#import "GPCatalogSet+CoreDataClass.h"
 #import "PlateUsage.h"
 #import "PlateNumber.h"
 #import "GPPlateUsageController.h"
-#import "Cachet.h"
+#import "Cachet+CoreDataClass.h"
 #import "LooksLike.h"
 #import "GPLooksLikeController.h"
 #import "BureauPrecancel.h"
@@ -58,16 +57,11 @@
 @property (weak, nonatomic) IBOutlet NSScrollView * platesScroller;
 @property (weak, nonatomic) IBOutlet NSView * platesScrollContent;
 @property (weak, nonatomic) IBOutlet NSCollectionView * plateUsageCollectionView;
-@property (weak, nonatomic) IBOutlet NSCollectionView * cachetCollectionView;
 
 @property (weak, nonatomic) IBOutlet NSPopUpButton * gotoPopup;
 @property (weak, nonatomic) IBOutlet NSTextField * gotoField;
 
 @property (weak, nonatomic) IBOutlet NSButton * filtersActive;
-
-@property (strong, nonatomic) NSPanel * addToSetPanel;
-@property (weak, nonatomic) IBOutlet NSView * addToSetSelector;
-@property (weak, nonatomic) IBOutlet NSComboBox * setSelectorCombo;
 
 @property (strong, nonatomic) NSPanel * addToLooksLikePanel;
 @property (weak, nonatomic) IBOutlet NSView * addToLooksLikeSelector;
@@ -317,10 +311,6 @@
                             [[self.gpPicturesScroller contentView] bounds].size.height);
     [[self.gpPicturesScroller documentView] scrollPoint:newOrigin];
     
-    // Create a panel used to help the user select a set.
-    self.addToSetPanel = [[NSPanel alloc] initWithContentRect:self.addToSetSelector.bounds styleMask:NSTexturedBackgroundWindowMask backing:NSBackingStoreBuffered defer:YES];
-    [self.addToSetPanel setContentView:self.addToSetSelector];
-    
     // Create a panel to help user select a looks like.
     self.addToLooksLikePanel = [[NSPanel alloc] initWithContentRect:self.addToLooksLikeSelector.bounds styleMask:NSTexturedBackgroundWindowMask backing:NSBackingStoreBuffered defer:YES];
     [self.addToLooksLikePanel setContentView:self.addToLooksLikeSelector];
@@ -509,43 +499,6 @@
     }
 }
 
-- (IBAction)addToGPCatalogSet:(id)sender {
-    // Determine the current country and section being viewed.
-    // If there are multiple or none, set the catalogSetsController's
-    // fetch predicate to nil to fetch all sets.
-    Country * selectedCountry;
-    GPCatalogGroup * selectedSection;
-    
-    if (   [self.countrySearchController.itemsInSearch count] == 1
-        && [self.sectionSearchController.itemsInSearch count] == 1) {
-        selectedCountry = self.countrySearchController.itemsInSearch[0];
-        selectedSection = self.sectionSearchController.itemsInSearch[0];
-        
-        NSPredicate * setFilter = [NSPredicate predicateWithFormat:@"country.country_sort_id == %@ and catalogGroup.group_number == %@", selectedCountry.country_sort_id, selectedSection.group_number];
-        [self.gpCatalogSetsController setFetchPredicate:setFilter];
-        [self.gpCatalogSetsController fetch:sender];
-    }
-    else {
-        [self.gpCatalogSetsController setFetchPredicate:nil];
-        [self.gpCatalogSetsController fetch:sender];
-    }
-    
-    // Run the add to set panel as a sheet on top of the catalog editor.
-    [self.window beginSheet:self.addToSetPanel completionHandler:nil];
-}
-
-- (IBAction)addSelectedEntriesToSet:(id)sender {    
-    NSArray * selectedGPCatalogEntries = self.gpCatalogEntriesController.selectedObjects;
-
-    if (self.selectedSet && selectedGPCatalogEntries) {
-        [self.selectedSet addGpCatalogEntries:[NSSet setWithArray:selectedGPCatalogEntries]];
-    }
-    
-    // End the sheet.
-    [self.window endSheet:self.addToSetPanel];
-    [self.addToSetPanel close];
-}
-
 - (IBAction)addToLooksLike:(id)sender {
     NSMutableArray * predicateArray = [NSMutableArray arrayWithCapacity:0];
     
@@ -609,7 +562,6 @@
     
     GPSetController * controller = [[GPSetController alloc] initWithWindowNibName:@"GPSetController"];
     [doc addWindowController:controller];
-    [controller setManagedObjectContext:self.managedObjectContext];
     
     [controller.window makeKeyAndOrderFront:sender];
 }
@@ -1330,6 +1282,22 @@
     GPCatalog * entry = [entries objectAtIndex:0];
     
     [self.currMajorVariety copyPlateInfoIntoTarget:entry];
+    
+    NSError * error;
+    if (![self.managedObjectContext save:&error]) {
+        NSAlert * errSheet = [NSAlert alertWithError:error];
+        [errSheet beginSheetModalForWindow:self.window completionHandler:nil];
+        [self.managedObjectContext undo];
+        return;
+    }
+}
+
+- (IBAction)copyCachetInformation:(id)sender {
+    NSArray * entries = self.gpCatalogEntriesController.selectedObjects;
+    if (entries == nil) return;
+    GPCatalog * entry = [entries objectAtIndex:0];
+    
+    [self.currMajorVariety copyCachetsIntoTarget:entry];
     
     NSError * error;
     if (![self.managedObjectContext save:&error]) {

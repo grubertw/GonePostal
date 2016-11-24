@@ -8,7 +8,7 @@
 
 #import "GPCatalogGroup.h"
 #import "GPCatalog.h"
-#import "GPCatalogSet.h"
+#import "GPCatalogSet+CoreDataClass.h"
 #import "GPSalesGroup.h"
 #import "LooksLike.h"
 

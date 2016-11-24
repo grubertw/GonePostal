@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "GPCatalog.h"
-#import "GPCatalogSet.h"
+#import "GPCatalogSet+CoreDataClass.h"
 #import "GPSetPopoverController.h"
 #import "GPLooksLikePopoverController.h"
 #import "Topic.h"

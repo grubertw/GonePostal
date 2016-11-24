@@ -14,29 +14,33 @@ internal class GPAddCachet: NSWindowController, NSWindowDelegate {
         return "GPAddCachet"
     }
     
-    let cachetSortDescriptors: [NSSortDescriptor]
-    let cachetCatalogNameSortDescriptors: [NSSortDescriptor]
-    let cachetMakerNameSortDescriptors: [NSSortDescriptor]
-    let salesGroupSortDescriptors: [NSSortDescriptor]
+    let cachetSortDescriptors = [NSSortDescriptor(key:"gp_cachet_number", ascending: true)] as NSArray
+    let cachetCatalogNameSortDescriptors = [NSSortDescriptor(key:"cachet_catalog_name", ascending: true)] as NSArray
+    let cachetMakerNameSortDescriptors = [NSSortDescriptor(key:"cachet_maker_name", ascending: true)] as NSArray
+    let salesGroupSortDescriptors = [NSSortDescriptor(key:"name", ascending: true)] as NSArray
     
     var savePressed: Bool
-    var gpCatalog: GPCatalog
+    var gpCatalog: GPCatalog?
+    var gpCatalogSet: GPCatalogSet?
     var managedObjectContect: NSManagedObjectContext
     var doc: GPDocument!
     
-    @IBOutlet var cachetController: NSObjectController!
-    @IBOutlet var addedCachetsController: NSArrayController!
+    @IBOutlet weak var cachetController: NSObjectController!
+    @IBOutlet weak var addedCachetsController: NSArrayController!
     @IBOutlet weak var addMoreQuantityTextBox: NSTextField!
     
     init(gpCatalog: GPCatalog) {
-        self.cachetSortDescriptors = [NSSortDescriptor(key:"gp_cachet_number", ascending: true)]
-        self.cachetCatalogNameSortDescriptors = [NSSortDescriptor(key:"cachet_catalog_name", ascending: true)]
-        self.cachetMakerNameSortDescriptors = [NSSortDescriptor(key:"cachet_maker_name", ascending: true)]
-        self.salesGroupSortDescriptors = [NSSortDescriptor(key:"name", ascending: true)]
-        
         self.savePressed = false
         self.gpCatalog = gpCatalog
         self.managedObjectContect = gpCatalog.managedObjectContext!
+        
+        super.init(window: nil)
+    }
+    
+    init(gpCatalogSet: GPCatalogSet) {
+        self.savePressed = false
+        self.gpCatalogSet = gpCatalogSet
+        self.managedObjectContect = gpCatalogSet.managedObjectContext!
         
         super.init(window: nil)
     }
@@ -53,8 +57,9 @@ internal class GPAddCachet: NSWindowController, NSWindowDelegate {
         do {
             try self.managedObjectContect.save();
             
-            let cachet: Cachet = NSEntityDescription.insertNewObject(forEntityName: "Cachet", into: self.managedObjectContect) as! Cachet
-            cachet.gp_cachet_number = self.gpCatalog.gp_catalog_number
+            let cachet = NSEntityDescription.insertNewObject(forEntityName: "Cachet", into: self.managedObjectContect) as! Cachet
+            cachet.gp_cachet_number = self.gpCatalog?.gp_catalog_number
+            cachet.gp_cachet_number = self.gpCatalogSet?.gp_set_number
             self.cachetController.content = cachet
         } catch {
             let saveError = error as NSError
@@ -69,7 +74,9 @@ internal class GPAddCachet: NSWindowController, NSWindowDelegate {
     
     @IBAction func addMoreCachets(_ sender: AnyObject) {
         let cachet: Cachet = self.cachetController.content as! Cachet
-        self.gpCatalog.addCachetsObject(cachet)
+        
+        self.gpCatalog?.addCachetsObject(cachet)
+        self.gpCatalogSet?.addCachetsObject(cachet)
         self.addedCachetsController.addObject(cachet)
         
         // Get the incrementing and non incrementing part of the GPID
@@ -83,7 +90,8 @@ internal class GPAddCachet: NSWindowController, NSWindowDelegate {
                 startingID += GPID_INCREMENT
                 let dup = cachet.duplicate()
                 dup.gp_cachet_number = String(format: "%@%08ld",staticID!, startingID)
-                self.gpCatalog.addCachetsObject(dup)
+                self.gpCatalog?.addCachetsObject(dup)
+                self.gpCatalogSet?.addCachetsObject(dup)
                 self.addedCachetsController.addObject(dup)
             }
         }
@@ -108,7 +116,8 @@ internal class GPAddCachet: NSWindowController, NSWindowDelegate {
         self.savePressed = true
         
         let cachet: Cachet = self.cachetController.content as! Cachet
-        self.gpCatalog.addCachetsObject(cachet)
+        self.gpCatalog?.addCachetsObject(cachet)
+        self.gpCatalogSet?.addCachetsObject(cachet)
         
         // Get the incrementing and non incrementing part of the GPID
         let staticID = GPDocument.parseStaticID(cachet.gp_cachet_number)
@@ -121,7 +130,8 @@ internal class GPAddCachet: NSWindowController, NSWindowDelegate {
                 startingID += GPID_INCREMENT
                 let dup = cachet.duplicate()
                 dup.gp_cachet_number = String(format: "%@%08ld",staticID!, startingID)
-                self.gpCatalog.addCachetsObject(dup)
+                self.gpCatalog?.addCachetsObject(dup)
+                self.gpCatalogSet?.addCachetsObject(dup)
             }
         }
         

@@ -7,7 +7,7 @@
 //
 
 #import "CachetMakerName.h"
-#import "Cachet.h"
+#import "Cachet+CoreDataClass.h"
 
 
 @implementation CachetMakerName

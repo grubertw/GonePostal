@@ -8,7 +8,7 @@
 
 #import "GPCachetChooser.h"
 #import "GPDocument.h"
-#import "Cachet.h"
+#import "Cachet+CoreDataClass.h"
 
 @interface GPCachetChooser ()
 @property (nonatomic) BOOL isDrawer;

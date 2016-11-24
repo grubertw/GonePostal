@@ -17,7 +17,7 @@
 #import "GPLocalPrecancelChooser.h"
 #import "GPPerfinChooser.h"
 #import "PlateNumber.h"
-#import "Cachet.h"
+#import "Cachet+CoreDataClass.h"
 #import "BureauPrecancel.h"
 #import "LocalPrecancel.h"
 #import "Perfin.h"

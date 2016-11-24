@@ -1,8 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment defaultVersion="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4510"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11542"/>
+        <capability name="box content view" minToolsVersion="7.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="GPPlateUsageController">
@@ -13,21 +15,19 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="1" userLabel="PlateUsageView">
             <rect key="frame" x="0.0" y="0.0" width="261" height="220"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <box autoresizesSubviews="NO" title="1" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="2">
+                <box autoresizesSubviews="NO" borderType="line" title="1" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="2">
                     <rect key="frame" x="0.0" y="0.0" width="260" height="220"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <view key="contentView">
+                    <view key="contentView" id="3IM-z9-jJr">
                         <rect key="frame" x="1" y="1" width="258" height="218"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8">
                                 <rect key="frame" x="7" y="152" width="78" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="78" id="384"/>
                                 </constraints>
@@ -41,21 +41,19 @@
                                 </connections>
                             </textField>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7">
-                                <rect key="frame" x="7" y="174" width="81" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <rect key="frame" x="8" y="174" width="79" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="17" id="40"/>
                                     <constraint firstAttribute="width" constant="75" id="41"/>
                                 </constraints>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Plate Color" id="42">
-                                    <font key="font" size="12" name="LucidaGrande-Bold"/>
+                                    <font key="font" metaFont="systemBold" size="12"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6">
                                 <rect key="frame" x="98" y="152" width="125" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="125" id="386"/>
                                 </constraints>
@@ -69,35 +67,33 @@
                                 </connections>
                             </textField>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5">
-                                <rect key="frame" x="98" y="174" width="81" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <rect key="frame" x="99" y="174" width="79" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="75" id="46"/>
                                 </constraints>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Plate Usage" id="45">
-                                    <font key="font" size="12" name="LucidaGrande-Bold"/>
+                                    <font key="font" metaFont="systemBold" size="12"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="10">
                                 <rect key="frame" x="7" y="31" width="216" height="113"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <clipView key="contentView" id="yEN-F0-M5X">
-                                    <rect key="frame" x="1" y="17" width="214" height="95"/>
+                                    <rect key="frame" x="1" y="0.0" width="214" height="112"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" multipleSelection="NO" autosaveColumns="NO" headerView="33" id="31">
-                                            <rect key="frame" x="0.0" y="0.0" width="214" height="95"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="214" height="89"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
                                                 <tableColumn editable="NO" width="211" minWidth="160" maxWidth="1000" id="35">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Plate Positions">
-                                                        <font key="font" size="10" name="LucidaGrande"/>
+                                                        <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
                                                     </tableHeaderCell>
@@ -118,27 +114,25 @@
                                             </tableColumns>
                                         </tableView>
                                     </subviews>
-                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
-                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="32">
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="32">
                                     <rect key="frame" x="1" y="75" width="161" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
-                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="37" id="34">
+                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="34">
                                     <rect key="frame" x="224" y="17" width="15" height="102"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <tableHeaderView key="headerView" id="33">
-                                    <rect key="frame" x="0.0" y="0.0" width="214" height="17"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="214" height="23"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableHeaderView>
                             </scrollView>
                             <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4">
                                 <rect key="frame" x="177" y="-5" width="39" height="38"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="round" title="+" bezelStyle="circular" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" id="47">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" size="15" name="LucidaGrande"/>
+                                    <font key="font" metaFont="system" size="15"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="addPlatePositionToPlateUsage:" target="-2" id="95"/>
@@ -146,10 +140,9 @@
                             </button>
                             <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9">
                                 <rect key="frame" x="220" y="75" width="39" height="38"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="round" title="-" bezelStyle="circular" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" id="37">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" size="15" name="LucidaGrande"/>
+                                    <font key="font" metaFont="system" size="15"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="removePlatePositionFromPlateUsage:" target="-2" id="96"/>
@@ -157,13 +150,12 @@
                             </button>
                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3">
                                 <rect key="frame" x="16" y="4" width="162" height="26"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="157" id="49"/>
                                 </constraints>
                                 <popUpButtonCell key="cell" type="push" title="Plate Position" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="51" id="48">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="menu"/>
                                     <menu key="menu" title="OtherViews" id="50">
                                         <items>
                                             <menuItem title="Plate Position" state="on" id="51"/>
@@ -183,14 +175,13 @@
                                 </connections>
                             </popUpButton>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="236">
-                                <rect key="frame" x="110" y="196" width="38" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <rect key="frame" x="111" y="196" width="36" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="32" id="245"/>
                                     <constraint firstAttribute="height" constant="20" id="251"/>
                                 </constraints>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="1" id="237">
-                                    <font key="font" size="18" name="LucidaGrande-Bold"/>
+                                    <font key="font" metaFont="systemBold" size="18"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -201,30 +192,28 @@
                         </subviews>
                     </view>
                     <constraints>
-                        <constraint firstItem="7" firstAttribute="top" secondItem="5" secondAttribute="top" id="12"/>
-                        <constraint firstItem="5" firstAttribute="baseline" secondItem="7" secondAttribute="baseline" id="21"/>
-                        <constraint firstItem="6" firstAttribute="baseline" secondItem="8" secondAttribute="baseline" id="24"/>
-                        <constraint firstItem="4" firstAttribute="leading" secondItem="3" secondAttribute="trailing" constant="8" symbolic="YES" id="26"/>
-                        <constraint firstItem="4" firstAttribute="centerY" secondItem="3" secondAttribute="centerY" id="28"/>
-                        <constraint firstItem="10" firstAttribute="leading" secondItem="8" secondAttribute="leading" id="283"/>
-                        <constraint firstItem="8" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="5" id="302"/>
-                        <constraint firstItem="9" firstAttribute="top" secondItem="2" secondAttribute="top" constant="107" id="305"/>
-                        <constraint firstItem="3" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="16" id="357"/>
-                        <constraint firstAttribute="bottom" secondItem="10" secondAttribute="bottom" constant="28" id="367"/>
-                        <constraint firstAttribute="bottom" secondItem="4" secondAttribute="bottom" constant="1" id="368"/>
-                        <constraint firstItem="7" firstAttribute="top" secondItem="2" secondAttribute="top" constant="26" id="373"/>
-                        <constraint firstItem="8" firstAttribute="top" secondItem="2" secondAttribute="top" constant="43" id="374"/>
-                        <constraint firstItem="10" firstAttribute="top" secondItem="8" secondAttribute="bottom" constant="8" symbolic="YES" id="375"/>
-                        <constraint firstItem="236" firstAttribute="top" secondItem="2" secondAttribute="top" constant="1" id="376"/>
-                        <constraint firstItem="236" firstAttribute="centerX" secondItem="2" secondAttribute="centerX" id="377"/>
-                        <constraint firstAttribute="trailing" secondItem="9" secondAttribute="trailing" constant="4" id="378"/>
-                        <constraint firstItem="10" firstAttribute="trailing" secondItem="6" secondAttribute="trailing" id="379"/>
-                        <constraint firstItem="7" firstAttribute="trailing" secondItem="8" secondAttribute="trailing" id="383"/>
-                        <constraint firstItem="6" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="96" id="385"/>
-                        <constraint firstItem="5" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="99" id="387"/>
+                        <constraint firstItem="236" firstAttribute="top" secondItem="2" secondAttribute="top" constant="1" id="0u5-F0-XOh"/>
+                        <constraint firstItem="10" firstAttribute="leading" secondItem="8" secondAttribute="leading" id="62l-bD-VUO"/>
+                        <constraint firstItem="4" firstAttribute="leading" secondItem="3" secondAttribute="trailing" constant="8" symbolic="YES" id="8Mv-6Z-jIi"/>
+                        <constraint firstItem="10" firstAttribute="trailing" secondItem="6" secondAttribute="trailing" id="ApE-7G-TPa"/>
+                        <constraint firstAttribute="bottom" secondItem="4" secondAttribute="bottom" constant="1" id="DD6-Re-ZZH"/>
+                        <constraint firstItem="5" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="99" id="Gtq-XC-OBZ"/>
+                        <constraint firstItem="5" firstAttribute="baseline" secondItem="7" secondAttribute="baseline" id="LJ1-mr-G7S"/>
+                        <constraint firstItem="8" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="5" id="M4n-lw-k1R"/>
+                        <constraint firstAttribute="trailing" secondItem="9" secondAttribute="trailing" constant="4" id="Mpj-jr-5bW"/>
+                        <constraint firstItem="8" firstAttribute="top" secondItem="2" secondAttribute="top" constant="43" id="SSs-NO-rgU"/>
+                        <constraint firstAttribute="bottom" secondItem="10" secondAttribute="bottom" constant="28" id="V9q-Ao-Spf"/>
+                        <constraint firstItem="7" firstAttribute="top" secondItem="5" secondAttribute="top" id="Z0S-bP-XKr"/>
+                        <constraint firstItem="6" firstAttribute="baseline" secondItem="8" secondAttribute="baseline" id="dk1-yK-bxT"/>
+                        <constraint firstItem="7" firstAttribute="top" secondItem="2" secondAttribute="top" constant="26" id="gQ3-PK-ha6"/>
+                        <constraint firstItem="7" firstAttribute="trailing" secondItem="8" secondAttribute="trailing" id="gUD-2F-8uS"/>
+                        <constraint firstItem="3" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="16" id="hMT-0b-nw9"/>
+                        <constraint firstItem="9" firstAttribute="top" secondItem="2" secondAttribute="top" constant="107" id="m1g-nU-l2c"/>
+                        <constraint firstItem="236" firstAttribute="centerX" secondItem="2" secondAttribute="centerX" id="neL-G3-IEH"/>
+                        <constraint firstItem="10" firstAttribute="top" secondItem="8" secondAttribute="bottom" constant="8" symbolic="YES" id="rvU-f8-5Vi"/>
+                        <constraint firstItem="6" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="96" id="sk9-fF-xpP"/>
+                        <constraint firstItem="4" firstAttribute="centerY" secondItem="3" secondAttribute="centerY" id="wXM-Mj-r6m"/>
                     </constraints>
-                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <font key="titleFont" size="18" name="LucidaGrande"/>
                     <connections>
                         <binding destination="-2" name="transparent" keyPath="selected" id="355">

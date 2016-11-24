@@ -20,7 +20,7 @@
 #import "GPCatalogPeople.h"
 #import "GPCatalogQuantity.h"
 #import "GPPlateSize.h"
-
+#import "Cachet+CoreDataClass.h"
 
 @implementation GPCatalog (Duplicate)
 
@@ -201,6 +201,16 @@
         BureauPrecancel * bcCopy = [bc duplicate];
         
         [target addBureauPrecancelsObject:bcCopy];
+    }
+}
+
+- (void)copyCachetsIntoTarget:(GPCatalog *)target {
+    NSSet* cachetsSet = [NSSet setWithSet:self.cachets];
+    
+    for (Cachet* c in cachetsSet) {
+        Cachet* cCopy = [c duplicate];
+        
+        [target addCachetsObject:cCopy];
     }
 }
 

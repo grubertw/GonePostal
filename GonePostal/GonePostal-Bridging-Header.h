@@ -12,9 +12,11 @@
 #import "GPCustomSearch.h"
 
 // Models.
+#import "AlternateCatalogName.h"
 #import "GPCatalog.h"
+#import "GPCatalogSet+CoreDataClass.h"
 #import "Stamp.h"
 #import "StampFormat.h"
 #import "StampReport.h"
 #import "StoredSearch.h"
-#import "Cachet.h"
+#import "Cachet+CoreDataClass.h"

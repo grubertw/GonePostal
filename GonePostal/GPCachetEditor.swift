@@ -14,25 +14,48 @@ internal class GPCachetEditor: NSWindowController {
         return "GPCachetEditor"
     }
     
-    let cachetSortDescriptors: [NSSortDescriptor]
-    let cachetCatalogNameSortDescriptors: [NSSortDescriptor]
-    let cachetMakerNameSortDescriptors: [NSSortDescriptor]
-    let salesGroupSortDescriptors: [NSSortDescriptor]
+    let cachetSortDescriptors = [NSSortDescriptor(key:"gp_cachet_number", ascending: true)] as NSArray
+    let cachetCatalogNameSortDescriptors = [NSSortDescriptor(key:"cachet_catalog_name", ascending: true)] as NSArray
+    let cachetMakerNameSortDescriptors = [NSSortDescriptor(key:"cachet_maker_name", ascending: true)] as NSArray
+    let salesGroupSortDescriptors = [NSSortDescriptor(key:"name", ascending: true)] as NSArray
+
+    // Text fields representing the parent selection
+    // (i.e. when adding to a GPCatalog entry or GPCatalogSet)
+    var parentGPID: String = ""
+    var parentCatalogName: String = ""
+    var parentDenom: String = ""
+    var parentSeries: String = ""
+    var parentDescription: String = ""
+    var parentPicturePath: String = ""
     
-    var gpCatalog: GPCatalog
+    var gpCatalog: GPCatalog?
+    var gpCatalogSet: GPCatalogSet?
     var managedObjectContect: NSManagedObjectContext
     var doc: GPDocument!
     
     @IBOutlet var cachetController: NSArrayController!
     
     init(gpCatalog: GPCatalog) {
-        self.cachetSortDescriptors = [NSSortDescriptor(key:"gp_cachet_number", ascending: true)]
-        self.cachetCatalogNameSortDescriptors = [NSSortDescriptor(key:"cachet_catalog_name", ascending: true)]
-        self.cachetMakerNameSortDescriptors = [NSSortDescriptor(key:"cachet_maker_name", ascending: true)]
-        self.salesGroupSortDescriptors = [NSSortDescriptor(key:"name", ascending: true)]
+        parentGPID = gpCatalog.gp_catalog_number
+        parentCatalogName = gpCatalog.defaultCatalogName.alternate_catalog_name
+        parentDenom = gpCatalog.denomination
+        parentSeries = gpCatalog.series
+        parentDescription = gpCatalog.gp_description
+        parentPicturePath = gpCatalog.default_picture
         
         self.gpCatalog = gpCatalog
-        self.managedObjectContect = gpCatalog.managedObjectContext!
+        managedObjectContect = gpCatalog.managedObjectContext!
+        
+        super.init(window: nil)
+    }
+    
+    init(gpCatalogSet: GPCatalogSet) {
+        parentGPID = gpCatalogSet.gp_set_number!
+        parentCatalogName = gpCatalogSet.name!
+        parentPicturePath = gpCatalogSet.picture!
+        
+        self.gpCatalogSet = gpCatalogSet
+        self.managedObjectContect = gpCatalogSet.managedObjectContext!
         
         super.init(window: nil)
     }
@@ -48,9 +71,16 @@ internal class GPCachetEditor: NSWindowController {
     }
     
     @IBAction func addCachet(_ sender: AnyObject) {
-        let controller = GPAddCachet(gpCatalog: self.gpCatalog)
-        self.doc.addWindowController(controller)
-        controller.window!.makeKeyAndOrderFront(sender)
+        if (self.gpCatalog != nil) {
+            let controller = GPAddCachet(gpCatalog: self.gpCatalog!)
+            self.doc.addWindowController(controller)
+            controller.window!.makeKeyAndOrderFront(sender)
+        }
+        else if (self.gpCatalogSet != nil) {
+            let controller = GPAddCachet(gpCatalogSet: self.gpCatalogSet!)
+            self.doc.addWindowController(controller)
+            controller.window!.makeKeyAndOrderFront(sender)
+        }
     }
     
     @IBAction func removeCachet(_ sender: AnyObject) {
@@ -67,8 +97,9 @@ internal class GPCachetEditor: NSWindowController {
                 
                 let dup = entry.duplicate()
                 dup.gp_cachet_number = String(format:"%@%08ld",staticID!, startingID)
-                
-                self.gpCatalog.addCachetsObject(dup)
+             
+                self.gpCatalog?.addCachetsObject(dup)
+                self.gpCatalogSet?.addCachetsObject(dup)
             }
         }
     }
@@ -78,8 +109,7 @@ internal class GPCachetEditor: NSWindowController {
             try self.managedObjectContect.save();
             self.close()
         } catch {
-            let saveError = error as NSError
-            let alert = NSAlert(error: saveError)
+            let alert = NSAlert(error: error)
             alert.beginSheetModal(for: self.window!, completionHandler: nil)
             self.managedObjectContect.undo()
         }

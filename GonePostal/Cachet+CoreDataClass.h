@@ -1,15 +1,15 @@
 //
-//  Cachet.h
+//  Cachet+CoreDataClass.h
 //  GonePostal
 //
-//  Created by Travis Gruber on 6/5/16.
+//  Created by Travis Gruber on 11/14/16.
 //  Copyright © 2016 Travis Gruber. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class CachetCatalogName, CachetMakerName, GPCatalog, GPSalesGroup, Stamp, Valuation;
+@class CachetCatalogName, CachetMakerName, GPCatalog, GPCatalogSet, GPSalesGroup, Stamp, Valuation;
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -16,5 +16,6 @@
 
 - (void)copyPlateInfoIntoTarget:(GPCatalog *)target;
 - (void)copyBureauPrecancelInfoIntoTarget:(GPCatalog *)target;
+- (void)copyCachetsIntoTarget:(GPCatalog *)target;
 
 @end

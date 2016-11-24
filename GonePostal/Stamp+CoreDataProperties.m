@@ -2,16 +2,17 @@
 //  Stamp+CoreDataProperties.m
 //  GonePostal
 //
-//  Created by Travis Gruber on 5/22/16.
+//  Created by Travis Gruber on 11/20/16.
 //  Copyright © 2016 Travis Gruber. All rights reserved.
-//
-//  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
-//  to delete and recreate this implementation file for your updated model.
 //
 
 #import "Stamp+CoreDataProperties.h"
 
 @implementation Stamp (CoreDataProperties)
+
++ (NSFetchRequest<Stamp *> *)fetchRequest {
+	return [[NSFetchRequest alloc] initWithEntityName:@"Stamp"];
+}
 
 @dynamic address_type;
 @dynamic alternate_picture_1;
@@ -45,6 +46,7 @@
 @dynamic last_sale_price;
 @dynamic manual_value;
 @dynamic manual_value_overrides_catalog_value;
+@dynamic marking;
 @dynamic mint_used;
 @dynamic modifiedByUser;
 @dynamic notes;
@@ -67,7 +69,6 @@
 @dynamic purchase_date;
 @dynamic serial_number;
 @dynamic source;
-@dynamic marking;
 @dynamic bureauPrecancel;
 @dynamic cachet;
 @dynamic cancelQuality;
@@ -88,8 +89,9 @@
 @dynamic mount;
 @dynamic parent;
 @dynamic perfin;
+@dynamic plateNumber;
 @dynamic saleHistory;
 @dynamic soundness;
-@dynamic plateNumber;
+@dynamic gpCatalogSet;
 
 @end

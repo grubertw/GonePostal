@@ -1,19 +1,19 @@
 //
-//  Cachet.m
+//  Cachet+CoreDataClass.m
 //  GonePostal
 //
-//  Created by Travis Gruber on 6/5/16.
+//  Created by Travis Gruber on 11/14/16.
 //  Copyright © 2016 Travis Gruber. All rights reserved.
 //
 
-#import "Cachet.h"
+#import "Cachet+CoreDataClass.h"
 #import "CachetCatalogName.h"
 #import "CachetMakerName.h"
 #import "GPCatalog.h"
+#import "GPCatalogSet+CoreDataClass.h"
 #import "GPSalesGroup.h"
 #import "Stamp.h"
 #import "Valuation.h"
-
 @implementation Cachet
 
 - (Cachet *) duplicate {

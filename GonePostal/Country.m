@@ -9,7 +9,7 @@
 #import "Country.h"
 #import "Attachment.h"
 #import "GPCatalog.h"
-#import "GPCatalogSet.h"
+#import "GPCatalogSet+CoreDataClass.h"
 #import "LooksLike.h"
 
 

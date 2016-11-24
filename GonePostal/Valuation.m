@@ -8,7 +8,7 @@
 
 #import "Valuation.h"
 #import "BureauPrecancel.h"
-#import "Cachet.h"
+#import "Cachet+CoreDataClass.h"
 #import "CancelQuality.h"
 #import "Centering.h"
 #import "GPCatalog.h"

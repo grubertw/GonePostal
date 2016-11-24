@@ -46,7 +46,6 @@
 		1F0EC74D16D947AE00427B4C /* GPLooksLikePopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EC73216D947AE00427B4C /* GPLooksLikePopoverController.m */; };
 		1F0EC74E16D947AE00427B4C /* GPPlatePositionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EC73416D947AE00427B4C /* GPPlatePositionsController.m */; };
 		1F0EC74F16D947AE00427B4C /* GPPlateUsageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EC73616D947AE00427B4C /* GPPlateUsageController.m */; };
-		1F0EC75016D947AE00427B4C /* GPSetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EC73816D947AE00427B4C /* GPSetController.m */; };
 		1F0EC75116D947AE00427B4C /* GPSupportedAltCatalogNamesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EC73A16D947AE00427B4C /* GPSupportedAltCatalogNamesController.m */; };
 		1F0EC75216D947AE00427B4C /* GPSupportedAltCatalogSectionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EC73C16D947AE00427B4C /* GPSupportedAltCatalogSectionsController.m */; };
 		1F0EC75316D947AE00427B4C /* GPSupportedCachetCatalogsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EC73E16D947AE00427B4C /* GPSupportedCachetCatalogsController.m */; };
@@ -187,6 +186,10 @@
 		1F6FEC0B18BA798300606C6B /* GPCatalogQuantityController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F6FEC0918BA798300606C6B /* GPCatalogQuantityController.xib */; };
 		1F6FEC0F18BA93FF00606C6B /* GPSupportedCatalogQuantityTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6FEC0D18BA93FF00606C6B /* GPSupportedCatalogQuantityTypes.m */; };
 		1F6FEC1018BA93FF00606C6B /* GPSupportedCatalogQuantityTypes.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F6FEC0E18BA93FF00606C6B /* GPSupportedCatalogQuantityTypes.xib */; };
+		1F73741C1DDA403A008D0A4D /* GPCatalogSet+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7374171DDA403A008D0A4D /* GPCatalogSet+CoreDataClass.m */; };
+		1F73741D1DDA403A008D0A4D /* GPCatalogSet+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7374191DDA403A008D0A4D /* GPCatalogSet+CoreDataProperties.m */; };
+		1F73741E1DDA403A008D0A4D /* Cachet+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F73741B1DDA403A008D0A4D /* Cachet+CoreDataClass.m */; };
+		1F7374201DDE5FFA008D0A4D /* GPSetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F73741F1DDE5FFA008D0A4D /* GPSetController.swift */; };
 		1F78571A172467DB00A5A07B /* GPIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 1F785719172467DB00A5A07B /* GPIcon.icns */; };
 		1F7D89FA17C3406B0082E1F7 /* GPCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7D89F917C3406B0082E1F7 /* GPCollection.m */; };
 		1F7D89FD17C3406B0082E1F7 /* Valuation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7D89FC17C3406B0082E1F7 /* Valuation.m */; };
@@ -196,7 +199,6 @@
 		1F991549188DB2090090AF64 /* GPSupportedSalesGroupTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F991547188DB2090090AF64 /* GPSupportedSalesGroupTypes.m */; };
 		1F99154A188DB2090090AF64 /* GPSupportedSalesGroupTypes.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F991548188DB2090090AF64 /* GPSupportedSalesGroupTypes.xib */; };
 		1F99154D188DB4C70090AF64 /* GPSalesGroupType.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F99154C188DB4C70090AF64 /* GPSalesGroupType.m */; };
-		1F991550188DB4C80090AF64 /* GPCatalogSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F99154F188DB4C80090AF64 /* GPCatalogSet.m */; };
 		1F991556188DBEE20090AF64 /* GPSalesGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F991555188DBEE20090AF64 /* GPSalesGroup.m */; };
 		1F9D140C1788747A00B225EC /* Stamp+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D140B1788747A00B225EC /* Stamp+Create.m */; };
 		1F9D14101788865500B225EC /* Stamp+Duplicate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D140F1788865500B225EC /* Stamp+Duplicate.m */; };
@@ -227,12 +229,13 @@
 		1FCEAAD21D03CDE100969674 /* GPCachetEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCEAAD01D03CDE100969674 /* GPCachetEditor.swift */; };
 		1FCEAAD31D03CDE100969674 /* GPCachetEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FCEAAD11D03CDE100969674 /* GPCachetEditor.xib */; };
 		1FCEAAD81D04DBF900969674 /* Cachet+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCEAAD51D04DBF900969674 /* Cachet+CoreDataProperties.m */; };
-		1FCEAAD91D04DBF900969674 /* Cachet.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCEAAD71D04DBF900969674 /* Cachet.m */; };
 		1FCEAADC1D05EA7300969674 /* GPAddCachet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCEAADA1D05EA7300969674 /* GPAddCachet.swift */; };
 		1FCEAADD1D05EA7300969674 /* GPAddCachet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FCEAADB1D05EA7300969674 /* GPAddCachet.xib */; };
 		1FD287B61752C50400B718EF /* GPValuationCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD287B51752C50400B718EF /* GPValuationCalculator.m */; };
 		1FD287BD1752CDB600B718EF /* GPSetCounter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD287BC1752CDB600B718EF /* GPSetCounter.m */; };
 		1FD287C3175458AE00B718EF /* GPSellListLocator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD287C2175458AE00B718EF /* GPSellListLocator.m */; };
+		1FD2A9451DE662490068114A /* GPAddGPCatalogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD2A9431DE662490068114A /* GPAddGPCatalogs.swift */; };
+		1FD2A9461DE662490068114A /* GPAddGPCatalogs.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FD2A9441DE662490068114A /* GPAddGPCatalogs.xib */; };
 		1FD76865171E62F400AD6C5F /* GPCatalogDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD76863171E62F400AD6C5F /* GPCatalogDetail.m */; };
 		1FD76866171E62F400AD6C5F /* GPCatalogDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FD76864171E62F400AD6C5F /* GPCatalogDetail.xib */; };
 		1FD76874172349A300AD6C5F /* GPStampExamples.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD76872172349A300AD6C5F /* GPStampExamples.m */; };
@@ -374,8 +377,6 @@
 		1F0EC73416D947AE00427B4C /* GPPlatePositionsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPPlatePositionsController.m; sourceTree = "<group>"; };
 		1F0EC73516D947AE00427B4C /* GPPlateUsageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPPlateUsageController.h; sourceTree = "<group>"; };
 		1F0EC73616D947AE00427B4C /* GPPlateUsageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPPlateUsageController.m; sourceTree = "<group>"; };
-		1F0EC73716D947AE00427B4C /* GPSetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPSetController.h; sourceTree = "<group>"; };
-		1F0EC73816D947AE00427B4C /* GPSetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPSetController.m; sourceTree = "<group>"; };
 		1F0EC73916D947AE00427B4C /* GPSupportedAltCatalogNamesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPSupportedAltCatalogNamesController.h; sourceTree = "<group>"; };
 		1F0EC73A16D947AE00427B4C /* GPSupportedAltCatalogNamesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPSupportedAltCatalogNamesController.m; sourceTree = "<group>"; };
 		1F0EC73B16D947AE00427B4C /* GPSupportedAltCatalogSectionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPSupportedAltCatalogSectionsController.h; sourceTree = "<group>"; };
@@ -609,6 +610,14 @@
 		1F6FEC0C18BA93FF00606C6B /* GPSupportedCatalogQuantityTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPSupportedCatalogQuantityTypes.h; sourceTree = "<group>"; };
 		1F6FEC0D18BA93FF00606C6B /* GPSupportedCatalogQuantityTypes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPSupportedCatalogQuantityTypes.m; sourceTree = "<group>"; };
 		1F6FEC0E18BA93FF00606C6B /* GPSupportedCatalogQuantityTypes.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GPSupportedCatalogQuantityTypes.xib; sourceTree = "<group>"; };
+		1F73740C1DDA3BC3008D0A4D /* GPDocument 34.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "GPDocument 34.xcdatamodel"; sourceTree = "<group>"; };
+		1F7374161DDA403A008D0A4D /* GPCatalogSet+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GPCatalogSet+CoreDataClass.h"; sourceTree = "<group>"; };
+		1F7374171DDA403A008D0A4D /* GPCatalogSet+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GPCatalogSet+CoreDataClass.m"; sourceTree = "<group>"; };
+		1F7374181DDA403A008D0A4D /* GPCatalogSet+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GPCatalogSet+CoreDataProperties.h"; sourceTree = "<group>"; };
+		1F7374191DDA403A008D0A4D /* GPCatalogSet+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GPCatalogSet+CoreDataProperties.m"; sourceTree = "<group>"; };
+		1F73741A1DDA403A008D0A4D /* Cachet+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Cachet+CoreDataClass.h"; sourceTree = "<group>"; };
+		1F73741B1DDA403A008D0A4D /* Cachet+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Cachet+CoreDataClass.m"; sourceTree = "<group>"; };
+		1F73741F1DDE5FFA008D0A4D /* GPSetController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPSetController.swift; sourceTree = "<group>"; };
 		1F785719172467DB00A5A07B /* GPIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = GPIcon.icns; path = ../GPIcon.icns; sourceTree = "<group>"; };
 		1F7D89EE17C17C630082E1F7 /* GPDocument 19.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "GPDocument 19.xcdatamodel"; sourceTree = "<group>"; };
 		1F7D89F817C3406B0082E1F7 /* GPCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPCollection.h; sourceTree = "<group>"; };
@@ -626,8 +635,6 @@
 		1F991548188DB2090090AF64 /* GPSupportedSalesGroupTypes.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GPSupportedSalesGroupTypes.xib; sourceTree = "<group>"; };
 		1F99154B188DB4C70090AF64 /* GPSalesGroupType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPSalesGroupType.h; sourceTree = "<group>"; };
 		1F99154C188DB4C70090AF64 /* GPSalesGroupType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPSalesGroupType.m; sourceTree = "<group>"; };
-		1F99154E188DB4C80090AF64 /* GPCatalogSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPCatalogSet.h; sourceTree = "<group>"; };
-		1F99154F188DB4C80090AF64 /* GPCatalogSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPCatalogSet.m; sourceTree = "<group>"; };
 		1F991554188DBEE20090AF64 /* GPSalesGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPSalesGroup.h; sourceTree = "<group>"; };
 		1F991555188DBEE20090AF64 /* GPSalesGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPSalesGroup.m; sourceTree = "<group>"; };
 		1F9D140A1788747A00B225EC /* Stamp+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Stamp+Create.h"; sourceTree = "<group>"; };
@@ -682,8 +689,6 @@
 		1FCEAAD11D03CDE100969674 /* GPCachetEditor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GPCachetEditor.xib; sourceTree = "<group>"; };
 		1FCEAAD41D04DBF900969674 /* Cachet+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Cachet+CoreDataProperties.h"; sourceTree = "<group>"; };
 		1FCEAAD51D04DBF900969674 /* Cachet+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Cachet+CoreDataProperties.m"; sourceTree = "<group>"; };
-		1FCEAAD61D04DBF900969674 /* Cachet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cachet.h; sourceTree = "<group>"; };
-		1FCEAAD71D04DBF900969674 /* Cachet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cachet.m; sourceTree = "<group>"; };
 		1FCEAADA1D05EA7300969674 /* GPAddCachet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAddCachet.swift; sourceTree = "<group>"; };
 		1FCEAADB1D05EA7300969674 /* GPAddCachet.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GPAddCachet.xib; sourceTree = "<group>"; };
 		1FCEAE4E1A38CBA800D75689 /* GPDocument 30.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "GPDocument 30.xcdatamodel"; sourceTree = "<group>"; };
@@ -696,6 +701,8 @@
 		1FD287C1175458AE00B718EF /* GPSellListLocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPSellListLocator.h; sourceTree = "<group>"; };
 		1FD287C2175458AE00B718EF /* GPSellListLocator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPSellListLocator.m; sourceTree = "<group>"; };
 		1FD287C4175799F400B718EF /* GPDocument 10.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "GPDocument 10.xcdatamodel"; sourceTree = "<group>"; };
+		1FD2A9431DE662490068114A /* GPAddGPCatalogs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAddGPCatalogs.swift; sourceTree = "<group>"; };
+		1FD2A9441DE662490068114A /* GPAddGPCatalogs.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GPAddGPCatalogs.xib; sourceTree = "<group>"; };
 		1FD76862171E62F400AD6C5F /* GPCatalogDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPCatalogDetail.h; sourceTree = "<group>"; };
 		1FD76863171E62F400AD6C5F /* GPCatalogDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPCatalogDetail.m; sourceTree = "<group>"; };
 		1FD76864171E62F400AD6C5F /* GPCatalogDetail.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GPCatalogDetail.xib; sourceTree = "<group>"; };
@@ -834,10 +841,14 @@
 			isa = PBXGroup;
 			children = (
 				1F2E549D170759FB00F177A0 /* GPDocument.xcdatamodeld */,
+				1F7374161DDA403A008D0A4D /* GPCatalogSet+CoreDataClass.h */,
+				1F7374171DDA403A008D0A4D /* GPCatalogSet+CoreDataClass.m */,
+				1F7374181DDA403A008D0A4D /* GPCatalogSet+CoreDataProperties.h */,
+				1F7374191DDA403A008D0A4D /* GPCatalogSet+CoreDataProperties.m */,
+				1F73741A1DDA403A008D0A4D /* Cachet+CoreDataClass.h */,
+				1F73741B1DDA403A008D0A4D /* Cachet+CoreDataClass.m */,
 				1FCEAAD41D04DBF900969674 /* Cachet+CoreDataProperties.h */,
 				1FCEAAD51D04DBF900969674 /* Cachet+CoreDataProperties.m */,
-				1FCEAAD61D04DBF900969674 /* Cachet.h */,
-				1FCEAAD71D04DBF900969674 /* Cachet.m */,
 				1FF61F3A1CFD096C007D5324 /* StampReport+CoreDataProperties.h */,
 				1FF61F3B1CFD096C007D5324 /* StampReport+CoreDataProperties.m */,
 				1FF61F3C1CFD096C007D5324 /* StampReport.h */,
@@ -846,10 +857,10 @@
 				1FF09E3A1CF267C9002A35F8 /* PlateNumber+CoreDataProperties.m */,
 				1FF09E3B1CF267C9002A35F8 /* PlateNumber.h */,
 				1FF09E3C1CF267C9002A35F8 /* PlateNumber.m */,
-				1FF09E331CF266AF002A35F8 /* Stamp+CoreDataProperties.h */,
-				1FF09E341CF266AF002A35F8 /* Stamp+CoreDataProperties.m */,
 				1FF09E351CF266AF002A35F8 /* Stamp.h */,
 				1FF09E361CF266AF002A35F8 /* Stamp.m */,
+				1FF09E331CF266AF002A35F8 /* Stamp+CoreDataProperties.h */,
+				1FF09E341CF266AF002A35F8 /* Stamp+CoreDataProperties.m */,
 				1F1F923A1A71D80C003E090D /* GPCatalogDate.h */,
 				1F1F923B1A71D80C003E090D /* GPCatalogDate.m */,
 				1F1F92371A71D80C003E090D /* GPCatalogQuantity.h */,
@@ -862,6 +873,10 @@
 				1F674D141A58E3FD0053A5D1 /* StampFormat.m */,
 				1F674D0D1A58E3FB0053A5D1 /* GPCatalog.h */,
 				1F674D0E1A58E3FB0053A5D1 /* GPCatalog.m */,
+				1F0EC6C316D9467B00427B4C /* GPCatalog+Create.h */,
+				1F0EC6C416D9467B00427B4C /* GPCatalog+Create.m */,
+				1F0EC6C516D9467B00427B4C /* GPCatalog+Duplicate.h */,
+				1F0EC6C616D9467B00427B4C /* GPCatalog+Duplicate.m */,
 				1F2102351A58D3810043374F /* GPCatalogAlbumSize.h */,
 				1F2102361A58D3810043374F /* GPCatalogAlbumSize.m */,
 				1F6E8F4818C782910062746F /* SaleHistory.h */,
@@ -882,8 +897,6 @@
 				1F254E6718B2F89F003A3CD7 /* PlatePosition.m */,
 				1F991554188DBEE20090AF64 /* GPSalesGroup.h */,
 				1F991555188DBEE20090AF64 /* GPSalesGroup.m */,
-				1F99154E188DB4C80090AF64 /* GPCatalogSet.h */,
-				1F99154F188DB4C80090AF64 /* GPCatalogSet.m */,
 				1F99154B188DB4C70090AF64 /* GPSalesGroupType.h */,
 				1F99154C188DB4C70090AF64 /* GPSalesGroupType.m */,
 				1FFD14E21879FEA90026143B /* LooksLike.h */,
@@ -914,10 +927,6 @@
 				1FC7487D17AEBBC700641CC8 /* GumCondition.m */,
 				1F038AB71783628F00B00A0A /* NumberOfStampsInPlate.h */,
 				1F038AB81783628F00B00A0A /* NumberOfStampsInPlate.m */,
-				1F0EC6C316D9467B00427B4C /* GPCatalog+Create.h */,
-				1F0EC6C416D9467B00427B4C /* GPCatalog+Create.m */,
-				1F0EC6C516D9467B00427B4C /* GPCatalog+Duplicate.h */,
-				1F0EC6C616D9467B00427B4C /* GPCatalog+Duplicate.m */,
 				1F5D05EF177FFC040007D781 /* Attachment.h */,
 				1F5D05F0177FFC040007D781 /* Attachment.m */,
 				1F5D05DC177FA4F80007D781 /* Country.h */,
@@ -1006,8 +1015,7 @@
 				1F6FEBF318BA54A400606C6B /* GPPlatePositionInfoController.m */,
 				1FCEAAD01D03CDE100969674 /* GPCachetEditor.swift */,
 				1FCEAADA1D05EA7300969674 /* GPAddCachet.swift */,
-				1F0EC73716D947AE00427B4C /* GPSetController.h */,
-				1F0EC73816D947AE00427B4C /* GPSetController.m */,
+				1F73741F1DDE5FFA008D0A4D /* GPSetController.swift */,
 				1F0EC78916D95C9300427B4C /* GPSetPopoverController.h */,
 				1F0EC78A16D95C9300427B4C /* GPSetPopoverController.m */,
 				1FD76871172349A300AD6C5F /* GPStampExamples.h */,
@@ -1026,6 +1034,7 @@
 				1F6FEC0818BA798300606C6B /* GPCatalogQuantityController.m */,
 				1F2102301A58CED90043374F /* GPAlbumSizeController.h */,
 				1F2102311A58CED90043374F /* GPAlbumSizeController.m */,
+				1FD2A9431DE662490068114A /* GPAddGPCatalogs.swift */,
 			);
 			name = CatalogViewControllers;
 			sourceTree = "<group>";
@@ -1056,6 +1065,7 @@
 				1F22F5C818B873D200D48448 /* GPPlateSizeController.xib */,
 				1F6FEC0918BA798300606C6B /* GPCatalogQuantityController.xib */,
 				1F2102321A58CED90043374F /* GPAlbumSizeController.xib */,
+				1FD2A9441DE662490068114A /* GPAddGPCatalogs.xib */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -1642,6 +1652,7 @@
 				1F9D14151788892800B225EC /* GPStampDefaults.xib in Resources */,
 				1F1B69B6178A324B0018B930 /* GPDatabaseStats.xib in Resources */,
 				1F107A0D17A440BE00D76B06 /* GPPlateCombinationsEditor.xib in Resources */,
+				1FD2A9461DE662490068114A /* GPAddGPCatalogs.xib in Resources */,
 				1F107A1217A4411200D76B06 /* GPAddPlateCombination.xib in Resources */,
 				1F7D8A0517C557630082E1F7 /* GPSupportedPriceLists.xib in Resources */,
 			);
@@ -1717,14 +1728,15 @@
 				1F0EC74816D947AE00427B4C /* GPCachetController.m in Sources */,
 				1F0EC74916D947AE00427B4C /* GPCatalogDefaults.m in Sources */,
 				1F0EC74A16D947AE00427B4C /* GPCatalogEditor.m in Sources */,
+				1F73741C1DDA403A008D0A4D /* GPCatalogSet+CoreDataClass.m in Sources */,
 				1F0EC74B16D947AE00427B4C /* GPLooksLikeController.m in Sources */,
 				1F6FEC0A18BA798300606C6B /* GPCatalogQuantityController.m in Sources */,
 				1F0EC74C16D947AE00427B4C /* GPLooksLikeItemEditor.m in Sources */,
 				1F0EC74D16D947AE00427B4C /* GPLooksLikePopoverController.m in Sources */,
 				1F0EC74E16D947AE00427B4C /* GPPlatePositionsController.m in Sources */,
+				1FD2A9451DE662490068114A /* GPAddGPCatalogs.swift in Sources */,
 				1F0EC74F16D947AE00427B4C /* GPPlateUsageController.m in Sources */,
 				1F99154D188DB4C70090AF64 /* GPSalesGroupType.m in Sources */,
-				1F0EC75016D947AE00427B4C /* GPSetController.m in Sources */,
 				1F0EC75116D947AE00427B4C /* GPSupportedAltCatalogNamesController.m in Sources */,
 				1F0EC75216D947AE00427B4C /* GPSupportedAltCatalogSectionsController.m in Sources */,
 				1F0EC75316D947AE00427B4C /* GPSupportedCachetCatalogsController.m in Sources */,
@@ -1764,10 +1776,11 @@
 				1FF6259016F03F5800D4D849 /* GPBureauPrecancelChooser.m in Sources */,
 				1FF6259516F03FD000D4D849 /* GPLocalPrecancelChooser.m in Sources */,
 				1F6FEC0318BA791300606C6B /* GPCatalogQuantityType.m in Sources */,
+				1F7374201DDE5FFA008D0A4D /* GPSetController.swift in Sources */,
 				1FF6259A16F0403F00D4D849 /* GPPerfinChooser.m in Sources */,
 				1F53E31816F6466300B599E3 /* GPPlateUsageChooser.m in Sources */,
+				1F73741E1DDA403A008D0A4D /* Cachet+CoreDataClass.m in Sources */,
 				1F2E544E1700F56800F177A0 /* GPSupportedCancelQuality.m in Sources */,
-				1FCEAAD91D04DBF900969674 /* Cachet.m in Sources */,
 				1F2E54531700F5EC00F177A0 /* GPSupportedCentering.m in Sources */,
 				1F2E54581700F66A00F177A0 /* GPSupportedDealers.m in Sources */,
 				1FFD14D51879FEA80026143B /* BureauPrecancel.m in Sources */,
@@ -1787,6 +1800,7 @@
 				1F2E54851700F99D00F177A0 /* GPSupportedLocalPrecancels.m in Sources */,
 				1F2E548A1700FA2E00F177A0 /* GPSupportedPerfins.m in Sources */,
 				1F2E548F1701239900F177A0 /* GPSupportedPerfinCatalogs.m in Sources */,
+				1F73741D1DDA403A008D0A4D /* GPCatalogSet+CoreDataProperties.m in Sources */,
 				1F2E54931707532200F177A0 /* GPMultipleSelectionChecker.m in Sources */,
 				1F2E54991707563500F177A0 /* PerfinCatalog.m in Sources */,
 				1F2E549C1707563600F177A0 /* PerfinCatalogName.m in Sources */,
@@ -1815,7 +1829,6 @@
 				1FD287B61752C50400B718EF /* GPValuationCalculator.m in Sources */,
 				1FD287BD1752CDB600B718EF /* GPSetCounter.m in Sources */,
 				1F991549188DB2090090AF64 /* GPSupportedSalesGroupTypes.m in Sources */,
-				1F991550188DB4C80090AF64 /* GPCatalogSet.m in Sources */,
 				1F22F5B318B7B60100D48448 /* GPSupportedPlateSizeTypes.m in Sources */,
 				1FFD14E11879FEA80026143B /* LocalPrecancel.m in Sources */,
 				1F254E8318B2F8F2003A3CD7 /* GPPlateSizeType.m in Sources */,
@@ -2019,7 +2032,7 @@
 				GCC_PREFIX_HEADER = "GonePostal/GonePostal-Prefix.pch";
 				INFOPLIST_FILE = "GonePostal/GonePostal-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = "gb.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "GonePostal/GonePostal-Bridging-Header.h";
@@ -2038,7 +2051,7 @@
 				GCC_PREFIX_HEADER = "GonePostal/GonePostal-Prefix.pch";
 				INFOPLIST_FILE = "GonePostal/GonePostal-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = "gb.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "GonePostal/GonePostal-Bridging-Header.h";
@@ -2119,6 +2132,7 @@
 		1F2E549D170759FB00F177A0 /* GPDocument.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				1F73740C1DDA3BC3008D0A4D /* GPDocument 34.xcdatamodel */,
 				1FF61F391CFCFC61007D5324 /* GPDocument 33.xcdatamodel */,
 				1FF09E261CF23735002A35F8 /* GPDocument 32.xcdatamodel */,
 				1F21022F1A587A300043374F /* GPDocument 31.xcdatamodel */,
@@ -2153,7 +2167,7 @@
 				1F2E549E170759FB00F177A0 /* GPDocument 2.xcdatamodel */,
 				1F2E549F170759FB00F177A0 /* GPDocument.xcdatamodel */,
 			);
-			currentVersion = 1FF61F391CFCFC61007D5324 /* GPDocument 33.xcdatamodel */;
+			currentVersion = 1F73740C1DDA3BC3008D0A4D /* GPDocument 34.xcdatamodel */;
 			path = GPDocument.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

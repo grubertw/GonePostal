@@ -2,16 +2,17 @@
 //  Cachet+CoreDataProperties.m
 //  GonePostal
 //
-//  Created by Travis Gruber on 6/5/16.
+//  Created by Travis Gruber on 11/14/16.
 //  Copyright © 2016 Travis Gruber. All rights reserved.
-//
-//  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
-//  to delete and recreate this implementation file for your updated model.
 //
 
 #import "Cachet+CoreDataProperties.h"
 
 @implementation Cachet (CoreDataProperties)
+
++ (NSFetchRequest<Cachet *> *)fetchRequest {
+	return [[NSFetchRequest alloc] initWithEntityName:@"Cachet"];
+}
 
 @dynamic alternate_picture_1;
 @dynamic alternate_picture_2;
@@ -34,5 +35,6 @@
 @dynamic salesGroup;
 @dynamic stamps;
 @dynamic values;
+@dynamic gpCatalogSet;
 
 @end

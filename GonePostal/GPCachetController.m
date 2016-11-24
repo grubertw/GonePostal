@@ -8,7 +8,7 @@
 
 #import "GPCachetController.h"
 #import "GPDocument.h"
-#import "Cachet.h"
+#import "Cachet+CoreDataClass.h"
 
 @interface GPCachetController ()
 
