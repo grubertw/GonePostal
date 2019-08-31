@@ -313,6 +313,8 @@
 		1F0512F617452AC700D764BC /* GPDocument 7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "GPDocument 7.xcdatamodel"; sourceTree = "<group>"; };
 		1F0513001745328A00D764BC /* Perfin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Perfin.h; sourceTree = "<group>"; };
 		1F0513011745328A00D764BC /* Perfin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Perfin.m; sourceTree = "<group>"; };
+		1F09901923120A8D00349774 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		1F09901A23120A8D00349774 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/GPDocument.xib; sourceTree = "<group>"; };
 		1F0B49F9172AFED400BC00A3 /* GPAddBureauPrecancel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPAddBureauPrecancel.h; sourceTree = "<group>"; };
 		1F0B49FA172AFED400BC00A3 /* GPAddBureauPrecancel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPAddBureauPrecancel.m; sourceTree = "<group>"; };
 		1F0B49FB172AFED400BC00A3 /* GPAddBureauPrecancel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GPAddBureauPrecancel.xib; sourceTree = "<group>"; };
@@ -545,8 +547,6 @@
 		1F49308816D93A9B0094672A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		1F49308A16D93A9B0094672A /* GPDocument.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPDocument.h; sourceTree = "<group>"; };
 		1F49308B16D93A9B0094672A /* GPDocument.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GPDocument.m; sourceTree = "<group>"; };
-		1F49308E16D93A9B0094672A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/GPDocument.xib; sourceTree = "<group>"; };
-		1F49309116D93A9B0094672A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		1F49309B16D93A9B0094672A /* GonePostalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GonePostalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F4930A316D93A9B0094672A /* GonePostalTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GonePostalTests-Info.plist"; sourceTree = "<group>"; };
 		1F4930A516D93A9B0094672A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -1523,7 +1523,7 @@
 			attributes = {
 				CLASSPREFIX = GP;
 				LastTestingUpgradeCheck = 0600;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 1030;
 				ORGANIZATIONNAME = "Travis Gruber";
 				TargetAttributes = {
 					1F49307416D93A9B0094672A = {
@@ -1533,11 +1533,11 @@
 			};
 			buildConfigurationList = 1F49307016D93A9B0094672A /* Build configuration list for PBXProject "GonePostal" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				English,
+				Base,
 			);
 			mainGroup = 1F49306C16D93A9B0094672A;
 			productRefGroup = 1F49307616D93A9B0094672A /* Products */;
@@ -1694,7 +1694,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "rsync -av /Users/travis/xcodeProjects/GonePostal gb_server:/pool/travis/xcodeProjects";
+			shellScript = "#rsync -av /Users/travis/xcodeProjects/GonePostal gb_server:/pool/travis/xcodeProjects\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1922,7 +1922,7 @@
 		1F49308D16D93A9B0094672A /* GPDocument.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				1F49308E16D93A9B0094672A /* en */,
+				1F09901A23120A8D00349774 /* Base */,
 			);
 			name = GPDocument.xib;
 			sourceTree = "<group>";
@@ -1930,7 +1930,7 @@
 		1F49309016D93A9B0094672A /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				1F49309116D93A9B0094672A /* en */,
+				1F09901923120A8D00349774 /* Base */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -1954,12 +1954,20 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1996,12 +2004,20 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -2032,12 +2048,12 @@
 				GCC_PREFIX_HEADER = "GonePostal/GonePostal-Prefix.pch";
 				INFOPLIST_FILE = "GonePostal/GonePostal-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_BUNDLE_IDENTIFIER = "gb.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "GonePostal/GonePostal-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2051,11 +2067,11 @@
 				GCC_PREFIX_HEADER = "GonePostal/GonePostal-Prefix.pch";
 				INFOPLIST_FILE = "GonePostal/GonePostal-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_BUNDLE_IDENTIFIER = "gb.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "GonePostal/GonePostal-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

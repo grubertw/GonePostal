@@ -27,7 +27,7 @@ internal class GPSetController: NSWindowController {
     }
     
     override init(window: NSWindow?) {
-        let gpDocument = NSDocumentController.shared().currentDocument as! GPDocument
+        let gpDocument = NSDocumentController.shared.currentDocument as! GPDocument
         managedObjectContext = gpDocument.managedObjectContext!
         
         super.init(window:window)

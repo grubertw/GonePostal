@@ -35,7 +35,7 @@ internal class GPCachetEditor: NSWindowController {
     
     @IBOutlet var cachetController: NSArrayController!
     
-    init(gpCatalog: GPCatalog) {
+    @objc init(gpCatalog: GPCatalog) {
         parentGPID = gpCatalog.gp_catalog_number
         parentCatalogName = gpCatalog.defaultCatalogName.alternate_catalog_name
         parentDenom = gpCatalog.denomination
@@ -67,7 +67,7 @@ internal class GPCachetEditor: NSWindowController {
     override func windowDidLoad() {
         super.windowDidLoad()
 
-        self.doc = self.document as! GPDocument
+        self.doc = (self.document as! GPDocument)
     }
     
     @IBAction func addCachet(_ sender: AnyObject) {

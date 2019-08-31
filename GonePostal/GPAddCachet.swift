@@ -52,7 +52,7 @@ internal class GPAddCachet: NSWindowController, NSWindowDelegate {
     override func windowDidLoad() {
         super.windowDidLoad()
 
-        self.doc = self.document as! GPDocument
+        self.doc = (self.document as! GPDocument)
         
         do {
             try self.managedObjectContect.save();
