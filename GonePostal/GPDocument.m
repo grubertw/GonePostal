@@ -797,9 +797,10 @@ static NSString *StoreFileName = @"CoreDataStore.sql";
         NSString *filePath = [inAbsoluteURL path];
         
         // Nothing exists at the URL: set up the directory and migrate the Core Data store.
-        filewrapper = [[NSFileWrapper alloc] initWithURL:inAbsoluteURL options:0 error:outError];
+        //filewrapper = [[NSFileWrapper alloc] initWithURL:inAbsoluteURL options:0 error:outError];
+        filewrapper = [[NSFileWrapper alloc] initDirectoryWithFileWrappers:@{}];
         // Need to write once so there's somewhere for the store file to go.
-        [filewrapper writeToURL:inAbsoluteURL options:NSFileWrapperWritingAtomic originalContentsURL:nil error:outError];
+        [filewrapper writeToURL:inAbsoluteURL options:0 originalContentsURL:nil error:outError];
         
         // Now, the Core Data store...
         NSURL *storeURL = [self storeURLFromPath:filePath];
