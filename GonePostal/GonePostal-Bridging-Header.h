@@ -11,10 +11,31 @@
 #import "GPSubvarietySearch.h"
 #import "GPCustomSearch.h"
 
+// View Controllers
+#import "GPCatalogEditor.h"
+
+// Transformers
+#import "GPAlternateCatalogNumberTransformer.h"
+#import "GPSearchSelectionTransformer.h"
+#import "GPEmptySetChecker.h"
+#import "GPMultipleSelectionChecker.h"
+#import "GPFilenameTransformer.h"
+#import "GPPlateUsageExistsChecker.h"
+#import "GPValuationCalculator.h"
+#import "GPSetCounter.h"
+#import "GPSellListLocator.h"
+#import "GPCompositeTypeTransformer.h"
+#import "GPStampHasChildrenOrDetailTransformer.h"
+#import "GPStampDescriptionTransformer.h"
+#import "GPPictureTransformer.h"
+#import "GPPlateNumberMasterDisplayTransformer.h"
+#import "GPAllowedStampFormatsTransformer.h"
+
 // Models.
 #import "AlternateCatalogName.h"
 #import "GPCatalog.h"
 #import "GPCatalogSet+CoreDataClass.h"
+#import "GPCollection.h"
 #import "Stamp.h"
 #import "StampFormat.h"
 #import "StampReport.h"
