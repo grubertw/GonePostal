@@ -8,7 +8,7 @@
 
 #import "GPLooksLikeController.h"
 #import "LooksLike.h"
-#import "GPDocument.h"
+#import "GonePostal-Swift.h"
 
 @interface GPLooksLikeController ()
 @property (strong, nonatomic) GPDocument * doc;

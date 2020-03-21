@@ -8,7 +8,7 @@
 
 #import "GPFormatSearch.h"
 #import "StampFormat.h"
-#import "GPDocument.h"
+#import "GonePostal-Swift.h"
 
 static NSString * PREDICATE_FORMAT_FOR_STAMP = @"format.name == %@";
 

@@ -8,8 +8,8 @@
 
 #import "GPAttachmentController.h"
 #import "Attachment.h"
-#import "GPDocument.h"
 #import "GPPDFViewController.h"
+#import "GonePostal-Swift.h"
 
 @interface GPAttachmentController ()
 @property (strong, nonatomic) IBOutlet NSArrayController * attachementController;
@@ -61,7 +61,7 @@
     Attachment * atthmnt = self.attachementController.selectedObjects[0];
     
     GPDocument * doc = [self document];
-    atthmnt.filename = [doc addFileToWrapperUsingGPID:atthmnt.gp_attachment_number forAttribute:@"Attachment" fileType:GPImportFileTypePDF];
+    atthmnt.filename = [doc addPDFToWrapperUsingGPID:atthmnt.gp_attachment_number forAttribute:@"Attachment"];
 }
 
 - (IBAction)addAttachment:(id)sender {

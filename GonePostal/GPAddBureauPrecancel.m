@@ -7,8 +7,8 @@
 //
 
 #import "GPAddBureauPrecancel.h"
-#import "GPDocument.h"
 #import "BureauPrecancel+Duplicate.h"
+#import "GonePostal-Swift.h"
 
 @interface GPAddBureauPrecancel ()
 
@@ -55,7 +55,7 @@
 }
 
 - (IBAction)addPictureToPrecancel:(NSButton *)sender {
-    NSString * fileName = [self.document addFileToWrapperUsingGPID:self.currPrecancel.gp_precancel_number forAttribute:@"BureauPrecenacel.picture" fileType:GPImportFileTypePicture];
+    NSString * fileName = [self.document addImageToWrapperUsingGPID:self.currPrecancel.gp_precancel_number forAttribute:@"BureauPrecenacel.picture"];
     if (fileName == nil) return;
     
     [self.currPrecancel setPicture:fileName];

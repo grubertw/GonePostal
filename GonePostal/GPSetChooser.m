@@ -7,10 +7,10 @@
 //
 
 #import "GPSetChooser.h"
-#import "GPDocument.h"
 #import "GPCatalog.h"
 #import "Stamp+Create.h"
 #import "Stamp+CreateComposite.h"
+#import "GonePostal-Swift.h"
 
 @interface GPSetChooser ()
 @property (strong, nonatomic) GPCollection * collection;

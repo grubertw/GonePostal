@@ -8,7 +8,6 @@
 
 #import "GPStampDetail.h"
 #import "GPCatalogDetail.h"
-#import "GPDocument.h"
 #import "GPCatalog.h"
 #import "GPPlateNumberChooser.h"
 #import "GPCachetChooser.h"
@@ -24,6 +23,7 @@
 #import "PlateUsage.h"
 #import "StampFormat.h"
 #import "SaleHistory+Create.h"
+#import "GonePostal-Swift.h"
 
 @interface GPStampDetail ()
 @property (weak, nonatomic) IBOutlet NSScrollView * stampPicsScrollView;
@@ -110,7 +110,7 @@
         NSSortDescriptor *sellListsSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
         _sellListsSortDescriptors = @[sellListsSort];
         
-        _sellListsFilter = [NSPredicate predicateWithFormat:@"type == %ld", GP_COLLECTION_TYPE_SELL_LIST];
+        _sellListsFilter = [NSPredicate predicateWithFormat:@"type == %ld", GPDocument.GP_COLLECTION_TYPE_SELL_LIST];
         
         // Intialize the chooser drawers.
         _plateNumberChooser = [[GPPlateNumberChooser alloc] initAsDrawer:YES modifyingStamp:self.stamp];
@@ -297,7 +297,7 @@
 }
 
 - (IBAction)addDefaultPicture:(id)sender {
-    NSString * fileName = [self.doc addFileToWrapperUsingGPID:self.stamp.gp_stamp_number forAttribute:@"stamp.default_picture" fileType:GPImportFileTypePicture];
+    NSString * fileName = [self.doc addImageToWrapperUsingGPID:self.stamp.gp_stamp_number forAttribute:@"stamp.default_picture"];
     if (fileName == nil) return;
     
     // Store the filename into the model.
@@ -314,7 +314,7 @@
 }
 
 - (IBAction)addAlternatePicture1:(id)sender {
-    NSString * fileName = [self.doc addFileToWrapperUsingGPID:self.stamp.gp_stamp_number forAttribute:@"stamp.alternate_picture_1" fileType:GPImportFileTypePicture];
+    NSString * fileName = [self.doc addImageToWrapperUsingGPID:self.stamp.gp_stamp_number forAttribute:@"stamp.alternate_picture_1"];
     if (fileName == nil) return;
     
     // Store the filename into the model.
@@ -330,7 +330,7 @@
 }
 
 - (IBAction)addAlternatePicture2:(id)sender {
-    NSString * fileName = [self.doc addFileToWrapperUsingGPID:self.stamp.gp_stamp_number forAttribute:@"stamp.alternate_picture_2" fileType:GPImportFileTypePicture];
+    NSString * fileName = [self.doc addImageToWrapperUsingGPID:self.stamp.gp_stamp_number forAttribute:@"stamp.alternate_picture_2"];
     if (fileName == nil) return;
     
     // Store the filename into the model.
@@ -346,7 +346,7 @@
 }
 
 - (IBAction)addAlternatePicture3:(id)sender {
-    NSString * fileName = [self.doc addFileToWrapperUsingGPID:self.stamp.gp_stamp_number forAttribute:@"stamp.alternate_picture_3" fileType:GPImportFileTypePicture];
+    NSString * fileName = [self.doc addImageToWrapperUsingGPID:self.stamp.gp_stamp_number forAttribute:@"stamp.alternate_picture_3"];
     if (fileName == nil) return;
     
     // Store the filename into the model.
@@ -362,7 +362,7 @@
 }
 
 - (IBAction)addAlternatePicture4:(id)sender {
-    NSString * fileName = [self.doc addFileToWrapperUsingGPID:self.stamp.gp_stamp_number forAttribute:@"stamp.alternate_picture_4" fileType:GPImportFileTypePicture];
+    NSString * fileName = [self.doc addImageToWrapperUsingGPID:self.stamp.gp_stamp_number forAttribute:@"stamp.alternate_picture_4"];
     if (fileName == nil) return;
     
     // Store the filename into the model.
@@ -378,7 +378,7 @@
 }
 
 - (IBAction)addAlternatePicture5:(id)sender {
-    NSString * fileName = [self.doc addFileToWrapperUsingGPID:self.stamp.gp_stamp_number forAttribute:@"stamp.alternate_picture_5" fileType:GPImportFileTypePicture];
+    NSString * fileName = [self.doc addImageToWrapperUsingGPID:self.stamp.gp_stamp_number forAttribute:@"stamp.alternate_picture_5"];
     if (fileName == nil) return;
     
     // Store the filename into the model.
@@ -394,7 +394,7 @@
 }
 
 - (IBAction)addAlternatePicture6:(id)sender {
-    NSString * fileName = [self.doc addFileToWrapperUsingGPID:self.stamp.gp_stamp_number forAttribute:@"stamp.alternate_picture_6" fileType:GPImportFileTypePicture];
+    NSString * fileName = [self.doc addImageToWrapperUsingGPID:self.stamp.gp_stamp_number forAttribute:@"stamp.alternate_picture_6"];
     if (fileName == nil) return;
     
     // Store the filename into the model.

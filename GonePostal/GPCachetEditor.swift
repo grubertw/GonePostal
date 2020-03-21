@@ -93,7 +93,7 @@ internal class GPCachetEditor: NSWindowController {
                 // Extract static ID from GPID (same for all Cachets in catalog entry)
                 let staticID = GPDocument.parseStaticID(entry.gp_cachet_number)
                 var startingID = GPDocument.parseStartingID(entry.gp_cachet_number)
-                startingID += GPID_INCREMENT
+                startingID += GPDocument.GPID_INCREMENT
                 
                 let dup = entry.duplicate()
                 dup.gp_cachet_number = String(format:"%@%08ld",staticID!, startingID)
@@ -124,7 +124,7 @@ internal class GPCachetEditor: NSWindowController {
         if let entries = self.cachetController.selectedObjects {
             if entries.count > 0 {
                 if let entry = entries[0] as? Cachet {
-                    let fileName: String? = self.doc.addFileToWrapper(usingGPID: entry.gp_cachet_number, forAttribute:"Cachet.default_picture", fileType:GPImportFileTypePicture)
+                    let fileName: String? = self.doc.addFileToWrapper(usingGPID: entry.gp_cachet_number!, forAttribute:"Cachet.default_picture", fileType:GPDocument.ImportFileType.picture)
                     
                     if let fileNameU = fileName {
                         entry.cachet_picture = fileNameU
@@ -138,7 +138,7 @@ internal class GPCachetEditor: NSWindowController {
         if let entries = self.cachetController.selectedObjects {
             if entries.count > 0 {
                 if let entry = entries[0] as? Cachet {
-                    let fileName: String? = self.doc.addFileToWrapper(usingGPID: entry.gp_cachet_number, forAttribute:"Cachet.alternate_picture_1", fileType:GPImportFileTypePicture)
+                    let fileName: String? = self.doc.addFileToWrapper(usingGPID: entry.gp_cachet_number!, forAttribute:"Cachet.alternate_picture_1", fileType:GPDocument.ImportFileType.picture)
                     
                     if let fileNameU = fileName {
                         entry.alternate_picture_1 = fileNameU
@@ -152,7 +152,7 @@ internal class GPCachetEditor: NSWindowController {
         if let entries = self.cachetController.selectedObjects {
             if entries.count > 0 {
                 if let entry = entries[0] as? Cachet {
-                    let fileName: String? = self.doc.addFileToWrapper(usingGPID: entry.gp_cachet_number, forAttribute:"Cachet.alternate_picture_2", fileType:GPImportFileTypePicture)
+                    let fileName: String? = self.doc.addFileToWrapper(usingGPID: entry.gp_cachet_number!, forAttribute:"Cachet.alternate_picture_2", fileType:GPDocument.ImportFileType.picture)
                     
                     if let fileNameU = fileName {
                         entry.alternate_picture_2 = fileNameU
@@ -166,7 +166,7 @@ internal class GPCachetEditor: NSWindowController {
         if let entries = self.cachetController.selectedObjects {
             if entries.count > 0 {
                 if let entry = entries[0] as? Cachet {
-                    let fileName: String? = self.doc.addFileToWrapper(usingGPID: entry.gp_cachet_number, forAttribute:"Cachet.alternate_picture_3", fileType:GPImportFileTypePicture)
+                    let fileName: String? = self.doc.addFileToWrapper(usingGPID: entry.gp_cachet_number!, forAttribute:"Cachet.alternate_picture_3", fileType:GPDocument.ImportFileType.picture)
                     
                     if let fileNameU = fileName {
                         entry.alternate_picture_3 = fileNameU
@@ -180,7 +180,7 @@ internal class GPCachetEditor: NSWindowController {
         if let entries = self.cachetController.selectedObjects {
             if entries.count > 0 {
                 if let entry = entries[0] as? Cachet {
-                    let fileName: String? = self.doc.addFileToWrapper(usingGPID: entry.gp_cachet_number, forAttribute:"Cachet.alternate_picture_4", fileType:GPImportFileTypePicture)
+                    let fileName: String? = self.doc.addFileToWrapper(usingGPID: entry.gp_cachet_number!, forAttribute:"Cachet.alternate_picture_4", fileType:GPDocument.ImportFileType.picture)
                     
                     if let fileNameU = fileName {
                         entry.alternate_picture_4 = fileNameU
@@ -194,7 +194,7 @@ internal class GPCachetEditor: NSWindowController {
         if let entries = self.cachetController.selectedObjects {
             if entries.count > 0 {
                 if let entry = entries[0] as? Cachet {
-                    let fileName: String? = self.doc.addFileToWrapper(usingGPID: entry.gp_cachet_number, forAttribute:"Cachet.alternate_picture_5", fileType:GPImportFileTypePicture)
+                    let fileName: String? = self.doc.addFileToWrapper(usingGPID: entry.gp_cachet_number!, forAttribute:"Cachet.alternate_picture_5", fileType:GPDocument.ImportFileType.picture)
                     
                     if let fileNameU = fileName {
                         entry.alternate_picture_5 = fileNameU
@@ -208,7 +208,7 @@ internal class GPCachetEditor: NSWindowController {
         if let entries = self.cachetController.selectedObjects {
             if entries.count > 0 {
                 if let entry = entries[0] as? Cachet {
-                    let fileName: String? = self.doc.addFileToWrapper(usingGPID: entry.gp_cachet_number, forAttribute:"Cachet.alternate_picture_6", fileType:GPImportFileTypePicture)
+                    let fileName: String? = self.doc.addFileToWrapper(usingGPID: entry.gp_cachet_number!, forAttribute:"Cachet.alternate_picture_6", fileType:GPDocument.ImportFileType.picture)
                     
                     if let fileNameU = fileName {
                         entry.alternate_picture_6 = fileNameU

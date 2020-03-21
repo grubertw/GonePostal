@@ -7,7 +7,7 @@
 //
 
 #import "GPCatalogPeopleController.h"
-#import "GPDocument.h"
+#import "GonePostal-Swift.h"
 
 @interface GPCatalogPeopleController ()
 

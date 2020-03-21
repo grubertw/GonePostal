@@ -7,11 +7,11 @@
 //
 
 #import "GPImportController.h"
-#import "GPDocument.h"
 #import "GPCatalog.h"
 #import "Country.h"
 #import "Format.h"
 #import "GPCatalogGroup.h"
+#import "GonePostal-Swift.h"
 
 // Used by parser to seporate columns in the CSV file.
 static NSString * CSV_DELIMETER = @";";

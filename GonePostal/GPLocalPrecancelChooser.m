@@ -7,8 +7,8 @@
 //
 
 #import "GPLocalPrecancelChooser.h"
-#import "GPDocument.h"
 #import "LocalPrecancel.h"
+#import "GonePostal-Swift.h"
 
 @interface GPLocalPrecancelChooser ()
 @property (nonatomic) BOOL isDrawer;

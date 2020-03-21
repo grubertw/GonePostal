@@ -7,7 +7,7 @@
 //
 
 #import "GPCustomSearch.h"
-#import "GPDocument.h"
+#import "GonePostal-Swift.h"
 
 @interface GPCustomSearch ()
 @property (strong, nonatomic) NSNumber * searchID;
@@ -76,7 +76,7 @@
     NSMenuItem * menuItem;
     NSUInteger count = 0;
     
-    if ([storedSearch.identifier isEqualToNumber:@(CUSTOM_GP_CATALOG_SEARCH_ID)]) {
+    if ([storedSearch.identifier isEqualToNumber:@(GPDocument.CUSTOM_GP_CATALOG_SEARCH_ID)]) {
         [expressions addObject:[NSExpression expressionForKeyPath:@"background_information"]];
         [expressions addObject:[NSExpression expressionForKeyPath:@"color"]];
         [expressions addObject:[NSExpression expressionForKeyPath:@"denomination"]];
@@ -231,7 +231,7 @@
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Show Default Catalog"];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Printing on Back"];
     }
-    else if ([storedSearch.identifier isEqualToNumber:@(CUSTOM_STAMP_SEARCH_ID)]) {
+    else if ([storedSearch.identifier isEqualToNumber:@(GPDocument.CUSTOM_STAMP_SEARCH_ID)]) {
         [expressions addObject:[NSExpression expressionForKeyPath:@"gpCatalog.color"]];
         [expressions addObject:[NSExpression expressionForKeyPath:@"gpCatalog.denomination"]];
         [expressions addObject:[NSExpression expressionForKeyPath:@"gpCatalog.design_measurement"]];
@@ -386,7 +386,7 @@
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Cancelation Date"];
         menuItem = lhsButton.itemArray[count++];    [menuItem setTitle:@"Purchase Date"];
     }
-    else if ([storedSearch.identifier isEqualToNumber:@(CUSTOM_PLATE_NUMBERS_SEARCH_ID)]) {
+    else if ([storedSearch.identifier isEqualToNumber:@(GPDocument.CUSTOM_PLATE_NUMBERS_SEARCH_ID)]) {
         [expressions addObject:[NSExpression expressionForKeyPath:@"gp_plate_combination_number"]];
         [expressions addObject:[NSExpression expressionForKeyPath:@"imprint_1"]];
         [expressions addObject:[NSExpression expressionForKeyPath:@"imprint2"]];
@@ -462,7 +462,7 @@
     customSearch.identifier = self.searchID;
     customSearch.name = @"New Search";
     
-    if ([self.searchID isEqualToNumber:@(CUSTOM_PLATE_NUMBERS_SEARCH_ID)]) {
+    if ([self.searchID isEqualToNumber:@(GPDocument.CUSTOM_PLATE_NUMBERS_SEARCH_ID)]) {
         customSearch.predicate = [NSPredicate predicateWithFormat:@"gpCatalogEntry.gp_catalog_number like %@", self.defaultGPCatalog.gp_catalog_number];
     }
     

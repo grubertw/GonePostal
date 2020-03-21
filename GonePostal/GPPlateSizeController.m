@@ -7,7 +7,7 @@
 //
 
 #import "GPPlateSizeController.h"
-#import "GPDocument.h"
+#import "GonePostal-Swift.h"
 
 @interface GPPlateSizeController ()
 

@@ -7,9 +7,9 @@
 //
 
 #import "GPAddNoCatalogStampController.h"
-#import "GPDocument.h"
 #import "Stamp+Create.h"
 #import "Stamp+Duplicate.h"
+#import "GonePostal-Swift.h"
 
 @interface GPAddNoCatalogStampController ()
 @property (strong, nonatomic) GPCollection * collection;
@@ -155,7 +155,7 @@
     // Store the filename into the model.
     Stamp * stamp = [self.stampController content];
     
-    NSString * fileName = [self.document addFileToWrapperUsingGPID:stamp.gp_stamp_number forAttribute:@"default_picture" fileType:GPImportFileTypePicture];
+    NSString * fileName = [self.document addImageToWrapperUsingGPID:stamp.gp_stamp_number forAttribute:@"default_picture"];
     if (fileName == nil) return;
     
     stamp.default_picture = fileName;
@@ -165,7 +165,7 @@
     // Store the filename into the model.
     Stamp * stamp = [self.stampController content];
     
-    NSString * fileName = [self.document addFileToWrapperUsingGPID:stamp.gp_stamp_number forAttribute:@"alternate_picture_1" fileType:GPImportFileTypePicture];
+    NSString * fileName = [self.document addImageToWrapperUsingGPID:stamp.gp_stamp_number forAttribute:@"alternate_picture_1"];
     if (fileName == nil) return;
     
     // Store the filename into the model.
@@ -176,7 +176,7 @@
     // Store the filename into the model.
     Stamp * stamp = [self.stampController content];
     
-    NSString * fileName = [self.document addFileToWrapperUsingGPID:stamp.gp_stamp_number forAttribute:@"alternate_picture_2" fileType:GPImportFileTypePicture];
+    NSString * fileName = [self.document addImageToWrapperUsingGPID:stamp.gp_stamp_number forAttribute:@"alternate_picture_2"];
     if (fileName == nil) return;
     
     // Store the filename into the model.
@@ -187,7 +187,7 @@
     // Store the filename into the model.
     Stamp * stamp = [self.stampController content];
     
-    NSString * fileName = [self.document addFileToWrapperUsingGPID:stamp.gp_stamp_number forAttribute:@"alternate_picture_3" fileType:GPImportFileTypePicture];
+    NSString * fileName = [self.document addImageToWrapperUsingGPID:stamp.gp_stamp_number forAttribute:@"alternate_picture_3"];
     if (fileName == nil) return;
     
     // Store the filename into the model.
@@ -198,7 +198,7 @@
     // Store the filename into the model.
     Stamp * stamp = [self.stampController content];
     
-    NSString * fileName = [self.document addFileToWrapperUsingGPID:stamp.gp_stamp_number forAttribute:@"alternate_picture_4" fileType:GPImportFileTypePicture];
+    NSString * fileName = [self.document addImageToWrapperUsingGPID:stamp.gp_stamp_number forAttribute:@"alternate_picture_4"];
     if (fileName == nil) return;
     
     // Store the filename into the model.
@@ -209,7 +209,7 @@
     // Store the filename into the model.
     Stamp * stamp = [self.stampController content];
     
-    NSString * fileName = [self.document addFileToWrapperUsingGPID:stamp.gp_stamp_number forAttribute:@"alternate_picture_5" fileType:GPImportFileTypePicture];
+    NSString * fileName = [self.document addImageToWrapperUsingGPID:stamp.gp_stamp_number forAttribute:@"alternate_picture_5"];
     if (fileName == nil) return;
     
     // Store the filename into the model.
@@ -220,7 +220,7 @@
     // Store the filename into the model.
     Stamp * stamp = [self.stampController content];
     
-    NSString * fileName = [self.document addFileToWrapperUsingGPID:stamp.gp_stamp_number forAttribute:@"alternate_picture_6" fileType:GPImportFileTypePicture];
+    NSString * fileName = [self.document addImageToWrapperUsingGPID:stamp.gp_stamp_number forAttribute:@"alternate_picture_6"];
     if (fileName == nil) return;
     
     // Store the filename into the model.

@@ -8,7 +8,7 @@
 
 #import "GPSectionSearch.h"
 #import "GPCatalogGroup.h"
-#import "GPDocument.h"
+#import "GonePostal-Swift.h"
 
 static NSString * PREDICATE_FORMAT_FOR_STAMP = @"gpCatalog.catalogGroup.group_number == %@";
 static NSString * PREDICATE_FORMAT_FOR_GPCATALG = @"catalogGroup.group_number == %@";

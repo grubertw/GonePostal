@@ -8,7 +8,6 @@
 
 #import "GPCatalogChooserPage.h"
 #import "GPAddStampController.h"
-#import "GPDocument.h"
 #import "GPCountrySearch.h"
 #import "GPSectionSearch.h"
 #import "GPFilterSearch.h"
@@ -17,6 +16,7 @@
 #import "GPCustomSearch.h"
 #import "AlternateCatalog.h"
 #import "AlternateCatalogName.h"
+#import "GonePostal-Swift.h"
 
 @interface GPCatalogChooserPage ()
 @property (strong, nonatomic) GPAddStampController * parentController;
@@ -57,7 +57,7 @@
         
         // Rebuild the query so as NOT to contain looks-like.
         NSMutableArray * predicateArray = [NSMutableArray arrayWithCapacity:0];
-        [predicateArray addObject:[NSPredicate predicateWithFormat:BASE_GP_CATALOG_QUERY]];
+        [predicateArray addObject:[NSPredicate predicateWithFormat:GPDocument.BASE_GP_CATALOG_QUERY]];
         if (countriesPredicate) [predicateArray addObject:countriesPredicate];
         if (sectionsPredicate) [predicateArray addObject:sectionsPredicate];
         if (filtersPredicate) [predicateArray addObject:filtersPredicate];
@@ -127,7 +127,7 @@
     // All persisted info about the search should be loaded
     // into the three predicates at this point.
     NSMutableArray * predicateArray = [NSMutableArray arrayWithCapacity:4];
-    [predicateArray addObject:[NSPredicate predicateWithFormat:BASE_GP_CATALOG_QUERY]];
+    [predicateArray addObject:[NSPredicate predicateWithFormat:GPDocument.BASE_GP_CATALOG_QUERY]];
     
     if (self.countrySearchController.predicate != nil) {
         [predicateArray addObject:self.countrySearchController.predicate];
@@ -313,7 +313,7 @@
 }
 
 - (IBAction)editCustomSearch:(id)sender {
-    GPCustomSearch * customSearchController = [[GPCustomSearch alloc] initWithStoredSearchIdentifier:@(CUSTOM_GP_CATALOG_SEARCH_ID)];
+    GPCustomSearch * customSearchController = [[GPCustomSearch alloc] initWithStoredSearchIdentifier:@(GPDocument.CUSTOM_GP_CATALOG_SEARCH_ID)];
     [self.doc addWindowController:customSearchController];
     [customSearchController.window makeKeyAndOrderFront:sender];
 }

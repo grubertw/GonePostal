@@ -7,9 +7,9 @@
 //
 
 #import "GPCatalogPictureSelector.h"
-#import "GPDocument.h"
 #import "AlternateCatalog.h"
 #import "AlternateCatalogName.h"
+#import "GonePostal-Swift.h"
 
 static NSString * CHOOSE_PICTURE_FROM_CATALOG = @"Copy Picture from Catalog Entry";
 static NSString * CHOOSE_GPID_FROM_CATALOG = @"Insert a Catalog Entry";
@@ -131,7 +131,7 @@ static NSString * CHOOSE_GPID_FROM_CATALOG = @"Insert a Catalog Entry";
     // All persisted info about the search should be loaded
     // into the three predicates at this point.
     NSMutableArray * predicateArray = [NSMutableArray arrayWithCapacity:0];
-    [predicateArray addObject:[NSPredicate predicateWithFormat:BASE_GP_CATALOG_QUERY]];
+    [predicateArray addObject:[NSPredicate predicateWithFormat:GPDocument.BASE_GP_CATALOG_QUERY]];
     
     if (self.countrySearchController.predicate != nil) {
         [predicateArray addObject:self.countrySearchController.predicate];

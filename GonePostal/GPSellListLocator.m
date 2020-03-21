@@ -8,7 +8,7 @@
 
 #import "GPSellListLocator.h"
 #import "GPCollection.h"
-#import "GPDocument.h"
+#import "GonePostal-Swift.h"
 
 @implementation GPSellListLocator
 
@@ -24,7 +24,7 @@
     NSString * rc;
     if (collection && [collection isMemberOfClass:[GPCollection class]]) {
         for (GPCollection * gpCollection in theSet) {
-            if ([gpCollection.type isEqualToNumber:@(GP_COLLECTION_TYPE_SELL_LIST)]) {
+            if ([gpCollection.type isEqualToNumber:@(GPDocument.GP_COLLECTION_TYPE_SELL_LIST)]) {
                 GPCollection * sellList = gpCollection;
                 rc = sellList.name;
                 break;

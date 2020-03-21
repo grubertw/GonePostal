@@ -12,7 +12,6 @@
 #import "Stamp+Create.h"
 #import "GPAddStampController.h"
 #import "GPSetChooser.h"
-#import "GPDocument.h"
 #import "GPCountrySearch.h"
 #import "GPSectionSearch.h"
 #import "GPFormatSearch.h"
@@ -24,6 +23,8 @@
 #import "GPCatalog.h"
 #import "GPValuationCalculator.h"
 #import "GPAddNoCatalogStampController.h"
+
+#import "GonePostal-Swift.h"
 
 @interface GPStampViewer ()
 @property (strong, nonatomic) NSColor * COLLECTION_COLOR;
@@ -387,7 +388,7 @@
 
 - (IBAction)openAddSetChooser:(id)sender {
     GPDocument * doc = [self document];
-    [doc loadAssistedSearch:ASSISTED_SETS_BROWSER_SEARCH_ID];
+    [doc loadAssistedSearch:GPDocument.ASSISTED_SETS_BROWSER_SEARCH_ID];
     GPSetChooser * setChooser = [[GPSetChooser alloc] initWithGPCollection:self.myCollection andAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate];
     
     [doc addWindowController:setChooser];
@@ -437,7 +438,7 @@
 }
 
 - (IBAction)editCustomSearch:(id)sender {
-    GPCustomSearch * customSearchController = [[GPCustomSearch alloc] initWithStoredSearchIdentifier:@(CUSTOM_STAMP_SEARCH_ID)];
+    GPCustomSearch * customSearchController = [[GPCustomSearch alloc] initWithStoredSearchIdentifier:@(GPDocument.CUSTOM_STAMP_SEARCH_ID)];
     [self.document addWindowController:customSearchController];
     [customSearchController.window makeKeyAndOrderFront:sender];
 }
@@ -458,13 +459,13 @@
 - (IBAction)closeChildren:(id)sender {
     [self changeStampContent:self.myCollection];
     
-    if ([self.myCollection.type isEqualToNumber:@(GP_COLLECTION_TYPE_WANT_LIST)]) {
+    if ([self.myCollection.type isEqualToNumber:@(GPDocument.GP_COLLECTION_TYPE_WANT_LIST)]) {
         [self.stampsTable setBackgroundColor:self.WANT_LIST_COLOR];
     }
-    else if ([self.myCollection.type isEqualToNumber:@(GP_COLLECTION_TYPE_SELL_LIST)]) {
+    else if ([self.myCollection.type isEqualToNumber:@(GPDocument.GP_COLLECTION_TYPE_SELL_LIST)]) {
         [self.stampsTable setBackgroundColor:self.SELL_LIST_COLOR];
     }
-    else if ([self.myCollection.type isEqualToNumber:@(GP_COLLECTION_TYPE_ITEMS_SOLD)]) {
+    else if ([self.myCollection.type isEqualToNumber:@(GPDocument.GP_COLLECTION_TYPE_ITEMS_SOLD)]) {
         [self.stampsTable setBackgroundColor:self.SOLD_LIST_COLOR];
     }
     else {
@@ -585,13 +586,13 @@
         [newList setName:@"New Want List"];
         [self.myCollection addWantListsObject:newList];
         newList.wantTarget = self.myCollection;
-        newList.type = @(GP_COLLECTION_TYPE_WANT_LIST);
+        newList.type = @(GPDocument.GP_COLLECTION_TYPE_WANT_LIST);
     }
     else {
         [newList setName:@"New Sell List"];
         [self.myCollection addSellListsObject:newList];
         newList.sellTarget = self.myCollection;
-        newList.type = @(GP_COLLECTION_TYPE_SELL_LIST);
+        newList.type = @(GPDocument.GP_COLLECTION_TYPE_SELL_LIST);
     }
     
     [self.wantSellListsController addObject:newList];
@@ -655,7 +656,7 @@
     // Later, a screen should be presented that allows the user to filter by country+section
     // (seporate from the current active assistedSearch in the GPDocument)
     NSFetchRequest * catalogFetch = [NSFetchRequest fetchRequestWithEntityName:@"GPCatalog"];
-    NSPredicate * majorVarietySearch = [NSPredicate predicateWithFormat:BASE_GP_CATALOG_QUERY];
+    NSPredicate * majorVarietySearch = [NSPredicate predicateWithFormat:GPDocument.BASE_GP_CATALOG_QUERY];
     [catalogFetch setPredicate:majorVarietySearch];
     
     NSError * error;
@@ -710,10 +711,10 @@
 }
 
 - (IBAction)returnToCollection:(id)sender {
-    if ([self.myCollection.type isEqualToNumber:@(GP_COLLECTION_TYPE_WANT_LIST)]) {
+    if ([self.myCollection.type isEqualToNumber:@(GPDocument.GP_COLLECTION_TYPE_WANT_LIST)]) {
         [self setMyCollection:self.myCollection.wantTarget];
     }
-    else if ([self.myCollection.type isEqualToNumber:@(GP_COLLECTION_TYPE_SELL_LIST)]) {
+    else if ([self.myCollection.type isEqualToNumber:@(GPDocument.GP_COLLECTION_TYPE_SELL_LIST)]) {
         [self setMyCollection:self.myCollection.sellTarget];
     }
     

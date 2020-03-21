@@ -8,7 +8,7 @@
 
 #import "GPLocationSearch.h"
 #import "Location.h"
-#import "GPDocument.h"
+#import "GonePostal-Swift.h"
 
 static NSString * PREDICATE_FORMAT_FOR_STAMP = @"location.name == %@";
 

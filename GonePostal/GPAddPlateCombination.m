@@ -7,10 +7,10 @@
 //
 
 #import "GPAddPlateCombination.h"
-#import "GPDocument.h"
 #import "PlateNumber+Duplicate.h"
 #import "PlatePosition.h"
 #import "PlateUsage.h"
+#import "GonePostal-Swift.h"
 
 @interface GPAddPlateCombination ()
 @property (strong, nonatomic) IBOutlet NSObjectController *plateCombinationController;
@@ -85,7 +85,7 @@
             PlateNumber * dup = [plateCombo duplicate];
             
             // Increment and assign the GPID.
-            startingID += GPID_INCREMENT;
+            startingID += GPDocument.GPID_INCREMENT;
             dup.gp_plate_combination_number = [NSString stringWithFormat:@"%@%08ld", staticID, startingID];
             
             [self.gpCatalog addPlateNumbersObject:dup];
@@ -111,7 +111,7 @@
     PlateNumber * nextPlateCombo = [plateCombo duplicate];
     
     // Increment and assign the GPID.
-    startingID += GPID_INCREMENT;
+    startingID += GPDocument.GPID_INCREMENT;
     nextPlateCombo.gp_plate_combination_number = [NSString stringWithFormat:@"%@%08ld", staticID, startingID];
     
     [self.plateCombinationController setContent:nextPlateCombo];
@@ -135,7 +135,7 @@
             PlateNumber * dup = [plateCombo duplicate];
             
             // Increment and assign the GPID.
-            startingID += GPID_INCREMENT;
+            startingID += GPDocument.GPID_INCREMENT;
             dup.gp_plate_combination_number = [NSString stringWithFormat:@"%@%08ld", staticID, startingID];
             
             [self.gpCatalog addPlateNumbersObject:dup];
@@ -165,7 +165,7 @@
     // Store the filename into the model.
     PlateNumber * plateCombo = [self.plateCombinationController content];
     if (plateCombo) {
-        NSString * fileName = [self.document addFileToWrapperUsingGPID:plateCombo.gp_plate_combination_number forAttribute:@"GPCatalog.default_picture" fileType:GPImportFileTypePicture];
+        NSString * fileName = [self.document addImageToWrapperUsingGPID:plateCombo.gp_plate_combination_number forAttribute:@"GPCatalog.default_picture"];
         if (fileName == nil) return;
         
         plateCombo.picture = fileName;

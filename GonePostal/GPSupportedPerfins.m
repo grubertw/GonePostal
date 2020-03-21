@@ -7,7 +7,7 @@
 //
 
 #import "GPSupportedPerfins.h"
-#import "GPDocument.h"
+#import "GonePostal-Swift.h"
 
 @interface GPSupportedPerfins ()
 @property (weak, nonatomic) IBOutlet NSArrayController * perfinsController;
@@ -47,7 +47,9 @@
     NSInteger selectedRow = [self.perfinsTable rowForView:sender];
     
     Perfin * perfin = self.perfinsController.arrangedObjects[selectedRow];
-    NSString * fileName = [self.document addFileToWrapperUsingGPID:perfin.gp_perfin_number forAttribute:@"Perfin.picture" fileType:GPImportFileTypePicture];
+    
+    GPDocument * doc = self.document;
+    NSString * fileName = [doc addImageToWrapperUsingGPID:perfin.gp_perfin_number forAttribute:@"Perfin.picture"];
     if (fileName == nil) return;
     
     perfin.picture = fileName;

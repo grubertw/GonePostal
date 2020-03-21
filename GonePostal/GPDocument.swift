@@ -14,39 +14,39 @@ import CommonCrypto
 // document archetecture, subclassing NSPersistantDocument, which signifies
 // the use of the Core Data framework. Primary overrides used are
 // configurePersistentStoreCoordinator(), write(), and revert().
-class GPDocument: NSPersistentDocument {
+@objc(GPDocument) class GPDocument: NSPersistentDocument {
     // Static indexes into the CustomSearches table for fetching data.
-    static let ASSISTED_GP_CATALOG_EDITER_SEARCH_ID = 1
-    static let ASSISTED_GP_CATALOG_BROWSER_SEARCH_ID = 2
-    static let ASSISTED_STAMP_LIST_VIEWER_SEARCH_ID = 3
-    static let CUSTOM_GP_CATALOG_SEARCH_ID = 4
-    static let CUSTOM_STAMP_SEARCH_ID = 5
-    static let ASSISTED_LOOKS_LIKE_BROWSER_SEARCH_ID = 6
-    static let ASSISTED_SETS_BROWSER_SEARCH_ID = 7
-    static let ASSISTED_LOOKS_LIKE_EDITOR_SEARCH_ID = 8
-    static let CUSTOM_PLATE_NUMBERS_SEARCH_ID = 9
+    @objc static let ASSISTED_GP_CATALOG_EDITER_SEARCH_ID = 1
+    @objc static let ASSISTED_GP_CATALOG_BROWSER_SEARCH_ID = 2
+    @objc static let ASSISTED_STAMP_LIST_VIEWER_SEARCH_ID = 3
+    @objc static let CUSTOM_GP_CATALOG_SEARCH_ID = 4
+    @objc static let CUSTOM_STAMP_SEARCH_ID = 5
+    @objc static let ASSISTED_LOOKS_LIKE_BROWSER_SEARCH_ID = 6
+    @objc static let ASSISTED_SETS_BROWSER_SEARCH_ID = 7
+    @objc static let ASSISTED_LOOKS_LIKE_EDITOR_SEARCH_ID = 8
+    @objc static let CUSTOM_PLATE_NUMBERS_SEARCH_ID = 9
     
     // GP Collection types (identifiers)
-    static let GP_COLLECTION_TYPE_NORMAL = 1
-    static let GP_COLLECTION_TYPE_WANT_LIST = 2
-    static let GP_COLLECTION_TYPE_SELL_LIST = 3
-    static let GP_COLLECTION_TYPE_ITEMS_SOLD = 4
+    @objc static let GP_COLLECTION_TYPE_NORMAL = 1
+    @objc static let GP_COLLECTION_TYPE_WANT_LIST = 2
+    @objc static let GP_COLLECTION_TYPE_SELL_LIST = 3
+    @objc static let GP_COLLECTION_TYPE_ITEMS_SOLD = 4
     
-    static let GPID_INCREMENT = 100
+    @objc static let GPID_INCREMENT = 100
     
     // First level of valuation decision tree: a value for every stamp
     // format, per GPCatalog.
-    static let VALUATION_LEVEL_FORMAT = 1
+    @objc static let VALUATION_LEVEL_FORMAT = 1
     
     // Second level of decision tree: a value for every GPCatalog object
     // (ex: cachet, plate number).
-    static let VALUATION_LEVEL_OBJECT_OVERRIDE = 2
+    @objc static let VALUATION_LEVEL_OBJECT_OVERRIDE = 2
     
     // Third level of decision tree: a value for every stamp condition type
-    static let VALUATION_LEVEL_CONDITION_OVERRIDE = 3
+    @objc static let VALUATION_LEVEL_CONDITION_OVERRIDE = 3
     
-    static let BASE_GP_CATALOG_QUERY = "is_default==0 and composite_placeholder==0 and majorVariety==nil"
-    static let BASE_GP_CATALOG_QUERY_WITH_SUBVARIETIES = "is_default==0 and composite_placeholder==0"
+    @objc static let BASE_GP_CATALOG_QUERY = "is_default==0 and composite_placeholder==0 and majorVariety==nil"
+    @objc static let BASE_GP_CATALOG_QUERY_WITH_SUBVARIETIES = "is_default==0 and composite_placeholder==0"
     
     static let FILENAME_HASH_SALT = "p81VkYYb6d50wJ9aFmm0" // Salt for generating filename hashes.
     static let STORE_FILE_NAME = "CoreDataStore.sql" // Name of database within file wrapper.
@@ -57,8 +57,8 @@ class GPDocument: NSPersistentDocument {
     }
     
     // Public properties.
-    var gpCollectionSortDescriptors: Array<NSSortDescriptor>
-    var priceListSortDescriptors: Array<NSSortDescriptor>
+    @objc var gpCollectionSortDescriptors: Array<NSSortDescriptor>
+    @objc var priceListSortDescriptors: Array<NSSortDescriptor>
     
     // Private properties from interface builder (i.e. the xib file).
     @IBOutlet private weak var mainWindow: NSWindow!
@@ -119,7 +119,7 @@ class GPDocument: NSPersistentDocument {
     }
     
     // Configures the store cordinator to use the database file inside the wrapper.
-    override func configurePersistentStoreCoordinator(for url: URL, ofType fileType: String, modelConfiguration configuration: String?, storeOptions: [String : Any]? = nil) throws {
+    override public func configurePersistentStoreCoordinator(for url: URL, ofType fileType: String, modelConfiguration configuration: String?, storeOptions: [String : Any]? = nil) throws {
         let storeURL = url.appendingPathComponent(GPDocument.STORE_FILE_NAME)
         let psc = self.managedObjectContext?.persistentStoreCoordinator
         
@@ -132,7 +132,7 @@ class GPDocument: NSPersistentDocument {
     }
     
     // Overridden NSDocument/NSPersistentDocument method to save documents.
-    override func writeSafely(to url: URL, ofType typeName: String, for saveOperation: NSDocument.SaveOperationType) throws {
+    override public func writeSafely(to url: URL, ofType typeName: String, for saveOperation: NSDocument.SaveOperationType) throws {
         if (saveOperation == .saveAsOperation) {
             // Nothing exists at the URL: set up the directory and migrate the Core Data store.
             let fileWrapper = FileWrapper(directoryWithFileWrappers: [:])
@@ -170,7 +170,7 @@ class GPDocument: NSPersistentDocument {
     /*
     The revert method needs to completely tear down the object graph assembled by the document. In this case, you also want to remove the persistent store manually, because NSPersistentDocument will expect the store for its coordinator to be located at the document URL (instead of inside that URL as part of the file wrapper).
     */
-    override func revert(toContentsOf inAbsoluteURL: URL, ofType inTypeName: String) throws {
+    override public func revert(toContentsOf inAbsoluteURL: URL, ofType inTypeName: String) throws {
         if let psc = self.managedObjectContext?.persistentStoreCoordinator {
             let storeURL = inAbsoluteURL.appendingPathComponent(GPDocument.STORE_FILE_NAME)
             
@@ -188,8 +188,8 @@ class GPDocument: NSPersistentDocument {
     /// Get a starting GPID.
     /// Convert the last segment into a number that will be used in
     /// subsquent calls as an increment.
-    func parseStartingID(gpid: String) -> Int {
-        if let lastGPIDSegment = gpid.components(separatedBy: "-").last {
+    @objc static func parseStartingID(_ gpid: String?) -> Int {
+        if let lastGPIDSegment = gpid?.components(separatedBy: "-").last {
             return Int(lastGPIDSegment) ?? 1
         }
         else {return 1}
@@ -197,16 +197,16 @@ class GPDocument: NSPersistentDocument {
     
     /// Get the static part of the GPID from the GPID.
     /// (the segments that will NOT increment)
-    func parseStaticID(gpid: String) -> String? {
+    @objc static func parseStaticID(_ gpid: String?) -> String? {
         // Find where the last '-' occurs in the string.
-        if let lastDash = gpid.lastIndex(of: "-") {
-            return String(gpid.prefix(through: lastDash))
+        if let lastDash = gpid?.lastIndex(of: "-") {
+            return String(gpid?.prefix(through: lastDash) ?? "")
         }
         else {return nil}
     }
     
     /// Invokes writeSafetyToURL method to save the persistant store in place.
-    func saveInPlace() {
+    @objc func saveInPlace() {
         save(to: self.fileURL!,
              ofType: self.fileType!,
              for: .saveOperation,
@@ -268,10 +268,19 @@ class GPDocument: NSPersistentDocument {
         return fileName
     }
     
+    // Since Objective-C does not support swift enums, provide conveniance functions
+    // for adding either an image or pdf into the file wrapper.
+    @objc func addImageToWrapper(usingGPID gpid: String, forAttribute attributeName: String) -> String? {
+        return addFileToWrapper(usingGPID: gpid, forAttribute: attributeName, fileType: ImportFileType.picture)
+    }
+    @objc func addPDFToWrapper(usingGPID gpid: String, forAttribute attributeName: String) -> String? {
+        return addFileToWrapper(usingGPID: gpid, forAttribute: attributeName, fileType: ImportFileType.pdf)
+    }
+    
     // Creates a crypographic hash of the filename for a GPID.
     // The attribute field should objectify the GPID in some way,
     // such as the class name for the GPID in question.
-    private func hashFileName(forGPID gpid:String, andAttributeName attributeName:String) -> String {
+    @objc func hashFileName(forGPID gpid:String, andAttributeName attributeName:String) -> String {
         // Create string to feed into the hasher.
         let stringToHash = "\(gpid)\(attributeName)\(GPDocument.FILENAME_HASH_SALT)"
         
@@ -326,13 +335,369 @@ class GPDocument: NSPersistentDocument {
     }
     
     @IBAction func openGPCatalog(_ sender: Any) {
-        let assistedSearch : AssistedSearch = AssistedSearch(self.managedObjectContext!)
+        let assistedSearch = AssistedSearch(self.managedObjectContext!)
         assistedSearch.load(GPDocument.ASSISTED_GP_CATALOG_EDITER_SEARCH_ID)
         
         let catalogEditor = GPCatalogEditor.init(assistedSearch: assistedSearch.search, countrySearch: assistedSearch.countriesPredicate, sectionSearch: assistedSearch.sectionsPredicate, filterSearch: assistedSearch.filtersPredicate)
         
         self.addWindowController(catalogEditor!)
         catalogEditor?.window?.makeKeyAndOrderFront(self)
+    }
+    
+    @IBAction func openImport(_ sender: Any) {
+        let c = GPImportController.init(windowNibName: "GPImportController")
+        self.addWindowController(c)
+        c.window?.makeKeyAndOrderFront(self)
+    }
+    
+    @IBAction func openLibrary(_ sender:Any) {
+        let c = GPAttachmentController.init(windowNibName: "GPAttachmentController")
+        c.managedObjectContext = self.managedObjectContext
+        
+        self.addWindowController(c)
+        c.window?.makeKeyAndOrderFront(sender)
+    }
+    
+    @IBAction func showCatalogStats(_ sender:Any) {
+        let c = GPDatabaseStats.init(windowNibName: "GPDatabaseStats")
+        self.addWindowController(c)
+        c.window?.makeKeyAndOrderFront(sender)
+    }
+    
+    @IBAction func recalculateValueOfCollection(_ sender:Any) {
+        let selection = self.gpCollectionController.selectedObjects
+        
+        if let s = selection, s.count >= 1 {
+            let collection = s[0] as! GPCollection
+            
+            collection.value = (collection.stamps as! Set<Stamp>).reduce(0.0) {i, x in
+                i + (x.manual_value?.floatValue ?? 0.0)
+            } as NSNumber
+        }
+    }
+    
+    @IBAction func viewStamps(_ sender:Any) {
+        let selection = self.gpCollectionController.selectedObjects
+        
+        if let s = selection, s.count >= 1 {
+            let assistedSearch = AssistedSearch(self.managedObjectContext!)
+            assistedSearch.load(GPDocument.ASSISTED_STAMP_LIST_VIEWER_SEARCH_ID)
+            
+            let stampViewer = GPStampViewer.init(collection: s[0] as? GPCollection, assistedSearch: assistedSearch.search, countrySearch: assistedSearch.countriesPredicate, sectionSearch: assistedSearch.sectionsPredicate, formatSearch: assistedSearch.formatsPredicate, locationSearch: assistedSearch.locationsPredicate)
+            
+            self.addWindowController(stampViewer!)
+            stampViewer?.window?.makeKeyAndOrderFront(self)
+        }
+    }
+    
+    @IBAction func deleteStampsAndCollections(_ sender:Any) {
+        do {
+            let req = NSFetchRequest<NSFetchRequestResult>.init(entityName: "Stamp")
+            let stamps = (try self.managedObjectContext?.fetch(req))!
+            for s in stamps {
+                self.managedObjectContext?.delete(s as! NSManagedObject)
+            }
+            
+            let cReq = NSFetchRequest<NSFetchRequestResult>.init(entityName: "GPCollection")
+            let collections = (try self.managedObjectContext?.fetch(cReq))!
+            for c in collections {
+                self.managedObjectContext?.delete(c as! NSManagedObject)
+            }
+        } catch let error as NSError {
+            let errSheet = NSAlert.init(error: error)
+            errSheet.beginSheetModal(for: self.mainWindow, completionHandler: nil)
+        }
+    }
+    
+    @IBAction func pushAllowedStampFormatsIntoCatalog(_ sender:Any) {
+        do {
+            let req = NSFetchRequest<NSFetchRequestResult>.init(entityName: "GPCatalog")
+            req.predicate = NSPredicate.init(format: "is_default == 0")
+            
+            let entries = (try self.managedObjectContext?.fetch(req)) as! Array<GPCatalog>
+            for e in entries {
+                e.addAllowedStampFormats(e.formatType.allowedStampFormats)
+            }
+            
+            try self.managedObjectContext?.save()
+        } catch let error as NSError {
+            let errSheet = NSAlert.init(error: error)
+            errSheet.beginSheetModal(for: self.mainWindow, completionHandler: nil)
+        }
+    }
+    
+    @IBAction func renumberStampIDs(_ sender:Any) {
+        do {
+            let req = NSFetchRequest<NSFetchRequestResult>.init(entityName: "Stamp")
+            req.predicate = NSPredicate.init(format: "is_default == YES")
+            
+            let results = try self.managedObjectContext?.fetch(req) as! Array<Stamp>
+            
+            // Defaults must be created if they dont exist.
+            let defaults = ((results.count == 0) ? NSEntityDescription.insertNewObject(forEntityName: "Stamp", into: self.managedObjectContext!) : results[0]) as! Stamp
+            
+            // Now fetch all regular stamps.
+            req.predicate = NSPredicate.init(format: "is_default == NO")
+            let stamps = try self.managedObjectContext?.fetch(req) as! Array<Stamp>
+            
+            if (stamps.count > 0) {
+                // Sort the stamps first by catalog number, then by stamp format
+                let sorted = stamps.sorted {
+                    $0.gpCatalog!.gp_catalog_number > $1.gpCatalog!.gp_catalog_number
+                }.sorted {
+                    $0.format!.name > $1.format!.name
+                }
+                
+                var stampIDCounter = 1;
+                for s in sorted {
+                    s.gp_stamp_number = String(format: "%ld", stampIDCounter)
+                    stampIDCounter += 1
+                }
+                
+                defaults.gp_stamp_number = String(format: "%ld", stampIDCounter)
+            }
+            
+            try self.managedObjectContext?.save()
+        } catch let error as NSError {
+            let errSheet = NSAlert.init(error: error)
+            errSheet.beginSheetModal(for: self.mainWindow, completionHandler: nil)
+        }
+    }
+    
+    func openGPCatalogDefaults(_ sender:Any) {
+        let c = GPCatalogDefaults.init(windowNibName: "GPCatalogDefaults")
+        self.addWindowController(c)
+        c.managedObjectContext = self.managedObjectContext
+        c.window?.makeKeyAndOrderFront(sender)
+    }
+    
+    func openStampDefaults(_ sender:Any) {
+        let c = GPStampDefaults.init(windowNibName: "GPStampDefaults")
+        self.addWindowController(c)
+        c.window?.makeKeyAndOrderFront(sender)
+    }
+    
+    func openSaleHistoryDefaults(_ sender:Any) {
+        let c = GPSaleHistoryDefaults.init(windowNibName: "GPSaleHistoryDefaults")
+        self.addWindowController(c)
+        c.window?.makeKeyAndOrderFront(sender)
+    }
+    
+    func editSupportedCountried(_ sender:Any) {
+        let c = GPSupportedCountriesController.init(windowNibName: "GPSupportedCountriesController")
+        self.addWindowController(c)
+        c.managedObjectContext = self.managedObjectContext
+        c.window?.makeKeyAndOrderFront(sender)
+    }
+    
+    func editSupportedFormats(_ sender:Any) {
+        let c = GPSupportedFormatsController.init(windowNibName: "GPSupportedFormatsController")
+        self.addWindowController(c)
+        c.managedObjectContext = self.managedObjectContext
+        c.window?.makeKeyAndOrderFront(sender)
+    }
+    
+    func editSupportedAltCatalogNames(_ sender:Any) {
+        let c = GPSupportedAltCatalogNamesController.init(windowNibName: "GPSupportedAltCatalogNamesController")
+        self.addWindowController(c)
+        c.managedObjectContext = self.managedObjectContext
+        c.window?.makeKeyAndOrderFront(sender)
+    }
+    
+    func editSupportedAltCatalogSections(_ sender:Any) {
+        let c = GPSupportedAltCatalogSectionsController.init(windowNibName: "GPSupportedAltCatalogSectionsController")
+        self.addWindowController(c)
+        c.managedObjectContext = self.managedObjectContext
+        c.window?.makeKeyAndOrderFront(sender)
+    }
+    
+    func editSupportedGroups(_ sender:Any) {
+        let c = GPSupportedGroupsController.init(windowNibName: "GPSupportedGroupsController")
+        self.addWindowController(c)
+        c.managedObjectContext = self.managedObjectContext
+        c.window?.makeKeyAndOrderFront(sender)
+    }
+    
+    func editSupportedPlatePositions(_ sender:Any) {
+        let c = GPPlatePositionsController.init(windowNibName: "GPPlatePositionsController")
+        self.addWindowController(c)
+        c.managedObjectContext = self.managedObjectContext
+        c.window?.makeKeyAndOrderFront(sender)
+    }
+    
+    func editSupportedCachetCatalogs(_ sender:Any) {
+        let c = GPSupportedCachetCatalogsController.init(windowNibName: "GPSupportedCachetCatalogController")
+        self.addWindowController(c)
+        c.managedObjectContext = self.managedObjectContext
+        c.window?.makeKeyAndOrderFront(sender)
+    }
+    
+    func editSupportedCachetMakers(_ sender:Any) {
+        let c = GPSupportedCachetMakersController.init(windowNibName: "GPSupportedCachetMakersController")
+        self.addWindowController(c)
+        c.managedObjectContext = self.managedObjectContext
+        c.window?.makeKeyAndOrderFront(sender)
+    }
+    
+    func editSupportedCancelQuality(_ sender:Any) {
+        let c = GPSupportedCancelQuality.init(windowNibName: "GPSupportedCancelQuality")
+        self.addWindowController(c)
+        c.managedObjectContext = self.managedObjectContext
+        c.window?.makeKeyAndOrderFront(sender)
+    }
+    
+    func editSupportedCentering(_ sender:Any) {
+        let c = GPSupportedCentering.init(windowNibName: "GPSupportedCentering")
+        self.addWindowController(c)
+        c.managedObjectContext = self.managedObjectContext
+        c.window?.makeKeyAndOrderFront(sender)
+    }
+    
+    func editSupportedDealers(_ sender:Any) {
+        let c = GPSupportedDealers.init(windowNibName: "GPSupportedDealers")
+        self.addWindowController(c)
+        c.managedObjectContext = self.managedObjectContext
+        c.window?.makeKeyAndOrderFront(sender)
+    }
+    
+    func editSupportedStampFormats(_ sender:Any) {
+        let c = GPSupportedStampFormats.init(windowNibName: "GPSupportedStampFormats")
+        self.addWindowController(c)
+        c.managedObjectContext = self.managedObjectContext
+        c.window?.makeKeyAndOrderFront(sender)
+    }
+    
+    func editSupportedGrades(_ sender:Any) {
+        let c = GPSupportedGrades.init(windowNibName: "GPSupportedGrades")
+        self.addWindowController(c)
+        c.managedObjectContext = self.managedObjectContext
+        c.window?.makeKeyAndOrderFront(sender)
+    }
+    
+    func editSupportedGumConditions(_ sender:Any) {
+        let c = GPSupportedGumConditions.init(windowNibName: "GPSupportedGumConditions")
+        self.addWindowController(c)
+        c.managedObjectContext = self.managedObjectContext
+        c.window?.makeKeyAndOrderFront(sender)
+    }
+    
+    func editSupportedHinged(_ sender:Any) {
+        let c = GPSupportedHinged.init(windowNibName: "GPSupportedHinged")
+        self.addWindowController(c)
+        c.managedObjectContext = self.managedObjectContext
+        c.window?.makeKeyAndOrderFront(sender)
+    }
+    
+    func editSupportedLocations(_ sender:Any) {
+        let c = GPSupportedLocations.init(windowNibName: "GPSupportedLocations")
+        self.addWindowController(c)
+        c.managedObjectContext = self.managedObjectContext
+        c.window?.makeKeyAndOrderFront(sender)
+    }
+    
+    func editSupportedLots(_ sender:Any) {
+        let c = GPSupportedLots.init(windowNibName: "GPSupportedLots")
+        self.addWindowController(c)
+        c.managedObjectContext = self.managedObjectContext
+        c.window?.makeKeyAndOrderFront(sender)
+    }
+    
+    func editSupportedMounts(_ sender:Any) {
+        let c = GPSupportedMounts.init(windowNibName: "GPSupportedMounts")
+        self.addWindowController(c)
+        c.managedObjectContext = self.managedObjectContext
+        c.window?.makeKeyAndOrderFront(sender)
+    }
+    
+    func editSupportedSoundness(_ sender:Any) {
+        let c = GPSupportedSoundness.init(windowNibName: "GPSupportedSoundness")
+        self.addWindowController(c)
+        c.managedObjectContext = self.managedObjectContext
+        c.window?.makeKeyAndOrderFront(sender)
+    }
+    
+    func editSupportedLocalPrecancels(_ sender:Any) {
+        let c = GPSupportedLocalPrecancels.init(windowNibName: "GPSupportedLocalPrecancels")
+        self.addWindowController(c)
+        c.managedObjectContext = self.managedObjectContext
+        c.window?.makeKeyAndOrderFront(sender)
+    }
+    
+    func editSupportedPerfins(_ sender:Any) {
+        let c = GPSupportedPerfins.init(windowNibName: "GPSupportedPerfins")
+        self.addWindowController(c)
+        c.managedObjectContext = self.managedObjectContext
+        c.window?.makeKeyAndOrderFront(sender)
+    }
+    
+    func editSupportedPerfinCatalogs(_ sender:Any) {
+        let c = GPSupportedPerfinCatalogs.init(windowNibName: "GPSupportedPerfinCatalogs")
+        self.addWindowController(c)
+        c.managedObjectContext = self.managedObjectContext
+        c.window?.makeKeyAndOrderFront(sender)
+    }
+    
+    func editSupportedSubvarietyTypes(_ sender:Any) {
+        let c = GPSupportedSubvarietyTypes.init(windowNibName: "GPSupportedSubvarietyTypes")
+        self.addWindowController(c)
+        c.managedObjectContext = self.managedObjectContext
+        c.window?.makeKeyAndOrderFront(sender)
+    }
+    
+    func editSupportedSubjects(_ sender:Any) {
+        let c = GPSupportedSubjects.init(windowNibName: "GPSupportedSubjects")
+        self.addWindowController(c)
+        c.managedObjectContext = self.managedObjectContext
+        c.window?.makeKeyAndOrderFront(sender)
+    }
+    
+    func editSupportedPriceLists(_ sender:Any) {
+        let c = GPSupportedPriceLists.init(windowNibName: "GPSupportedPriceLists")
+        self.addWindowController(c)
+        c.managedObjectContext = self.managedObjectContext
+        c.window?.makeKeyAndOrderFront(sender)
+    }
+    
+    func editSupportedSalesGroups(_ sender:Any) {
+        let c = GPSalesGroupEditor.init(windowNibName: "GPSalesGroupEditor")
+        self.addWindowController(c)
+        c.managedObjectContext = self.managedObjectContext
+        c.window?.makeKeyAndOrderFront(sender)
+    }
+    
+    func editSupportedSalesGroupTypes(_ sender:Any) {
+        let c = GPSupportedSalesGroupTypes.init(windowNibName: "GPSupportedSalesGroupTypes")
+        self.addWindowController(c)
+        c.managedObjectContext = self.managedObjectContext
+        c.window?.makeKeyAndOrderFront(sender)
+    }
+    
+    func editSupportedCatalogDataTypes(_ sender:Any) {
+        let c = GPSupportedCatalogDateTypes.init(windowNibName: "GPSupportedCatalogDateTypes")
+        self.addWindowController(c)
+        c.managedObjectContext = self.managedObjectContext
+        c.window?.makeKeyAndOrderFront(sender)
+    }
+    
+    func editSupportedCatalogPeopleTypes(_ sender:Any) {
+        let c = GPSupportedCatalogPeopleTypes.init(windowNibName: "GPSupportedCatalogPeopleTypes")
+        self.addWindowController(c)
+        c.managedObjectContext = self.managedObjectContext
+        c.window?.makeKeyAndOrderFront(sender)
+    }
+    
+    func editSupportedPlateSizeTypes(_ sender:Any) {
+        let c = GPSupportedPlateSizeTypes.init(windowNibName: "GPSupportedPlateSizeTypes")
+        self.addWindowController(c)
+        c.managedObjectContext = self.managedObjectContext
+        c.window?.makeKeyAndOrderFront(sender)
+    }
+    
+    func editSupportedGPCatalogQuantityTypes(_ sender:Any) {
+        let c = GPSupportedCatalogQuantityTypes.init(windowNibName: "GPSupportedCatalogQuantityTypes")
+        self.addWindowController(c)
+        c.managedObjectContext = self.managedObjectContext
+        c.window?.makeKeyAndOrderFront(sender)
     }
     
     /// Used to run the first search/filter on several controllers
@@ -432,4 +797,22 @@ class GPDocument: NSPersistentDocument {
             }
         }
     }
+    
+    // Maintain the same assisted search interface to the objective-c code untill it can be rewritten.
+    @objc func loadAssistedSearch(_ searchID: Int) {
+        let ass = AssistedSearch(self.managedObjectContext!)
+        ass.load(searchID)
+        self.assistedSearch = ass.search
+        self.countriesPredicate = ass.countriesPredicate
+        self.sectionsPredicate = ass.sectionsPredicate
+        self.filtersPredicate = ass.filtersPredicate
+        self.formatsPredicate = ass.formatsPredicate
+        self.locationsPredicate = ass.locationsPredicate
+    }
+    @objc var assistedSearch: StoredSearch?
+    @objc var countriesPredicate: NSPredicate?
+    @objc var sectionsPredicate: NSPredicate?
+    @objc var filtersPredicate: NSPredicate?
+    @objc var formatsPredicate: NSPredicate?
+    @objc var locationsPredicate: NSPredicate?
 }

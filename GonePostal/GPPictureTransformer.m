@@ -9,6 +9,7 @@
 #import "GPPictureTransformer.h"
 #import "GPCatalog.h"
 #import "Stamp.h"
+#import "GonePostal-Swift.h"
 
 static NSString * USING_MAJOR_VARIETY = @"Major Variety Picture";
 static NSString * USING_GPCATALOG = @"GP Catalog Picture";

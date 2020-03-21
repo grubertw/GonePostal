@@ -8,7 +8,7 @@
 
 #import "GPPlateUsageChooser.h"
 #import "PlateUsage.h"
-#import "GPDocument.h"
+#import "GonePostal-Swift.h"
 
 @interface GPPlateUsageChooser ()
 

@@ -7,7 +7,6 @@
 //
 
 #import "GPValuationCalculator.h"
-#import "GPDocument.h"
 #import "GPCatalog.h"
 #import "GPCollection.h"
 #import "Stamp.h"
@@ -87,7 +86,7 @@
     // 'normal' collection, which isn't a want or sell list.
     GPCollection * containingCollection;
     for (GPCollection * collection in stamp.collections) {
-        if ([collection.type isEqualToNumber:@(GP_COLLECTION_TYPE_NORMAL)]) {
+        if ([collection.type isEqualToNumber:@(1)]) {
             containingCollection = collection;
             break;
         }

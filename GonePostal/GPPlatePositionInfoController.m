@@ -7,7 +7,7 @@
 //
 
 #import "GPPlatePositionInfoController.h"
-#import "GPDocument.h"
+#import "GonePostal-Swift.h"
 
 @interface GPPlatePositionInfoController ()
 

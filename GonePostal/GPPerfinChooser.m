@@ -7,8 +7,8 @@
 //
 
 #import "GPPerfinChooser.h"
-#import "GPDocument.h"
 #import "Perfin.h"
+#import "GonePostal-Swift.h"
 
 @interface GPPerfinChooser ()
 @property (nonatomic) BOOL isDrawer;

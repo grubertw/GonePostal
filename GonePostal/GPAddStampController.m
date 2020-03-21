@@ -7,10 +7,10 @@
 //
 
 #import "GPAddStampController.h"
-#import "GPDocument.h"
 #import "GPValuationCalculator.h"
 #import "GPCatalog.h"
 #import "Stamp+Create.h"
+#import "GonePostal-Swift.h"
 
 @interface GPAddStampController ()
 @property (nonatomic) NSUInteger operatingMode;
@@ -56,12 +56,12 @@ static NSString * NEW_STAMP_PAGE_TITLE = @"Specify Stamp Specifics";
         
         if (mode == 1) {
             // Instantiate and initilize all three wizard pages.
-            [doc loadAssistedSearch:ASSISTED_LOOKS_LIKE_BROWSER_SEARCH_ID];
+            [doc loadAssistedSearch:GPDocument.ASSISTED_LOOKS_LIKE_BROWSER_SEARCH_ID];
             _gpLocatorPage = [[GPLocatorPage alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate];
             
             // If the locator is being used, clear the catalog browser search in favor
             // of the LooksLike.
-            [doc loadAssistedSearch:ASSISTED_GP_CATALOG_BROWSER_SEARCH_ID];
+            [doc loadAssistedSearch:GPDocument.ASSISTED_GP_CATALOG_BROWSER_SEARCH_ID];
             doc.assistedSearch.predicate = nil;
             
             _gpCatalogPage = [[GPCatalogChooserPage alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:nil sectionSearch:nil filterSearch:nil parentController:self];
@@ -72,7 +72,7 @@ static NSString * NEW_STAMP_PAGE_TITLE = @"Specify Stamp Specifics";
         }
         else if (mode == 2) {
             // Instantiate the catalog chooser page and new stamp page.
-            [doc loadAssistedSearch:ASSISTED_GP_CATALOG_BROWSER_SEARCH_ID];
+            [doc loadAssistedSearch:GPDocument.ASSISTED_GP_CATALOG_BROWSER_SEARCH_ID];
             
             _gpCatalogPage = [[GPCatalogChooserPage alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate filterSearch:doc.filtersPredicate parentController:self];
             

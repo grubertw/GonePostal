@@ -7,7 +7,8 @@
 //
 
 #import "GPSupportedFormatsController.h"
-#import "GPDocument.h"
+
+#import "GonePostal-Swift.h"
 
 @interface GPSupportedFormatsController ()
 @property (weak, nonatomic) IBOutlet NSTableView *formatTypesTable;

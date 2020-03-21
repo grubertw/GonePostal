@@ -8,7 +8,6 @@
 
 #import "GPPlateCombinationsEditor.h"
 #import "GPAddPlateCombination.h"
-#import "GPDocument.h"
 #import "GPCatalog.h"
 #import "PlateNumber+Duplicate.h"
 #import "NumberOfStampsInPlate.h"
@@ -16,6 +15,7 @@
 #import "PlatePosition.h"
 #import "PlatePositionInfo.h"
 #import "GPCustomSearch.h"
+#import "GonePostal-Swift.h"
 
 static const NSUInteger DUPLICATE_PLATE_COMBO   = 1;
 static const NSUInteger EXPLODE_PLATE           = 2;
@@ -108,7 +108,7 @@ static const NSUInteger EXPLODE_NUMBER          = 3;
 }
 
 - (IBAction)editCustomSearches:(id)sender {
-    GPCustomSearch * customSearchController = [[GPCustomSearch alloc] initWithStoredSearchIdentifier:@(CUSTOM_PLATE_NUMBERS_SEARCH_ID)];
+    GPCustomSearch * customSearchController = [[GPCustomSearch alloc] initWithStoredSearchIdentifier:@(GPDocument.CUSTOM_PLATE_NUMBERS_SEARCH_ID)];
     [customSearchController setDefaultGPCatalog:self.gpCatalog];
     
     [self.document addWindowController:customSearchController];
@@ -140,7 +140,7 @@ static const NSUInteger EXPLODE_NUMBER          = 3;
     
     NSString * staticID = [GPDocument parseStaticID:lastPlate.gp_plate_combination_number];
     NSInteger startingID = [GPDocument parseStartingID:lastPlate.gp_plate_combination_number];
-    startingID += GPID_INCREMENT;
+    startingID += GPDocument.GPID_INCREMENT;
     [self.startingGPID setStringValue:[NSString stringWithFormat:@"%@%08ld", staticID, startingID]];
     
     self.promptAction = DUPLICATE_PLATE_COMBO;
@@ -152,7 +152,7 @@ static const NSUInteger EXPLODE_NUMBER          = 3;
     
     NSString * staticID = [GPDocument parseStaticID:lastPlate.gp_plate_combination_number];
     NSInteger startingID = [GPDocument parseStartingID:lastPlate.gp_plate_combination_number];
-    startingID += GPID_INCREMENT;
+    startingID += GPDocument.GPID_INCREMENT;
     [self.startingGPID setStringValue:[NSString stringWithFormat:@"%@%08ld", staticID, startingID]];
     
     self.promptAction = EXPLODE_PLATE;
@@ -164,7 +164,7 @@ static const NSUInteger EXPLODE_NUMBER          = 3;
     
     NSString * staticID = [GPDocument parseStaticID:lastPlate.gp_plate_combination_number];
     NSInteger startingID = [GPDocument parseStartingID:lastPlate.gp_plate_combination_number];
-    startingID += GPID_INCREMENT;
+    startingID += GPDocument.GPID_INCREMENT;
     [self.startingGPID setStringValue:[NSString stringWithFormat:@"%@%08ld", staticID, startingID]];
     
     self.promptAction = EXPLODE_NUMBER;
@@ -217,7 +217,7 @@ static const NSUInteger EXPLODE_NUMBER          = 3;
         
         // Assign and increment the GPID.
         pnCopy.gp_plate_combination_number = [NSString stringWithFormat:@"%@%08ld", initialGPID, startingID];
-        startingID += GPID_INCREMENT;
+        startingID += GPDocument.GPID_INCREMENT;
         
         [self.gpCatalog addPlateNumbersObject:pnCopy];
         [self.plateCombinationsController addObject:pnCopy];
@@ -254,7 +254,7 @@ static const NSUInteger EXPLODE_NUMBER          = 3;
             
             // Assign and increment the GPID.
             pnCopy.gp_plate_combination_number = [NSString stringWithFormat:@"%@%08ld", initialGPID, startingID];
-            startingID += GPID_INCREMENT;
+            startingID += GPDocument.GPID_INCREMENT;
             
             [self.gpCatalog addPlateNumbersObject:pnCopy];
             [self.plateCombinationsController addObject:pnCopy];
@@ -281,7 +281,7 @@ static const NSUInteger EXPLODE_NUMBER          = 3;
             
             // Assign and increment the GPID.
             pnCopy.gp_plate_combination_number = [NSString stringWithFormat:@"%@%08ld", initialGPID, startingID];
-            startingID += GPID_INCREMENT;
+            startingID += GPDocument.GPID_INCREMENT;
 
             [self.gpCatalog addPlateNumbersObject:pnCopy];
             [self.plateCombinationsController addObject:pnCopy];
@@ -298,7 +298,7 @@ static const NSUInteger EXPLODE_NUMBER          = 3;
     if (entries.count > 0) {
         PlateNumber * entry = [entries objectAtIndex:0];
         
-        NSString * fileName = [self.document addFileToWrapperUsingGPID:entry.gp_plate_combination_number forAttribute:@"GPCatalog.default_picture" fileType:GPImportFileTypePicture];
+        NSString * fileName = [self.document addImageToWrapperUsingGPID:entry.gp_plate_combination_number forAttribute:@"GPCatalog.default_picture"];
         if (fileName == nil) return;
         
         entry.picture = fileName;

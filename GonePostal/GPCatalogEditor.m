@@ -7,7 +7,6 @@
 //
 
 #import "GPCatalogEditor.h"
-#import "GPDocument.h"
 #import "GPAddToCatalogController.h"
 #import "GPAddSubvariety.h"
 #import "GPCatalog+Duplicate.h"
@@ -120,7 +119,7 @@
     // All persisted info about the search should be loaded
     // into the three predicates at this point.
     NSMutableArray * predicateArray = [NSMutableArray arrayWithCapacity:0];
-    [predicateArray addObject:[NSPredicate predicateWithFormat:BASE_GP_CATALOG_QUERY]];
+    [predicateArray addObject:[NSPredicate predicateWithFormat:GPDocument.BASE_GP_CATALOG_QUERY]];
     
     if (self.countrySearchController.predicate != nil) {
         [predicateArray addObject:self.countrySearchController.predicate];
@@ -569,7 +568,7 @@
 - (IBAction)manageLooksLike:(id)sender {
     GPDocument * doc = (GPDocument *)self.document;
     
-    [doc loadAssistedSearch:ASSISTED_LOOKS_LIKE_EDITOR_SEARCH_ID];
+    [doc loadAssistedSearch:GPDocument.ASSISTED_LOOKS_LIKE_EDITOR_SEARCH_ID];
     GPLooksLikeController * controller = [[GPLooksLikeController alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate];
     
     [doc addWindowController:controller];
@@ -660,7 +659,7 @@
 }
 
 - (IBAction)editCustomSearch:(id)sender {
-    GPCustomSearch * customSearchController = [[GPCustomSearch alloc] initWithStoredSearchIdentifier:@(CUSTOM_GP_CATALOG_SEARCH_ID)];
+    GPCustomSearch * customSearchController = [[GPCustomSearch alloc] initWithStoredSearchIdentifier:@(GPDocument.CUSTOM_GP_CATALOG_SEARCH_ID)];
     [self.document addWindowController:customSearchController];
     [customSearchController.window makeKeyAndOrderFront:sender];
 }
@@ -891,7 +890,7 @@
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
         
-        NSString * fileName = [self.document addFileToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"GPCatalog.default_picture" fileType:GPImportFileTypePicture];
+        NSString * fileName = [self.document addImageToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"GPCatalog.default_picture"];
         if (fileName == nil) return;
         
         entry.default_picture = fileName;
@@ -903,7 +902,7 @@
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
     
-        [self.document loadAssistedSearch:ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
+        [self.document loadAssistedSearch:GPDocument.ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
         GPDocument * doc = [self document];
         
         GPCatalogPictureSelector * controller = [[GPCatalogPictureSelector alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate filterSearch:doc.filtersPredicate targetAttributeName:@"GPCatalog.default_picture" selectingPicture:YES];
@@ -932,7 +931,7 @@
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
         
-        NSString * fileName = [self.document addFileToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"GPCatalog.alternate_picture_1" fileType:GPImportFileTypePicture];
+        NSString * fileName = [self.document addImageToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"GPCatalog.alternate_picture_1"];
         if (fileName == nil) return;
         
         entry.alternate_picture_1 = fileName;
@@ -944,7 +943,7 @@
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
         
-        [self.document loadAssistedSearch:ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
+        [self.document loadAssistedSearch:GPDocument.ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
         GPDocument * doc = [self document];
         
         GPCatalogPictureSelector * controller = [[GPCatalogPictureSelector alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate filterSearch:doc.filtersPredicate targetAttributeName:@"GPCatalog.alternate_picture_1" selectingPicture:YES];
@@ -973,7 +972,7 @@
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
         
-        NSString * fileName = [self.document addFileToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"GPCatalog.alternate_picture_2" fileType:GPImportFileTypePicture];
+        NSString * fileName = [self.document addImageToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"GPCatalog.alternate_picture_2"];
         if (fileName == nil) return;
         
         entry.alternate_picture_2 = fileName;
@@ -985,7 +984,7 @@
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
         
-        [self.document loadAssistedSearch:ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
+        [self.document loadAssistedSearch:GPDocument.ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
         GPDocument * doc = [self document];
         
         GPCatalogPictureSelector * controller = [[GPCatalogPictureSelector alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate filterSearch:doc.filtersPredicate targetAttributeName:@"GPCatalog.alternate_picture_2" selectingPicture:YES];
@@ -1015,7 +1014,7 @@
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
         
-        NSString * fileName = [self.document addFileToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"GPCatalog.alternate_picture_3" fileType:GPImportFileTypePicture];
+        NSString * fileName = [self.document addImageToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"GPCatalog.alternate_picture_3"];
         if (fileName == nil) return;
         
         entry.alternate_picture_3 = fileName;
@@ -1027,7 +1026,7 @@
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
         
-        [self.document loadAssistedSearch:ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
+        [self.document loadAssistedSearch:GPDocument.ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
         GPDocument * doc = [self document];
         
         GPCatalogPictureSelector * controller = [[GPCatalogPictureSelector alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate filterSearch:doc.filtersPredicate targetAttributeName:@"GPCatalog.alternate_picture_3" selectingPicture:YES];
@@ -1056,7 +1055,7 @@
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
         
-        NSString * fileName = [self.document addFileToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"GPCatalog.alternate_picture_4" fileType:GPImportFileTypePicture];
+        NSString * fileName = [self.document addImageToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"GPCatalog.alternate_picture_4"];
         if (fileName == nil) return;
         
         entry.alternate_picture_4 = fileName;
@@ -1068,7 +1067,7 @@
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
         
-        [self.document loadAssistedSearch:ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
+        [self.document loadAssistedSearch:GPDocument.ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
         GPDocument * doc = [self document];
         
         GPCatalogPictureSelector * controller = [[GPCatalogPictureSelector alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate filterSearch:doc.filtersPredicate targetAttributeName:@"GPCatalog.alternate_picture_4" selectingPicture:YES];
@@ -1097,7 +1096,7 @@
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
         
-        NSString * fileName = [self.document addFileToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"GPCatalog.alternate_picture_5" fileType:GPImportFileTypePicture];
+        NSString * fileName = [self.document addImageToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"GPCatalog.alternate_picture_5"];
         if (fileName == nil) return;
         
         entry.alternate_picture_5 = fileName;
@@ -1109,7 +1108,7 @@
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
         
-        [self.document loadAssistedSearch:ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
+        [self.document loadAssistedSearch:GPDocument.ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
         GPDocument * doc = [self document];
         
         GPCatalogPictureSelector * controller = [[GPCatalogPictureSelector alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate filterSearch:doc.filtersPredicate targetAttributeName:@"GPCatalog.alternate_picture_5" selectingPicture:YES];
@@ -1138,7 +1137,7 @@
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
         
-        NSString * fileName = [self.document addFileToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"GPCatalog.alternate_picture_6" fileType:GPImportFileTypePicture];
+        NSString * fileName = [self.document addImageToWrapperUsingGPID:entry.gp_catalog_number forAttribute:@"GPCatalog.alternate_picture_6"];
         if (fileName == nil) return;
         
         entry.alternate_picture_6 = fileName;
@@ -1150,7 +1149,7 @@
     if (entries.count > 0) {
         GPCatalog * entry = [entries objectAtIndex:0];
         
-        [self.document loadAssistedSearch:ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
+        [self.document loadAssistedSearch:GPDocument.ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
         GPDocument * doc = [self document];
         
         GPCatalogPictureSelector * controller = [[GPCatalogPictureSelector alloc] initWithAssistedSearch:doc.assistedSearch countrySearch:doc.countriesPredicate sectionSearch:doc.sectionsPredicate filterSearch:doc.filtersPredicate targetAttributeName:@"GPCatalog.alternate_picture_6" selectingPicture:YES];
@@ -1180,7 +1179,7 @@
     
     NSString * numIdentPics = [NSString stringWithFormat:@"extraPicture %ld", [entry.extraPictures count]];
     
-    NSString * fileName = [self.document addFileToWrapperUsingGPID:entry.gp_catalog_number forAttribute:numIdentPics fileType:GPImportFileTypePicture];
+    NSString * fileName = [self.document addImageToWrapperUsingGPID:entry.gp_catalog_number forAttribute:numIdentPics];
     if (fileName == nil) return;
     
     GPPicture * identPic = [NSEntityDescription insertNewObjectForEntityForName:@"GPPicture" inManagedObjectContext:self.managedObjectContext];
@@ -1352,7 +1351,7 @@
     NSInteger row = [self.bureauPrecancelsTable rowForView:sender];
     BureauPrecancel * bc = self.precancelsController.arrangedObjects[row];
     
-    NSString * fileName = [self.document addFileToWrapperUsingGPID:bc.gp_precancel_number forAttribute:@"Precencel.picture"fileType:GPImportFileTypePicture];
+    NSString * fileName = [self.document addImageToWrapperUsingGPID:bc.gp_precancel_number forAttribute:@"Precencel.picture"];
     if (fileName == nil) return;
     
     [bc setPicture:fileName];
@@ -1417,7 +1416,7 @@
     if (selectedCancels) {
         Cancelations * cancel = selectedCancels[0];
         
-        NSString * fileName = [self.document addFileToWrapperUsingGPID:cancel.gp_cancelation_number forAttribute:@"Cancelation.picture" fileType:GPImportFileTypePicture];
+        NSString * fileName = [self.document addImageToWrapperUsingGPID:cancel.gp_cancelation_number forAttribute:@"Cancelation.picture"];
         if (fileName == nil) return;
         
         [cancel setPicture:fileName];
@@ -1497,7 +1496,7 @@
     Attachment * atthmnt = self.attachmentController.selectedObjects[0];
     
     GPDocument * doc = [self document];
-    atthmnt.filename = [doc addFileToWrapperUsingGPID:atthmnt.gp_attachment_number forAttribute:@"GPCatalog.attachment" fileType:GPImportFileTypePDF];
+    atthmnt.filename = [doc addPDFToWrapperUsingGPID:atthmnt.gp_attachment_number forAttribute:@"GPCatalog.attachment"];
 }
 
 // Adds/Removes level 1 valuation nodes from a GPCatalog entry,
@@ -1526,7 +1525,7 @@
             l1Valuation.gpCatalog = selectedGPCatalog;
             l1Valuation.stampFormat = stampFormat;
             l1Valuation.priceList = selectedPriceList;
-            l1Valuation.decisionLevel = @(VALUATION_LEVEL_FORMAT);
+            l1Valuation.decisionLevel = @(GPDocument.VALUATION_LEVEL_FORMAT);
             
             [l1Valuations addObject:l1Valuation];
         }
@@ -1571,7 +1570,7 @@
                 l1Valuation.gpCatalog = selectedGPCatalog;
                 l1Valuation.stampFormat = stampFormat;
                 l1Valuation.priceList = selectedPriceList;
-                l1Valuation.decisionLevel = @(VALUATION_LEVEL_FORMAT);
+                l1Valuation.decisionLevel = @(GPDocument.VALUATION_LEVEL_FORMAT);
                 
                 [nodes addObject:l1Valuation];
             }
@@ -1632,7 +1631,7 @@
         
         // Fetch the valuation level 1 entries for this GPCatalog and price list.
         NSFetchRequest * valuationLevel1Fetch = [NSFetchRequest fetchRequestWithEntityName:@"Valuation"];
-        [valuationLevel1Fetch setPredicate:[NSPredicate predicateWithFormat:@"gpCatalog.gp_catalog_number like %@ and decisionLevel==%ld and priceList.name like %@", selectedGPCatalog.gp_catalog_number, VALUATION_LEVEL_FORMAT, selectedPriceList.name]];
+        [valuationLevel1Fetch setPredicate:[NSPredicate predicateWithFormat:@"gpCatalog.gp_catalog_number like %@ and decisionLevel==%ld and priceList.name like %@", selectedGPCatalog.gp_catalog_number, GPDocument.VALUATION_LEVEL_FORMAT, selectedPriceList.name]];
         
         NSArray * formatValues = [self.managedObjectContext executeFetchRequest:valuationLevel1Fetch error:nil];
         if (formatValues && [formatValues count] > 0) {

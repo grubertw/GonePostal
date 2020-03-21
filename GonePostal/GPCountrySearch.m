@@ -8,7 +8,7 @@
 
 #import "GPCountrySearch.h"
 #import "Country.h"
-#import "GPDocument.h"
+#import "GonePostal-Swift.h"
 
 static NSString * PREDICATE_FORMAT_FOR_STAMP = @"gpCatalog.country.country_sort_id == %@";
 static NSString * PREDICATE_FORMAT_FOR_GPCATALG = @"country.country_sort_id == %@";

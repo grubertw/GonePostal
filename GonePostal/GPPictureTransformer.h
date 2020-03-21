@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "GPDocument.h"
+
+@class GPDocument;
 
 @interface GPPictureTransformer : NSValueTransformer
 

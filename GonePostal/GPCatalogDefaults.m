@@ -8,9 +8,9 @@
 
 #import "GPCatalogDefaults.h"
 #import "GPCatalog.h"
-#import "GPDocument.h"
 #import "AlternateCatalog.h"
 #import "GPCatalogAlbumSize.h"
+#import "GonePostal-Swift.h"
 
 @interface GPCatalogDefaults ()
 @property (weak, nonatomic) IBOutlet NSArrayController * allowedStampFormatsController;

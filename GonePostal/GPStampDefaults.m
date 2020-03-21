@@ -7,7 +7,7 @@
 //
 
 #import "GPStampDefaults.h"
-#import "GPDocument.h"
+#import "GonePostal-Swift.h"
 
 @interface GPStampDefaults ()
 @property (strong, nonatomic) GPDocument * doc;

@@ -87,7 +87,7 @@ internal class GPAddCachet: NSWindowController, NSWindowDelegate {
         if count > 1 {
             // Duplicate the Cachet from the model controller.
             for _ in 2...count {
-                startingID += GPID_INCREMENT
+                startingID += GPDocument.GPID_INCREMENT
                 let dup = cachet.duplicate()
                 dup.gp_cachet_number = String(format: "%@%08ld",staticID!, startingID)
                 self.gpCatalog?.addCachetsObject(dup)
@@ -107,7 +107,7 @@ internal class GPAddCachet: NSWindowController, NSWindowDelegate {
         
         // Prepare for the next entry.
         let nextCachet = cachet.duplicate()
-        startingID += GPID_INCREMENT
+        startingID += GPDocument.GPID_INCREMENT
         nextCachet.gp_cachet_number = String(format: "%@%08ld",staticID!, startingID)
         self.cachetController.content = nextCachet
     }
@@ -127,7 +127,7 @@ internal class GPAddCachet: NSWindowController, NSWindowDelegate {
         if count > 1 {
             // Duplicate the Cachet from the model controller.
             for _ in 2...count {
-                startingID += GPID_INCREMENT
+                startingID += GPDocument.GPID_INCREMENT
                 let dup = cachet.duplicate()
                 dup.gp_cachet_number = String(format: "%@%08ld",staticID!, startingID)
                 self.gpCatalog?.addCachetsObject(dup)
@@ -158,43 +158,43 @@ internal class GPAddCachet: NSWindowController, NSWindowDelegate {
     
     @IBAction func addPicture(_ sender: AnyObject) {
         if let entry = self.cachetController.content as? Cachet {
-            entry.cachet_picture = self.doc.addFileToWrapper(usingGPID: entry.gp_cachet_number, forAttribute: "Cachet.default_picture", fileType: GPImportFileTypePicture)
+            entry.cachet_picture = self.doc.addFileToWrapper(usingGPID: entry.gp_cachet_number!, forAttribute: "Cachet.default_picture", fileType: GPDocument.ImportFileType.picture)
         }
     }
     
     @IBAction func addAlternatePic1(_ sender: AnyObject) {
         if let entry = self.cachetController.content as? Cachet {
-            entry.alternate_picture_1 = self.doc.addFileToWrapper(usingGPID: entry.gp_cachet_number, forAttribute: "Cachet.alternate_picture_1", fileType: GPImportFileTypePicture)
+            entry.alternate_picture_1 = self.doc.addFileToWrapper(usingGPID: entry.gp_cachet_number!, forAttribute: "Cachet.alternate_picture_1", fileType: GPDocument.ImportFileType.picture)
         }
     }
     
     @IBAction func addAlternatePic2(_ sender: AnyObject) {
         if let entry = self.cachetController.content as? Cachet {
-            entry.alternate_picture_2 = self.doc.addFileToWrapper(usingGPID: entry.gp_cachet_number, forAttribute: "Cachet.alternate_picture_2", fileType: GPImportFileTypePicture)
+            entry.alternate_picture_2 = self.doc.addFileToWrapper(usingGPID: entry.gp_cachet_number!, forAttribute: "Cachet.alternate_picture_2", fileType: GPDocument.ImportFileType.picture)
         }
     }
     
     @IBAction func addAlternatePic3(_ sender: AnyObject) {
         if let entry = self.cachetController.content as? Cachet {
-            entry.alternate_picture_3 = self.doc.addFileToWrapper(usingGPID: entry.gp_cachet_number, forAttribute: "Cachet.alternate_picture_3", fileType: GPImportFileTypePicture)
+            entry.alternate_picture_3 = self.doc.addFileToWrapper(usingGPID: entry.gp_cachet_number!, forAttribute: "Cachet.alternate_picture_3", fileType: GPDocument.ImportFileType.picture)
         }
     }
     
     @IBAction func addAltPic4(_ sender: AnyObject) {
         if let entry = self.cachetController.content as? Cachet {
-            entry.alternate_picture_4 = self.doc.addFileToWrapper(usingGPID: entry.gp_cachet_number, forAttribute: "Cachet.alternate_picture_4", fileType: GPImportFileTypePicture)
+            entry.alternate_picture_4 = self.doc.addFileToWrapper(usingGPID: entry.gp_cachet_number!, forAttribute: "Cachet.alternate_picture_4", fileType: GPDocument.ImportFileType.picture)
         }
     }
     
     @IBAction func addAltPic5(_ sender: AnyObject) {
         if let entry = self.cachetController.content as? Cachet {
-            entry.alternate_picture_5 = self.doc.addFileToWrapper(usingGPID: entry.gp_cachet_number, forAttribute: "Cachet.alternate_picture_5", fileType: GPImportFileTypePicture)
+            entry.alternate_picture_5 = self.doc.addFileToWrapper(usingGPID: entry.gp_cachet_number!, forAttribute: "Cachet.alternate_picture_5", fileType: GPDocument.ImportFileType.picture)
         }
     }
     
     @IBAction func addAltPic6(_ sender: AnyObject) {
         if let entry = self.cachetController.content as? Cachet {
-            entry.alternate_picture_6 = self.doc.addFileToWrapper(usingGPID: entry.gp_cachet_number, forAttribute: "Cachet.alternate_picture_6", fileType: GPImportFileTypePicture)
+            entry.alternate_picture_6 = self.doc.addFileToWrapper(usingGPID: entry.gp_cachet_number!, forAttribute: "Cachet.alternate_picture_6", fileType: GPDocument.ImportFileType.picture)
         }
     }
 }

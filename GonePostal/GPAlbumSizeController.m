@@ -7,7 +7,7 @@
 //
 
 #import "GPAlbumSizeController.h"
-#import "GPDocument.h"
+#import "GonePostal-Swift.h"
 
 @interface GPAlbumSizeController ()
 

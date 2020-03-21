@@ -7,7 +7,7 @@
 //
 
 #import "GPLocatorPage.h"
-#import "GPDocument.h"
+#import "GonePostal-Swift.h"
 
 @interface GPLocatorPage ()
 @property (strong, nonatomic) GPDocument * doc;

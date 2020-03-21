@@ -7,8 +7,8 @@
 //
 
 #import "GPSubvarietySearch.h"
-#import "GPDocument.h"
 #import "GPSubvarietyType.h"
+#import "GonePostal-Swift.h"
 
 static NSString * PREDICATE_FORMAT_FOR_STAMP = @"gpCatalog.subvarietyType.sortID == %@";
 static NSString * PREDICATE_FORMAT_FOR_GPCATALG = @"subvarietyType.sortID == %@";

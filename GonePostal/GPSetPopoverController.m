@@ -7,7 +7,7 @@
 //
 
 #import "GPSetPopoverController.h"
-#import "GPDocument.h"
+#import "GonePostal-Swift.h"
 
 @interface GPSetPopoverController ()
 

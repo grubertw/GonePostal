@@ -7,6 +7,7 @@
 //
 
 #import "GPFilenameTransformer.h"
+#import "GonePostal-Swift.h"
 
 @implementation GPFilenameTransformer
 

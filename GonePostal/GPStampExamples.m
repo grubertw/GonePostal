@@ -9,8 +9,8 @@
 #import "GPStampExamples.h"
 #import "Stamp+Create.h"
 #import "SaleHistory+Create.h"
-#import "GPDocument.h"
 #import "GPStampDetail.h"
+#import "GonePostal-Swift.h"
 
 @interface GPStampExamples ()
 @property (weak, nonatomic) IBOutlet NSTableView * stampExamplesTable;

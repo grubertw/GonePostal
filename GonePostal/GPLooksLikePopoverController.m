@@ -7,7 +7,7 @@
 //
 
 #import "GPLooksLikePopoverController.h"
-#import "GPDocument.h"
+#import "GonePostal-Swift.h"
 
 @interface GPLooksLikePopoverController ()
 @property (strong, nonatomic) IBOutlet NSArrayController * looksLikeController;

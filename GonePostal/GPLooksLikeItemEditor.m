@@ -7,9 +7,9 @@
 //
 
 #import "GPLooksLikeItemEditor.h"
-#import "GPDocument.h"
 #import "LooksLike.h"
 #import "GPCatalogPictureSelector.h"
+#import "GonePostal-Swift.h"
 
 @interface GPLooksLikeItemEditor ()
 
@@ -60,7 +60,7 @@
     
     NSString * llName = [NSString stringWithFormat:@"looksLike %@", ll.name];
     
-    NSString * fileName = [self.doc addFileToWrapperUsingGPID:llName forAttribute:@"LooksLike.picture" fileType:GPImportFileTypePicture];
+    NSString * fileName = [self.doc addImageToWrapperUsingGPID:llName forAttribute:@"LooksLike.picture"];
     if (fileName == nil) return;
     
     ll.picture = fileName;
@@ -69,7 +69,7 @@
 - (IBAction)addPictureFromCatalog:(id)sender {
     LooksLike * ll = self.looksLikeController.content;
         
-    [self.doc loadAssistedSearch:ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
+    [self.doc loadAssistedSearch:GPDocument.ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
     
     GPCatalogPictureSelector * controller = [[GPCatalogPictureSelector alloc] initWithAssistedSearch:self.doc.assistedSearch countrySearch:self.doc.countriesPredicate sectionSearch:self.doc.sectionsPredicate filterSearch:self.doc.filtersPredicate targetAttributeName:@"LooksLike.picture" selectingPicture:YES];
     [controller setTargetLooksLike:ll];
@@ -87,7 +87,7 @@
 - (IBAction)addCatalogEntries:(id)sender {
     LooksLike * ll = self.looksLikeController.content;
     
-    [self.doc loadAssistedSearch:ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
+    [self.doc loadAssistedSearch:GPDocument.ASSISTED_GP_CATALOG_EDITER_SEARCH_ID];
     
     GPCatalogPictureSelector * controller = [[GPCatalogPictureSelector alloc] initWithAssistedSearch:self.doc.assistedSearch countrySearch:self.doc.countriesPredicate sectionSearch:self.doc.sectionsPredicate filterSearch:self.doc.filtersPredicate targetAttributeName:@"LooksLike.picture" selectingPicture:NO];
     [controller setTargetLooksLike:ll];

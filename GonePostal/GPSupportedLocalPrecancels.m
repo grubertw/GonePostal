@@ -7,8 +7,8 @@
 //
 
 #import "GPSupportedLocalPrecancels.h"
-#import "GPDocument.h"
 #import "LocalPrecancel.h"
+#import "GonePostal-Swift.h"
 
 @interface GPSupportedLocalPrecancels ()
 @property (weak, nonatomic) IBOutlet NSArrayController * modelController;
@@ -34,7 +34,7 @@
 
 - (IBAction)addPicture:(id)sender {
     for (LocalPrecancel * lc in self.modelController.selectedObjects) {
-        NSString * fileName = [self.document addFileToWrapperUsingGPID:lc.gp_precancel_number forAttribute:@"LocalPrecancel.picture" fileType:GPImportFileTypePicture];
+        NSString * fileName = [self.document addImageToWrapperUsingGPID:lc.gp_precancel_number forAttribute:@"LocalPrecancel.picture"];
         if (fileName == nil) return;
         lc.picture = fileName;
     }
