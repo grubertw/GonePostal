@@ -71,11 +71,10 @@ import CommonCrypto
         
         super.init()
         
-        //ValueTransformer.setValueTransformer(GPFilenameTransformer(document: self), forName: NSValueTransformerName(rawValue: "PGFilenameTransformer"))
-        ValueTransformer.setValueTransformer(
-            GPAlternateCatalogNumberTransformer(managedObjectContext: self.managedObjectContext),
+        ValueTransformer.setValueTransformer(GPFilenameTransformer(document: self),
+                                             forName: NSValueTransformerName("GPFilenameTransformer"))
+        ValueTransformer.setValueTransformer(GPAlternateCatalogNumberTransformer(managedObjectContext: self.managedObjectContext),
             forName: NSValueTransformerName(rawValue: "GPAlternateCatalogNumberTransformer"))
-        
         ValueTransformer.setValueTransformer(GPSearchSelectionTransformer(),
             forName: NSValueTransformerName(rawValue: "GPSearchSelectionTransformer"))
         ValueTransformer.setValueTransformer(GPEmptySetChecker(),
@@ -112,7 +111,7 @@ import CommonCrypto
             forName: NSValueTransformerName(rawValue: "GPStampHasChildrenOrDetailTransformer"))
         ValueTransformer.setValueTransformer(GPStampDescriptionTransformer(),
             forName: NSValueTransformerName(rawValue: "GPStampDescriptionTransformer"))
-        ValueTransformer.setValueTransformer(GPPictureTransformer(),
+        ValueTransformer.setValueTransformer(GPPictureTransformer(document: self),
             forName: NSValueTransformerName(rawValue: "GPPictureTransformer"))
         ValueTransformer.setValueTransformer(GPAllowedStampFormatsTransformer(),
             forName: NSValueTransformerName(rawValue: "GPAllowedStampFormatsTransformer"))
